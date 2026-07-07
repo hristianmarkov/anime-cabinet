@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #09090b;
+  --color-ink-soft: #101014;
+  --color-surface: #16161c;
+  --color-surface-raised: #1d1d25;
+  --color-line: #26262f;
+  --color-line-bright: #34343f;
+  --color-cream: #f5f2ea;
+  --color-muted: #a3a3ad;
+  --color-faint: #71717a;
+  --color-accent: #ff3860;
+  --color-accent-bright: #ff5c7c;
+  --color-flame: #ff8a3d;
+  --color-gold: #ffc53d;
+  --color-electric: #7c6cff;
+
+  --font-display: var(--font-anton), "Arial Black", sans-serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+
+  --shadow-glow: 0 0 40px -8px rgb(255 56 96 / 0.45);
+  --shadow-card: 0 8px 32px -12px rgb(0 0 0 / 0.7);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-ink);
+  color: var(--color-cream);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: 0.02em;
+}
+
+.text-gradient {
+  background: linear-gradient(100deg, #ff3860 0%, #ff8a3d 60%, #ffc53d 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.bg-hero-glow {
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgb(255 56 96 / 0.14), transparent 70%),
+    radial-gradient(ellipse 60% 40% at 85% 20%, rgb(124 108 255 / 0.08), transparent 70%);
+}
+
+.bg-grain {
+  background-image: radial-gradient(rgb(255 255 255 / 0.03) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Hide scrollbar for carousels */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* FAQ accordion marker */
+details.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+details.faq-item summary::after {
+  content: "+";
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--color-accent);
+  transition: transform 0.2s ease;
+}
+details.faq-item[open] summary::after {
+  transform: rotate(45deg);
+}
