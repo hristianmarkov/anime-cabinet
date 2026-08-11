@@ -1,8 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { Anton, Inter } from "next/font/google";
 import { CurrencyProvider } from "@/context/CurrencyContext";
-import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { GoogleAnalytics } from "@/components/GoogleAnalytics";
+import { Header } from "@/components/Header";
 import { JsonLd } from "@/components/JsonLd";
 import { site } from "@/data/site";
 import "./globals.css";
@@ -85,6 +86,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${anton.variable} ${inter.variable}`}>
       <body>
+        <GoogleAnalytics />
         <CurrencyProvider>
           <JsonLd data={organizationJsonLd} />
           <JsonLd data={websiteJsonLd} />
