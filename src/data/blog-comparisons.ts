@@ -1,5 +1,5 @@
 import type { BlogPost } from "./blog";
-import { beforeAfter, figure } from "./blog-blocks";
+import { beforeAfter, figure, productShowcase } from "./blog-blocks";
 
 export const comparisonPosts: BlogPost[] = [
   {
@@ -58,6 +58,10 @@ export const comparisonPosts: BlogPost[] = [
             type: "paragraph",
             text: "[Avatar: The Last Airbender](/portraits/avatar-the-last-airbender) and [Arcane](/portraits/arcane) blur the line — cartoon-adjacent formats with anime-level storytelling depth. If you're genuinely torn, check what the recipient watches more: seasonal anime or comfort sitcoms. That usually settles it.",
           },
+          productShowcase(
+            "avatar-the-last-airbender",
+            "Avatar bending portraits — nation colours and elemental effects drawn from your photo."
+          ),
         ],
       },
       {
@@ -167,6 +171,10 @@ export const comparisonPosts: BlogPost[] = [
             type: "paragraph",
             text: "Dark styles include [Death Note](/portraits/death-note), [Attack on Titan](/portraits/attack-on-titan), [Bleach](/portraits/bleach), [Solo Leveling](/portraits/solo-leveling), and [Arcane](/portraits/arcane). They share high contrast, dramatic lighting, and compositions that feel like key visuals or movie posters. These portraits suit fans who want weight — something that looks intentional on a wall, not cute on a desk.",
           },
+          productShowcase(
+            "solo-leveling",
+            "Dark cinematic Solo Leveling hunter portraits — shadow monarch aura from your photo."
+          ),
           {
             type: "beforeAfter",
             beforeFile: "solo-leveling-before.jpg",
@@ -306,6 +314,10 @@ export const comparisonPosts: BlogPost[] = [
             type: "paragraph",
             text: "[Ghibli-style](/portraits/ghibli-style) couple portraits feel like scenes from a film you'd watch together on a rainy Sunday. Soft light, painterly backgrounds, invented picnic or train-ride compositions. Best for couples who want tenderness over chaos. The vibe is 'this looks like a memory' even when the scene never happened.",
           },
+          productShowcase(
+            "ghibli-style",
+            "Ghibli-style couple portraits — soft painterly warmth and invented romantic scenes."
+          ),
           {
             type: "figure",
             artFile: "ghibli-style-after.jpg",
@@ -462,6 +474,10 @@ export const comparisonPosts: BlogPost[] = [
             type: "paragraph",
             text: "Our artists draw in specific styles — [Naruto](/portraits/naruto) cel shading, [Ghibli-style](/portraits/ghibli-style) painterly warmth, [One Piece](/portraits/one-piece) Oda proportions. They preserve your likeness, compose multi-person scenes from individual photos, and revise until the result is right. The output is a high-resolution file ready for printing at any poster size.",
           },
+          productShowcase(
+            "hunter-x-hunter",
+            "Hand-drawn Hunter x Hunter portraits — clean Togashi character design with your likeness intact."
+          ),
           {
             type: "beforeAfter",
             beforeFile: "hunter-x-hunter-before.jpg",
@@ -602,6 +618,10 @@ export const comparisonPosts: BlogPost[] = [
             type: "paragraph",
             text: "Full-body compositions suit action styles — [Dragon Ball Z](/portraits/dragon-ball-z), [My Hero Academia](/portraits/my-hero-academia), [Naruto](/portraits/naruto) jutsu poses, [One Piece](/portraits/one-piece) ship deck scenes. They need source photos showing body language or accept creative pose invention from the artist. Full-body portraits dominate wall art and poster printing.",
           },
+          productShowcase(
+            "dragon-ball-z",
+            "Full-body DBZ hero portraits — Super Saiyan energy and powered-up poses from your photo."
+          ),
           {
             type: "beforeAfter",
             beforeFile: "my-hero-academia-before.jpg",

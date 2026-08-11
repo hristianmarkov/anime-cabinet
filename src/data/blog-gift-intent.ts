@@ -1,5 +1,5 @@
 import type { BlogPost } from "./blog";
-import { beforeAfter, figure } from "./blog-blocks";
+import { beforeAfter, figure, productShowcase } from "./blog-blocks";
 
 export const giftIntentPosts: BlogPost[] = [
   {
@@ -33,6 +33,10 @@ export const giftIntentPosts: BlogPost[] = [
             type: "paragraph",
             text: "Custom anime couple portrait gifts work because they combine fandom literacy with personal detail. You are not buying a generic 'anime couple' print — you are commissioning art that stars the two of you in a style you both recognise. That is the difference between decor and a relationship artifact.",
           },
+          productShowcase(
+            "jujutsu-kaisen",
+            "Matching JJK-style couple portraits — back-to-back sorcerer energy drawn from your photo."
+          ),
           {
             type: "beforeAfter",
             beforeFile: "jujutsu-kaisen-before.jpg",
@@ -128,6 +132,10 @@ export const giftIntentPosts: BlogPost[] = [
             type: "paragraph",
             text: "If you bonded over Studio Ghibli films on rainy Sundays, [Ghibli-style](/portraits/ghibli-style) portraits feel like a scene you almost remember. Couples who binge-shipped One Piece together gravitate toward [Straw Hat crew compositions](/portraits/one-piece) or the iconic [wanted poster format](/portraits/one-piece-wanted-poster) with a custom bounty and epithet. [Naruto](/portraits/naruto) couples often request matching Hidden Leaf headbands — the shinobi equivalent of matching rings.",
           },
+          productShowcase(
+            "ghibli-style",
+            "Soft Ghibli-style couple portraits — painterly warmth and invented picnic or train-ride scenes from your photo."
+          ),
           {
             type: "figure",
             artFile: "ghibli-style-after.jpg",
@@ -243,6 +251,10 @@ export const giftIntentPosts: BlogPost[] = [
             type: "paragraph",
             text: "[One Piece](/portraits/one-piece) is the obvious pick for friend groups who call each other nakama unironically. Crew compositions on a ship deck, wanted-poster lineups, bar scenes in Water 7 — the format expects a group. [South Park](/portraits/south-park) works for the friend who communicates in crude humour. [Hunter x Hunter](/portraits/hunter-x-hunter) suits the competitive trio who've argued about Nen types for a decade.",
           },
+          productShowcase(
+            "one-piece",
+            "Friend-group One Piece crew portraits — everyone recognisable on the Grand Line, drawn from your photos."
+          ),
           {
             type: "beforeAfter",
             beforeFile: "one-piece-before.jpg",
@@ -361,6 +373,10 @@ export const giftIntentPosts: BlogPost[] = [
             type: "paragraph",
             text: "Our artists don't run your image through a filter. They study faces, expressions, body language, and clothing — then redraw everything in the chosen style. A [Demon Slayer](/portraits/demon-slayer) order keeps your smile but adds the linework and colour palette of the series. A [Bob's Burgers](/portraits/bobs-burgers) order rounds your features and places you behind a counter with a custom burger pun on the chalkboard.",
           },
+          productShowcase(
+            "demon-slayer",
+            "Couple photos become Demon Slayer Corps portraits — same warmth, gorgeous series colour palette."
+          ),
           {
             type: "beforeAfter",
             beforeFile: "demon-slayer-before.jpg",
@@ -476,6 +492,10 @@ export const giftIntentPosts: BlogPost[] = [
             type: "paragraph",
             text: "Figures, hoodies, and manga box sets are excellent gifts — for fans who don't already have them. Dedicated collectors spot mass-produced merch instantly. A [Pokemon](/portraits/pokemon) trainer portrait with their actual dog as the companion? Nobody else has that. A [Bleach](/portraits/bleach) soul reaper composition with their exact hairstyle? Same.",
           },
+          productShowcase(
+            "pokemon",
+            "Birthday-winning Pokemon trainer portraits — starring them with their actual pet as partner Pokemon."
+          ),
           {
             type: "figure",
             artFile: "pokemon-after.jpg",
@@ -611,6 +631,10 @@ export const giftIntentPosts: BlogPost[] = [
             type: "paragraph",
             text: "Choose cartoon when the recipient's comfort shows are sitcoms and long-running comedies. [The Simpsons](/portraits/the-simpsons) couch scene is the most recognisable family portrait in television. [Bob's Burgers](/portraits/bobs-burgers) behind-the-counter compositions feel warm and domestic. [Avatar: The Last Airbender](/portraits/avatar-the-last-airbender) bridges both worlds — cartoon format, anime-adjacent storytelling.",
           },
+          productShowcase(
+            "the-simpsons",
+            "The classic Simpsons couch portrait — yellow skin, Springfield energy, instantly recognisable to any guest."
+          ),
           {
             type: "beforeAfter",
             beforeFile: "the-simpsons-before.jpg",
@@ -706,6 +730,10 @@ export const giftIntentPosts: BlogPost[] = [
             type: "paragraph",
             text: "[Ghibli-style](/portraits/ghibli-style) portraits avoid Valentine's clichés by feeling timeless — soft light, painterly backgrounds, the sense that you're characters in a film you'd watch together. [Sailor Moon](/portraits/sailor-moon) works for couples who grew up on magical girl aesthetics. [Spy x Family](/portraits/spy-x-family) suits pairs who want elegance with humour — sophisticated enough for a nice dinner, funny enough for the group chat.",
           },
+          productShowcase(
+            "spy-x-family",
+            "Spy x Family couple portraits — elegant Forger-family energy, romantic without being saccharine."
+          ),
           {
             type: "figure",
             artFile: "review-spy-x-family-01.jpg",

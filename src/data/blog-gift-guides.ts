@@ -1,4 +1,5 @@
 import type { BlogPost } from "./blog";
+import { productShowcase } from "./blog-blocks";
 import { styleBlogConfigs } from "./blog-per-style-config";
 import { site } from "./site";
 
@@ -41,9 +42,17 @@ function buildGiftGuide(c: GiftGuideConfig): BlogPost {
     sections: [
       {
         heading: "Why a custom portrait beats more merch",
-        paragraphs: [
-          `${c.fanLabel} fans can spot mass-produced gifts from across the room. They own the figure. They pre-ordered the box set. Their wishlist is a graveyard of things they already bought themselves. A ${portraitLink} solves the uniqueness problem completely — it is hand-drawn from their photo, revised until it is right, and exists for exactly one person on earth.`,
-          `That is the difference between another item on a shelf and something they hang, frame, and show every visitor. Our artists work across all twenty-four styles with unlimited revisions. The portrait is not a filter or an AI avatar — it is wall art starring them inside the ${c.fanLabel} visual world they already live in.`,
+        paragraphs: [],
+        blocks: [
+          {
+            type: "paragraph",
+            text: `${c.fanLabel} fans can spot mass-produced gifts from across the room. They own the figure. They pre-ordered the box set. Their wishlist is a graveyard of things they already bought themselves. A ${portraitLink} solves the uniqueness problem completely — it is hand-drawn from their photo, revised until it is right, and exists for exactly one person on earth.`,
+          },
+          productShowcase(c.styleSlug, c.portraitPitch),
+          {
+            type: "paragraph",
+            text: `That is the difference between another item on a shelf and something they hang, frame, and show every visitor. Our artists work across all twenty-four styles with unlimited revisions. The portrait is not a filter or an AI avatar — it is wall art starring them inside the ${c.fanLabel} visual world they already live in.`,
+          },
         ],
       },
       {

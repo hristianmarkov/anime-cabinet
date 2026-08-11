@@ -34,7 +34,8 @@ export type BlogBlock =
       styleName?: string;
     }
   | { type: "pullQuote"; text: string; attribution?: string }
-  | { type: "stylePills"; slugs: string[]; intro?: string };
+  | { type: "stylePills"; slugs: string[]; intro?: string }
+  | { type: "productShowcase"; slug: string; description?: string };
 
 export interface RichBlogSection {
   heading?: string;
@@ -69,6 +70,10 @@ export function beforeAfter(
     caption,
     styleName,
   };
+}
+
+export function productShowcase(slug: string, description?: string): BlogBlock {
+  return { type: "productShowcase", slug, description };
 }
 
 export function resolveBlockImage(file: string) {

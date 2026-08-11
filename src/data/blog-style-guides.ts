@@ -1,5 +1,5 @@
 import type { BlogPost } from "./blog";
-import { beforeAfter, figure } from "./blog-blocks";
+import { beforeAfter, figure, productShowcase } from "./blog-blocks";
 
 export const styleGuidePosts: BlogPost[] = [
   {
@@ -29,6 +29,10 @@ export const styleGuidePosts: BlogPost[] = [
             type: "paragraph",
             text: "Our anime collection spans battle shonen like [Naruto](/portraits/naruto), [Dragon Ball Z](/portraits/dragon-ball-z), and [Bleach](/portraits/bleach) — bold linework, dynamic poses, energy effects. Darker options include [Attack on Titan](/portraits/attack-on-titan), [Death Note](/portraits/death-note), and [Solo Leveling](/portraits/solo-leveling). Softer picks like [Ghibli-style](/portraits/ghibli-style) and [Sailor Moon](/portraits/sailor-moon) trade intensity for warmth and painterly light.",
           },
+          productShowcase(
+            "naruto",
+            "Our most popular style — custom Naruto portraits with Hidden Leaf energy from your photo."
+          ),
           {
             type: "imageGrid",
             images: [
@@ -147,6 +151,10 @@ export const styleGuidePosts: BlogPost[] = [
             type: "paragraph",
             text: "The strongest portraits come from genuine fandom. If you've rewatched [One Piece](/portraits/one-piece) three times, a Straw Hat composition will mean something every time you glance at it. If [Hunter x Hunter](/portraits/hunter-x-hunter) changed how you think about storytelling, that style carries weight a trendy pick can't match. Start with what you love, then check whether your photo suits the style's typical composition.",
           },
+          productShowcase(
+            "hunter-x-hunter",
+            "Hunter x Hunter portraits for fans who want clean character design and nen-ready energy."
+          ),
           {
             type: "pullQuote",
             text: "Pick the show you'd defend at 2am in a group chat. That's your style.",
@@ -254,6 +262,10 @@ export const styleGuidePosts: BlogPost[] = [
             type: "paragraph",
             text: "[Naruto](/portraits/naruto) portraits emphasise headbands, village affiliation, and jutsu poses. The art style features sharp cel shading, expressive eyes, and backgrounds that place you in the Hidden Leaf or beyond. Ninja portraits work for solo commissions and clan-style family groups. They're identity-forward — you choose your village, your outfit, your technique.",
           },
+          productShowcase(
+            "naruto",
+            "The ninja archetype made personal — Hidden Leaf shinobi portraits from your photo."
+          ),
           {
             type: "figure",
             artFile: "hero-naruto.jpg",
@@ -388,6 +400,10 @@ export const styleGuidePosts: BlogPost[] = [
             type: "paragraph",
             text: "Dark styles — [Attack on Titan](/portraits/attack-on-titan), [Death Note](/portraits/death-note), [Bleach](/portraits/bleach), [Solo Leveling](/portraits/solo-leveling), [Arcane](/portraits/arcane) — use high contrast, dramatic lighting, and compositions that feel cinematic. They suit bedrooms, offices, and fans who want their portrait to look like a key visual, not a sticker.",
           },
+          productShowcase(
+            "death-note",
+            "Dark fantasy Death Note portraits — dramatic noir shading from your photo."
+          ),
           {
             type: "beforeAfter",
             beforeFile: "death-note-before.jpg",
@@ -519,6 +535,10 @@ export const styleGuidePosts: BlogPost[] = [
             type: "paragraph",
             text: "[Ghibli-style](/portraits/ghibli-style) leads for couples who want tenderness — invented picnic scenes, train rides, quiet moments with painterly light. [Sailor Moon](/portraits/sailor-moon) appeals to couples who share magical girl nostalgia. [Spy x Family](/portraits/spy-x-family) adds sophistication with a wink — elegant enough for framing, playful enough to feel like you.",
           },
+          productShowcase(
+            "ghibli-style",
+            "Romantic Ghibli-style couple portraits — painterly warmth for anniversaries and gifts."
+          ),
           {
             type: "figure",
             artFile: "review-ghibli-style-03.jpg",
@@ -653,6 +673,10 @@ export const styleGuidePosts: BlogPost[] = [
             type: "paragraph",
             text: "[The Simpsons](/portraits/the-simpsons) couch is the gold standard — everyone knows the format, everyone fits on the sofa, pets included. [Bob's Burgers](/portraits/bobs-burgers) puts families behind a counter with custom restaurant signage and burger puns. [Family Guy](/portraits/family-guy) living room scenes handle larger groups with the same instant recognisability.",
           },
+          productShowcase(
+            "the-simpsons",
+            "The iconic Simpsons couch family portrait — yellow skin, Springfield energy, pets welcome."
+          ),
           {
             type: "beforeAfter",
             beforeFile: "bobs-burgers-before.jpg",

@@ -6,6 +6,7 @@ import { perStyleBlogPosts } from "./blog-per-style-posts";
 import { styleGuidePosts } from "./blog-style-guides";
 import { site } from "./site";
 import type { BlogBlock } from "./blog-blocks";
+import { productShowcase } from "./blog-blocks";
 
 export type BlogCategory = "gift" | "style" | "transformation" | "comparison" | "editorial";
 
@@ -51,10 +52,24 @@ export const blogPosts: BlogPost[] = [
     sections: [
       {
         heading: "Identification is the point of fandom",
-        paragraphs: [
-          "Anime and cartoons aren't passive entertainment for most dedicated fans — they're frameworks for identity. You don't just watch [Naruto](/portraits/naruto); you debate which team you'd lead. You don't just finish [One Piece](/portraits/one-piece); you know your bounty would be embarrassingly high. That mental casting is fandom doing its job: making a fictional universe feel personal.",
-          "Social media amplified this. Fan art, cosplay, OC sheets, and 'which character are you' quizzes all serve the same need: closing the gap between watching a world and belonging to it. A [custom portrait](/portraits/naruto) is the most permanent version of that impulse — a single image that says 'I was there.'",
-          "Psychologists call this parasocial identification, but fans just call it Tuesday. The shows you love become shorthand for who you are — your humour, your values, the kind of adventure you'd choose. Commissioning art that places you inside that world isn't vanity. It's fandom graduating from consumption to participation.",
+        paragraphs: [],
+        blocks: [
+          {
+            type: "paragraph",
+            text: "Anime and cartoons aren't passive entertainment for most dedicated fans — they're frameworks for identity. You don't just watch [Naruto](/portraits/naruto); you debate which team you'd lead. You don't just finish [One Piece](/portraits/one-piece); you know your bounty would be embarrassingly high. That mental casting is fandom doing its job: making a fictional universe feel personal.",
+          },
+          productShowcase(
+            "naruto",
+            "Turn that daydream into wall art — custom Naruto portraits hand-drawn from your photo."
+          ),
+          {
+            type: "paragraph",
+            text: "Social media amplified this. Fan art, cosplay, OC sheets, and 'which character are you' quizzes all serve the same need: closing the gap between watching a world and belonging to it. A [custom portrait](/portraits/naruto) is the most permanent version of that impulse — a single image that says 'I was there.'",
+          },
+          {
+            type: "paragraph",
+            text: "Psychologists call this parasocial identification, but fans just call it Tuesday. The shows you love become shorthand for who you are — your humour, your values, the kind of adventure you'd choose. Commissioning art that places you inside that world isn't vanity. It's fandom graduating from consumption to participation.",
+          },
         ],
       },
       {
@@ -103,10 +118,24 @@ export const blogPosts: BlogPost[] = [
     sections: [
       {
         heading: "Why merch stops working",
-        paragraphs: [
-          "Official merchandise is designed for everyone. A [Naruto](/portraits/naruto) poster on their wall is the same poster a million other rooms have. Fans who've been collecting for years can spot mass-produced merch instantly — and they've probably already bought the good stuff anyway.",
-          "Personalised gifts solve the uniqueness problem completely. Nobody else has a portrait of your friend as a Hidden Leaf shinobi. Nobody else has their cat as a [Pokemon](/portraits/pokemon) companion. The gift is singular by definition.",
-          "The 'fan who has everything' usually means they have everything mass-produced. They do not have a hand-drawn poster of themselves in [Demon Slayer](/portraits/demon-slayer) Corps uniform, revised until their friends agree the likeness is uncanny. That gap is where the best anime gifts live in 2026.",
+        paragraphs: [],
+        blocks: [
+          {
+            type: "paragraph",
+            text: "Official merchandise is designed for everyone. A [Naruto](/portraits/naruto) poster on their wall is the same poster a million other rooms have. Fans who've been collecting for years can spot mass-produced merch instantly — and they've probably already bought the good stuff anyway.",
+          },
+          productShowcase(
+            "one-piece-wanted-poster",
+            "A personalised wanted poster with their face, custom bounty, and epithet — the gift no figure shelf can match."
+          ),
+          {
+            type: "paragraph",
+            text: "Personalised gifts solve the uniqueness problem completely. Nobody else has a portrait of your friend as a Hidden Leaf shinobi. Nobody else has their cat as a [Pokemon](/portraits/pokemon) companion. The gift is singular by definition.",
+          },
+          {
+            type: "paragraph",
+            text: "The 'fan who has everything' usually means they have everything mass-produced. They do not have a hand-drawn poster of themselves in [Demon Slayer](/portraits/demon-slayer) Corps uniform, revised until their friends agree the likeness is uncanny. That gap is where the best anime gifts live in 2026.",
+          },
         ],
       },
       {
@@ -172,10 +201,24 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Why classics make the best portrait styles",
-        paragraphs: [
-          "When you commission a portrait, recognisability is everything. A [Simpsons](/portraits/the-simpsons) couch scene reads instantly to anyone who walks into the room. A [wanted poster](/portraits/one-piece-wanted-poster) needs no explanation. A [DBZ](/portraits/dragon-ball-z) aura tells the whole story.",
-          "That's why the longest-running shows dominate portrait orders: everyone knows the visual language. You don't have to explain why you're yellow, or why you have a headband, or why your bounty is 500 million berries. The image does the work.",
-          "Classic styles also age well on a wall. Trendy seasonal anime can feel dated in three years; [Naruto](/portraits/naruto) and [The Simpsons](/portraits/the-simpsons) portraits still get laughs and compliments a decade later. If you're ordering a gift meant to last, permanence beats novelty.",
+        paragraphs: [],
+        blocks: [
+          {
+            type: "paragraph",
+            text: "When you commission a portrait, recognisability is everything. A [Simpsons](/portraits/the-simpsons) couch scene reads instantly to anyone who walks into the room. A [wanted poster](/portraits/one-piece-wanted-poster) needs no explanation. A [DBZ](/portraits/dragon-ball-z) aura tells the whole story.",
+          },
+          productShowcase(
+            "the-simpsons",
+            "Turn your family yellow — the Simpsons couch portrait every classic fan secretly wants."
+          ),
+          {
+            type: "paragraph",
+            text: "That's why the longest-running shows dominate portrait orders: everyone knows the visual language. You don't have to explain why you're yellow, or why you have a headband, or why your bounty is 500 million berries. The image does the work.",
+          },
+          {
+            type: "paragraph",
+            text: "Classic styles also age well on a wall. Trendy seasonal anime can feel dated in three years; [Naruto](/portraits/naruto) and [The Simpsons](/portraits/the-simpsons) portraits still get laughs and compliments a decade later. If you're ordering a gift meant to last, permanence beats novelty.",
+          },
         ],
       },
       {
@@ -227,10 +270,24 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Styles that work for couples",
-        paragraphs: [
-          "[Ghibli-style](/portraits/ghibli-style) scenes work for couples who want warmth over chaos — a picnic, a train ride, a quiet moment that looks like a memory even if it's invented. [Jujutsu Kaisen](/portraits/jujutsu-kaisen) back-to-back compositions suit the couple who met arguing about power scaling. [Rick and Morty](/portraits/rick-and-morty) duos are for the pair who communicate exclusively in references.",
-          "The notes field on an order is where couples shine: 'she's taller, he leans on her shoulder, both laughing.' Our artists turn those details into the portrait's soul.",
-          "[One Piece](/portraits/one-piece) crew compositions work for couples who binge together. [Spy x Family](/portraits/spy-x-family) suits pairs who want elegance with humour. [The Simpsons](/portraits/the-simpsons) couch scenes are for couples who want instant recognisability when family visits. Match the style to how you actually are together, not how anime couples look in promotional art.",
+        paragraphs: [],
+        blocks: [
+          {
+            type: "paragraph",
+            text: "[Ghibli-style](/portraits/ghibli-style) scenes work for couples who want warmth over chaos — a picnic, a train ride, a quiet moment that looks like a memory even if it's invented. [Jujutsu Kaisen](/portraits/jujutsu-kaisen) back-to-back compositions suit the couple who met arguing about power scaling. [Rick and Morty](/portraits/rick-and-morty) duos are for the pair who communicate exclusively in references.",
+          },
+          productShowcase(
+            "ghibli-style",
+            "Long-distance couple favourite — Ghibli-style portraits that feel like shared memories."
+          ),
+          {
+            type: "paragraph",
+            text: "The notes field on an order is where couples shine: 'she's taller, he leans on her shoulder, both laughing.' Our artists turn those details into the portrait's soul.",
+          },
+          {
+            type: "paragraph",
+            text: "[One Piece](/portraits/one-piece) crew compositions work for couples who binge together. [Spy x Family](/portraits/spy-x-family) suits pairs who want elegance with humour. [The Simpsons](/portraits/the-simpsons) couch scenes are for couples who want instant recognisability when family visits. Match the style to how you actually are together, not how anime couples look in promotional art.",
+          },
         ],
       },
       {
@@ -278,10 +335,24 @@ export const blogPosts: BlogPost[] = [
     sections: [
       {
         heading: "Pets as companions, not accessories",
-        paragraphs: [
-          "In most portrait styles, pets aren't afterthoughts — they're co-stars. [Pokemon](/portraits/pokemon) trainer portraits with your actual dog as the companion. [Rick and Morty](/portraits/rick-and-morty) duos where your cat is clearly the sidekick. [Simpsons](/portraits/the-simpsons) family scenes where the dog sits on the couch with the same deadpan energy as everyone else.",
-          "Pet people don't want their animal 'added in the corner.' They want the portrait to understand that the pet is the emotional centre of the household. Anime and cartoon styles are unusually good at this because they're built for expressive, character-driven composition.",
-          "A well-drawn pet portrait captures the expression that made you take the photo — the head tilt, the judgment stare, the open-mouth joy of a dog who heard 'walk.' That is why pet anime portrait orders have some of the highest emotional hit rates we see: the subject already feels legendary; the art just agrees.",
+        paragraphs: [],
+        blocks: [
+          {
+            type: "paragraph",
+            text: "In most portrait styles, pets aren't afterthoughts — they're co-stars. [Pokemon](/portraits/pokemon) trainer portraits with your actual dog as the companion. [Rick and Morty](/portraits/rick-and-morty) duos where your cat is clearly the sidekick. [Simpsons](/portraits/the-simpsons) family scenes where the dog sits on the couch with the same deadpan energy as everyone else.",
+          },
+          productShowcase(
+            "pokemon",
+            "Your pet as partner Pokemon — trainer portraits starring you and your actual companion."
+          ),
+          {
+            type: "paragraph",
+            text: "Pet people don't want their animal 'added in the corner.' They want the portrait to understand that the pet is the emotional centre of the household. Anime and cartoon styles are unusually good at this because they're built for expressive, character-driven composition.",
+          },
+          {
+            type: "paragraph",
+            text: "A well-drawn pet portrait captures the expression that made you take the photo — the head tilt, the judgment stare, the open-mouth joy of a dog who heard 'walk.' That is why pet anime portrait orders have some of the highest emotional hit rates we see: the subject already feels legendary; the art just agrees.",
+          },
         ],
       },
       {

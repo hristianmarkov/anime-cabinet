@@ -1,5 +1,5 @@
 import type { BlogPost } from "./blog";
-import { beforeAfter, figure } from "./blog-blocks";
+import { beforeAfter, figure, productShowcase } from "./blog-blocks";
 
 export const beforeAfterPosts: BlogPost[] = [
   {
@@ -29,6 +29,10 @@ export const beforeAfterPosts: BlogPost[] = [
             type: "paragraph",
             text: "Facial structure, expression, hairstyle, glasses, distinguishing features — these survive the transformation. That's the point. A [Naruto](/portraits/naruto) portrait should make your friends say 'that's definitely you' before they say 'cool headband.' Our artists prioritise likeness over fantasy. You're recognisable first, stylised second.",
           },
+          productShowcase(
+            "naruto",
+            "Custom Naruto portraits from your photo — Hidden Leaf energy with your likeness preserved."
+          ),
           {
             type: "beforeAfter",
             beforeFile: "naruto-before.jpg",
@@ -168,6 +172,10 @@ export const beforeAfterPosts: BlogPost[] = [
             type: "paragraph",
             text: "Couple photos rarely arrive perfectly composed for anime art. Our artists extract what matters — faces, expressions, relative height, body language — and rebuild the scene in the chosen style. A cramped bar photo becomes a [Jujutsu Kaisen](/portraits/jujutsu-kaisen) back-to-back composition. A park bench shot becomes a [Ghibli-style](/portraits/ghibli-style) meadow scene.",
           },
+          productShowcase(
+            "jujutsu-kaisen",
+            "Couple photos become JJK sorcerer portraits — back-to-back energy with your likeness preserved."
+          ),
           {
             type: "beforeAfter",
             beforeFile: "jujutsu-kaisen-before.jpg",
@@ -300,6 +308,10 @@ export const beforeAfterPosts: BlogPost[] = [
             type: "paragraph",
             text: "Close-up and upper-body photos are the safest bet for solo portraits. Faces fill the frame, expressions read clearly, and artists have maximum detail to work with. Styles like [Death Note](/portraits/death-note), [Bleach](/portraits/bleach), and [Sailor Moon](/portraits/sailor-moon) excel with headshot source material — the composition naturally focuses on face and expression.",
           },
+          productShowcase(
+            "bleach",
+            "Headshot-friendly Bleach soul reaper portraits — sharp stylised look from your photo."
+          ),
           {
             type: "beforeAfter",
             beforeFile: "bleach-before.jpg",
@@ -443,6 +455,10 @@ export const beforeAfterPosts: BlogPost[] = [
             type: "paragraph",
             text: "Natural daylight or well-lit indoor photos beat dark bar shots and harsh flash every time. Faces should be visible without squinting or deep shadow. You don't need studio lighting — a window and a clear afternoon works. Avoid heavy Instagram filters that flatten skin tone; our artists need to see your actual colouring to translate it faithfully.",
           },
+          productShowcase(
+            "demon-slayer",
+            "Well-lit photos become stunning Demon Slayer portraits — Corps uniform and series colour palette."
+          ),
           {
             type: "beforeAfter",
             beforeFile: "demon-slayer-before.jpg",
@@ -577,6 +593,10 @@ export const beforeAfterPosts: BlogPost[] = [
             type: "paragraph",
             text: "Selfies solve the biggest portrait problem automatically: face visibility. You're looking at the camera, your face fills the frame, and your expression is natural. Styles that emphasise face and upper body — [Naruto](/portraits/naruto), [Jujutsu Kaisen](/portraits/jujutsu-kaisen), [Death Note](/portraits/death-note), [Arcane](/portraits/arcane) — transform selfies beautifully.",
           },
+          productShowcase(
+            "arcane",
+            "Selfie-friendly Arcane portraits — painterly texture and hextech glow from a phone photo."
+          ),
           {
             type: "beforeAfter",
             beforeFile: "naruto-before.jpg",
@@ -713,6 +733,10 @@ export const beforeAfterPosts: BlogPost[] = [
             type: "paragraph",
             text: "The [Simpsons](/portraits/the-simpsons) couch scene is the most requested family cartoon transformation. Our artists take individual photos of each family member and composite them onto the iconic sofa — yellow skin, bold outlines, Springfield living room. Pets sit on the couch with the same deadpan energy as everyone else.",
           },
+          productShowcase(
+            "bobs-burgers",
+            "Family photos become Bob's Burgers counter scenes — warm, funny, and instantly recognisable."
+          ),
           {
             type: "beforeAfter",
             beforeFile: "the-simpsons-before.jpg",
@@ -854,6 +878,10 @@ export const beforeAfterPosts: BlogPost[] = [
             type: "paragraph",
             text: "[Pokemon](/portraits/pokemon) trainer portraits with your actual pet as the companion are the single most ordered pet style. You as trainer, them as partner — the format expects it, and the result makes everyone cry at unwrapping. Our artists capture the head tilt, the judgment stare, the open-mouth joy that makes your pet yours.",
           },
+          productShowcase(
+            "pokemon",
+            "Your pet as partner Pokemon — trainer portraits starring you and your actual companion."
+          ),
           {
             type: "beforeAfter",
             beforeFile: "pokemon-before.jpg",

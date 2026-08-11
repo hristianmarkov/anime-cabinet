@@ -1,5 +1,5 @@
 import type { BlogPost } from "./blog";
-import { beforeAfter, figure } from "./blog-blocks";
+import { beforeAfter, figure, productShowcase } from "./blog-blocks";
 import { styleBlogConfigs, type StyleBlogConfig } from "./blog-per-style-config";
 import { site } from "./site";
 
@@ -55,6 +55,7 @@ function buildTransformPost(c: StyleBlogConfig): BlogPost {
             type: "paragraph",
             text: `The goal is always inspired style, not imitation of copyrighted characters. Your ${primaryKw} should feel like it belongs in that world's art direction while starring people everyone in your life recognises. ${portraitLink(c)} to browse examples and pricing.`,
           },
+          productShowcase(c.slug, `Turn your photo into ${c.inspiredLabel} custom artwork — hand-drawn by a real artist with unlimited revisions.`),
         ],
       },
       {
@@ -177,6 +178,7 @@ function buildGiftPost(c: StyleBlogConfig): BlogPost {
             type: "paragraph",
             text: `We use inspired style language only — never official or licensed character art. Your gift says 'I know your fandom' without copying a specific protagonist. ${portraitLink(c, `Order a ${c.inspiredLabel} custom poster`)} to see pricing and turnaround.`,
           },
+          productShowcase(c.slug, `Hand-drawn ${c.inspiredLabel} custom artwork from their photo — the personalised gift they cannot buy anywhere else.`),
         ],
       },
       {
