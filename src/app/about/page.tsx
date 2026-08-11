@@ -5,7 +5,7 @@ import { site } from "@/data/site";
 export const metadata: Metadata = {
   title: "About Us — The Artists Behind Anime Cabinet",
   description:
-    "Anime Cabinet is a studio of professional artists turning photos into custom anime and cartoon portraits. Unlimited revisions, preview within 48 hours.",
+    `Anime Cabinet is a studio of professional artists turning photos into custom anime and cartoon portraits. Unlimited revisions, preview within ${site.deliveryHours} hours.`,
   alternates: { canonical: "/about" },
 };
 

@@ -1,41 +1,55 @@
 import { allStyles } from "./styles";
+import { artSrc, artAlt, getArt } from "./art";
 
-/** Placeholder showcase images — replace with real before/after pairs (see IMAGES-TODO.md) */
-function picsum(seed: string, w: number, h: number) {
-  return `https://picsum.photos/seed/${seed}/${w}/${h}`;
-}
-
-export interface ShowcaseExample {
-  id: string;
+export interface StyleSlider {
   before: string;
   after: string;
-  label?: string;
+  beforeAlt: string;
+  afterAlt: string;
+}
+
+export interface StyleExample {
+  id: string;
+  src: string;
+  label: string;
+  alt: string;
 }
 
 export interface StyleShowcase {
   slug: string;
-  primary: ShowcaseExample;
-  examples: ShowcaseExample[];
+  /** Single before/after pair for the product-page slider and style cards */
+  slider: StyleSlider;
+  /** Finished portrait thumbnails below the slider */
+  examples: StyleExample[];
 }
 
-const styleSeeds = allStyles.map((s) => s.slug);
+function styleArt(slug: string, suffix: string) {
+  const file = `${slug}-${suffix}.jpg`;
+  return { src: artSrc(file), alt: artAlt(file) };
+}
 
 export const styleShowcases: Record<string, StyleShowcase> = Object.fromEntries(
-  styleSeeds.map((slug, i) => {
-    const seed = slug.replace(/-/g, "");
-    const primary: ShowcaseExample = {
-      id: `${slug}-primary`,
-      before: picsum(`${seed}b`, 800, 1000),
-      after: picsum(`${seed}a`, 800, 1000),
-      label: "Example transformation",
+  allStyles.map((s) => {
+    const slug = s.slug;
+    const before = styleArt(slug, "before");
+    const after = styleArt(slug, "after");
+    const slider: StyleSlider = {
+      before: before.src,
+      after: after.src,
+      beforeAlt: before.alt,
+      afterAlt: after.alt,
     };
-    const examples: ShowcaseExample[] = [1, 2, 3].map((n) => ({
-      id: `${slug}-ex-${n}`,
-      before: picsum(`${seed}b${n}`, 400, 500),
-      after: picsum(`${seed}a${n}`, 400, 500),
-      label: `Example ${n}`,
-    }));
-    return [slug, { slug, primary, examples }];
+    const examples: StyleExample[] = [1, 2, 3].map((n) => {
+      const file = `${slug}-example-${n}.jpg`;
+      const alt = artAlt(file);
+      return {
+        id: `${slug}-example-${n}`,
+        src: artSrc(file),
+        label: `Example ${n}`,
+        alt,
+      };
+    });
+    return [slug, { slug, slider, examples }];
   })
 );
 
@@ -50,12 +64,31 @@ export interface GalleryItem {
   url: string;
   height: number;
   styleName: string;
+  alt: string;
 }
 
-export const galleryItems: GalleryItem[] = allStyles.slice(0, 16).map((s, i) => ({
-  id: s.slug,
-  img: picsum(`gallery-${s.slug}`, 600, 400 + (i % 4) * 120),
-  url: `/portraits/${s.slug}`,
-  height: 380 + (i % 5) * 80,
-  styleName: s.name,
-}));
+export const galleryItems: GalleryItem[] = allStyles.slice(0, 16).map((s, i) => {
+  const file = `gallery-${s.slug}.jpg`;
+  const asset = getArt(file);
+  return {
+    id: s.slug,
+    img: asset?.src ?? artSrc(file),
+    url: `/portraits/${s.slug}`,
+    height: 380 + (i % 5) * 80,
+    styleName: s.name,
+    alt: asset?.alt ?? artAlt(file),
+  };
+});
+
+/** Homepage hero tile images keyed by style slug */
+export const heroArtBySlug: Record<string, { src: string; alt: string }> = Object.fromEntries(
+  [
+    { slug: "naruto", file: "hero-naruto.jpg" },
+    { slug: "one-piece", file: "hero-one-piece.jpg" },
+    { slug: "rick-and-morty", file: "hero-rick-and-morty.jpg" },
+    { slug: "the-simpsons", file: "hero-the-simpsons.jpg" },
+  ].map(({ slug, file }) => {
+    const asset = getArt(file);
+    return [slug, { src: asset?.src ?? artSrc(file), alt: asset?.alt ?? artAlt(file) }];
+  })
+);

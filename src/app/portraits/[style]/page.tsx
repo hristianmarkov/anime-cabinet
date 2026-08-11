@@ -147,7 +147,12 @@ export default async function StylePage({ params }: Props) {
           <h2 className="font-display text-3xl text-cream">Customer Reviews</h2>
           <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {shownReviews.map((r) => (
-              <ReviewCard key={r.title} review={r} />
+              <div
+                key={r.title}
+                className={r.image ? "md:col-span-2 lg:col-span-2" : undefined}
+              >
+                <ReviewCard review={r} />
+              </div>
             ))}
           </div>
         </div>

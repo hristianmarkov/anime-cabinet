@@ -46,7 +46,7 @@ export default function OpengraphImage() {
             fontWeight: 700,
           }}
         >
-          30+ Styles · 3-Day Delivery · Unlimited Revisions
+          24 Styles · 3-Day Delivery · Unlimited Revisions
         </div>
       </div>
     ),

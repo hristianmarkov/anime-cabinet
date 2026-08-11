@@ -31,7 +31,16 @@ const statusLabels: Record<string, string> = {
   cancelled: "Cancelled",
 };
 
-function LoginForm() {
+function LoginForm({ error }: { error?: string }) {
+  const errorMessage =
+    error === "invalid"
+      ? "Incorrect password. Please try again."
+      : error === "not_configured"
+        ? "ADMIN_PASSWORD is not set on this deployment — login is disabled."
+        : !process.env.ADMIN_PASSWORD
+          ? "ADMIN_PASSWORD is not set in the environment — login is disabled until you configure it."
+          : null;
+
   return (
     <section className="mx-auto max-w-sm px-4 py-24">
       <h1 className="font-display text-center text-3xl text-cream">Admin Login</h1>
@@ -53,12 +62,7 @@ function LoginForm() {
         >
           Sign In
         </button>
-        {!process.env.ADMIN_PASSWORD && (
-          <p className="mt-4 text-xs text-flame">
-            ADMIN_PASSWORD is not set in the environment — login is disabled
-            until you configure it.
-          </p>
-        )}
+        {errorMessage && <p className="mt-4 text-xs text-flame">{errorMessage}</p>}
       </form>
     </section>
   );
@@ -181,9 +185,14 @@ function OrderCard({ order }: { order: Order }) {
   );
 }
 
-export default async function AdminPage() {
+export default async function AdminPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ error?: string }>;
+}) {
+  const params = await searchParams;
   if (!(await isAdminAuthenticated())) {
-    return <LoginForm />;
+    return <LoginForm error={params.error} />;
   }
 
   let allOrders: Order[] = [];

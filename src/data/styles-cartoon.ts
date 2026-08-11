@@ -72,40 +72,6 @@ export const cartoonStyles: PortraitStyle[] = [
     priceFrom: 39.99,
   },
   {
-    slug: "american-dad",
-    name: "American Dad",
-    productName: "Custom American Dad Portrait",
-    category: "cartoon",
-    tagline: "Good morning, USA!",
-    metaTitle: "Custom American Dad Portrait From Your Photo",
-    metaDescription:
-      "Get drawn in the American Dad style. Custom portraits of you, your family and your suspiciously talkative pets, hand-drawn from your photos.",
-    keywords: [
-      "custom american dad portrait",
-      "american dad style portrait",
-      "turn me into an american dad character",
-      "american dad custom family portrait",
-      "american dad gift",
-    ],
-    heroHeading: "Report to Langley Falls",
-    description: [
-      "The third most-streamed adult cartoon in America has a crisp, angular style that translates photos beautifully — strong jawlines and chins are basically the house specialty. We draw you and your household in full Langley Falls glory, breakfast-table scene and all.",
-      "Family portraits shine in this style, and the show's premise means unusual household members are actively encouraged: pets can be drawn with visible secret-agent energy, and if you'd like a goldfish with an attitude or a lodger in the attic, our artists will oblige without asking questions.",
-    ],
-    faqs: [
-      {
-        q: "Can you exaggerate the chin?",
-        a: "It's tradition. We can dial the signature chin from 'subtle homage' to 'structurally significant'. Set your preference in the order notes.",
-      },
-      {
-        q: "What's the classic background for this style?",
-        a: "The family breakfast table and the suburban front lawn with a flag are the go-to scenes. Custom backgrounds from your own photos are also included free.",
-      },
-    ],
-    accent: "#60a5fa",
-    priceFrom: 39.99,
-  },
-  {
     slug: "the-simpsons",
     name: "The Simpsons",
     productName: "Custom Simpsons-Style Portrait",
@@ -210,40 +176,6 @@ export const cartoonStyles: PortraitStyle[] = [
     priceFrom: 39.99,
   },
   {
-    slug: "futurama",
-    name: "Futurama",
-    productName: "Custom Futurama Portrait",
-    category: "cartoon",
-    tagline: "Good news, everyone!",
-    metaTitle: "Custom Futurama Style Portrait From Your Photo",
-    metaDescription:
-      "Get drawn into the year 3000. Custom Futurama style portraits aboard the Planet Express ship, hand-drawn from your photo.",
-    keywords: [
-      "custom futurama portrait",
-      "futurama style portrait",
-      "turn me into a futurama character",
-      "futurama custom gift",
-      "draw me in futurama style",
-    ],
-    heroHeading: "Welcome to the World of Tomorrow",
-    description: [
-      "Futurama's retro-future style is a joy to draw and a joy to hang on a wall — clean Groening linework with a chrome-and-neon year-3000 palette. We draw you as a Planet Express crew member: delivery uniform or your own outfit, aboard the ship, at the office, or under the transparent domes of New New York.",
-      "Solo portraits and work-friend group orders both thrive here (every office has a Zoidberg — this is your chance to make it canon). Robot companions, alien coworkers and heads-in-jars of your choosing can be added on request. Your portrait will be delivered in considerably less than a thousand years.",
-    ],
-    faqs: [
-      {
-        q: "Can my coworkers and I be drawn as the Planet Express crew?",
-        a: "One of our favourite group orders. Everyone's drawn from their own photo and assigned crew roles — you decide who's the captain and who's the Zoidberg.",
-      },
-      {
-        q: "Can you add a robot or alien sidekick?",
-        a: "Yes — an original robot buddy or alien companion can be designed into your portrait. Describe their vibe in the order notes.",
-      },
-    ],
-    accent: "#2dd4bf",
-    priceFrom: 39.99,
-  },
-  {
     slug: "avatar-the-last-airbender",
     name: "Avatar",
     productName: "Custom Avatar: The Last Airbender Portrait",
@@ -276,40 +208,6 @@ export const cartoonStyles: PortraitStyle[] = [
     ],
     badge: "popular",
     accent: "#60a5fa",
-    priceFrom: 39.99,
-  },
-  {
-    slug: "adventure-time",
-    name: "Adventure Time",
-    productName: "Custom Adventure Time Portrait",
-    category: "cartoon",
-    tagline: "What time is it?",
-    metaTitle: "Custom Adventure Time Style Portrait From Your Photo",
-    metaDescription:
-      "Come along to the Land of Ooo. Custom Adventure Time style portraits with candy kingdoms and best-bud energy, hand-drawn from your photo.",
-    keywords: [
-      "custom adventure time portrait",
-      "adventure time style portrait",
-      "draw me in adventure time style",
-      "adventure time custom gift",
-      "land of ooo portrait",
-    ],
-    heroHeading: "Adventure Time... Is Now",
-    description: [
-      "The Land of Ooo runs on noodle arms, candy colours and unshakeable friendship — a style that turns any photo into pure joy. We draw you Adventure Time style: simple expressive faces, a pastel post-apocalypse in the background, and a sword or musical instrument in hand if the vibe calls for it.",
-      "This is the ultimate best-friends style: one Finn, one Jake (the Jake can be your actual dog, which we cannot recommend strongly enough). Couples and families come out wonderfully too, and custom character designs — vampire, candy person, princess of your own invented kingdom — are always on the table.",
-    ],
-    faqs: [
-      {
-        q: "Can my dog be drawn as my Jake?",
-        a: "This is the best order we take, full stop. Upload your dog's photo and we'll draw them with the stretchy best-bud energy they deserve.",
-      },
-      {
-        q: "Can I be a custom character like a candy person or vampire?",
-        a: "Yes — pick a species or invent your own kingdom and title. Our artists will design your Ooo identity from your description and photo.",
-      },
-    ],
-    accent: "#f0abfc",
     priceFrom: 39.99,
   },
   {

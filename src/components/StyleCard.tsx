@@ -30,8 +30,10 @@ export function StyleCard({ style }: { style: PortraitStyle }) {
       <div className="relative w-full overflow-hidden">
         {showcase ? (
           <BeforeAfterSlider
-            beforeSrc={showcase.primary.before}
-            afterSrc={showcase.primary.after}
+            beforeSrc={showcase.slider.before}
+            afterSrc={showcase.slider.after}
+            beforeAlt={showcase.slider.beforeAlt}
+            afterAlt={showcase.slider.afterAlt}
             alt={style.productName}
             compact
             interactive={false}

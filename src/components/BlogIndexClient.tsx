@@ -2,23 +2,39 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { blogPosts } from "@/data/blog";
+import { blogPosts, type BlogCategory } from "@/data/blog";
 import { getStyleBySlug } from "@/data/styles";
 
 type Filter =
   | "all"
   | "articles"
+  | "gift"
+  | "style"
+  | "transformation"
+  | "comparison"
   | "gift-guides"
   | "anime-guides"
   | "cartoon-guides";
 
 const filters: { id: Filter; label: string }[] = [
   { id: "all", label: "All posts" },
-  { id: "articles", label: "Articles" },
-  { id: "gift-guides", label: "Gift guides" },
-  { id: "anime-guides", label: "Anime guides" },
-  { id: "cartoon-guides", label: "Cartoon guides" },
+  { id: "gift", label: "Gift guides" },
+  { id: "style", label: "Style guides" },
+  { id: "transformation", label: "Before & after" },
+  { id: "comparison", label: "Comparisons" },
+  { id: "articles", label: "Editorial" },
+  { id: "gift-guides", label: "Per-show gifts" },
+  { id: "anime-guides", label: "Anime gifts" },
+  { id: "cartoon-guides", label: "Cartoon gifts" },
 ];
+
+const categoryLabels: Record<BlogCategory, string> = {
+  gift: "Gift guide",
+  style: "Style guide",
+  transformation: "Before & after",
+  comparison: "Comparison",
+  editorial: "Editorial",
+};
 
 function PostCard({
   post,
@@ -37,6 +53,11 @@ function PostCard({
       <h2 className={`font-semibold text-cream ${compact ? "text-base" : "text-lg"}`}>
         {post.title}
       </h2>
+      {post.category && (
+        <p className="mt-2 text-[10px] font-semibold uppercase tracking-wider text-accent">
+          {categoryLabels[post.category]}
+        </p>
+      )}
       <p className={`mt-2 flex-1 leading-relaxed text-muted ${compact ? "text-xs" : "text-sm"}`}>
         {post.description}
       </p>
@@ -55,12 +76,21 @@ function PostCard({
 function matchesFilter(post: (typeof blogPosts)[number], filter: Filter): boolean {
   const isGiftGuide = post.slug.startsWith("best-gifts-for-");
   const style = getStyleBySlug(post.ctaStyle);
+  const cat = post.category;
 
   switch (filter) {
     case "all":
       return true;
+    case "gift":
+      return cat === "gift";
+    case "style":
+      return cat === "style";
+    case "transformation":
+      return cat === "transformation";
+    case "comparison":
+      return cat === "comparison";
     case "articles":
-      return !isGiftGuide;
+      return !isGiftGuide && !cat;
     case "gift-guides":
       return isGiftGuide;
     case "anime-guides":
@@ -75,7 +105,9 @@ function matchesFilter(post: (typeof blogPosts)[number], filter: Filter): boolea
 export function BlogIndexClient() {
   const [filter, setFilter] = useState<Filter>("all");
 
-  const editorial = blogPosts.filter((p) => !p.slug.startsWith("best-gifts-for-"));
+  const editorial = blogPosts.filter(
+    (p) => !p.slug.startsWith("best-gifts-for-") && !p.category
+  );
   const featured = editorial[0];
 
   const filtered = useMemo(

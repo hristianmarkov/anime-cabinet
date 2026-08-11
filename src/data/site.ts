@@ -4,7 +4,7 @@ export const site = {
   url: "https://animecabinet.com",
   tagline: "Custom Anime Portraits From Your Photos",
   description:
-    "Anime Cabinet turns your photos into custom anime and cartoon portraits. 30+ styles, unlimited revisions, preview delivered within 48 hours.",
+    "Anime Cabinet turns your photos into custom anime and cartoon portraits. 24 styles, unlimited revisions, preview delivered within 72 hours.",
   email: "hello@animecabinet.com",
   social: {
     instagram: "https://instagram.com/animecabinet",
@@ -13,9 +13,7 @@ export const site = {
     pinterest: "https://pinterest.com/animecabinet",
   },
   /** Standard preview delivery — used in copy sitewide */
-  deliveryHours: "48",
-  /** Shown in homepage stats bar */
-  statsDeliveryHours: "78",
+  deliveryHours: "72",
   expeditedHours: "24",
   artistCount: "60+",
   satisfiedBuyersBase: 7321,

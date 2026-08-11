@@ -10,6 +10,7 @@ export interface MasonryItem {
   img: string;
   url: string;
   height: number;
+  alt?: string;
 }
 
 interface MasonryProps {
@@ -208,7 +209,7 @@ export default function Masonry({
           <div
             className="item-img"
             style={{ backgroundImage: `url(${item.img})` }}
-            aria-label="Gallery example"
+            aria-label={item.alt ?? "Custom anime portrait gallery example"}
           />
         </div>
       ))}

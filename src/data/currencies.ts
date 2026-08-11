@@ -23,8 +23,20 @@ export function getCurrency(code: CurrencyCode): CurrencyConfig {
   return CURRENCIES.find((c) => c.code === code) ?? CURRENCIES[0];
 }
 
+/** Round up to the next *.99 price (e.g. 38.42 → 38.99, 39.01 → 39.99). */
+export function roundUpTo99(amount: number): number {
+  const whole = Math.floor(amount);
+  const with99 = whole + 0.99;
+  if (amount <= with99) return with99;
+  return whole + 1 + 0.99;
+}
+
 export function convertFromUsd(usd: number, code: CurrencyCode): number {
-  return Math.round(usd * getCurrency(code).rateFromUsd * 100) / 100;
+  const converted = usd * getCurrency(code).rateFromUsd;
+  if (code === "USD") {
+    return Math.round(converted * 100) / 100;
+  }
+  return roundUpTo99(converted);
 }
 
 export function formatMoney(amountUsd: number, code: CurrencyCode = "USD"): string {

@@ -315,41 +315,6 @@ export const animeStyles: PortraitStyle[] = [
     priceFrom: 39.99,
   },
   {
-    slug: "pokemon-trading-card",
-    name: "Trading Card",
-    productName: "Custom Pokemon-Style Trading Card",
-    category: "anime",
-    tagline: "You, immortalised as a holographic card",
-    metaTitle: "Custom Pokemon-Style Trading Card With Your Photo",
-    metaDescription:
-      "Turn yourself into a custom Pokemon-style trading card. Hand-drawn art, custom stats, moves and card name. Digital file plus optional printed holo card.",
-    keywords: [
-      "custom pokemon card with my photo",
-      "personalised pokemon trading card",
-      "make me a pokemon card",
-      "custom trading card gift",
-      "pokemon card of my pet",
-    ],
-    heroHeading: "Print Yourself Rare",
-    description: [
-      "The most collectible thing we make. We hand-draw you (or your pet, or your friend who owes you money) in trading-card art style, then set the illustration inside a fully designed card frame: your name, custom HP, two invented moves and a flavour-text description that will make your friends jealous and slightly concerned.",
-      "You choose the card type and energy colour, and you write the moves — or leave it to us and we'll invent stats based on your photo (we're generous with HP). Order the digital file to share online, or add a printed card at checkout for the real holographic-finish deal.",
-    ],
-    faqs: [
-      {
-        q: "Can I write my own moves and stats?",
-        a: "Yes, and we recommend it — nobody knows your special abilities better than you. Add your card name, HP, moves and flavour text in the order notes. Anything you leave blank, our artists will invent.",
-      },
-      {
-        q: "Do you print physical cards?",
-        a: "Yes. Choose the printed card option at checkout and we'll ship a professionally printed card with a holo finish alongside your digital file.",
-      },
-    ],
-    badge: "new",
-    accent: "#60a5fa",
-    priceFrom: 37.0,
-  },
-  {
     slug: "my-hero-academia",
     name: "My Hero Academia",
     productName: "Custom My Hero Academia Portrait",
@@ -483,41 +448,6 @@ export const animeStyles: PortraitStyle[] = [
       },
     ],
     accent: "#4ade80",
-    priceFrom: 39.99,
-  },
-  {
-    slug: "chainsaw-man",
-    name: "Chainsaw Man",
-    productName: "Custom Chainsaw Man Portrait",
-    category: "anime",
-    tagline: "Gritty, chaotic, devastatingly cool",
-    metaTitle: "Custom Chainsaw Man Portrait From Your Photo | Anime Cabinet",
-    metaDescription:
-      "Get drawn in the gritty Chainsaw Man style. Devil hunter portraits with cinematic grime and chaos energy, hand-drawn from your photo.",
-    keywords: [
-      "custom chainsaw man portrait",
-      "chainsaw man style portrait",
-      "draw me as a devil hunter",
-      "csm custom portrait from photo",
-      "chainsaw man fan gift",
-    ],
-    heroHeading: "Report for Devil Hunter Duty",
-    description: [
-      "Chainsaw Man's aesthetic is grime and glory — loose ties, tired eyes, cinematic lighting and sudden bursts of absolute chaos. Our artists draw you as a Public Safety devil hunter: white shirt, black tie, an expression that says you've seen things. Add your own devil contract for the full experience.",
-      "We keep your likeness at the centre of the madness, drawn from your photo with the rough-edged linework that makes this series' art so distinctive. Great for solo portraits with attitude, and even better for office-mate group portraits — every friend group has a Power. You know who they are.",
-    ],
-    faqs: [
-      {
-        q: "Can I have my own devil contract?",
-        a: "Yes — invent your devil and describe what it looks like in the notes. Our artists will design it looming behind you or fused into your pose.",
-      },
-      {
-        q: "How gritty will the portrait look?",
-        a: "As gritty as you want. Tell us where you want it on the scale from 'clean official art' to 'Fujimoto panel at 3am' and we'll match the energy.",
-      },
-    ],
-    badge: "new",
-    accent: "#fb923c",
     priceFrom: 39.99,
   },
   {
@@ -655,110 +585,6 @@ export const animeStyles: PortraitStyle[] = [
     ],
     badge: "new",
     accent: "#7c6cff",
-    priceFrom: 39.99,
-  },
-  {
-    slug: "frieren",
-    name: "Frieren",
-    productName: "Custom Frieren Portrait",
-    category: "anime",
-    tagline: "Quiet fantasy, painted beautifully",
-    metaTitle: "Custom Frieren Style Portrait From Your Photo",
-    metaDescription:
-      "Get painted in the serene Frieren: Beyond Journey's End style. Soft fantasy portraits with gentle light and adventuring party charm, from your photo.",
-    keywords: [
-      "custom frieren portrait",
-      "frieren style portrait",
-      "frieren beyond journey's end fan art",
-      "fantasy anime style portrait",
-      "frieren gift",
-    ],
-    heroHeading: "Join the Journey",
-    description: [
-      "The highest-rated anime of its era earned that spot with quiet beauty — soft light, gentle colour, and fantasy that feels lived-in rather than loud. We paint you in the Frieren style: an adventurer at rest, staff in hand, in a meadow or a lamplit tavern, with that signature stillness the show is loved for.",
-      "Solo portraits in this style feel like a held breath; party portraits — you and your friends as mage, warrior, priest and hero — feel like the start of a long journey. Send photos, pick your classes, and we'll paint your party the way Frieren would remember it: warmly, and forever.",
-    ],
-    faqs: [
-      {
-        q: "Can my friends and I be drawn as an adventuring party?",
-        a: "That's the definitive order for this style. Assign everyone a class (mage, warrior, priest, hero) in the order notes and we'll compose the party portrait around your dynamic.",
-      },
-      {
-        q: "What backgrounds suit the Frieren style?",
-        a: "Meadows at golden hour, quiet forests, snowfields and cosy taverns. Understated and beautiful — describe the mood you want and we'll paint toward it.",
-      },
-    ],
-    badge: "new",
-    accent: "#5eead4",
-    priceFrom: 39.99,
-  },
-  {
-    slug: "berserk",
-    name: "Berserk",
-    productName: "Custom Berserk Portrait",
-    category: "anime",
-    tagline: "Dark fantasy in legendary detail",
-    metaTitle: "Custom Berserk Style Portrait From Your Photo",
-    metaDescription:
-      "Get drawn in the legendary dark-fantasy Berserk style. Heavy ink, dramatic armour and cinematic darkness, hand-drawn from your photo.",
-    keywords: [
-      "custom berserk portrait",
-      "berserk style portrait",
-      "dark fantasy custom portrait",
-      "berserk manga style commission",
-      "berserk fan gift",
-    ],
-    heroHeading: "Take Up the Dragon Slayer",
-    description: [
-      "Berserk's art is the standard every dark fantasy gets measured against — dense ink, monumental armour, and shadows with real weight. Our artists draw you into that world with the respect it demands: heavy crosshatching, a greatsword of appropriate absurdity, and lighting that belongs in a cathedral or a nightmare.",
-      "This is the style for fans who want a portrait that feels earned. Solo warrior portraits dominate here, though duos in the Guts-and-Griffith mold make for devastating anniversary gifts among fans who understand exactly what they're implying. We just draw them; the lore is your responsibility.",
-    ],
-    faqs: [
-      {
-        q: "How detailed will the armour and weapon be?",
-        a: "Very — this style lives on detail. Describe your armour and weapon or let our artists design a set; either way expect heavy ink and full rendering.",
-      },
-      {
-        q: "Is the portrait black and white or colour?",
-        a: "Both are available. Classic manga black-and-white with crosshatching is the purist's pick; the muted painted colour of the anime is equally striking. Choose in the notes.",
-      },
-    ],
-    accent: "#f87171",
-    priceFrom: 39.99,
-  },
-  {
-    slug: "custom-anime-style",
-    name: "Any Anime Style",
-    productName: "Custom Anime Portrait — Any Style",
-    category: "anime",
-    tagline: "Name the anime. We'll draw you in it.",
-    metaTitle: "Custom Anime Portrait in Any Style From Your Photo",
-    metaDescription:
-      "Don't see your anime? We draw custom portraits in ANY anime or manga style — just name the series. Hand-drawn from your photo with unlimited revisions.",
-    keywords: [
-      "custom anime portrait",
-      "turn my photo into anime art",
-      "anime style portrait commission",
-      "draw me in any anime style",
-      "personalised anime portrait gift",
-    ],
-    heroHeading: "Your Anime. Your Portrait.",
-    description: [
-      "Haikyuu? Vinland Saga? JoJo's? Evangelion? A 2003 series only you and twelve other people remember? If it's animated, we can draw you in it. This is our open commission line: name any anime or manga style in the order notes, upload your photo, and our artists will study the source material and match its linework, colour and energy.",
-      "Everything else works exactly like our standard portraits — same pricing, same unlimited revisions, same 48-hour delivery. If we ever think a style won't translate well, we'll contact you before drawing a single line. So far, we haven't found one we couldn't crack.",
-    ],
-    faqs: [
-      {
-        q: "Really any anime?",
-        a: "Really. Name the series (and a season or era if the art style changed) in the order notes. For very obscure titles, attaching a few reference screenshots helps our artists nail it faster.",
-      },
-      {
-        q: "Does a custom style cost extra?",
-        a: "No — same price as every other style. Complex requests like detailed mecha or large battle scenes may get a custom quote, but we'll always confirm with you before starting.",
-      },
-    ],
-    badge: "popular",
-    accent: "#ff3860",
     priceFrom: 39.99,
   },
 ];

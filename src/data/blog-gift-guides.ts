@@ -1,4 +1,6 @@
 import type { BlogPost } from "./blog";
+import { styleBlogConfigs } from "./blog-per-style-config";
+import { site } from "./site";
 
 interface GiftGuideConfig {
   styleSlug: string;
@@ -13,6 +15,19 @@ interface GiftGuideConfig {
 }
 
 function buildGiftGuide(c: GiftGuideConfig): BlogPost {
+  const portraitLink = `[${c.productName}](/portraits/${c.styleSlug})`;
+  const config = styleBlogConfigs.find((s) => s.slug === c.styleSlug);
+  const relatedLinks =
+    config?.relatedSlugs
+      ?.slice(0, 2)
+      .map((slug) => {
+        const rel = styleBlogConfigs.find((s) => s.slug === slug);
+        return `[${rel?.name ?? slug}](/portraits/${slug})`;
+      })
+      .join(" and ") ?? "";
+  const relatedNote = relatedLinks
+    ? ` Fans of similar styles also love ${relatedLinks}.`
+    : "";
   return {
     slug: `best-gifts-for-${c.styleSlug}-fans`,
     title: `Best Gifts for ${c.fanLabel} Fans`,
@@ -25,21 +40,23 @@ function buildGiftGuide(c: GiftGuideConfig): BlogPost {
       {
         heading: "Our top picks",
         paragraphs: [
-          `${c.fanLabel} fans are easy to shop for in theory and impossible in practice — they already own the obvious merch. Start with something they can't buy anywhere else, then layer in a few classics.`,
+          `${c.fanLabel} fans are easy to shop for in theory and impossible in practice — they already own the obvious merch. Start with ${portraitLink} — something they can't buy anywhere else — then layer in a few classics.`,
         ],
         list: [
-          `${c.productName} (Anime Cabinet) — ${c.portraitPitch}`,
+          `${portraitLink} (Anime Cabinet) — ${c.portraitPitch}`,
           ...c.extraGifts,
         ],
       },
       {
         heading: "How to pick the right gift",
-        paragraphs: [c.pickParagraph],
+        paragraphs: [
+          `${c.pickParagraph} Browse [${c.fanLabel} portrait examples](/portraits/${c.styleSlug}) before you order.${relatedNote}`,
+        ],
       },
       {
         heading: "Timing tip",
         paragraphs: [
-          "Order a custom portrait at least a week before you need it — standard preview delivery is within 48 hours, plus revision time. Add priority delivery (+$10) if you're cutting it close. A framed print makes the reveal even better.",
+          `Order a custom portrait at least a week before you need it — standard preview delivery is within ${site.deliveryHours} hours, plus revision time. Add priority delivery (+$10) if you're cutting it close. A framed print makes the reveal even better.`,
         ],
       },
     ],
@@ -221,25 +238,6 @@ const giftGuideConfigs: GiftGuideConfig[] = [
     date: "2026-04-18",
   },
   {
-    styleSlug: "pokemon-trading-card",
-    fanLabel: "Pokemon Trading Card",
-    productName: "Custom Pokemon-Style Trading Card",
-    portraitPitch:
-      "a fully illustrated trading card starring them — custom stats, type, and holo-style art drawn from their photo. Display it graded-style in a case and watch their face.",
-    extraGifts: [
-      "Booster box or ETB of the latest Pokemon TCG set.",
-      "Toploader and graded-style display case for the custom card print.",
-      "Vintage base set card (single) — splurge gift for serious collectors.",
-      "Playmat featuring their favourite Pokemon type or region.",
-    ],
-    intro:
-      "TCG fans live for the pull. A custom card with their face on it is the ultimate chase card — except it's guaranteed and personal.",
-    pickParagraph:
-      "Set their HP, attack name, and type in the notes ('200 HP — Passive Aggressive Glare'). Pair the digital card with a printed holo version framed on the wall.",
-    keywords: ["pokemon trading card gift", "custom pokemon card portrait", "best gifts for pokemon tcg fans", "personalised pokemon card"],
-    date: "2026-04-20",
-  },
-  {
     styleSlug: "my-hero-academia",
     fanLabel: "My Hero Academia",
     productName: "Custom My Hero Academia Portrait",
@@ -314,25 +312,6 @@ const giftGuideConfigs: GiftGuideConfig[] = [
       "Name their nen type and favourite arc in the notes. Killua-adjacent lightning effects or Chrollo's book — small details our artists love to include.",
     keywords: ["best gifts for hunter x hunter fans", "hxh gift ideas", "hunter license gift", "custom hxh portrait"],
     date: "2026-04-28",
-  },
-  {
-    styleSlug: "chainsaw-man",
-    fanLabel: "Chainsaw Man",
-    productName: "Custom Chainsaw Man Portrait",
-    portraitPitch:
-      "gritty, chaotic Chainsaw Man energy — draw them as a devil hunter or fiend hybrid from their photo. Not safe for conservative grandparents. Perfect for the fan.",
-    extraGifts: [
-      "Chainsaw Man manga volumes or box set.",
-      "Denji, Power, or Makima premium figure.",
-      "Chainsaw prop (foam, display) — convention-ready.",
-      "Public Safety devil hunter badge replica.",
-    ],
-    intro:
-      "Chainsaw Man fans want something unhinged. Cute figures exist, but the fandom's heart is chaos. A portrait that captures Fujimoto's edge beats a generic poster.",
-    pickParagraph:
-      "Power fans want horns and blood. Denji fans want the chainsaw pull-cord pose. Makima fans know what they did. Be specific in the notes.",
-    keywords: ["best gifts for chainsaw man fans", "csm gift ideas", "denji gift", "chainsaw man portrait commission"],
-    date: "2026-04-30",
   },
   {
     styleSlug: "spy-x-family",
@@ -411,63 +390,6 @@ const giftGuideConfigs: GiftGuideConfig[] = [
     date: "2026-05-08",
   },
   {
-    styleSlug: "frieren",
-    fanLabel: "Frieren",
-    productName: "Custom Frieren Portrait",
-    portraitPitch:
-      "soft fantasy lighting, elf ears optional, and Frieren's gentle adventure aesthetic — a portrait for the fan who cried at episode 1 and never recovered.",
-    extraGifts: [
-      "Frieren manga volumes or Blu-ray.",
-      "Fern or Frieren Nendoroid.",
-      "Fantasy RPG art book or cozy game (like a chill JRPG).",
-      "Mage staff replica or spell tome journal.",
-    ],
-    intro:
-      "Frieren fans are the 'I want something beautiful and melancholic' crowd. Loud merch isn't the vibe — thoughtful, aesthetic gifts are.",
-    pickParagraph:
-      "Request a meadow, ruins, or starry sky backdrop. Couples often want Frieren-and-Himmel energy without copying the characters directly — describe the mood in notes.",
-    keywords: ["best gifts for frieren fans", "frieren gift ideas", "frieren portrait commission", "cozy anime gifts"],
-    date: "2026-05-10",
-  },
-  {
-    styleSlug: "berserk",
-    fanLabel: "Berserk",
-    productName: "Custom Berserk Portrait",
-    portraitPitch:
-      "dark fantasy ink work, Berserk armour optional, and Miura-level detail — a portrait for the fan who respects the struggle. Handle with care; they will cry.",
-    extraGifts: [
-      "Berserk Deluxe Edition manga volumes — the only acceptable print format.",
-      "Guts or Griffith figure (choose wisely; know your audience).",
-      "Behelit replica — display only, do not activate.",
-      "Berserk official art book or Kentaro Miura tribute collection.",
-    ],
-    intro:
-      "Berserk fans are serious. They've read the manga. They have feelings about adaptations. Gifts should honour Miura's legacy — nothing cheap or ironic unless they are.",
-    pickParagraph:
-      "Golden Age armour vs Black Swordsman cloak — specify the era. Never surprise a Berserk fan with a Griffith portrait unless they explicitly asked. Trust us.",
-    keywords: ["best gifts for berserk fans", "berserk gift ideas", "guts gift", "berserk portrait commission"],
-    date: "2026-05-12",
-  },
-  {
-    styleSlug: "custom-anime-style",
-    fanLabel: "Anime (Any Series)",
-    productName: "Custom Anime Portrait — Any Style",
-    portraitPitch:
-      "name any anime in the order notes — Vinland Saga, Haikyuu, Evangelion, JoJo, anything — and our artists match the style from your photo. The answer when they say 'my favourite isn't on the list.'",
-    extraGifts: [
-      "Crunchyroll or streaming gift subscription — fuel for the next obsession.",
-      "Art of [their favourite series] official book.",
-      "High-quality figure from whatever series they won't shut up about.",
-      "Convention ticket or artist alley budget — experiential beats merch sometimes.",
-    ],
-    intro:
-      "Some fans mainline one obscure series the internet forgot. Others rotate favourites monthly. The any-style portrait is for both — and for the gift-giver who knows the show but not the merch pipeline.",
-    pickParagraph:
-      "Attach reference screenshots from the exact arc or season. Name the studio era if the art style changed. More detail = faster, more accurate portrait.",
-    keywords: ["best gifts for anime fans", "custom anime portrait gift", "any anime style commission", "unique anime gifts 2026"],
-    date: "2026-05-14",
-  },
-  {
     styleSlug: "bobs-burgers",
     fanLabel: "Bob's Burgers",
     productName: "Custom Bob's Burgers Portrait",
@@ -504,25 +426,6 @@ const giftGuideConfigs: GiftGuideConfig[] = [
       "Couch scene for families. Drunken Clam for friend groups. Solo fans often want the chicken fight pose — specify if that's the energy.",
     keywords: ["best gifts for family guy fans", "family guy gift ideas", "quahog portrait", "custom family guy art"],
     date: "2026-05-18",
-  },
-  {
-    styleSlug: "american-dad",
-    fanLabel: "American Dad",
-    productName: "Custom American Dad Portrait",
-    portraitPitch:
-      "CIA briefing room, alien disguise, or suburban Smith family chaos — drawn in American Dad's sharp character style from their photo.",
-    extraGifts: [
-      "American Dad season Blu-ray box.",
-      "Roger disguise mask or plush.",
-      " Klaus in his bowl — the niche collectible real fans want.",
-      "Premium Stan or Roger figure.",
-    ],
-    intro:
-      "American Dad fans are a specific breed — they think their show is underrated and they're right. Roger disguises and CIA plots make the best portrait briefs.",
-    pickParagraph:
-      "Name the Roger persona in the notes ('Ricky Spanish', 'Max Jets'). Pets as Klaus-adjacent goldfish are a running gag that works.",
-    keywords: ["best gifts for american dad fans", "american dad gift ideas", "roger disguise gift", "american dad portrait"],
-    date: "2026-05-20",
   },
   {
     styleSlug: "the-simpsons",
@@ -582,25 +485,6 @@ const giftGuideConfigs: GiftGuideConfig[] = [
     date: "2026-05-26",
   },
   {
-    styleSlug: "futurama",
-    fanLabel: "Futurama",
-    productName: "Custom Futurama Portrait",
-    portraitPitch:
-      "Planet Express crew member, New New York backdrop, and Futurama's retro-future style — drawn from their photo for the fan who still cries at Jurassic Bark.",
-    extraGifts: [
-      "Futurama complete series Blu-ray.",
-      "Bender or Zoidberg figure.",
-      "Slurm can prop or Hypnotoad poster.",
-      "Poppler bucket — niche, perfect for true fans.",
-    ],
-    intro:
-      "Futurama fans are Simpsons-adjacent but sci-fi loyal. They want to be on the Planet Express ship. These gifts deliver exactly that energy.",
-    pickParagraph:
-      "Assign crew roles in group orders — someone is always Zoidberg. Request a suicide booth background only if they have that humour.",
-    keywords: ["best gifts for futurama fans", "futurama gift ideas", "planet express gift", "futurama portrait"],
-    date: "2026-05-28",
-  },
-  {
     styleSlug: "avatar-the-last-airbender",
     fanLabel: "Avatar: The Last Airbender",
     productName: "Custom Avatar Portrait",
@@ -618,25 +502,6 @@ const giftGuideConfigs: GiftGuideConfig[] = [
       "One bender per element in group portraits — the dream composition. Specify hair loopies for Water Tribe or topknot for Air Nomads.",
     keywords: ["best gifts for avatar fans", "avatar the last airbender gifts", "bending portrait gift", "avatar fan gift ideas"],
     date: "2026-05-30",
-  },
-  {
-    styleSlug: "adventure-time",
-    fanLabel: "Adventure Time",
-    productName: "Custom Adventure Time Portrait",
-    portraitPitch:
-      "Land of Ooo adventure style — draw them with Finn hat energy, Marceline cool, or a best-bud duo with their pet as Jake.",
-    extraGifts: [
-      "Adventure Time complete series Blu-ray.",
-      "Finn hat or Jake plush.",
-      "BMO replica or charging dock.",
-      "Premium Marceline or Finn figure.",
-    ],
-    intro:
-      "Adventure Time fans are nostalgic millennials and Gen Z discoverers united by one thing: the show felt like growing up. Whimsical gifts win.",
-    pickParagraph:
-      "Pet as Jake is the killer combo. Candy Kingdom vs Nightosphere backdrop — pick a side. Mathematical!",
-    keywords: ["best gifts for adventure time fans", "adventure time gift ideas", "finn and jake gift", "adventure time portrait"],
-    date: "2026-06-01",
   },
   {
     styleSlug: "arcane",

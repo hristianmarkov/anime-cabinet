@@ -51,7 +51,12 @@ export function CustomersSection({
 
         <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {displayed.map((r) => (
-            <ReviewCard key={`${r.title}-${r.date}`} review={r} />
+            <div
+              key={`${r.title}-${r.date}`}
+              className={r.image ? "md:col-span-2 lg:col-span-2" : undefined}
+            >
+              <ReviewCard review={r} />
+            </div>
           ))}
         </div>
 

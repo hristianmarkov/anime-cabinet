@@ -41,6 +41,6 @@ export const globalFaqs: StyleFaq[] = [
   },
   {
     q: "What anime and cartoon styles do you offer?",
-    a: "We offer 30+ styles including Naruto, One Piece, Dragon Ball Z, Demon Slayer, Jujutsu Kaisen, Ghibli-inspired, The Simpsons, Rick and Morty, Bob's Burgers and many more. Don't see yours? Order the 'Any Anime Style' option and name the series.",
+    a: "We offer 24 styles including Naruto, One Piece, Dragon Ball Z, Demon Slayer, Jujutsu Kaisen, Ghibli-inspired, The Simpsons, Rick and Morty, Bob's Burgers and many more.",
   },
 ];

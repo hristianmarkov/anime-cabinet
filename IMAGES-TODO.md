@@ -27,27 +27,42 @@ Size: 800x1000px (4:5), JPG/WebP
 
 These four sell the whole site — make them your strongest work. Ideally show the source photo + result side by side in at least one.
 
-## Priority 2 — Style cards (32 images, one per style)
+## Priority 2 — Style cards (28 images, one slider pair per style)
 
 File: `src/components/StyleCard.tsx` (used on homepage + /portraits grid)
 Size: 800x1000px (4:5)
 
-One flagship example per style, same list as the product pages below. The card image and product "Example artwork 1" can be the same file.
+One before/after pair per style — same files as the product-page slider (`{slug}-before.jpg` + `{slug}-after.jpg`).
 
-## Priority 3 — Product page examples (2 per style, 64 total)
+## Priority 3 — Product page artwork (5 files per style, 140 total)
 
-File: `src/app/portraits/[style]/page.tsx` (two `ArtPlaceholder`s per page)
+File: `src/data/gallery.ts` → `ProductShowcase` on each `/portraits/[style]` page
 Size: 800x1000px (4:5)
 
-For each of the 32 styles, two examples — ideally one solo portrait and one couple/group so buyers can picture both order types:
+Per style:
 
-Anime: naruto, one-piece, one-piece-wanted-poster, dragon-ball-z, demon-slayer, jujutsu-kaisen, attack-on-titan, ghibli-style, pokemon, pokemon-trading-card, my-hero-academia, bleach, death-note, hunter-x-hunter, chainsaw-man, spy-x-family, sailor-moon, one-punch-man, solo-leveling, frieren, berserk, custom-anime-style
+| File | Purpose |
+| --- | --- |
+| `{slug}-before.jpg` | Customer source photo — left side of the **one** before/after slider |
+| `{slug}-after.jpg` | Finished portrait — right side of the slider (also first thumbnail) |
+| `{slug}-example-1.jpg` | Finished portrait — thumbnail row only |
+| `{slug}-example-2.jpg` | Finished portrait — thumbnail row only |
+| `{slug}-example-3.jpg` | Finished portrait — thumbnail row only |
 
-Cartoons: bobs-burgers, family-guy, american-dad, the-simpsons, south-park, rick-and-morty, futurama, avatar-the-last-airbender, adventure-time, arcane
+The three example files are **final artwork only** — no before photos. Clicking a thumbnail swaps the main view to that finished piece; click the first thumb to return to the slider.
 
-Tip: don't block launch on all 64. Launch with Priority 1 + the 5 bestseller styles fully covered, then fill in weekly — each new real example is fresh content Google indexes.
+Styles (28): naruto, one-piece, one-piece-wanted-poster, dragon-ball-z, demon-slayer, jujutsu-kaisen, attack-on-titan, ghibli-style, pokemon, pokemon-trading-card, my-hero-academia, bleach, death-note, hunter-x-hunter, chainsaw-man, spy-x-family, sailor-moon, one-punch-man, solo-leveling, custom-anime-style
 
-## Priority 4 — Nice-to-haves
+Cartoons: bobs-burgers, family-guy, the-simpsons, south-park, rick-and-morty, futurama, avatar-the-last-airbender, arcane
+
+Tip: don't block launch on all 140. Launch with Priority 1 + the 5 bestseller styles fully covered (5 files each), then fill in weekly.
+
+## Priority 4 — Review portraits (70 images)
+
+File: `src/data/reviews.ts` — full list in `IMAGES-INVENTORY.csv` (`review-*.jpg`)
+Size: 400x500px (4:5) minimum; 800x1000px preferred
+
+## Priority 5 — Nice-to-haves
 
 | Slot | Where | Notes |
 | --- | --- | --- |

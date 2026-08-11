@@ -3,7 +3,7 @@ import { animeStyles, bestSellers, cartoonStyles } from "@/data/styles";
 
 const featuredLinks = [
   { href: "/portraits/one-piece-wanted-poster", label: "Wanted Poster" },
-  { href: "/portraits/pokemon-trading-card", label: "Trading Card" },
+  { href: "/portraits/demon-slayer", label: "Demon Slayer" },
   { href: "/portraits#bestsellers", label: "Best Sellers" },
 ];
 

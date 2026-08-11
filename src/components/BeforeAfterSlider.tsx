@@ -7,6 +7,8 @@ interface BeforeAfterSliderProps {
   beforeSrc: string;
   afterSrc: string;
   alt: string;
+  beforeAlt?: string;
+  afterAlt?: string;
   className?: string;
   compact?: boolean;
   /** When false, slider is display-only (e.g. inside a link card) */
@@ -17,6 +19,8 @@ export function BeforeAfterSlider({
   beforeSrc,
   afterSrc,
   alt,
+  beforeAlt,
+  afterAlt,
   className = "",
   compact = false,
   interactive = true,
@@ -60,7 +64,7 @@ export function BeforeAfterSlider({
       <div className="relative aspect-[4/5] w-full">
         <Image
           src={afterSrc}
-          alt={`${alt} — after`}
+          alt={afterAlt ?? `${alt} — after`}
           fill
           className="object-cover"
           sizes={compact ? "300px" : "600px"}
@@ -76,7 +80,7 @@ export function BeforeAfterSlider({
         <div className="relative h-full w-full">
           <Image
             src={beforeSrc}
-            alt={`${alt} — before`}
+            alt={beforeAlt ?? `${alt} — before`}
             fill
             className="object-cover"
             sizes={compact ? "300px" : "600px"}

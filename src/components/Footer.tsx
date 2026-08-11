@@ -63,7 +63,7 @@ export function Footer() {
               ))}
               <li>
                 <Link href="/portraits" className="text-sm font-medium text-accent hover:text-accent-bright">
-                  View all 30+ styles →
+                  View all 24 styles →
                 </Link>
               </li>
             </ul>

@@ -5,7 +5,7 @@ import { site } from "@/data/site";
 export const metadata: Metadata = {
   title: "Shipping & Delivery",
   description:
-    "Digital previews within 48 hours. Prints ship worldwide after artwork approval — shipping cost calculated at checkout by country.",
+    `Digital previews within ${site.deliveryHours} hours. Prints ship worldwide after artwork approval — shipping cost calculated at checkout by country.`,
   alternates: { canonical: "/shipping" },
 };
 

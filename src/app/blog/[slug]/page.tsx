@@ -1,10 +1,21 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { BlogSectionContent } from "@/components/BlogContent";
 import { JsonLd } from "@/components/JsonLd";
-import { blogPosts, getPostBySlug } from "@/data/blog";
+import { blogPosts, getPostBySlug, type BlogCategory } from "@/data/blog";
+import { resolveBlockImage } from "@/data/blog-blocks";
 import { site } from "@/data/site";
 import { getStyleBySlug } from "@/data/styles";
+
+const categoryLabels: Record<BlogCategory, string> = {
+  gift: "Gift guide",
+  style: "Style guide",
+  transformation: "Before & after",
+  comparison: "Comparison",
+  editorial: "Editorial",
+};
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -19,7 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = getPostBySlug(slug);
   if (!post) return {};
   return {
-    title: post.title,
+    title: post.metaTitle ?? post.title,
     description: post.description,
     keywords: post.keywords,
     alternates: { canonical: `/blog/${post.slug}` },
@@ -67,7 +78,12 @@ export default async function BlogPostPage({ params }: Props) {
         </nav>
 
         <header className="mt-6">
-          <h1 className="font-display text-3xl leading-tight text-cream sm:text-4xl">
+          {post.category && (
+            <p className="text-xs font-semibold uppercase tracking-wider text-accent">
+              {categoryLabels[post.category]}
+            </p>
+          )}
+          <h1 className="font-display text-3xl leading-tight text-cream sm:text-4xl lg:text-[2.75rem]">
             {post.title}
           </h1>
           <p className="mt-4 text-sm text-faint">
@@ -80,28 +96,25 @@ export default async function BlogPostPage({ params }: Props) {
           </p>
         </header>
 
-        <p className="mt-8 text-lg leading-relaxed text-muted">{post.intro}</p>
+        {post.heroImage && (
+          <figure className="mt-8">
+            <div className="relative aspect-[21/9] overflow-hidden rounded-2xl border border-line shadow-card">
+              <Image
+                src={resolveBlockImage(post.heroImage).src}
+                alt={resolveBlockImage(post.heroImage).alt}
+                fill
+                className="object-cover"
+                priority
+                sizes="(max-width: 768px) 100vw, 768px"
+              />
+            </div>
+          </figure>
+        )}
+
+        <p className="mt-8 text-lg leading-[1.85] text-muted">{post.intro}</p>
 
         {post.sections.map((section) => (
-          <section key={section.heading ?? section.paragraphs[0].slice(0, 24)} className="mt-10">
-            {section.heading && (
-              <h2 className="text-xl font-semibold text-cream">{section.heading}</h2>
-            )}
-            {section.paragraphs.map((p) => (
-              <p key={p.slice(0, 32)} className="mt-4 leading-relaxed text-muted">
-                {p}
-              </p>
-            ))}
-            {section.list && (
-              <ul className="mt-4 list-disc space-y-2 pl-6 text-muted">
-                {section.list.map((item) => (
-                  <li key={item} className="leading-relaxed">
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </section>
+          <BlogSectionContent key={section.heading ?? section.paragraphs[0]?.slice(0, 24) ?? section.blocks?.[0]?.type} section={section} />
         ))}
 
         {ctaStyle && (
