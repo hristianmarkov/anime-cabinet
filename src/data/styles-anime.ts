@@ -7,7 +7,7 @@ export const animeStyles: PortraitStyle[] = [
     productName: "Custom Naruto Portrait",
     category: "anime",
     tagline: "Become a shinobi of the Hidden Leaf",
-    metaTitle: "Custom Naruto Portrait From Your Photo | Anime Cabinet",
+    metaTitle: "Custom Naruto Portrait From Your Photo",
     metaDescription:
       "Turn your photo into a hand-drawn Naruto style portrait. Become a Hidden Leaf shinobi with your own headband, jutsu and village background. Unlimited revisions.",
     keywords: [
@@ -42,7 +42,7 @@ export const animeStyles: PortraitStyle[] = [
     productName: "Custom One Piece Portrait",
     category: "anime",
     tagline: "Join the Straw Hats on the Grand Line",
-    metaTitle: "Custom One Piece Portrait From Your Photo | Anime Cabinet",
+    metaTitle: "Custom One Piece Portrait From Your Photo",
     metaDescription:
       "Get hand-drawn in the One Piece anime style. Join the Straw Hat crew, pick your Devil Fruit power and set sail on the Grand Line. Digital and print options.",
     keywords: [
@@ -112,7 +112,7 @@ export const animeStyles: PortraitStyle[] = [
     productName: "Custom Dragon Ball Z Portrait",
     category: "anime",
     tagline: "Power up beyond your limits",
-    metaTitle: "Custom Dragon Ball Z Portrait From Your Photo | Anime Cabinet",
+    metaTitle: "Custom Dragon Ball Z Portrait From Your Photo",
     metaDescription:
       "Turn yourself into a Dragon Ball Z character. Hand-drawn Saiyan portraits with auras, custom outfits and battle poses from your photo. Unlimited revisions.",
     keywords: [
@@ -147,7 +147,7 @@ export const animeStyles: PortraitStyle[] = [
     productName: "Custom Demon Slayer Portrait",
     category: "anime",
     tagline: "Forge your own breathing style",
-    metaTitle: "Custom Demon Slayer Portrait From Your Photo | Anime Cabinet",
+    metaTitle: "Custom Demon Slayer Portrait From Your Photo",
     metaDescription:
       "Get hand-drawn as a Demon Slayer Corps member. Custom haori patterns, nichirin blade colours and breathing style effects, painted from your photo.",
     keywords: [
@@ -182,7 +182,7 @@ export const animeStyles: PortraitStyle[] = [
     productName: "Custom Jujutsu Kaisen Portrait",
     category: "anime",
     tagline: "Channel your cursed energy",
-    metaTitle: "Custom Jujutsu Kaisen Portrait From Your Photo | Anime Cabinet",
+    metaTitle: "Custom Jujutsu Kaisen Portrait From Your Photo",
     metaDescription:
       "Become a jujutsu sorcerer. We hand-draw you in the Jujutsu Kaisen anime style with cursed energy effects and your own domain expansion. From your photo.",
     keywords: [
@@ -251,7 +251,7 @@ export const animeStyles: PortraitStyle[] = [
     productName: "Custom Ghibli-Style Portrait",
     category: "anime",
     tagline: "Soft, painterly, storybook magic",
-    metaTitle: "Custom Ghibli Style Portrait From Your Photo | Anime Cabinet",
+    metaTitle: "Custom Ghibli Style Portrait From Your Photo",
     metaDescription:
       "Get painted in the soft, hand-drawn Ghibli-inspired style. Warm watercolour backgrounds and storybook charm, from your photo. A magical personalised gift.",
     keywords: [
@@ -354,7 +354,7 @@ export const animeStyles: PortraitStyle[] = [
     productName: "Custom Bleach Portrait",
     category: "anime",
     tagline: "Release your zanpakuto",
-    metaTitle: "Custom Bleach Portrait From Your Photo | Anime Cabinet",
+    metaTitle: "Custom Bleach Portrait From Your Photo",
     metaDescription:
       "Become a Soul Reaper. Hand-drawn Bleach style portraits with your own zanpakuto, shihakusho and spiritual pressure effects, created from your photo.",
     keywords: [
@@ -558,7 +558,7 @@ export const animeStyles: PortraitStyle[] = [
     productName: "Custom Solo Leveling Portrait",
     category: "anime",
     tagline: "Arise. Your portrait awaits.",
-    metaTitle: "Custom Solo Leveling Portrait From Your Photo | Anime Cabinet",
+    metaTitle: "Custom Solo Leveling Portrait From Your Photo",
     metaDescription:
       "Become an S-Rank hunter. Custom Solo Leveling style portraits with glowing eyes, shadow soldiers and system windows, hand-drawn from your photo.",
     keywords: [

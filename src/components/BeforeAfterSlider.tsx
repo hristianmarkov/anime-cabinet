@@ -68,7 +68,6 @@ export function BeforeAfterSlider({
           fill
           className="object-cover"
           sizes={compact ? "300px" : "600px"}
-          unoptimized
         />
       </div>
 
@@ -84,7 +83,6 @@ export function BeforeAfterSlider({
             fill
             className="object-cover"
             sizes={compact ? "300px" : "600px"}
-            unoptimized
           />
         </div>
       </div>

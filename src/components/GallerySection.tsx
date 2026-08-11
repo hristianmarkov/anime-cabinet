@@ -1,10 +1,8 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import Link from "next/link";
+import { AnimatedGallery } from "@/components/AnimatedGallery";
 import { galleryItems } from "@/data/gallery";
-
-const Masonry = dynamic(() => import("@/components/Masonry"), { ssr: false });
 
 export function GallerySection() {
   return (
@@ -18,13 +16,7 @@ export function GallerySection() {
         </p>
       </div>
       <div className="mt-10">
-        <Masonry
-          items={galleryItems}
-          animateFrom="bottom"
-          blurToFocus
-          scaleOnHover
-          hoverScale={0.95}
-        />
+        <AnimatedGallery items={galleryItems} />
       </div>
       <p className="mt-8 text-center">
         <Link href="/portraits" className="text-sm font-semibold text-accent hover:text-accent-bright">

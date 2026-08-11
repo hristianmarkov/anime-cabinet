@@ -42,7 +42,7 @@ export const cartoonStyles: PortraitStyle[] = [
     productName: "Custom Family Guy Portrait",
     category: "cartoon",
     tagline: "Get the Quahog treatment",
-    metaTitle: "Custom Family Guy Portrait From Your Photo | Anime Cabinet",
+    metaTitle: "Custom Family Guy Portrait From Your Photo",
     metaDescription:
       "Turn yourself into a Family Guy character. Custom hand-drawn portraits in the Quahog style — couch scenes, Drunken Clam and more, from your photos.",
     keywords: [

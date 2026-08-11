@@ -34,7 +34,6 @@ export function ProductShowcase({ showcase, styleName }: ProductShowcaseProps) {
             fill
             className="object-cover"
             sizes="(max-width: 768px) 100vw, 480px"
-            unoptimized
           />
         </div>
       )}
@@ -53,7 +52,6 @@ export function ProductShowcase({ showcase, styleName }: ProductShowcaseProps) {
             fill
             className="object-cover"
             sizes="64px"
-            unoptimized
           />
         </button>
         {showcase.examples.map((ex) => (
@@ -72,7 +70,6 @@ export function ProductShowcase({ showcase, styleName }: ProductShowcaseProps) {
               fill
               className="object-cover"
               sizes="64px"
-              unoptimized
             />
           </button>
         ))}

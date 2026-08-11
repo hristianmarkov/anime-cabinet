@@ -9,6 +9,7 @@ import { ReviewCard } from "@/components/ReviewCard";
 import { StyleCard } from "@/components/StyleCard";
 import { getGiftGuideForStyle } from "@/data/blog";
 import { globalFaqs } from "@/data/faqs";
+import { getShowcase } from "@/data/gallery";
 import { REVIEWS_ARE_REAL, reviews } from "@/data/reviews";
 import { site } from "@/data/site";
 import { allStyles, getStyleBySlug } from "@/data/styles";
@@ -25,6 +26,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { style: slug } = await params;
   const style = getStyleBySlug(slug);
   if (!style) return {};
+  const showcase = getShowcase(style.slug);
+  const ogImage = showcase
+    ? {
+        url: `${site.url}${showcase.slider.after}`,
+        width: 800,
+        height: 1000,
+        alt: showcase.slider.afterAlt,
+      }
+    : undefined;
   return {
     title: style.metaTitle,
     description: style.metaDescription,
@@ -35,6 +45,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: style.metaDescription,
       url: `${site.url}/portraits/${style.slug}`,
       type: "website",
+      ...(ogImage && { images: [ogImage] }),
+    },
+    twitter: {
+      card: "summary_large_image",
+      ...(ogImage && { images: [ogImage.url] }),
     },
   };
 }
@@ -51,6 +66,7 @@ export default async function StylePage({ params }: Props) {
     .filter((s) => s.slug !== style.slug && s.category === style.category)
     .slice(0, 4);
   const giftGuide = getGiftGuideForStyle(style.slug);
+  const showcase = getShowcase(style.slug);
 
   const productJsonLd = {
     "@context": "https://schema.org",
@@ -59,6 +75,7 @@ export default async function StylePage({ params }: Props) {
     description: style.metaDescription,
     brand: { "@type": "Brand", name: site.name },
     url: `${site.url}/portraits/${style.slug}`,
+    ...(showcase && { image: `${site.url}${showcase.slider.after}` }),
     offers: {
       "@type": "Offer",
       priceCurrency: "USD",
@@ -133,6 +150,7 @@ export default async function StylePage({ params }: Props) {
           <h1 className="font-display text-4xl leading-tight text-cream sm:text-5xl">
             {style.heroHeading}
           </h1>
+          <p className="mt-2 text-lg text-muted">{style.productName}</p>
           <ProductStyleHero style={style} />
         </div>
 

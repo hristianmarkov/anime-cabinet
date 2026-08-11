@@ -1,13 +1,11 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import Link from "next/link";
+import { AnimatedGallery } from "@/components/AnimatedGallery";
 import { ReviewCard } from "@/components/ReviewCard";
 import { StarRating } from "@/components/StarRating";
 import { galleryItems } from "@/data/gallery";
 import type { Review } from "@/data/reviews";
-
-const Masonry = dynamic(() => import("@/components/Masonry"), { ssr: false });
 
 interface CustomersSectionProps {
   reviews: Review[];
@@ -40,13 +38,7 @@ export function CustomersSection({
         </div>
 
         <div className="mt-12">
-          <Masonry
-            items={galleryItems}
-            animateFrom="bottom"
-            blurToFocus
-            scaleOnHover
-            hoverScale={0.95}
-          />
+          <AnimatedGallery items={galleryItems} />
         </div>
 
         <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">

@@ -1,10 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import type { PortraitStyle } from "@/data/types";
 import { useCurrency } from "@/context/CurrencyContext";
 import { getShowcase } from "@/data/gallery";
-import { BeforeAfterSlider } from "./BeforeAfterSlider";
 
 const badgeStyles: Record<string, string> = {
   bestseller: "bg-gold text-ink",
@@ -29,16 +29,15 @@ export function StyleCard({ style }: { style: PortraitStyle }) {
     >
       <div className="relative w-full overflow-hidden">
         {showcase ? (
-          <BeforeAfterSlider
-            beforeSrc={showcase.slider.before}
-            afterSrc={showcase.slider.after}
-            beforeAlt={showcase.slider.beforeAlt}
-            afterAlt={showcase.slider.afterAlt}
-            alt={style.productName}
-            compact
-            interactive={false}
-            className="rounded-none border-0"
-          />
+          <div className="relative aspect-[4/5] w-full">
+            <Image
+              src={showcase.slider.after}
+              alt={showcase.slider.afterAlt ?? style.productName}
+              fill
+              className="object-cover transition-transform duration-300 group-hover:scale-105"
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 300px"
+            />
+          </div>
         ) : null}
         {style.badge && (
           <span className={`absolute left-3 top-3 z-20 rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-wide ${badgeStyles[style.badge]}`}>

@@ -7,7 +7,7 @@ export const comparisonPosts: BlogPost[] = [
     title: "Anime Portrait vs Cartoon Portrait: Which Should You Choose?",
     description:
       "Naruto shinobi or Simpsons couch? A side-by-side comparison of anime and cartoon portrait styles — visuals, vibe, and who each suits.",
-    metaTitle: "Anime Portrait vs Cartoon Portrait Comparison | Anime Cabinet",
+    metaTitle: "Anime Portrait vs Cartoon Portrait Comparison",
     date: "2026-06-08",
     readingMinutes: 4,
     keywords: [
@@ -19,7 +19,7 @@ export const comparisonPosts: BlogPost[] = [
     ],
     category: "comparison",
     intro:
-      "Anime and cartoon portraits aren't the same product with different skins. They use different line weights, colour systems, composition conventions, and emotional registers. Choosing between them isn't about which category is more popular — it's about which visual language matches the person, the photo, and the room where the portrait will live.",
+      "Anime and cartoon portraits aren't the same product with different skins. They use different line weights, colour systems, composition conventions, and emotional registers. Choosing between them isn't about which category is more popular — it's about which visual language matches the person, the photo, and the room where the portrait will live. This anime portrait vs cartoon portrait comparison covers visuals, vibe, and who each category suits best — plus when to order both for different spaces. Unlimited revisions are included with every order. Preview delivery is within seventy-two hours standard across all twenty-four portrait styles.",
     sections: [
       {
         heading: "Visual differences at a glance",
@@ -69,12 +69,70 @@ export const comparisonPosts: BlogPost[] = [
             text: "Absolutely. Many customers commission a cartoon family portrait for the hallway and an anime solo piece for the bedroom. Different rooms, different moods, same person. Browse all twenty-four styles and pick what fits each context — there's no wrong answer, only mismatched taste.",
           },
           {
-            type: "imageGrid",
-            images: [
-              { artFile: "review-family-guy-01.jpg", caption: "Cartoon living room energy" },
-              { artFile: "review-solo-leveling-01.jpg", caption: "Anime bedroom drama" },
+            type: "paragraph",
+            text: "Anime portrait vs cartoon portrait comes down to recipient taste, not category prestige. Check what they watch more, match the photo to the style's composition strengths, and order with unlimited revisions until the preview is right.",
+          },
+        ],
+      },
+      {
+        heading: "Quick comparison summary",
+        paragraphs: [],
+        blocks: [
+          {
+            type: "paragraph",
+            text: "Anime → dynamic, expressive, cinematic. Cartoon → bold, funny, instantly readable. Crossover picks → [Avatar](/portraits/avatar-the-last-airbender), [Arcane](/portraits/arcane). Families lean cartoon; solo shonen fans lean anime; couples split evenly.",
+          },
+          {
+            type: "paragraph",
+            text: "Still torn? Send their streaming history through honest filter — comfort sitcom or seasonal anime? That answer settles most custom portrait style comparisons.",
+          },
+          {
+            type: "list",
+            items: [
+              "Anime: dynamic poses, expressive eyes, shonen energy.",
+              "Cartoon: bold outlines, humour, instant guest recognition.",
+              "Families → [Simpsons](/portraits/the-simpsons), [Bob's Burgers](/portraits/bobs-burgers).",
+              "Solo shonen fans → [Naruto](/portraits/naruto), [Demon Slayer](/portraits/demon-slayer).",
             ],
-            cols: 2,
+          },
+        ],
+      },
+      {
+        heading: "Comparison takeaway",
+        paragraphs: [],
+        blocks: [
+          {
+            type: "paragraph",
+            text: "Anime portrait vs cartoon portrait is a recipient question, not a quality ranking. Anime suits protagonists and drama; cartoon suits families and humour. [Avatar](/portraits/avatar-the-last-airbender) bridges both when fans genuinely love each.",
+          },
+          {
+            type: "paragraph",
+            text: "Many homes hold both — cartoon hallway, anime bedroom. Twenty-four styles, unlimited revisions, preview within seventy-two hours. Pick what fits each room and person.",
+          },
+          {
+            type: "paragraph",
+            text: "Custom portrait style comparison should start with the recipient's shelf and streaming history — not Pinterest trends. When anime vs cartoon portrait gifts match how they actually live in fandom, the choice makes itself.",
+          },
+          {
+            type: "paragraph",
+            text: "Anime or cartoon custom portrait shopping tip: families and sitcom fans lean yellow; shonen fans lean cel-shaded. [Avatar](/portraits/avatar-the-last-airbender) when they genuinely love both. Revisions included either way.",
+          },
+          {
+            type: "paragraph",
+            text: "Anime vs cartoon art gift comparison resolves when you stop choosing for yourself — check their quotes, shelf, and cosplay photos, then order the category they already perform.",
+          },
+          {
+            type: "list",
+            items: [
+              "Anime → shonen fans, cosplayers, drama walls.",
+              "Cartoon → families, sitcom quoters, humour gifts.",
+              "[Avatar](/portraits/avatar-the-last-airbender) splits the difference.",
+              "Revisions included for both categories.",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "Anime portrait vs cartoon portrait shopping starts with the recipient — their quotes, shelf, and cosplay habits tell you which category to commission first.",
           },
         ],
       },
@@ -87,7 +145,7 @@ export const comparisonPosts: BlogPost[] = [
     title: "Dark Anime vs Cute Anime Portrait Styles Compared",
     description:
       "Death Note noir or Pokemon warmth? How dark and cute anime portrait styles differ in mood, composition, and who they're best for.",
-    metaTitle: "Dark vs Cute Anime Portrait Styles Compared | Anime Cabinet",
+    metaTitle: "Dark vs Cute Anime Portrait Styles Compared",
     date: "2026-06-05",
     readingMinutes: 4,
     keywords: [
@@ -99,7 +157,7 @@ export const comparisonPosts: BlogPost[] = [
     ],
     category: "comparison",
     intro:
-      "Within our anime collection, tone varies enormously. A [Solo Leveling](/portraits/solo-leveling) portrait and a [Pokemon](/portraits/pokemon) portrait both count as anime — but they'd never hang in the same room or suit the same person. Dark and cute aren't quality tiers. They're mood choices. Understanding the difference helps you pick a portrait that feels right every time you look at it.",
+      "Within our anime collection, tone varies enormously. A [Solo Leveling](/portraits/solo-leveling) portrait and a [Pokemon](/portraits/pokemon) portrait both count as anime — but they'd never hang in the same room or suit the same person. Dark and cute aren't quality tiers. They're mood choices. This dark vs cute anime portrait comparison helps you pick art that feels right every time you look at it. Many customers order one of each for different rooms once they stop treating tone as a single identity. Unlimited revisions are included with every order. Preview delivery is within seventy-two hours standard across all twenty-four portrait styles.",
     sections: [
       {
         heading: "Dark anime: shadow, contrast, and cinema",
@@ -146,6 +204,75 @@ export const comparisonPosts: BlogPost[] = [
             left: { artFile: "gallery-demon-slayer.jpg", caption: "Demon Slayer — intense" },
             right: { artFile: "gallery-pokemon.jpg", caption: "Pokemon — gentle" },
           },
+          {
+            type: "paragraph",
+            text: "Dark vs cute anime portrait comparison is about mood, not quality. Match the style to the room and the recipient — bedroom drama vs living room warmth — and both can be perfect in the same home.",
+          },
+        ],
+      },
+      {
+        heading: "Choosing between dark and cute",
+        paragraphs: [],
+        blocks: [
+          {
+            type: "paragraph",
+            text: "Serious expression or dramatic photo → dark styles. Open smile, gift for family, kid-safe wall → cute styles. Many customers order one of each for different rooms — [Solo Leveling](/portraits/solo-leveling) solo plus [Ghibli-style](/portraits/ghibli-style) family piece is a common pairing.",
+          },
+          {
+            type: "paragraph",
+            text: "Preview within seventy-two hours, unlimited revisions. Tone is the first filter; fandom is the second. Get both right and the portrait feels intentional every time you look at it.",
+          },
+          {
+            type: "list",
+            items: [
+              "Dark: [Death Note](/portraits/death-note), [Bleach](/portraits/bleach), [Arcane](/portraits/arcane).",
+              "Cute: [Pokemon](/portraits/pokemon), [Ghibli-style](/portraits/ghibli-style), [Spy x Family](/portraits/spy-x-family).",
+              "Mix both across different rooms in the same home.",
+            ],
+          },
+        ],
+      },
+      {
+        heading: "Dark vs cute takeaway",
+        paragraphs: [],
+        blocks: [
+          {
+            type: "paragraph",
+            text: "Dark anime vs cute anime portrait styles compared: same medium, different emotional register. Dark styles feel like key visuals; cute styles feel like gifts and family walls. Neither is better — room and recipient decide.",
+          },
+          {
+            type: "paragraph",
+            text: "Order both if your taste spans moods — [Demon Slayer](/portraits/demon-slayer) solo, [Ghibli-style](/portraits/ghibli-style) family. Tone-first shopping prevents portraits that look amazing online but feel wrong in your space.",
+          },
+          {
+            type: "paragraph",
+            text: "Death Note vs Ghibli portrait mood comparison is the classic example — same customer, different rooms, both correct. Dark and cute anime portrait styles compared side by side show that tone is a design choice, not a quality tier.",
+          },
+          {
+            type: "paragraph",
+            text: "Dark anime portrait style suits cinematic bedrooms; cute anime portrait style suits gifts and shared spaces. Compare [Solo Leveling](/portraits/solo-leveling) intensity to [Spy x Family](/portraits/spy-x-family) warmth before you order — the wall will thank you.",
+          },
+          {
+            type: "paragraph",
+            text: "Anime portrait mood comparison is the fastest filter before you browse twenty-four galleries — dark for drama, cute for comfort, both for different walls in the same home.",
+          },
+          {
+            type: "list",
+            items: [
+              "Dark → bedrooms, offices, solo commissions.",
+              "Cute → gifts, nurseries, family walls.",
+              "[Demon Slayer](/portraits/demon-slayer) vs [Spy x Family](/portraits/spy-x-family) as examples.",
+              "Tone first, fandom second.",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "Dark vs cute anime portrait styles compared: pick tone for the room first, fandom second — many homes hold both without contradiction.",
+          },
+          {
+            type: "paragraph",
+            text: "Compare galleries side by side before ordering — tone becomes obvious quickly once you imagine each piece on your wall.",
+          },
         ],
       },
     ],
@@ -157,7 +284,7 @@ export const comparisonPosts: BlogPost[] = [
     title: "Best Anime Style for Couples Compared: Ghibli vs JJK vs One Piece",
     description:
       "Three couple favourites go head to head — Ghibli warmth, Jujutsu Kaisen energy, and One Piece adventure. Which fits your relationship?",
-    metaTitle: "Best Anime Style for Couples Compared | Anime Cabinet",
+    metaTitle: "Best Anime Style for Couples Compared",
     date: "2026-06-03",
     readingMinutes: 4,
     keywords: [
@@ -169,7 +296,7 @@ export const comparisonPosts: BlogPost[] = [
     ],
     category: "comparison",
     intro:
-      "Couples don't pick portrait styles randomly. The three most ordered anime styles for pairs — Ghibli, Jujutsu Kaisen, and One Piece — each represent a different relationship energy. This isn't a ranking. It's a comparison to help you identify which visual language matches how you actually are together.",
+      "Couples don't pick portrait styles randomly. The three most ordered anime styles for pairs — Ghibli, Jujutsu Kaisen, and One Piece — each represent a different relationship energy. This isn't a ranking. It's a comparison to help you identify which visual language matches how you actually are together — with order tips and style examples. Upload a clear couple photo, describe height and poses, and treat order notes as a brief about your relationship dynamic. Unlimited revisions are included with every order. Preview delivery is within seventy-two hours standard across all twenty-four portrait styles.",
     sections: [
       {
         heading: "Ghibli: warmth and invented memories",
@@ -219,6 +346,75 @@ export const comparisonPosts: BlogPost[] = [
             type: "paragraph",
             text: "Still torn? Describe your relationship in the order notes and let our artists suggest a composition. The style matters; the dynamic matters more.",
           },
+          {
+            type: "paragraph",
+            text: "Ghibli vs JJK vs One Piece couple portrait comparison maps to relationship energy: tenderness, competitiveness, adventure. Pick the visual language that matches how you actually are together — not how anime couples look in posters.",
+          },
+        ],
+      },
+      {
+        heading: "Couple style decision guide",
+        paragraphs: [],
+        blocks: [
+          {
+            type: "paragraph",
+            text: "Rainy-day watchers → [Ghibli-style](/portraits/ghibli-style). Debate-heavy pairs → [Jujutsu Kaisen](/portraits/jujutsu-kaisen). Reference-driven nakama → [One Piece](/portraits/one-piece). Wanted poster format adds custom bounties for pairs who want humour with their drama.",
+          },
+          {
+            type: "paragraph",
+            text: "Upload a clear couple photo, describe height and poses in the notes, approve the preview together if you can. Best anime style for couples is the one that tells your story without explanation.",
+          },
+          {
+            type: "list",
+            items: [
+              "Ghibli → tenderness, invented memories, rainy-day energy.",
+              "JJK → competitive partnership, back-to-back drama.",
+              "One Piece → nakama adventure, crew grins, wanted poster bounties.",
+            ],
+          },
+        ],
+      },
+      {
+        heading: "Couple comparison takeaway",
+        paragraphs: [],
+        blocks: [
+          {
+            type: "paragraph",
+            text: "Ghibli vs JJK vs One Piece couple portrait comparison maps to relationship energy — tenderness, competitiveness, adventure. The best anime style for couples is the one that tells your story without explanation.",
+          },
+          {
+            type: "paragraph",
+            text: "Describe your dynamic in order notes, upload a clear couple photo, approve the preview together when you can. Couple portrait style comparison ends where your actual relationship begins.",
+          },
+          {
+            type: "paragraph",
+            text: "Couple portrait style comparison works when you name the energy honestly — soft, chaotic, competitive, adventurous — then pick Ghibli, JJK, or One Piece accordingly. The show is shorthand for how you are together.",
+          },
+          {
+            type: "paragraph",
+            text: "Best anime style for couples compared side by side: Ghibli for invented memories, JJK for partnership under pressure, One Piece for shared adventure language. Upload one good couple photo and let the notes carry the rest.",
+          },
+          {
+            type: "paragraph",
+            text: "Ghibli vs JJK vs One Piece couple portrait choice is relationship energy, not internet rankings — describe yours honestly in the notes field.",
+          },
+          {
+            type: "list",
+            items: [
+              "Ghibli → tenderness, invented memories.",
+              "JJK → competitive partnership.",
+              "One Piece → shared adventure language.",
+              "Upload one clear couple photo.",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "Best anime style for couples compared: Ghibli warmth, JJK competitiveness, One Piece adventure — describe your relationship in notes and let artists compose accordingly.",
+          },
+          {
+            type: "paragraph",
+            text: "Couple style comparison works best when you name your energy honestly — soft, chaotic, competitive, or adventurous.",
+          },
         ],
       },
     ],
@@ -230,7 +426,7 @@ export const comparisonPosts: BlogPost[] = [
     title: "Custom Anime Poster vs AI Avatar Generator: What's the Difference?",
     description:
       "AI avatars are fast and cheap. Hand-drawn anime posters are permanent and personal. An honest comparison for anyone deciding between them.",
-    metaTitle: "Custom Anime Poster vs AI Avatar Generator | Anime Cabinet",
+    metaTitle: "Custom Anime Poster vs AI Avatar Generator",
     date: "2026-06-01",
     readingMinutes: 4,
     keywords: [
@@ -242,7 +438,7 @@ export const comparisonPosts: BlogPost[] = [
     ],
     category: "comparison",
     intro:
-      "AI avatar generators promise instant anime transformations — upload a photo, get a result in seconds. Custom anime posters promise something different: an artist studying your face, translating it into a specific show's visual language, and revising until you're happy. Both exist. They serve different needs. Here's an honest comparison without dismissing either approach.",
+      "AI avatar generators promise instant anime transformations — upload a photo, get a result in seconds. Custom anime posters promise something different: an artist studying your face, translating it into a specific show's visual language, and revising until you're happy. Both exist. They serve different needs. Here's an honest anime poster vs AI avatar comparison without dismissing either approach — including when to commission hand-drawn art for gifts and walls. Unlimited revisions are included with every order. Preview delivery is within seventy-two hours standard across all twenty-four portrait styles.",
     sections: [
       {
         heading: "What AI avatars do well",
@@ -291,6 +487,72 @@ export const comparisonPosts: BlogPost[] = [
             left: { artFile: "review-hunter-x-hunter-03.jpg", caption: "Hand-drawn — specific, personal" },
             right: { artFile: "review-attack-on-titan-03.jpg", caption: "Print-ready quality" },
           },
+          {
+            type: "paragraph",
+            text: "Custom anime poster vs AI avatar generator is a permanence question. Temporary profile fun → AI. Gifts, wall art, couple portraits, likeness that survives printing → hand-drawn commission with revisions.",
+          },
+        ],
+      },
+      {
+        heading: "Why likeness matters for gifts",
+        paragraphs: [],
+        blocks: [
+          {
+            type: "paragraph",
+            text: "AI smooths faces and genericises styles. Artists preserve asymmetry, glasses, multi-person compositions, and show-specific linework — [Naruto](/portraits/naruto) cel shading vs [Ghibli-style](/portraits/ghibli-style) painterly warmth are not interchangeable filters.",
+          },
+          {
+            type: "paragraph",
+            text: "If you would frame it or cry at unwrapping, commission it. If you would forget it by next week, AI is fine. Hand-drawn anime posters cost more because they are built to last — on walls and in memory.",
+          },
+          {
+            type: "list",
+            items: [
+              "AI: fast, cheap, generic anime-ish output.",
+              "Hand-drawn: specific style, preserved likeness, revisions.",
+              "Commission for gifts, couples, families, wall art.",
+              "AI for temporary profile experiments only.",
+            ],
+          },
+        ],
+      },
+      {
+        heading: "Commission vs AI takeaway",
+        paragraphs: [],
+        blocks: [
+          {
+            type: "paragraph",
+            text: "Custom anime poster vs AI avatar generator: speed vs permanence, generic vs specific, experiment vs heirloom. AI gives an avatar; an artist gives a portrait in [Naruto](/portraits/naruto), [Ghibli-style](/portraits/ghibli-style), or [One Piece](/portraits/one-piece) language with your likeness intact.",
+          },
+          {
+            type: "paragraph",
+            text: "If you would frame it, commission it. Hand-drawn posters include unlimited revisions and print-ready files — built for walls, gifts, and couple compositions AI still mishandles.",
+          },
+          {
+            type: "paragraph",
+            text: "Anime poster vs AI avatar is not snobbery — it is use-case fit. Profile experiments vs framed gifts require different tools. Commission when likeness, specific style, and permanence matter.",
+          },
+          {
+            type: "paragraph",
+            text: "Hand drawn vs AI anime art for gifts comes down to revision control and multi-person accuracy. Artists fix hands, glasses, and group layout; algorithms guess once. Frame the difference literally.",
+          },
+          {
+            type: "paragraph",
+            text: "Custom anime portrait vs AI avatar generator — choose commission when the result must survive printing, gifting, and close scrutiny from friends who know your face.",
+          },
+          {
+            type: "list",
+            items: [
+              "AI → quick profile experiments.",
+              "Hand-drawn → gifts and wall art.",
+              "Revisions fix likeness issues.",
+              "Specific styles, not generic filters.",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "Custom anime poster vs AI avatar: commission when likeness, specific fandom style, and print permanence matter — AI for experiments only.",
+          },
         ],
       },
     ],
@@ -302,7 +564,7 @@ export const comparisonPosts: BlogPost[] = [
     title: "Full-Body vs Portrait Anime Style: Which Composition Works Best?",
     description:
       "Head-and-shoulders or full hero shot? How composition choice affects your anime portrait — with examples from DBZ, Bleach, and MHA.",
-    metaTitle: "Full-Body vs Portrait Anime Style Comparison | Anime Cabinet",
+    metaTitle: "Full-Body vs Portrait Anime Style Comparison",
     date: "2026-05-28",
     readingMinutes: 4,
     keywords: [
@@ -314,7 +576,7 @@ export const comparisonPosts: BlogPost[] = [
     ],
     category: "comparison",
     intro:
-      "Composition is one of the first decisions in a portrait order, and it shapes everything that follows. A head-and-shoulders frame emphasises expression and face. A full-body shot emphasises pose, outfit, and action. Neither is universally better — but each suits different styles, photos, and display contexts. Here's how to choose.",
+      "Composition is one of the first decisions in a portrait order, and it shapes everything that follows. A head-and-shoulders frame emphasises expression and face. A full-body shot emphasises pose, outfit, and action. This full-body vs portrait anime style comparison explains how framing affects results — with examples from DBZ, Bleach, MHA, and group cartoon scenes. Mention intended print size and room location in order notes so artists compose for the wall you actually have. Unlimited revisions are included with every order. Preview delivery is within seventy-two hours standard across all twenty-four portrait styles.",
     sections: [
       {
         heading: "Portrait framing: face-first",
@@ -368,6 +630,80 @@ export const comparisonPosts: BlogPost[] = [
           {
             type: "paragraph",
             text: "When in doubt, send your photo and tell us where you'll hang the finished piece. Composition follows context.",
+          },
+          {
+            type: "paragraph",
+            text: "Full-body vs portrait anime framing is a display decision. Desk frames favour head-and-shoulders; wall posters favour full-body action. Mention intended print size in the order notes and our artists compose accordingly.",
+          },
+        ],
+      },
+      {
+        heading: "Composition by style",
+        paragraphs: [],
+        blocks: [
+          {
+            type: "paragraph",
+            text: "Face-forward styles — [Death Note](/portraits/death-note), [Bleach](/portraits/bleach), [Arcane](/portraits/arcane) — love portrait cropping. Action styles — [DBZ](/portraits/dragon-ball-z), [MHA](/portraits/my-hero-academia), [Naruto](/portraits/naruto) — love full-body energy. Group scenes — [Simpsons](/portraits/the-simpsons) couch — are inherently full-frame.",
+          },
+          {
+            type: "paragraph",
+            text: "Full-body vs portrait anime style comparison ends where your photo begins. Match composition ambition to source material, then revise until the framing fits the wall you have in mind.",
+          },
+          {
+            type: "list",
+            items: [
+              "Portrait crop → desk frames, profile pics, face-forward styles.",
+              "Full-body → wall posters, action poses, hero compositions.",
+              "Full-scene → [Simpsons](/portraits/the-simpsons) couch, group counters.",
+              "Mention print size in order notes.",
+            ],
+          },
+        ],
+      },
+      {
+        heading: "Composition takeaway",
+        paragraphs: [],
+        blocks: [
+          {
+            type: "paragraph",
+            text: "Full-body vs portrait anime framing follows display context — desk vs wall, face-forward vs action. Mention intended print size in order notes; artists compose accordingly across [DBZ](/portraits/dragon-ball-z), [Bleach](/portraits/bleach), and [Simpsons](/portraits/the-simpsons) full-scene formats.",
+          },
+          {
+            type: "paragraph",
+            text: "When in doubt, send your photo and say where it will hang. Composition follows context — headshot source naturally suits portrait crop; action photos suit full-body hero frames.",
+          },
+          {
+            type: "paragraph",
+            text: "Full body vs portrait anime style comparison is really about display — desk frame, wall poster, or full-scene group couch. Tell us the destination; we compose the journey.",
+          },
+          {
+            type: "paragraph",
+            text: "Headshot vs full body anime art choices appear early in checkout — mention print size, room, and style in the notes. [Bleach](/portraits/bleach) portrait crops differ from [DBZ](/portraits/dragon-ball-z) full-hero frames by design, not accident.",
+          },
+          {
+            type: "paragraph",
+            text: "Anime portrait composition guide in one sentence: match framing ambition to photo and wall. When those three align, revision rounds drop sharply.",
+          },
+          {
+            type: "paragraph",
+            text: "Full body anime portrait vs headshot portrait — choose based on where it hangs and what your photo shows; mention both in order notes for best results.",
+          },
+          {
+            type: "list",
+            items: [
+              "Portrait crop → desk frames, face-forward styles.",
+              "Full-body → posters, action shonen.",
+              "Full-scene → group couch compositions.",
+              "State print size in notes.",
+            ],
+          },
+          {
+            type: "paragraph",
+            text: "Full-body vs portrait anime framing follows display context — tell us the wall, print size, and style; we compose headshot or hero frame accordingly.",
+          },
+          {
+            type: "paragraph",
+            text: "Composition questions resolve fast when you share photo, style, and intended print size in one order note.",
           },
         ],
       },

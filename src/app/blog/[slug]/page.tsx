@@ -29,6 +29,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = getPostBySlug(slug);
   if (!post) return {};
+  const hero = post.heroImage ? resolveBlockImage(post.heroImage) : null;
+  const ogImage = hero
+    ? { url: `${site.url}${hero.src}`, width: 1200, height: 514, alt: hero.alt }
+    : undefined;
   return {
     title: post.metaTitle ?? post.title,
     description: post.description,
@@ -40,6 +44,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: post.description,
       url: `${site.url}/blog/${post.slug}`,
       publishedTime: post.date,
+      ...(ogImage && { images: [ogImage] }),
+    },
+    twitter: {
+      card: "summary_large_image",
+      ...(ogImage && { images: [ogImage.url] }),
     },
   };
 }
@@ -50,6 +59,7 @@ export default async function BlogPostPage({ params }: Props) {
   if (!post) notFound();
 
   const ctaStyle = getStyleBySlug(post.ctaStyle);
+  const hero = post.heroImage ? resolveBlockImage(post.heroImage) : null;
 
   const articleJsonLd = {
     "@context": "https://schema.org",
@@ -64,11 +74,28 @@ export default async function BlogPostPage({ params }: Props) {
       logo: { "@type": "ImageObject", url: `${site.url}/logo.png` },
     },
     mainEntityOfPage: `${site.url}/blog/${post.slug}`,
+    ...(hero && { image: `${site.url}${hero.src}` }),
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: site.url },
+      { "@type": "ListItem", position: 2, name: "Blog", item: `${site.url}/blog` },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: post.title,
+        item: `${site.url}/blog/${post.slug}`,
+      },
+    ],
   };
 
   return (
     <>
       <JsonLd data={articleJsonLd} />
+      <JsonLd data={breadcrumbJsonLd} />
 
       <article className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
         <nav aria-label="Breadcrumb" className="text-xs text-faint">

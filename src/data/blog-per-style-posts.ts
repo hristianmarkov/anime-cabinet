@@ -30,7 +30,7 @@ function buildTransformPost(c: StyleBlogConfig): BlogPost {
     slug,
     title: `How to Turn Your Photo into a ${styleName}-Inspired Custom Poster`,
     description: `Turn your photo into ${c.inspiredLabel} custom artwork — style-specific tips, photo guidance, before-and-after examples, and how to order your hand-drawn poster.`,
-    metaTitle: `${primaryKw.charAt(0).toUpperCase() + primaryKw.slice(1)} From Your Photo | Anime Cabinet`,
+    metaTitle: `${primaryKw.charAt(0).toUpperCase() + primaryKw.slice(1)} From Your Photo`,
     date: c.dateTransform,
     readingMinutes: 5,
     keywords: [primaryKw, ...c.transformKeywords],
@@ -155,7 +155,7 @@ function buildGiftPost(c: StyleBlogConfig): BlogPost {
     slug,
     title: c.giftTitle,
     description: `${primaryKw.charAt(0).toUpperCase() + primaryKw.slice(1)} ideas for couples, friends, and fans — personalised poster inspiration, photo tips, and how to order hand-drawn ${c.inspiredLabel} custom artwork.`,
-    metaTitle: `${c.giftTitle} | Anime Cabinet`,
+    metaTitle: `${c.giftTitle}`,
     date: c.dateGift,
     readingMinutes: 5,
     keywords: [primaryKw, ...c.giftKeywords],
@@ -244,6 +244,20 @@ function buildGiftPost(c: StyleBlogConfig): BlogPost {
             `Before and after: ${c.inspiredLabel} custom artwork from a customer photo.`,
             c.name
           ),
+        ],
+      },
+      {
+        heading: "Gift timing and presentation tips",
+        paragraphs: [],
+        blocks: [
+          {
+            type: "paragraph",
+            text: `Order the ${primaryKw} at least a week before birthdays, anniversaries, or holidays — standard preview delivery is within ${site.deliveryHours} hours, plus revision time. Stealth gift orders from shared albums work; upload the best photo you can find and mention the occasion in the notes.`,
+          },
+          {
+            type: "paragraph",
+            text: `Frame the finished ${c.inspiredLabel} custom poster for maximum impact, or reveal the digital file over dinner. Either way, unlimited revisions mean you approve the preview before the big moment — so the reaction is gasps, not polite smiles.`,
+          },
         ],
       },
       {

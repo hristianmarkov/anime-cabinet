@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Anton, Inter } from "next/font/google";
 import { CurrencyProvider } from "@/context/CurrencyContext";
 import { Header } from "@/components/Header";
@@ -20,6 +20,10 @@ const inter = Inter({
   display: "swap",
 });
 
+export const viewport: Viewport = {
+  themeColor: "#09090b",
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
@@ -40,18 +44,21 @@ export const metadata: Metadata = {
     url: site.url,
     title: `${site.name} — ${site.tagline}`,
     description: site.description,
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: `${site.name} — ${site.tagline}` }],
   },
   twitter: {
     card: "summary_large_image",
     title: `${site.name} — ${site.tagline}`,
     description: site.description,
+    images: ["/opengraph-image"],
   },
   robots: {
     index: true,
     follow: true,
   },
   icons: {
-    icon: "/logo.png",
+    icon: [{ url: "/favicon.ico", sizes: "32x32" }, { url: "/logo.png" }],
+    apple: "/apple-touch-icon.png",
   },
 };
 

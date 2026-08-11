@@ -31,16 +31,26 @@ function buildGiftGuide(c: GiftGuideConfig): BlogPost {
   return {
     slug: `best-gifts-for-${c.styleSlug}-fans`,
     title: `Best Gifts for ${c.fanLabel} Fans`,
-    description: `The best gifts for ${c.fanLabel} fans in 2026 — from a one-of-a-kind custom portrait to figures, manga, and merch they'll actually use.`,
+    description: `The best gifts for ${c.fanLabel} fans in 2026 — custom portrait ideas, figures, manga, and merch for birthdays, holidays, and fans who already own everything.`,
+    metaTitle: `Best Gifts for ${c.fanLabel} Fans (2026)`,
     date: c.date,
     readingMinutes: 4,
     keywords: c.keywords,
-    intro: c.intro,
+    category: "gift",
+    intro: `${c.intro} This guide ranks our favourite ${c.fanLabel} gift ideas for 2026 — starting with a hand-drawn ${c.productName.toLowerCase()} they literally cannot buy anywhere else, then layering in figures, manga, and merch that complement the portrait instead of competing with it.`,
     sections: [
+      {
+        heading: "Why a custom portrait beats more merch",
+        paragraphs: [
+          `${c.fanLabel} fans can spot mass-produced gifts from across the room. They own the figure. They pre-ordered the box set. Their wishlist is a graveyard of things they already bought themselves. A ${portraitLink} solves the uniqueness problem completely — it is hand-drawn from their photo, revised until it is right, and exists for exactly one person on earth.`,
+          `That is the difference between another item on a shelf and something they hang, frame, and show every visitor. Our artists work across all twenty-four styles with unlimited revisions. The portrait is not a filter or an AI avatar — it is wall art starring them inside the ${c.fanLabel} visual world they already live in.`,
+        ],
+      },
       {
         heading: "Our top picks",
         paragraphs: [
-          `${c.fanLabel} fans are easy to shop for in theory and impossible in practice — they already own the obvious merch. Start with ${portraitLink} — something they can't buy anywhere else — then layer in a few classics.`,
+          `${c.fanLabel} fans are easy to shop for in theory and impossible in practice — they already own the obvious merch. Start with ${portraitLink} — something they cannot buy anywhere else — then layer in a few classics that pair well on a shelf or desk.`,
+          `The best gift stacks combine one emotional centrepiece (the portrait) with one or two smaller items they will actually use. Below is our ranked list for ${c.fanLabel} fans in 2026.`,
         ],
         list: [
           `${portraitLink} (Anime Cabinet) — ${c.portraitPitch}`,
@@ -50,13 +60,30 @@ function buildGiftGuide(c: GiftGuideConfig): BlogPost {
       {
         heading: "How to pick the right gift",
         paragraphs: [
-          `${c.pickParagraph} Browse [${c.fanLabel} portrait examples](/portraits/${c.styleSlug}) before you order.${relatedNote}`,
+          `${c.pickParagraph} Browse [${c.fanLabel} portrait examples](/portraits/${c.styleSlug}) before you order — seeing finished work helps you decide between solo, couple, and group compositions.${relatedNote}`,
+          `Think about how they talk about the fandom. Do they quote episodes, collect figures, or cosplay at conventions? Lore obsessives love portraits with custom details in the order notes. Collectors appreciate a portrait plus a display prop. Quiet fans often prefer something warm and frame-worthy over another loud piece of merch.`,
+          `If you are unsure which direction to take, order the portrait first. It is the gift with the highest emotional ceiling — and the one they are least likely to already own.`,
         ],
       },
       {
-        heading: "Timing tip",
+        heading: "Photo tips for surprise portrait orders",
         paragraphs: [
-          `Order a custom portrait at least a week before you need it — standard preview delivery is within ${site.deliveryHours} hours, plus revision time. Add priority delivery (+$10) if you're cutting it close. A framed print makes the reveal even better.`,
+          `You do not need a professional photo — a clear, well-lit image from their camera roll works. Face visible, minimal filters, natural expression. For stealth gift orders, grab a photo from a shared album or ask a mutual friend.`,
+          `Include context in the order notes: their favourite character energy, inside jokes, preferred poses, or background ideas. Our artists read every note and use those details to personalise the ${c.fanLabel} portrait beyond a generic template.`,
+        ],
+        list: [
+          "Pick a photo where their face is clearly visible — selfies and candid shots both work.",
+          "Avoid heavy beauty filters that flatten skin tone; artists need accurate colouring.",
+          "For group gifts, one photo per person beats one group shot with tiny faces.",
+          "Mention the occasion in the notes — birthday, anniversary, graduation — so the composition fits the moment.",
+        ],
+      },
+      {
+        heading: "Timing and presentation",
+        paragraphs: [
+          `Order a custom portrait at least a week before you need it — standard preview delivery is within ${site.deliveryHours} hours, plus revision time if they want tweaks. Add priority delivery (+$10) if you are cutting it close for a birthday or holiday.`,
+          `Presentation matters. A framed print unwrapped at dinner beats a JPEG sent over text — though setting the portrait as their phone wallpaper before the party is a underrated reveal move. Digital files arrive high-resolution and print-ready at any standard poster size.`,
+          `Every order includes unlimited revisions until the preview is approved. That means you can fine-tune details before the big moment — and they receive a finished piece that feels unmistakably theirs, not off-the-shelf.`,
         ],
       },
     ],

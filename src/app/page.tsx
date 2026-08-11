@@ -14,7 +14,7 @@ import { site } from "@/data/site";
 import { allStyles, bestSellers } from "@/data/styles";
 
 export const metadata: Metadata = {
-  title: `Custom Anime Portraits From Your Photo | ${site.name}`,
+  title: "Custom Anime Portraits From Your Photo",
   description:
     `Turn your photo into a custom anime or cartoon portrait. 24 styles — Naruto, One Piece, Ghibli, Simpsons & more. Unlimited revisions, preview within ${site.deliveryHours} hours.`,
   alternates: { canonical: "/" },

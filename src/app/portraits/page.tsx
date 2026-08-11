@@ -7,7 +7,7 @@ import { allStyles, animeStyles, cartoonStyles } from "@/data/styles";
 export const metadata: Metadata = {
   title: "All Custom Portrait Styles — 24 Anime & Cartoon Options",
   description:
-    "Browse every custom portrait style we offer: Naruto, One Piece, Dragon Ball Z, Ghibli, The Simpsons, Rick and Morty and 25+ more. Hand-drawn from your photo.",
+    "Browse every custom portrait style we offer: Naruto, One Piece, Dragon Ball Z, Ghibli, The Simpsons, Rick and Morty and 24 hand-drawn styles. Hand-drawn from your photo.",
   alternates: { canonical: "/portraits" },
 };
 
