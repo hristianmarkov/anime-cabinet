@@ -17,4 +17,6 @@ export const site = {
   expeditedHours: "24",
   artistCount: "60+",
   satisfiedBuyersBase: 7321,
+  /** Google Analytics 4 measurement ID */
+  gaMeasurementId: "G-WJCQYPH25T",
 } as const;
