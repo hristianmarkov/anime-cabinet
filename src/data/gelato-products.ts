@@ -9,6 +9,7 @@ export const GELATO_PRODUCT_UIDS: Record<string, string> = {
   "canvas-12x18": process.env.GELATO_UID_CANVAS_12X18 ?? "",
   "canvas-18x24": process.env.GELATO_UID_CANVAS_18X24 ?? "",
   "framed-12x18": process.env.GELATO_UID_FRAMED_12X18 ?? "",
+  "framed-18x24": process.env.GELATO_UID_FRAMED_18X24 ?? "",
 };
 
 export function getGelatoProductUid(formatId: string): string | null {

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getGelatoProductUid } from "@/data/gelato-products";
 import { isGelatoConfigured, quoteGelatoOrder } from "@/lib/gelato";
+import { gelatoCostToPrintAddOn } from "@/lib/gelato-pricing";
 import type { ShippingAddress } from "@/lib/schema";
 
 export async function POST(request: Request) {
@@ -50,8 +51,14 @@ export async function POST(request: Request) {
       recipient,
     });
 
+    const gelatoProduct = quote.products?.[0];
+    const printAddOnUsd = gelatoProduct?.price
+      ? gelatoCostToPrintAddOn(gelatoProduct.price)
+      : undefined;
+
     return NextResponse.json({
       quoteId: quote.quoteId,
+      printAddOnUsd,
       methods: quote.methods.map((m) => ({
         uid: m.shipmentMethodUid,
         name: m.name,

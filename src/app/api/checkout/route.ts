@@ -12,6 +12,7 @@ import {
 import { getStyleBySlug } from "@/data/styles";
 import { site } from "@/data/site";
 import { getDb } from "@/lib/db";
+import { getPrintAddOnForFormat } from "@/lib/gelato-pricing";
 import { orders, type ShippingAddress } from "@/lib/schema";
 import { getStripe } from "@/lib/stripe";
 
@@ -68,6 +69,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid order details" }, { status: 400 });
   }
 
+  let printAddOnUsd = 0;
   if (isPrintFormat(format.id)) {
     if (!payload.shippingAddress || !payload.shippingMethodUid || shippingUsd <= 0) {
       return NextResponse.json(
@@ -75,6 +77,11 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
+    printAddOnUsd = await getPrintAddOnForFormat(
+      format.id,
+      payload.shippingAddress.country,
+      payload.currency ?? "USD"
+    );
   }
 
   const totalUsd = calcTotal({
@@ -83,6 +90,7 @@ export async function POST(request: Request) {
     formatId: format.id,
     expedited,
     shippingUsd,
+    printAddOnUsd,
   });
 
   const chargeAmount = convertFromUsd(totalUsd, payload.currency ?? "USD");

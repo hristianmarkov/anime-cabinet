@@ -13,8 +13,8 @@ import {
   PRINT_SIZES,
   calcTotal,
   formatIdFromCategory,
-  getFormatPrice,
   isPrintFormat,
+  resolvePrintAddOn,
   type PrintCategory,
   type PrintSize,
   type ShippingOption,
@@ -64,9 +64,12 @@ export function OrderConfigurator({ style }: { style: PortraitStyle }) {
   const [selectedShipping, setSelectedShipping] = useState<ShippingOption | null>(null);
   const [gelatoQuoteId, setGelatoQuoteId] = useState<string | null>(null);
   const [shippingLoading, setShippingLoading] = useState(false);
+  const [printPrices, setPrintPrices] = useState<Record<string, number>>({});
+  const [printPricesLoading, setPrintPricesLoading] = useState(false);
 
   const needsShipping = isPrintFormat(formatId);
   const shippingUsd = selectedShipping?.priceUsd ?? 0;
+  const printAddOnUsd = resolvePrintAddOn(formatId, printPrices);
 
   const total = useMemo(
     () =>
@@ -76,9 +79,29 @@ export function OrderConfigurator({ style }: { style: PortraitStyle }) {
         formatId,
         expedited,
         shippingUsd,
+        printAddOnUsd,
       }),
-    [style.priceFrom, characters, formatId, expedited, shippingUsd]
+    [style.priceFrom, characters, formatId, expedited, shippingUsd, printAddOnUsd]
   );
+
+  const fetchPrintPrices = useCallback(async (country: string) => {
+    setPrintPricesLoading(true);
+    try {
+      const res = await fetch(`/api/gelato/prices?country=${encodeURIComponent(country)}`);
+      if (!res.ok) return;
+      const data = await res.json();
+      if (data.prices) setPrintPrices(data.prices);
+    } catch {
+      /* keep static fallback prices */
+    } finally {
+      setPrintPricesLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    const t = setTimeout(() => fetchPrintPrices(shipCountry), 300);
+    return () => clearTimeout(t);
+  }, [shipCountry, fetchPrintPrices]);
 
   const fetchShipping = useCallback(async () => {
     if (!needsShipping) {
@@ -120,6 +143,9 @@ export function OrderConfigurator({ style }: { style: PortraitStyle }) {
       setShippingOptions(opts);
       setGelatoQuoteId(data.quoteId);
       setSelectedShipping(opts[0] ?? null);
+      if (typeof data.printAddOnUsd === "number") {
+        setPrintPrices((prev) => ({ ...prev, [formatId]: data.printAddOnUsd }));
+      }
     } catch (e) {
       setShippingOptions([]);
       setSelectedShipping(null);
@@ -235,6 +261,11 @@ export function OrderConfigurator({ style }: { style: PortraitStyle }) {
     }
   }
 
+  function formatAddOn(category: PrintCategory, size: PrintSize): number {
+    const id = formatIdFromCategory(category, size);
+    return resolvePrintAddOn(id, printPrices);
+  }
+
   const inputBase =
     "w-full rounded-xl border border-line bg-ink px-4 py-3 text-sm text-cream placeholder:text-faint focus:border-accent focus:outline-none";
 
@@ -306,10 +337,7 @@ export function OrderConfigurator({ style }: { style: PortraitStyle }) {
             <button
               key={cat.id}
               type="button"
-              onClick={() => {
-                setPrintCategory(cat.id);
-                if (cat.id === "framed") setPrintSize("12x18");
-              }}
+              onClick={() => setPrintCategory(cat.id)}
               className={`rounded-xl border px-3 py-3 text-left transition ${
                 printCategory === cat.id
                   ? "border-accent bg-accent/10"
@@ -320,13 +348,13 @@ export function OrderConfigurator({ style }: { style: PortraitStyle }) {
               <span className="mt-0.5 block text-[11px] leading-snug text-muted">
                 {cat.id === "digital"
                   ? "Included"
-                  : `+${formatPrice(getFormatPrice(cat.id, cat.id === "framed" ? "12x18" : printSize))}`}
+                  : `+${formatPrice(formatAddOn(cat.id, printSize))}`}
               </span>
             </button>
           ))}
         </div>
 
-        {printCategory !== "digital" && printCategory !== "framed" && (
+        {printCategory !== "digital" && (
           <>
             <p className="mt-4 text-xs font-semibold uppercase tracking-wider text-faint">
               Size
@@ -345,21 +373,17 @@ export function OrderConfigurator({ style }: { style: PortraitStyle }) {
                 >
                   {sz.label}
                   <span className="mt-0.5 block text-[11px] font-normal opacity-80">
-                    +{formatPrice(getFormatPrice(printCategory, sz.id))}
+                    +{formatPrice(formatAddOn(printCategory, sz.id))}
                   </span>
                 </button>
               ))}
             </div>
             <p className="mt-2 text-xs text-muted">
-              Shipping calculated at checkout based on your country.
+              {printPricesLoading
+                ? "Loading print prices for your country…"
+                : "Print prices and shipping depend on your country."}
             </p>
           </>
-        )}
-
-        {printCategory === "framed" && (
-          <p className="mt-2 text-xs text-muted">
-            Framed prints available in 12×18&quot; only. Shipping calculated at checkout.
-          </p>
         )}
       </fieldset>
 

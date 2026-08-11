@@ -20,6 +20,7 @@ export interface GelatoShipmentMethod {
 export interface GelatoQuoteResult {
   quoteId: string;
   methods: GelatoShipmentMethod[];
+  products?: { itemReferenceId: string; productUid: string; quantity: number; price: number; currency: string }[];
 }
 
 export async function quoteGelatoOrder(params: {
@@ -87,7 +88,19 @@ export async function quoteGelatoOrder(params: {
     })
   );
 
-  return { quoteId: quote.id, methods };
+  return {
+    quoteId: quote.id,
+    methods,
+    products: (quote.products ?? []).map(
+      (p: { itemReferenceId: string; productUid: string; quantity: number; price: number; currency: string }) => ({
+        itemReferenceId: p.itemReferenceId,
+        productUid: p.productUid,
+        quantity: p.quantity,
+        price: p.price,
+        currency: p.currency,
+      })
+    ),
+  };
 }
 
 export function isGelatoConfigured(): boolean {

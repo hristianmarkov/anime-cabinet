@@ -49,8 +49,14 @@ export const PRINT_FORMATS: PrintFormat[] = [
   {
     id: "framed-12x18",
     label: 'Framed Print — 12x18"',
-    description: "Black wood frame + digital file. Shipping calculated at checkout.",
+    description: "Black frame + digital file. Shipping calculated at checkout.",
     price: 59,
+  },
+  {
+    id: "framed-18x24",
+    label: 'Framed Print — 18x24"',
+    description: "Black frame + digital file. Shipping calculated at checkout.",
+    price: 79,
   },
 ];
 
@@ -87,6 +93,8 @@ export interface CalcTotalInput {
   formatId: string;
   expedited?: boolean;
   shippingUsd?: number;
+  /** Live Gelato-based print add-on; falls back to static PRINT_FORMATS price */
+  printAddOnUsd?: number;
 }
 
 export function calcTotal({
@@ -95,11 +103,19 @@ export function calcTotal({
   formatId,
   expedited = false,
   shippingUsd = 0,
+  printAddOnUsd,
 }: CalcTotalInput): number {
   const format = PRINT_FORMATS.find((f) => f.id === formatId) ?? PRINT_FORMATS[0];
+  const addOn = printAddOnUsd ?? format.price;
   const extra = Math.max(0, characters - 1) * EXTRA_CHARACTER_PRICE;
   const rush = expedited ? EXPEDITED_PRICE : 0;
-  return Math.round((basePrice + extra + format.price + rush + shippingUsd) * 100) / 100;
+  return Math.round((basePrice + extra + addOn + rush + shippingUsd) * 100) / 100;
+}
+
+export function resolvePrintAddOn(formatId: string, printPrices?: Record<string, number>): number {
+  if (!isPrintFormat(formatId)) return 0;
+  if (printPrices?.[formatId] != null) return printPrices[formatId];
+  return PRINT_FORMATS.find((f) => f.id === formatId)?.price ?? 0;
 }
 
 export function isPrintFormat(formatId: string): boolean {
@@ -113,7 +129,7 @@ export const PRINT_CATEGORIES: { id: PrintCategory; label: string; description: 
   { id: "digital", label: "Digital File", description: "High-res file by email — print anywhere" },
   { id: "poster", label: "Poster", description: "Premium matte poster + digital file" },
   { id: "canvas", label: "Canvas", description: "Gallery-wrapped canvas + digital file" },
-  { id: "framed", label: "Framed Print", description: "Black wood frame + digital file" },
+  { id: "framed", label: "Framed Print", description: "Black frame + digital file" },
 ];
 
 export const PRINT_SIZES: { id: PrintSize; label: string }[] = [
@@ -123,13 +139,14 @@ export const PRINT_SIZES: { id: PrintSize; label: string }[] = [
 
 export function formatIdFromCategory(category: PrintCategory, size: PrintSize): string {
   if (category === "digital") return "digital";
-  if (category === "framed") return "framed-12x18";
   return `${category}-${size}`;
 }
 
 export function parseFormatId(formatId: string): { category: PrintCategory; size: PrintSize } {
   if (formatId === "digital") return { category: "digital", size: "12x18" };
-  if (formatId.startsWith("framed")) return { category: "framed", size: "12x18" };
+  if (formatId.startsWith("framed")) {
+    return { category: "framed", size: formatId.endsWith("18x24") ? "18x24" : "12x18" };
+  }
   const size = formatId.endsWith("18x24") ? "18x24" : "12x18";
   if (formatId.startsWith("poster")) return { category: "poster", size };
   if (formatId.startsWith("canvas")) return { category: "canvas", size };
