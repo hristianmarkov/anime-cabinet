@@ -68,8 +68,10 @@ export interface GalleryItem {
 }
 
 export const galleryItems: GalleryItem[] = allStyles.slice(0, 16).map((s, i) => {
-  const file = `gallery-${s.slug}.jpg`;
-  const asset = getArt(file);
+  const galleryFile = `gallery-${s.slug}.jpg`;
+  const fallbackFile = `${s.slug}-after.jpg`;
+  const asset = getArt(galleryFile) ?? getArt(fallbackFile);
+  const file = getArt(galleryFile) ? galleryFile : fallbackFile;
   return {
     id: s.slug,
     img: asset?.src ?? artSrc(file),

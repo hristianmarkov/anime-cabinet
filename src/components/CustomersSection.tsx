@@ -11,22 +11,42 @@ interface CustomersSectionProps {
   reviews: Review[];
   showAllReviews?: boolean;
   showGalleryLink?: boolean;
+  /** Use as the main page hero (e.g. /reviews) — h1 and no top border */
+  pageHeading?: boolean;
 }
 
 export function CustomersSection({
   reviews,
   showAllReviews = true,
   showGalleryLink = true,
+  pageHeading = false,
 }: CustomersSectionProps) {
   const displayed = showAllReviews ? reviews : reviews.slice(0, 3);
+  const Heading = pageHeading ? "h1" : "h2";
+  const headingClass = pageHeading
+    ? "font-display text-4xl text-cream sm:text-5xl"
+    : "font-display text-3xl text-cream sm:text-4xl";
 
   return (
-    <section id="gallery" className="border-t border-line bg-ink-soft scroll-mt-24">
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:py-20">
+    <section
+      id="gallery"
+      className={`bg-ink-soft scroll-mt-24 ${pageHeading ? "" : "border-t border-line"}`}
+    >
+      <div
+        className={`mx-auto max-w-7xl px-4 sm:px-6 ${
+          pageHeading ? "pt-12 pb-16 lg:pb-20" : "py-16 lg:py-20"
+        }`}
+      >
         <div className="mx-auto max-w-3xl text-center">
-          <h2 className="font-display text-3xl text-cream sm:text-4xl">
-            What Our Customers Say
-          </h2>
+          <Heading className={headingClass}>
+            {pageHeading ? (
+              <>
+                What Our Customers <span className="text-gradient">Say</span>
+              </>
+            ) : (
+              "What Our Customers Say"
+            )}
+          </Heading>
           <div className="mt-4 flex justify-center">
             <StarRating size="lg" />
           </div>
@@ -43,12 +63,7 @@ export function CustomersSection({
 
         <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {displayed.map((r) => (
-            <div
-              key={`${r.title}-${r.date}`}
-              className={r.image ? "md:col-span-2 lg:col-span-2" : undefined}
-            >
-              <ReviewCard review={r} />
-            </div>
+            <ReviewCard key={`${r.title}-${r.date}`} review={r} />
           ))}
         </div>
 

@@ -46,15 +46,7 @@ export default function ReviewsPage() {
     <>
       {aggregateRatingJsonLd && <JsonLd data={aggregateRatingJsonLd} />}
 
-      <section className="mx-auto max-w-3xl px-4 pt-16 text-center sm:px-6">
-        <h1 className="font-display text-4xl text-cream sm:text-5xl">Customer Reviews</h1>
-        <p className="mt-4 text-lg leading-relaxed text-muted">
-          Real feedback from customers who ordered custom anime and cartoon portraits — from
-          likeness and revisions to delivery and print quality.
-        </p>
-      </section>
-
-      <CustomersSection reviews={reviews} showGalleryLink={false} />
+      <CustomersSection reviews={reviews} showGalleryLink={false} pageHeading />
 
       <section className="border-t border-line bg-ink-soft">
         <div className="mx-auto max-w-7xl px-4 py-12 text-center sm:px-6">

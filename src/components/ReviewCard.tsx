@@ -18,26 +18,25 @@ export function ReviewCard({ review }: { review: Review }) {
       <Stars rating={review.rating} />
       <figcaption className="mt-3 text-base font-semibold text-cream">{review.title}</figcaption>
 
-      {review.image ? (
-        <div className="mt-3 flex flex-1 flex-col gap-4 sm:flex-row sm:items-stretch">
-          <blockquote className="min-w-0 flex-1 text-sm leading-relaxed text-muted">
-            &ldquo;{review.body}&rdquo;
-          </blockquote>
-          <div className="relative aspect-[4/5] w-full shrink-0 overflow-hidden rounded-xl border border-line bg-ink sm:w-32 md:w-36 lg:w-40">
+      <div className="mt-4 flex flex-1 items-start gap-4">
+        <blockquote
+          className={`text-sm leading-relaxed text-muted ${review.image ? "min-w-0 flex-1" : "w-full"}`}
+        >
+          &ldquo;{review.body}&rdquo;
+        </blockquote>
+
+        {review.image && (
+          <div className="relative h-32 w-24 shrink-0 overflow-hidden rounded-xl border border-line bg-ink sm:h-36 sm:w-28">
             <Image
               src={review.image}
               alt={reviewPortraitAlt(review)}
               fill
-              className="object-cover"
-              sizes="(max-width: 640px) 100vw, 160px"
+              className="object-contain object-center"
+              sizes="112px"
             />
           </div>
-        </div>
-      ) : (
-        <blockquote className="mt-2 flex-1 text-sm leading-relaxed text-muted">
-          &ldquo;{review.body}&rdquo;
-        </blockquote>
-      )}
+        )}
+      </div>
 
       <div className="mt-4 flex items-center justify-between border-t border-line pt-4">
         <div>

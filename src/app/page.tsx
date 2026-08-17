@@ -195,7 +195,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <CustomersSection reviews={reviews} showGalleryLink />
+      <CustomersSection reviews={reviews} showAllReviews={false} showGalleryLink />
 
       {/* How it works */}
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:py-20">
