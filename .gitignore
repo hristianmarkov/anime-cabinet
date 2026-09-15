@@ -29,5 +29,8 @@ next-env.d.ts
 # drizzle
 /drizzle
 
+# content-gen cache
+/content-schema/cache/
+
 # local tooling (Portable Git, etc.)
 /.tools/

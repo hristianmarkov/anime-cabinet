@@ -4,6 +4,7 @@ import { giftGuidePosts } from "./blog-gift-guides";
 import { giftIntentPosts } from "./blog-gift-intent";
 import { perStyleBlogPosts } from "./blog-per-style-posts";
 import { styleGuidePosts } from "./blog-style-guides";
+import { mergeBlogPosts } from "./generated/merge";
 import { site } from "./site";
 import type { BlogBlock } from "./blog-blocks";
 import { productShowcase } from "./blog-blocks";
@@ -33,7 +34,7 @@ export interface BlogPost {
   heroImage?: string;
 }
 
-export const blogPosts: BlogPost[] = [
+const _blogPosts: BlogPost[] = [
   {
     slug: "why-anime-fans-want-to-see-themselves-in-their-worlds",
     title: "Why Anime Fans Want to See Themselves in Their Favorite Worlds",
@@ -400,6 +401,8 @@ export const blogPosts: BlogPost[] = [
   ...beforeAfterPosts,
   ...comparisonPosts,
 ];
+
+export const blogPosts: BlogPost[] = mergeBlogPosts(_blogPosts);
 
 export function getPostBySlug(slug: string): BlogPost | undefined {
   return blogPosts.find((p) => p.slug === slug);

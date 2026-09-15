@@ -1,7 +1,8 @@
 export const site = {
   name: "Anime Cabinet",
   domain: "animecabinet.com",
-  url: "https://animecabinet.com",
+  /** Primary host — apex redirects to www on Vercel; keep canonicals/sitemap aligned. */
+  url: "https://www.animecabinet.com",
   tagline: "Custom Anime Portraits From Your Photos",
   description:
     "Anime Cabinet turns your photos into custom anime and cartoon portraits. 24 styles, unlimited revisions, preview delivered within 72 hours.",

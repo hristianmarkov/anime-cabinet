@@ -8,14 +8,15 @@ import { PriceFrom } from "@/components/PriceFrom";
 const LINK_RE = /\[([^\]]+)\]\(([^)]+)\)/g;
 
 function RichText({ text }: { text: string }) {
+  const safeText = text ?? "";
   const parts: React.ReactNode[] = [];
   let lastIndex = 0;
   let match: RegExpExecArray | null;
   let key = 0;
   const re = new RegExp(LINK_RE.source, "g");
 
-  while ((match = re.exec(text)) !== null) {
-    if (match.index > lastIndex) parts.push(text.slice(lastIndex, match.index));
+  while ((match = re.exec(safeText)) !== null) {
+    if (match.index > lastIndex) parts.push(safeText.slice(lastIndex, match.index));
     const href = match[2];
     if (href.startsWith("/")) {
       parts.push(
@@ -32,7 +33,7 @@ function RichText({ text }: { text: string }) {
     }
     lastIndex = match.index + match[0].length;
   }
-  if (lastIndex < text.length) parts.push(text.slice(lastIndex));
+  if (lastIndex < safeText.length) parts.push(safeText.slice(lastIndex));
   return <>{parts}</>;
 }
 
@@ -196,7 +197,7 @@ function Block({ block }: { block: BlogBlock }) {
     case "list":
       return (
         <ul className="mt-4 list-disc space-y-2 pl-6 text-muted">
-          {block.items.map((item) => (
+          {(block.items ?? []).map((item) => (
             <li key={item.slice(0, 40)} className="leading-relaxed">
               <RichText text={item} />
             </li>

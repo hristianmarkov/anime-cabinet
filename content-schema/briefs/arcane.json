@@ -1,0 +1,248 @@
+{
+  "url": "/portraits/arcane",
+  "slug": "arcane",
+  "layout": "style-landing",
+  "styleSlug": "arcane",
+  "generatedAt": "2026-09-15T23:27:00.069Z",
+  "keywords": {
+    "primary": "custom arcane portrait",
+    "onPage": [
+      "custom arcane portrait",
+      "arcane style portrait",
+      "custom cartoon portrait gift",
+      "custom cartoon portrait",
+      "custom cartoon portrait photo gift for new dad"
+    ],
+    "sendElsewhere": [
+      "/blog/arcane-inspired-custom-poster",
+      "/blog/best-gifts-for-arcane-fans",
+      "/"
+    ]
+  },
+  "wordCount": {
+    "min": 350,
+    "target": 700,
+    "max": 700
+  },
+  "serp": {
+    "keyword": "custom arcane portrait",
+    "difficulty": 28,
+    "serp": [
+      {
+        "title": "Cartoonely | Custom Cartoon Portraits by Professional Artists",
+        "url": "https://cartoonely.com/",
+        "position": 1,
+        "domainRating": 9,
+        "traffic": 144
+      },
+      {
+        "title": "Custom Cartoon Portrait",
+        "url": "https://www.etsy.com/market/custom_cartoon_portrait",
+        "position": 2,
+        "domainRating": 94,
+        "traffic": 82
+      },
+      {
+        "title": "Cartoon Pet Portraits",
+        "url": "https://petportraits.com/collections/cartoon",
+        "position": 5,
+        "domainRating": 34,
+        "traffic": 56
+      },
+      {
+        "title": "Cartoon Your Photo",
+        "url": "https://www.amazon.com/Cartoon-Your-Photo/s?k=Cartoon+Your+Photo",
+        "position": 6
+      },
+      {
+        "title": "Custom Cartoon Portrait (@customcartoonportrait)",
+        "url": "https://www.instagram.com/customcartoonportrait/",
+        "position": 9
+      }
+    ]
+  },
+  "competitors": [
+    {
+      "url": "https://www.animeportraits.us/products/faster-processing-1",
+      "wordCount": 7283,
+      "headings": [
+        "Country/region",
+        "Country/region",
+        "Language",
+        "Language",
+        "Country/region",
+        "Country/region",
+        "Language",
+        "Language",
+        "Skip The Line",
+        "Customer Reviews",
+        "Quick links",
+        "Anime Portraits",
+        "Subscribe to our emails",
+        "Country/region",
+        "Country/region",
+        "Language",
+        "Language"
+      ],
+      "intent": "how-to",
+      "excerpt": "Skip The Line &ndash; Anime Portraits Skip to content Shop Now Shop Now Anime Portraits Custom Pet Portrait Reviews Gallery FAQ Shipping About Us Affiliates Log in Country/region Afghanistan (AFN ؋) Åland Islands (EUR €) Albania (ALL L) Algeria (DZD د.ج) Andorra (EUR €) Angola (USD $) Anguilla (XCD $) Antigua &amp; Barbuda (XCD $) Argentina (USD $) Armenia (AMD դր.) Aruba (AWG ƒ) Ascension Island "
+    },
+    {
+      "url": "https://www.animeportraits.us/products/product-customizer-item-customizations",
+      "wordCount": 5869,
+      "headings": [
+        "Country/region",
+        "Country/region",
+        "Language",
+        "Language",
+        "Country/region",
+        "Country/region",
+        "Language",
+        "Language",
+        "Item Customizations",
+        "Quick links",
+        "Anime Portraits",
+        "Subscribe to our emails",
+        "Country/region",
+        "Country/region",
+        "Language",
+        "Language"
+      ],
+      "intent": "how-to",
+      "excerpt": "Item Customizations &ndash; Anime Portraits Skip to content Shop Now Shop Now Anime Portraits Custom Pet Portrait Reviews Gallery FAQ Shipping About Us Affiliates Log in Country/region Afghanistan (AFN ؋) Åland Islands (EUR €) Albania (ALL L) Algeria (DZD د.ج) Andorra (EUR €) Angola (USD $) Anguilla (XCD $) Antigua &amp; Barbuda (XCD $) Argentina (USD $) Armenia (AMD դր.) Aruba (AWG ƒ) Ascension I"
+    },
+    {
+      "url": "https://www.animeportraits.us/products/posters",
+      "wordCount": 5965,
+      "headings": [
+        "Country/region",
+        "Country/region",
+        "Language",
+        "Language",
+        "Country/region",
+        "Country/region",
+        "Language",
+        "Language",
+        "Poster",
+        "Quick links",
+        "Anime Portraits",
+        "Subscribe to our emails",
+        "Country/region",
+        "Country/region",
+        "Language",
+        "Language"
+      ],
+      "intent": "how-to",
+      "excerpt": "Poster &ndash; Anime Portraits Skip to content Shop Now Shop Now Anime Portraits Custom Pet Portrait Reviews Gallery FAQ Shipping About Us Affiliates Log in Country/region Afghanistan (AFN ؋) Åland Islands (EUR €) Albania (ALL L) Algeria (DZD د.ج) Andorra (EUR €) Angola (USD $) Anguilla (XCD $) Antigua &amp; Barbuda (XCD $) Argentina (USD $) Armenia (AMD դր.) Aruba (AWG ƒ) Ascension Island (SHP £)"
+    },
+    {
+      "url": "https://www.animeportraits.us/products/revision",
+      "wordCount": 5861,
+      "headings": [
+        "Country/region",
+        "Country/region",
+        "Language",
+        "Language",
+        "Country/region",
+        "Country/region",
+        "Language",
+        "Language",
+        "Revision",
+        "Quick links",
+        "Anime Portraits",
+        "Subscribe to our emails",
+        "Country/region",
+        "Country/region",
+        "Language",
+        "Language"
+      ],
+      "intent": "how-to",
+      "excerpt": "Revision &ndash; Anime Portraits Skip to content Shop Now Shop Now Anime Portraits Custom Pet Portrait Reviews Gallery FAQ Shipping About Us Affiliates Log in Country/region Afghanistan (AFN ؋) Åland Islands (EUR €) Albania (ALL L) Algeria (DZD د.ج) Andorra (EUR €) Angola (USD $) Anguilla (XCD $) Antigua &amp; Barbuda (XCD $) Argentina (USD $) Armenia (AMD դր.) Aruba (AWG ƒ) Ascension Island (SHP "
+    },
+    {
+      "url": "https://www.animeportraits.us/products/canvas",
+      "wordCount": 5934,
+      "headings": [
+        "Country/region",
+        "Country/region",
+        "Language",
+        "Language",
+        "Country/region",
+        "Country/region",
+        "Language",
+        "Language",
+        "Canvas",
+        "Quick links",
+        "Anime Portraits",
+        "Subscribe to our emails",
+        "Country/region",
+        "Country/region",
+        "Language",
+        "Language"
+      ],
+      "intent": "how-to",
+      "excerpt": "Canvas &ndash; Anime Portraits Skip to content Shop Now Shop Now Anime Portraits Custom Pet Portrait Reviews Gallery FAQ Shipping About Us Affiliates Log in Country/region Afghanistan (AFN ؋) Åland Islands (EUR €) Albania (ALL L) Algeria (DZD د.ج) Andorra (EUR €) Angola (USD $) Anguilla (XCD $) Antigua &amp; Barbuda (XCD $) Argentina (USD $) Armenia (AMD դր.) Aruba (AWG ƒ) Ascension Island (SHP £)"
+    }
+  ],
+  "geoQueries": [
+    "Where can I order a custom Arcane portrait?",
+    "How much does a custom Arcane portrait commission cost?",
+    "Can an artist turn my photo into a custom Arcane portrait?",
+    "What details do I need to provide for a custom Arcane portrait commission?",
+    "How long does a custom Arcane portrait usually take?",
+    "Where can I find artists who create custom Arcane-style portraits?",
+    "Can I request a custom Arcane portrait of myself, my partner, or my pet?",
+    "What is the difference between an Arcane-style portrait and a regular anime portrait?"
+  ],
+  "outline": [
+    "Country/region",
+    "Language",
+    "Skip The Line",
+    "Customer Reviews",
+    "Quick links",
+    "Anime Portraits",
+    "Subscribe to our emails",
+    "Item Customizations"
+  ],
+  "slots": [
+    {
+      "name": "metaTitle",
+      "instruction": "~60 chars, primary keyword first, include 'From Your Photo'"
+    },
+    {
+      "name": "metaDescription",
+      "instruction": "~155 chars, CTA + delivery time + unlimited revisions"
+    },
+    {
+      "name": "heroHeading",
+      "instruction": "Short punchy H1 alternative, fan-friendly tone"
+    },
+    {
+      "name": "description",
+      "instruction": "JSON array of 2-3 paragraphs, unique per style, not generic"
+    },
+    {
+      "name": "faqs",
+      "instruction": "JSON array of 2 objects {q, a}, style-specific"
+    },
+    {
+      "name": "keywords",
+      "instruction": "JSON array of 5 SEO keyword strings"
+    }
+  ],
+  "uniqueAngle": "Hand-drawn human artist (not AI filters). 24 anime & cartoon styles. Preview within 72 hours. Unlimited free revisions. Fan-art inspired style — customers as original characters, not copyrighted impersonation.",
+  "cannibalization": [
+    {
+      "url": "/blog/arcane-inspired-custom-poster",
+      "note": "Link to transform guide for how-to intent; style page owns product keywords"
+    },
+    {
+      "url": "/blog/best-gifts-for-arcane-fans",
+      "note": "Link to gift guide for gift intent"
+    },
+    {
+      "url": "/",
+      "note": "Link to homepage for brand; do not compete on generic 'custom anime portrait'"
+    }
+  ]
+}

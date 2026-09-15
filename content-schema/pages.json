@@ -1,0 +1,1164 @@
+{
+  "generatedAt": "2026-09-14T09:29:50.391Z",
+  "pages": [
+    {
+      "url": "/portraits/naruto",
+      "layout": "style-landing",
+      "slug": "naruto",
+      "styleSlug": "naruto",
+      "priority": "P0",
+      "fallbackFile": "src/data/styles-anime.ts"
+    },
+    {
+      "url": "/portraits/one-piece",
+      "layout": "style-landing",
+      "slug": "one-piece",
+      "styleSlug": "one-piece",
+      "priority": "P0",
+      "fallbackFile": "src/data/styles-anime.ts"
+    },
+    {
+      "url": "/portraits/one-piece-wanted-poster",
+      "layout": "style-landing",
+      "slug": "one-piece-wanted-poster",
+      "styleSlug": "one-piece-wanted-poster",
+      "priority": "P0",
+      "fallbackFile": "src/data/styles-anime.ts"
+    },
+    {
+      "url": "/portraits/dragon-ball-z",
+      "layout": "style-landing",
+      "slug": "dragon-ball-z",
+      "styleSlug": "dragon-ball-z",
+      "priority": "P1",
+      "fallbackFile": "src/data/styles-anime.ts"
+    },
+    {
+      "url": "/portraits/demon-slayer",
+      "layout": "style-landing",
+      "slug": "demon-slayer",
+      "styleSlug": "demon-slayer",
+      "priority": "P0",
+      "fallbackFile": "src/data/styles-anime.ts"
+    },
+    {
+      "url": "/portraits/jujutsu-kaisen",
+      "layout": "style-landing",
+      "slug": "jujutsu-kaisen",
+      "styleSlug": "jujutsu-kaisen",
+      "priority": "P1",
+      "fallbackFile": "src/data/styles-anime.ts"
+    },
+    {
+      "url": "/portraits/attack-on-titan",
+      "layout": "style-landing",
+      "slug": "attack-on-titan",
+      "styleSlug": "attack-on-titan",
+      "priority": "P1",
+      "fallbackFile": "src/data/styles-anime.ts"
+    },
+    {
+      "url": "/portraits/ghibli-style",
+      "layout": "style-landing",
+      "slug": "ghibli-style",
+      "styleSlug": "ghibli-style",
+      "priority": "P0",
+      "fallbackFile": "src/data/styles-anime.ts"
+    },
+    {
+      "url": "/portraits/pokemon",
+      "layout": "style-landing",
+      "slug": "pokemon",
+      "styleSlug": "pokemon",
+      "priority": "P1",
+      "fallbackFile": "src/data/styles-anime.ts"
+    },
+    {
+      "url": "/portraits/my-hero-academia",
+      "layout": "style-landing",
+      "slug": "my-hero-academia",
+      "styleSlug": "my-hero-academia",
+      "priority": "P1",
+      "fallbackFile": "src/data/styles-anime.ts"
+    },
+    {
+      "url": "/portraits/bleach",
+      "layout": "style-landing",
+      "slug": "bleach",
+      "styleSlug": "bleach",
+      "priority": "P1",
+      "fallbackFile": "src/data/styles-anime.ts"
+    },
+    {
+      "url": "/portraits/death-note",
+      "layout": "style-landing",
+      "slug": "death-note",
+      "styleSlug": "death-note",
+      "priority": "P1",
+      "fallbackFile": "src/data/styles-anime.ts"
+    },
+    {
+      "url": "/portraits/hunter-x-hunter",
+      "layout": "style-landing",
+      "slug": "hunter-x-hunter",
+      "styleSlug": "hunter-x-hunter",
+      "priority": "P1",
+      "fallbackFile": "src/data/styles-anime.ts"
+    },
+    {
+      "url": "/portraits/spy-x-family",
+      "layout": "style-landing",
+      "slug": "spy-x-family",
+      "styleSlug": "spy-x-family",
+      "priority": "P1",
+      "fallbackFile": "src/data/styles-anime.ts"
+    },
+    {
+      "url": "/portraits/sailor-moon",
+      "layout": "style-landing",
+      "slug": "sailor-moon",
+      "styleSlug": "sailor-moon",
+      "priority": "P1",
+      "fallbackFile": "src/data/styles-anime.ts"
+    },
+    {
+      "url": "/portraits/one-punch-man",
+      "layout": "style-landing",
+      "slug": "one-punch-man",
+      "styleSlug": "one-punch-man",
+      "priority": "P1",
+      "fallbackFile": "src/data/styles-anime.ts"
+    },
+    {
+      "url": "/portraits/solo-leveling",
+      "layout": "style-landing",
+      "slug": "solo-leveling",
+      "styleSlug": "solo-leveling",
+      "priority": "P1",
+      "fallbackFile": "src/data/styles-anime.ts"
+    },
+    {
+      "url": "/portraits/bobs-burgers",
+      "layout": "style-landing",
+      "slug": "bobs-burgers",
+      "styleSlug": "bobs-burgers",
+      "priority": "P1",
+      "fallbackFile": "src/data/styles-cartoon.ts"
+    },
+    {
+      "url": "/portraits/family-guy",
+      "layout": "style-landing",
+      "slug": "family-guy",
+      "styleSlug": "family-guy",
+      "priority": "P1",
+      "fallbackFile": "src/data/styles-cartoon.ts"
+    },
+    {
+      "url": "/portraits/the-simpsons",
+      "layout": "style-landing",
+      "slug": "the-simpsons",
+      "styleSlug": "the-simpsons",
+      "priority": "P0",
+      "fallbackFile": "src/data/styles-cartoon.ts"
+    },
+    {
+      "url": "/portraits/south-park",
+      "layout": "style-landing",
+      "slug": "south-park",
+      "styleSlug": "south-park",
+      "priority": "P1",
+      "fallbackFile": "src/data/styles-cartoon.ts"
+    },
+    {
+      "url": "/portraits/rick-and-morty",
+      "layout": "style-landing",
+      "slug": "rick-and-morty",
+      "styleSlug": "rick-and-morty",
+      "priority": "P0",
+      "fallbackFile": "src/data/styles-cartoon.ts"
+    },
+    {
+      "url": "/portraits/avatar-the-last-airbender",
+      "layout": "style-landing",
+      "slug": "avatar-the-last-airbender",
+      "styleSlug": "avatar-the-last-airbender",
+      "priority": "P1",
+      "fallbackFile": "src/data/styles-cartoon.ts"
+    },
+    {
+      "url": "/portraits/arcane",
+      "layout": "style-landing",
+      "slug": "arcane",
+      "styleSlug": "arcane",
+      "priority": "P1",
+      "fallbackFile": "src/data/styles-cartoon.ts"
+    },
+    {
+      "url": "/blog/why-anime-fans-want-to-see-themselves-in-their-worlds",
+      "layout": "blog-editorial",
+      "slug": "why-anime-fans-want-to-see-themselves-in-their-worlds",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts"
+    },
+    {
+      "url": "/blog/gift-for-anime-fan-who-has-everything",
+      "layout": "blog-editorial",
+      "slug": "gift-for-anime-fan-who-has-everything",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts"
+    },
+    {
+      "url": "/blog/shows-that-shaped-a-generation-still-hit-2026",
+      "layout": "blog-editorial",
+      "slug": "shows-that-shaped-a-generation-still-hit-2026",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts"
+    },
+    {
+      "url": "/blog/long-distance-relationships-shared-fandoms",
+      "layout": "blog-editorial",
+      "slug": "long-distance-relationships-shared-fandoms",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts"
+    },
+    {
+      "url": "/blog/why-pet-owners-commission-anime-art",
+      "layout": "blog-editorial",
+      "slug": "why-pet-owners-commission-anime-art",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts"
+    },
+    {
+      "url": "/blog/best-gifts-for-naruto-fans",
+      "layout": "blog-gift-guide",
+      "slug": "best-gifts-for-naruto-fans",
+      "styleSlug": "naruto",
+      "priority": "P1",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/best-gifts-for-one-piece-fans",
+      "layout": "blog-gift-guide",
+      "slug": "best-gifts-for-one-piece-fans",
+      "styleSlug": "one-piece",
+      "priority": "P1",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/best-gifts-for-one-piece-wanted-poster-fans",
+      "layout": "blog-gift-guide",
+      "slug": "best-gifts-for-one-piece-wanted-poster-fans",
+      "styleSlug": "one-piece-wanted-poster",
+      "priority": "P1",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/best-gifts-for-dragon-ball-z-fans",
+      "layout": "blog-gift-guide",
+      "slug": "best-gifts-for-dragon-ball-z-fans",
+      "styleSlug": "dragon-ball-z",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/best-gifts-for-demon-slayer-fans",
+      "layout": "blog-gift-guide",
+      "slug": "best-gifts-for-demon-slayer-fans",
+      "styleSlug": "demon-slayer",
+      "priority": "P1",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/best-gifts-for-jujutsu-kaisen-fans",
+      "layout": "blog-gift-guide",
+      "slug": "best-gifts-for-jujutsu-kaisen-fans",
+      "styleSlug": "jujutsu-kaisen",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/best-gifts-for-attack-on-titan-fans",
+      "layout": "blog-gift-guide",
+      "slug": "best-gifts-for-attack-on-titan-fans",
+      "styleSlug": "attack-on-titan",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/best-gifts-for-ghibli-style-fans",
+      "layout": "blog-gift-guide",
+      "slug": "best-gifts-for-ghibli-style-fans",
+      "styleSlug": "ghibli-style",
+      "priority": "P1",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/best-gifts-for-pokemon-fans",
+      "layout": "blog-gift-guide",
+      "slug": "best-gifts-for-pokemon-fans",
+      "styleSlug": "pokemon",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/best-gifts-for-my-hero-academia-fans",
+      "layout": "blog-gift-guide",
+      "slug": "best-gifts-for-my-hero-academia-fans",
+      "styleSlug": "my-hero-academia",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/best-gifts-for-bleach-fans",
+      "layout": "blog-gift-guide",
+      "slug": "best-gifts-for-bleach-fans",
+      "styleSlug": "bleach",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/best-gifts-for-death-note-fans",
+      "layout": "blog-gift-guide",
+      "slug": "best-gifts-for-death-note-fans",
+      "styleSlug": "death-note",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/best-gifts-for-hunter-x-hunter-fans",
+      "layout": "blog-gift-guide",
+      "slug": "best-gifts-for-hunter-x-hunter-fans",
+      "styleSlug": "hunter-x-hunter",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/best-gifts-for-spy-x-family-fans",
+      "layout": "blog-gift-guide",
+      "slug": "best-gifts-for-spy-x-family-fans",
+      "styleSlug": "spy-x-family",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/best-gifts-for-sailor-moon-fans",
+      "layout": "blog-gift-guide",
+      "slug": "best-gifts-for-sailor-moon-fans",
+      "styleSlug": "sailor-moon",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/best-gifts-for-one-punch-man-fans",
+      "layout": "blog-gift-guide",
+      "slug": "best-gifts-for-one-punch-man-fans",
+      "styleSlug": "one-punch-man",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/best-gifts-for-solo-leveling-fans",
+      "layout": "blog-gift-guide",
+      "slug": "best-gifts-for-solo-leveling-fans",
+      "styleSlug": "solo-leveling",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/best-gifts-for-bobs-burgers-fans",
+      "layout": "blog-gift-guide",
+      "slug": "best-gifts-for-bobs-burgers-fans",
+      "styleSlug": "bobs-burgers",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/best-gifts-for-family-guy-fans",
+      "layout": "blog-gift-guide",
+      "slug": "best-gifts-for-family-guy-fans",
+      "styleSlug": "family-guy",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/best-gifts-for-the-simpsons-fans",
+      "layout": "blog-gift-guide",
+      "slug": "best-gifts-for-the-simpsons-fans",
+      "styleSlug": "the-simpsons",
+      "priority": "P1",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/best-gifts-for-south-park-fans",
+      "layout": "blog-gift-guide",
+      "slug": "best-gifts-for-south-park-fans",
+      "styleSlug": "south-park",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/best-gifts-for-rick-and-morty-fans",
+      "layout": "blog-gift-guide",
+      "slug": "best-gifts-for-rick-and-morty-fans",
+      "styleSlug": "rick-and-morty",
+      "priority": "P1",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/best-gifts-for-avatar-the-last-airbender-fans",
+      "layout": "blog-gift-guide",
+      "slug": "best-gifts-for-avatar-the-last-airbender-fans",
+      "styleSlug": "avatar-the-last-airbender",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/best-gifts-for-arcane-fans",
+      "layout": "blog-gift-guide",
+      "slug": "best-gifts-for-arcane-fans",
+      "styleSlug": "arcane",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/custom-anime-couple-portrait-gift-ideas",
+      "layout": "blog-gift-intent",
+      "slug": "custom-anime-couple-portrait-gift-ideas",
+      "priority": "P1",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/anniversary-anime-portrait-gift-guide",
+      "layout": "blog-gift-intent",
+      "slug": "anniversary-anime-portrait-gift-guide",
+      "priority": "P1",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/best-anime-portrait-gifts-for-best-friends",
+      "layout": "blog-gift-intent",
+      "slug": "best-anime-portrait-gifts-for-best-friends",
+      "priority": "P1",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/turn-couple-photo-into-anime-poster-gift",
+      "layout": "blog-gift-intent",
+      "slug": "turn-couple-photo-into-anime-poster-gift",
+      "priority": "P1",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/anime-birthday-gift-ideas-beyond-figures",
+      "layout": "blog-gift-intent",
+      "slug": "anime-birthday-gift-ideas-beyond-figures",
+      "priority": "P1",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/cartoon-vs-anime-portrait-gift-which-wins",
+      "layout": "blog-gift-intent",
+      "slug": "cartoon-vs-anime-portrait-gift-which-wins",
+      "priority": "P1",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/personalized-anime-poster-gifts-for-valentines",
+      "layout": "blog-gift-intent",
+      "slug": "personalized-anime-poster-gifts-for-valentines",
+      "priority": "P1",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/anime-portrait-styles-explained",
+      "layout": "blog-style-guide",
+      "slug": "anime-portrait-styles-explained",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "style"
+    },
+    {
+      "url": "/blog/how-to-choose-anime-portrait-style",
+      "layout": "blog-style-guide",
+      "slug": "how-to-choose-anime-portrait-style",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "style"
+    },
+    {
+      "url": "/blog/ninja-vs-pirate-vs-superhero-portrait-styles",
+      "layout": "blog-style-guide",
+      "slug": "ninja-vs-pirate-vs-superhero-portrait-styles",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "style"
+    },
+    {
+      "url": "/blog/dark-fantasy-vs-cute-anime-portrait-styles",
+      "layout": "blog-style-guide",
+      "slug": "dark-fantasy-vs-cute-anime-portrait-styles",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "style"
+    },
+    {
+      "url": "/blog/best-anime-portrait-styles-for-couples",
+      "layout": "blog-style-guide",
+      "slug": "best-anime-portrait-styles-for-couples",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "style"
+    },
+    {
+      "url": "/blog/best-portrait-styles-for-families-and-pets",
+      "layout": "blog-style-guide",
+      "slug": "best-portrait-styles-for-families-and-pets",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "style"
+    },
+    {
+      "url": "/blog/naruto-inspired-custom-poster",
+      "layout": "blog-style-transform",
+      "slug": "naruto-inspired-custom-poster",
+      "styleSlug": "naruto",
+      "priority": "P1",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "style"
+    },
+    {
+      "url": "/blog/one-piece-inspired-custom-poster",
+      "layout": "blog-style-transform",
+      "slug": "one-piece-inspired-custom-poster",
+      "styleSlug": "one-piece",
+      "priority": "P1",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "style"
+    },
+    {
+      "url": "/blog/one-piece-wanted-poster-inspired-custom-poster",
+      "layout": "blog-style-transform",
+      "slug": "one-piece-wanted-poster-inspired-custom-poster",
+      "styleSlug": "one-piece-wanted-poster",
+      "priority": "P1",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "style"
+    },
+    {
+      "url": "/blog/dragon-ball-z-inspired-custom-poster",
+      "layout": "blog-style-transform",
+      "slug": "dragon-ball-z-inspired-custom-poster",
+      "styleSlug": "dragon-ball-z",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "style"
+    },
+    {
+      "url": "/blog/demon-slayer-inspired-custom-poster",
+      "layout": "blog-style-transform",
+      "slug": "demon-slayer-inspired-custom-poster",
+      "styleSlug": "demon-slayer",
+      "priority": "P1",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "style"
+    },
+    {
+      "url": "/blog/jujutsu-kaisen-inspired-custom-poster",
+      "layout": "blog-style-transform",
+      "slug": "jujutsu-kaisen-inspired-custom-poster",
+      "styleSlug": "jujutsu-kaisen",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "style"
+    },
+    {
+      "url": "/blog/attack-on-titan-inspired-custom-poster",
+      "layout": "blog-style-transform",
+      "slug": "attack-on-titan-inspired-custom-poster",
+      "styleSlug": "attack-on-titan",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "style"
+    },
+    {
+      "url": "/blog/ghibli-style-inspired-custom-poster",
+      "layout": "blog-style-transform",
+      "slug": "ghibli-style-inspired-custom-poster",
+      "styleSlug": "ghibli-style",
+      "priority": "P1",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "style"
+    },
+    {
+      "url": "/blog/pokemon-inspired-custom-poster",
+      "layout": "blog-style-transform",
+      "slug": "pokemon-inspired-custom-poster",
+      "styleSlug": "pokemon",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "style"
+    },
+    {
+      "url": "/blog/my-hero-academia-inspired-custom-poster",
+      "layout": "blog-style-transform",
+      "slug": "my-hero-academia-inspired-custom-poster",
+      "styleSlug": "my-hero-academia",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "style"
+    },
+    {
+      "url": "/blog/bleach-inspired-custom-poster",
+      "layout": "blog-style-transform",
+      "slug": "bleach-inspired-custom-poster",
+      "styleSlug": "bleach",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "style"
+    },
+    {
+      "url": "/blog/death-note-inspired-custom-poster",
+      "layout": "blog-style-transform",
+      "slug": "death-note-inspired-custom-poster",
+      "styleSlug": "death-note",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "style"
+    },
+    {
+      "url": "/blog/hunter-x-hunter-inspired-custom-poster",
+      "layout": "blog-style-transform",
+      "slug": "hunter-x-hunter-inspired-custom-poster",
+      "styleSlug": "hunter-x-hunter",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "style"
+    },
+    {
+      "url": "/blog/spy-x-family-inspired-custom-poster",
+      "layout": "blog-style-transform",
+      "slug": "spy-x-family-inspired-custom-poster",
+      "styleSlug": "spy-x-family",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "style"
+    },
+    {
+      "url": "/blog/sailor-moon-inspired-custom-poster",
+      "layout": "blog-style-transform",
+      "slug": "sailor-moon-inspired-custom-poster",
+      "styleSlug": "sailor-moon",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "style"
+    },
+    {
+      "url": "/blog/one-punch-man-inspired-custom-poster",
+      "layout": "blog-style-transform",
+      "slug": "one-punch-man-inspired-custom-poster",
+      "styleSlug": "one-punch-man",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "style"
+    },
+    {
+      "url": "/blog/solo-leveling-inspired-custom-poster",
+      "layout": "blog-style-transform",
+      "slug": "solo-leveling-inspired-custom-poster",
+      "styleSlug": "solo-leveling",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "style"
+    },
+    {
+      "url": "/blog/bobs-burgers-inspired-custom-poster",
+      "layout": "blog-style-transform",
+      "slug": "bobs-burgers-inspired-custom-poster",
+      "styleSlug": "bobs-burgers",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "style"
+    },
+    {
+      "url": "/blog/family-guy-inspired-custom-poster",
+      "layout": "blog-style-transform",
+      "slug": "family-guy-inspired-custom-poster",
+      "styleSlug": "family-guy",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "style"
+    },
+    {
+      "url": "/blog/the-simpsons-inspired-custom-poster",
+      "layout": "blog-style-transform",
+      "slug": "the-simpsons-inspired-custom-poster",
+      "styleSlug": "the-simpsons",
+      "priority": "P1",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "style"
+    },
+    {
+      "url": "/blog/south-park-inspired-custom-poster",
+      "layout": "blog-style-transform",
+      "slug": "south-park-inspired-custom-poster",
+      "styleSlug": "south-park",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "style"
+    },
+    {
+      "url": "/blog/avatar-the-last-airbender-inspired-custom-poster",
+      "layout": "blog-style-transform",
+      "slug": "avatar-the-last-airbender-inspired-custom-poster",
+      "styleSlug": "avatar-the-last-airbender",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "style"
+    },
+    {
+      "url": "/blog/arcane-inspired-custom-poster",
+      "layout": "blog-style-transform",
+      "slug": "arcane-inspired-custom-poster",
+      "styleSlug": "arcane",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "style"
+    },
+    {
+      "url": "/blog/rick-and-morty-inspired-custom-poster",
+      "layout": "blog-style-transform",
+      "slug": "rick-and-morty-inspired-custom-poster",
+      "styleSlug": "rick-and-morty",
+      "priority": "P1",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "style"
+    },
+    {
+      "url": "/blog/naruto-inspired-poster-gift-ideas",
+      "layout": "blog-style-gift",
+      "slug": "naruto-inspired-poster-gift-ideas",
+      "styleSlug": "naruto",
+      "priority": "P1",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/one-piece-inspired-poster-gift-ideas",
+      "layout": "blog-style-gift",
+      "slug": "one-piece-inspired-poster-gift-ideas",
+      "styleSlug": "one-piece",
+      "priority": "P1",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/one-piece-wanted-poster-inspired-poster-gift-ideas",
+      "layout": "blog-style-gift",
+      "slug": "one-piece-wanted-poster-inspired-poster-gift-ideas",
+      "styleSlug": "one-piece-wanted-poster",
+      "priority": "P1",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/dragon-ball-z-inspired-poster-gift-ideas",
+      "layout": "blog-style-gift",
+      "slug": "dragon-ball-z-inspired-poster-gift-ideas",
+      "styleSlug": "dragon-ball-z",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/demon-slayer-inspired-poster-gift-ideas",
+      "layout": "blog-style-gift",
+      "slug": "demon-slayer-inspired-poster-gift-ideas",
+      "styleSlug": "demon-slayer",
+      "priority": "P1",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/jujutsu-kaisen-inspired-poster-gift-ideas",
+      "layout": "blog-style-gift",
+      "slug": "jujutsu-kaisen-inspired-poster-gift-ideas",
+      "styleSlug": "jujutsu-kaisen",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/attack-on-titan-inspired-poster-gift-ideas",
+      "layout": "blog-style-gift",
+      "slug": "attack-on-titan-inspired-poster-gift-ideas",
+      "styleSlug": "attack-on-titan",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/ghibli-style-inspired-poster-gift-ideas",
+      "layout": "blog-style-gift",
+      "slug": "ghibli-style-inspired-poster-gift-ideas",
+      "styleSlug": "ghibli-style",
+      "priority": "P1",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/pokemon-inspired-poster-gift-ideas",
+      "layout": "blog-style-gift",
+      "slug": "pokemon-inspired-poster-gift-ideas",
+      "styleSlug": "pokemon",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/my-hero-academia-inspired-poster-gift-ideas",
+      "layout": "blog-style-gift",
+      "slug": "my-hero-academia-inspired-poster-gift-ideas",
+      "styleSlug": "my-hero-academia",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/bleach-inspired-poster-gift-ideas",
+      "layout": "blog-style-gift",
+      "slug": "bleach-inspired-poster-gift-ideas",
+      "styleSlug": "bleach",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/death-note-inspired-poster-gift-ideas",
+      "layout": "blog-style-gift",
+      "slug": "death-note-inspired-poster-gift-ideas",
+      "styleSlug": "death-note",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/hunter-x-hunter-inspired-poster-gift-ideas",
+      "layout": "blog-style-gift",
+      "slug": "hunter-x-hunter-inspired-poster-gift-ideas",
+      "styleSlug": "hunter-x-hunter",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/spy-x-family-inspired-poster-gift-ideas",
+      "layout": "blog-style-gift",
+      "slug": "spy-x-family-inspired-poster-gift-ideas",
+      "styleSlug": "spy-x-family",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/sailor-moon-inspired-poster-gift-ideas",
+      "layout": "blog-style-gift",
+      "slug": "sailor-moon-inspired-poster-gift-ideas",
+      "styleSlug": "sailor-moon",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/one-punch-man-inspired-poster-gift-ideas",
+      "layout": "blog-style-gift",
+      "slug": "one-punch-man-inspired-poster-gift-ideas",
+      "styleSlug": "one-punch-man",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/solo-leveling-inspired-poster-gift-ideas",
+      "layout": "blog-style-gift",
+      "slug": "solo-leveling-inspired-poster-gift-ideas",
+      "styleSlug": "solo-leveling",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/bobs-burgers-inspired-poster-gift-ideas",
+      "layout": "blog-style-gift",
+      "slug": "bobs-burgers-inspired-poster-gift-ideas",
+      "styleSlug": "bobs-burgers",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/family-guy-inspired-poster-gift-ideas",
+      "layout": "blog-style-gift",
+      "slug": "family-guy-inspired-poster-gift-ideas",
+      "styleSlug": "family-guy",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/the-simpsons-inspired-poster-gift-ideas",
+      "layout": "blog-style-gift",
+      "slug": "the-simpsons-inspired-poster-gift-ideas",
+      "styleSlug": "the-simpsons",
+      "priority": "P1",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/south-park-inspired-poster-gift-ideas",
+      "layout": "blog-style-gift",
+      "slug": "south-park-inspired-poster-gift-ideas",
+      "styleSlug": "south-park",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/avatar-the-last-airbender-inspired-poster-gift-ideas",
+      "layout": "blog-style-gift",
+      "slug": "avatar-the-last-airbender-inspired-poster-gift-ideas",
+      "styleSlug": "avatar-the-last-airbender",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/arcane-inspired-poster-gift-ideas",
+      "layout": "blog-style-gift",
+      "slug": "arcane-inspired-poster-gift-ideas",
+      "styleSlug": "arcane",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/rick-and-morty-inspired-poster-gift-ideas",
+      "layout": "blog-style-gift",
+      "slug": "rick-and-morty-inspired-poster-gift-ideas",
+      "styleSlug": "rick-and-morty",
+      "priority": "P1",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "gift"
+    },
+    {
+      "url": "/blog/photo-to-anime-poster-real-examples",
+      "layout": "blog-before-after",
+      "slug": "photo-to-anime-poster-real-examples",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "transformation"
+    },
+    {
+      "url": "/blog/couple-photo-anime-portrait-transformation",
+      "layout": "blog-before-after",
+      "slug": "couple-photo-anime-portrait-transformation",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "transformation"
+    },
+    {
+      "url": "/blog/best-photo-types-for-anime-portrait-orders",
+      "layout": "blog-before-after",
+      "slug": "best-photo-types-for-anime-portrait-orders",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "transformation"
+    },
+    {
+      "url": "/blog/what-makes-a-good-photo-for-anime-transformation",
+      "layout": "blog-before-after",
+      "slug": "what-makes-a-good-photo-for-anime-transformation",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "transformation"
+    },
+    {
+      "url": "/blog/selfie-to-anime-poster-does-it-work",
+      "layout": "blog-before-after",
+      "slug": "selfie-to-anime-poster-does-it-work",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "transformation"
+    },
+    {
+      "url": "/blog/family-photo-cartoon-portrait-transformation",
+      "layout": "blog-before-after",
+      "slug": "family-photo-cartoon-portrait-transformation",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "transformation"
+    },
+    {
+      "url": "/blog/pet-photo-anime-portrait-transformation",
+      "layout": "blog-before-after",
+      "slug": "pet-photo-anime-portrait-transformation",
+      "priority": "P2",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "transformation"
+    },
+    {
+      "url": "/blog/anime-portrait-vs-cartoon-portrait",
+      "layout": "blog-comparison",
+      "slug": "anime-portrait-vs-cartoon-portrait",
+      "priority": "P1",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "comparison"
+    },
+    {
+      "url": "/blog/dark-anime-vs-cute-anime-portrait-styles",
+      "layout": "blog-comparison",
+      "slug": "dark-anime-vs-cute-anime-portrait-styles",
+      "priority": "P1",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "comparison"
+    },
+    {
+      "url": "/blog/best-anime-style-for-couples-compared",
+      "layout": "blog-comparison",
+      "slug": "best-anime-style-for-couples-compared",
+      "priority": "P1",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "comparison"
+    },
+    {
+      "url": "/blog/custom-anime-poster-vs-ai-avatar-generator",
+      "layout": "blog-comparison",
+      "slug": "custom-anime-poster-vs-ai-avatar-generator",
+      "priority": "P1",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "comparison"
+    },
+    {
+      "url": "/blog/full-body-vs-portrait-anime-style-comparison",
+      "layout": "blog-comparison",
+      "slug": "full-body-vs-portrait-anime-style-comparison",
+      "priority": "P1",
+      "fallbackFile": "src/data/blog.ts",
+      "category": "comparison"
+    },
+    {
+      "url": "/",
+      "layout": "home",
+      "slug": "home",
+      "priority": "P0",
+      "fallbackFile": "src/app/page.tsx"
+    },
+    {
+      "url": "/portraits",
+      "layout": "static-page",
+      "slug": "portraits",
+      "priority": "P0",
+      "fallbackFile": "src/app/portraits/page.tsx"
+    },
+    {
+      "url": "/how-it-works",
+      "layout": "static-page",
+      "slug": "how-it-works",
+      "priority": "P1",
+      "fallbackFile": "src/app/how-it-works/page.tsx"
+    },
+    {
+      "url": "/reviews",
+      "layout": "static-page",
+      "slug": "reviews",
+      "priority": "P1",
+      "fallbackFile": "src/app/reviews/page.tsx"
+    },
+    {
+      "url": "/faq",
+      "layout": "static-page",
+      "slug": "faq",
+      "priority": "P1",
+      "fallbackFile": "src/app/faq/page.tsx"
+    },
+    {
+      "url": "/about",
+      "layout": "static-page",
+      "slug": "about",
+      "priority": "P2",
+      "fallbackFile": "src/app/about/page.tsx"
+    },
+    {
+      "url": "/contact",
+      "layout": "static-page",
+      "slug": "contact",
+      "priority": "P2",
+      "fallbackFile": "src/app/contact/page.tsx"
+    },
+    {
+      "url": "/blog",
+      "layout": "static-page",
+      "slug": "blog",
+      "priority": "P1",
+      "fallbackFile": "src/app/blog/page.tsx"
+    },
+    {
+      "url": "/shipping",
+      "layout": "static-page",
+      "slug": "shipping",
+      "priority": "P2",
+      "fallbackFile": "src/app/shipping/page.tsx"
+    },
+    {
+      "url": "/refund-policy",
+      "layout": "static-page",
+      "slug": "refund-policy",
+      "priority": "P2",
+      "fallbackFile": "src/app/refund-policy/page.tsx"
+    },
+    {
+      "url": "/privacy-policy",
+      "layout": "static-page",
+      "slug": "privacy-policy",
+      "priority": "P2",
+      "fallbackFile": "src/app/privacy-policy/page.tsx"
+    },
+    {
+      "url": "/terms",
+      "layout": "static-page",
+      "slug": "terms",
+      "priority": "P2",
+      "fallbackFile": "src/app/terms/page.tsx"
+    }
+  ]
+}

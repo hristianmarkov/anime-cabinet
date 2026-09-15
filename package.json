@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "db:generate": "drizzle-kit generate",
-    "db:push": "drizzle-kit push"
+    "db:push": "drizzle-kit push",
+    "content-schema": "tsx scripts/build-content-schema.ts",
+    "content-gen": "tsx scripts/content-gen.ts"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.1.0",
@@ -28,6 +30,7 @@
     "@types/react-dom": "^19.2.3",
     "drizzle-kit": "^0.31.10",
     "tailwindcss": "^4.3.2",
+    "tsx": "^4.21.0",
     "typescript": "^6.0.3"
   }
 }
