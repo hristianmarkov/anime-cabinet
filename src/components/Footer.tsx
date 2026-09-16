@@ -82,7 +82,7 @@ export function Footer() {
                 ["/blog", "Blog"],
                 ["/contact", "Contact"],
                 ["/shipping", "Shipping & Delivery"],
-                ["/refund-policy", "Refunds & Revisions"],
+                ["/refund-policy", "Refund & Cancellation Policy"],
                 ["/privacy-policy", "Privacy Policy"],
                 ["/terms", "Terms of Service"],
               ].map(([href, label]) => (
