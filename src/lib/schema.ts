@@ -1,3 +1,4 @@
+import { sql } from "drizzle-orm";
 import {
   boolean,
   integer,
@@ -52,9 +53,7 @@ export const orders = pgTable("orders", {
   gelatoOrderId: text("gelato_order_id"),
   gelatoFulfillmentStatus: text("gelato_fulfillment_status"),
   printFileUrl: text("print_file_url"),
-  trackToken: text("track_token")
-    .$defaultFn(() => crypto.randomUUID())
-    .notNull(),
+  trackToken: text("track_token").default(sql`gen_random_uuid()`).notNull(),
   productionScheduledAt: timestamp("production_scheduled_at", { withTimezone: true }),
   trackingNumber: text("tracking_number"),
   trackingUrl: text("tracking_url"),
