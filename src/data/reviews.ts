@@ -1283,6 +1283,15 @@ export const reviews: Review[] = [
   },
 ];
 
+export function shuffleReviews<T>(items: readonly T[]): T[] {
+  const shuffled = [...items];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
+
 /**
  * PLACEHOLDER STATS — legacy export; homepage uses StatsBar component.
  * Set SHOW_STATS = false to hide stats entirely until you have real numbers.

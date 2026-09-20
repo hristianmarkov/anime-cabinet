@@ -8,11 +8,7 @@ export interface StyleArtPrompt {
   showTitle: string;
   medium: "anime" | "cartoon";
   prompt: string;
-  negativePrompt: string;
 }
-
-const SHARED_NEGATIVE =
-  "photorealistic, 3D render, AI slop, western cartoon unless specified, chibi unless requested, low detail, blurry, distorted faces, extra fingers, extra limbs, wrong number of people, unrecognizable likeness, copied existing named character from the show, official logo, watermark, text, title card, UI";
 
 function posterPrompt(input: {
   showTitle: string;
@@ -45,7 +41,6 @@ const PROMPTS: Record<string, Omit<StyleArtPrompt, "styleSlug">> = {
       look: "bold shonen linework, expressive Naruto-style eyes, cel shading, shinobi outfits, forehead protectors, kunai pouches, bandages, subtle chakra aura and wind movement",
       world: "Hidden Leaf village energy — rooftops, mountains, swirling leaves, smoke, sunset or battle lighting",
     }),
-    negativePrompt: SHARED_NEGATIVE,
   },
   "one-piece": {
     showTitle: "One Piece",
@@ -56,7 +51,6 @@ const PROMPTS: Record<string, Omit<StyleArtPrompt, "styleSlug">> = {
       look: "adventurous pirate-anime proportions, bold outlines, saturated colors, straw-hat crew energy, sea-worn coats, sashes, belts, dynamic swagger",
       world: "Grand Line adventure — ship deck, ocean waves, storm clouds, tropical islands, golden-hour adventure light",
     }),
-    negativePrompt: SHARED_NEGATIVE,
   },
   "one-piece-wanted-poster": {
     showTitle: "One Piece",
@@ -68,7 +62,6 @@ const PROMPTS: Record<string, Omit<StyleArtPrompt, "styleSlug">> = {
       world: "bounty-poster layout on weathered parchment with pirate-world mood (do not add readable text or numbers — leave name/bounty areas blank for us to typeset later)",
       extra: "Composition should feel like an in-universe wanted poster while subjects remain original characters based on the photo.",
     }),
-    negativePrompt: `${SHARED_NEGATIVE}, readable words, bounty numbers`,
   },
   "dragon-ball-z": {
     showTitle: "Dragon Ball Z",
@@ -79,7 +72,6 @@ const PROMPTS: Record<string, Omit<StyleArtPrompt, "styleSlug">> = {
       look: "muscular shonen anatomy, spiky hair energy, DBZ-style shading, battle-worn gi or training gear, power-up stance, aura and speed lines",
       world: "rocky wasteland, cracked earth, glowing sky, ki explosion lighting",
     }),
-    negativePrompt: SHARED_NEGATIVE,
   },
   "demon-slayer": {
     showTitle: "Demon Slayer",
@@ -90,7 +82,6 @@ const PROMPTS: Record<string, Omit<StyleArtPrompt, "styleSlug">> = {
       look: "Taisho-era haori patterns, nichirin blade details, soft yet sharp Ufotable-influenced shading, elegant breathing-style motion",
       world: "wisteria, moonlight forest, embers, water or flame breathing visual effects",
     }),
-    negativePrompt: SHARED_NEGATIVE,
   },
   "jujutsu-kaisen": {
     showTitle: "Jujutsu Kaisen",
@@ -101,7 +92,6 @@ const PROMPTS: Record<string, Omit<StyleArtPrompt, "styleSlug">> = {
       look: "modern dark shonen fashion, high-contrast shadows, cursed-energy effects, confident sorcerer posture",
       world: "urban night Tokyo mood, cursed aura, debris, dramatic blue and red energy accents",
     }),
-    negativePrompt: SHARED_NEGATIVE,
   },
   "attack-on-titan": {
     showTitle: "Attack on Titan",
@@ -112,7 +102,6 @@ const PROMPTS: Record<string, Omit<StyleArtPrompt, "styleSlug">> = {
       look: "Survey Corps ODM gear, capes, vertical maneuvering harness, gritty anime realism, intense eyes",
       world: "walls, rooftops, clouds of steam, epic scale sky, battle tension",
     }),
-    negativePrompt: SHARED_NEGATIVE,
   },
   "ghibli-style": {
     showTitle: "Studio Ghibli",
@@ -123,7 +112,6 @@ const PROMPTS: Record<string, Omit<StyleArtPrompt, "styleSlug">> = {
       look: "hand-painted Ghibli film softness, gentle features, natural hair, cozy clothing, warm storybook charm",
       world: "lush countryside, floating clouds, golden afternoon light, whimsical nature details",
     }),
-    negativePrompt: SHARED_NEGATIVE,
   },
   pokemon: {
     showTitle: "Pokémon",
@@ -135,7 +123,6 @@ const PROMPTS: Record<string, Omit<StyleArtPrompt, "styleSlug">> = {
       world: "route path, tall grass, poké-world town hints, cheerful sky",
       extra: "If a pet is in the order notes, treat it as a partner creature in Pokémon anime style.",
     }),
-    negativePrompt: `${SHARED_NEGATIVE}, specific named Pokémon species unless requested in notes`,
   },
   "my-hero-academia": {
     showTitle: "My Hero Academia",
@@ -146,7 +133,6 @@ const PROMPTS: Record<string, Omit<StyleArtPrompt, "styleSlug">> = {
       look: "hero costume design, bold comic-anime shading, dynamic hero pose, quirk energy effects",
       world: "city skyline, hero training ground, action poster motion blur and impact frames",
     }),
-    negativePrompt: SHARED_NEGATIVE,
   },
   bleach: {
     showTitle: "Bleach",
@@ -157,7 +143,6 @@ const PROMPTS: Record<string, Omit<StyleArtPrompt, "styleSlug">> = {
       look: "soul reaper uniform or stylish shinigami fashion, zanpakuto, flowing fabric, sharp Bleach-era anime edges",
       world: "spiritual pressure, moonlit rooftops, reishi particles, dramatic contrast",
     }),
-    negativePrompt: SHARED_NEGATIVE,
   },
   "death-note": {
     showTitle: "Death Note",
@@ -168,7 +153,6 @@ const PROMPTS: Record<string, Omit<StyleArtPrompt, "styleSlug">> = {
       look: "psychological thriller anime realism, sharp shadows, intelligent gaze, minimalist dark wardrobe",
       world: "noir city lights, crimson accent lighting, tense atmosphere (no readable notebook text)",
     }),
-    negativePrompt: `${SHARED_NEGATIVE}, readable Death Note text`,
   },
   "hunter-x-hunter": {
     showTitle: "Hunter × Hunter",
@@ -179,7 +163,6 @@ const PROMPTS: Record<string, Omit<StyleArtPrompt, "styleSlug">> = {
       look: "adventurer outfits, nen aura hints, expressive HxH-style faces, tactical gear",
       world: "wilderness, ruins, or hunter exam energy with adventurous sky",
     }),
-    negativePrompt: SHARED_NEGATIVE,
   },
   "spy-x-family": {
     showTitle: "Spy × Family",
@@ -190,7 +173,6 @@ const PROMPTS: Record<string, Omit<StyleArtPrompt, "styleSlug">> = {
       look: "stylish retro-modern fashion, warm family-comedy anime cleanliness, spy elegance when suitable",
       world: "Berlint city charm, cozy interiors or classy evening streets",
     }),
-    negativePrompt: SHARED_NEGATIVE,
   },
   "sailor-moon": {
     showTitle: "Sailor Moon",
@@ -201,7 +183,6 @@ const PROMPTS: Record<string, Omit<StyleArtPrompt, "styleSlug">> = {
       look: "magical-girl sparkle, sailor-style costume design, elegant lashes, pastel highlights, graceful pose",
       world: "moonlight, stars, ribbons of light, magical girl transformation energy",
     }),
-    negativePrompt: SHARED_NEGATIVE,
   },
   "one-punch-man": {
     showTitle: "One Punch Man",
@@ -212,7 +193,6 @@ const PROMPTS: Record<string, Omit<StyleArtPrompt, "styleSlug">> = {
       look: "hero costume satire or serious hero suit, OPM anime shading, deadpan or epic expression as fits the photo",
       world: "city destruction humor or heroic sky punch lighting",
     }),
-    negativePrompt: SHARED_NEGATIVE,
   },
   "solo-leveling": {
     showTitle: "Solo Leveling",
@@ -223,7 +203,6 @@ const PROMPTS: Record<string, Omit<StyleArtPrompt, "styleSlug">> = {
       look: "dark fantasy hunter gear, glowing eyes optional, sleek manhwa-anime hybrid rendering, power scaling aura",
       world: "dungeon gates, shadow soldiers mist, purple and blue magical glow",
     }),
-    negativePrompt: SHARED_NEGATIVE,
   },
   "bobs-burgers": {
     showTitle: "Bob's Burgers",
@@ -234,7 +213,6 @@ const PROMPTS: Record<string, Omit<StyleArtPrompt, "styleSlug">> = {
       look: "Bob's Burgers flat 2D sitcom design, simple shapes, thick outlines, warm humor faces",
       world: "Ocean Avenue / diner neighborhood cartoon background",
     }),
-    negativePrompt: SHARED_NEGATIVE,
   },
   "family-guy": {
     showTitle: "Family Guy",
@@ -245,7 +223,6 @@ const PROMPTS: Record<string, Omit<StyleArtPrompt, "styleSlug">> = {
       look: "Family Guy adult-sitcom proportions, bold black outlines, simplified facial features",
       world: "suburban Quahog-style street or living-room cartoon set",
     }),
-    negativePrompt: SHARED_NEGATIVE,
   },
   "the-simpsons": {
     showTitle: "The Simpsons",
@@ -256,7 +233,6 @@ const PROMPTS: Record<string, Omit<StyleArtPrompt, "styleSlug">> = {
       look: "yellow Simpsons skin tone, overbite charm, Simpsons sitcom linework, Springfield wardrobe",
       world: "Springfield neighborhood, couch gag energy, bright cartoon sky",
     }),
-    negativePrompt: SHARED_NEGATIVE,
   },
   "south-park": {
     showTitle: "South Park",
@@ -267,7 +243,6 @@ const PROMPTS: Record<string, Omit<StyleArtPrompt, "styleSlug">> = {
       look: "South Park construction-paper cutout style, simple shapes, minimal shading, funny stiff pose allowed",
       world: "Colorado mountain town snow or bus-stop cartoon background",
     }),
-    negativePrompt: SHARED_NEGATIVE,
   },
   "rick-and-morty": {
     showTitle: "Rick and Morty",
@@ -278,7 +253,6 @@ const PROMPTS: Record<string, Omit<StyleArtPrompt, "styleSlug">> = {
       look: "Rick and Morty sci-fi sitcom linework, wobbly pupils, portal sci-fi gadgets",
       world: "alien dimension, portal green glow, chaotic space garage",
     }),
-    negativePrompt: SHARED_NEGATIVE,
   },
   "avatar-the-last-airbender": {
     showTitle: "Avatar: The Last Airbender",
@@ -289,7 +263,6 @@ const PROMPTS: Record<string, Omit<StyleArtPrompt, "styleSlug">> = {
       look: "ATLA animation style, martial arts stance, elemental bending motion, practical fantasy clothing",
       world: "element-themed landscape — air temples, water tribe ice, fire nation ash, or earth kingdom rocks",
     }),
-    negativePrompt: SHARED_NEGATIVE,
   },
   arcane: {
     showTitle: "Arcane",
@@ -300,7 +273,6 @@ const PROMPTS: Record<string, Omit<StyleArtPrompt, "styleSlug">> = {
       look: "Arcane painterly 3D-to-2D illustration look, brushy textures, dramatic facial lighting, Piltover/Zaun fashion",
       world: "steampunk city skyline, hextech glow, gritty cinematic color grading",
     }),
-    negativePrompt: SHARED_NEGATIVE,
   },
 };
 
@@ -323,6 +295,5 @@ export function getStyleArtPromptOrFallback(styleSlug: string, styleName: string
       look: "show-accurate linework, color palette, and costume design language",
       world: "iconic environments and mood from that series",
     }),
-    negativePrompt: SHARED_NEGATIVE,
   };
 }

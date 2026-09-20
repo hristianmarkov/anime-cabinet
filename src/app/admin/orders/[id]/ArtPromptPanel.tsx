@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { combineArtPromptForOrder } from "../../actions";
 import type { StyleArtPrompt } from "@/data/style-art-prompts";
 
 export function ArtPromptPanel({
@@ -13,7 +14,6 @@ export function ArtPromptPanel({
   customerNotes: string;
 }) {
   const [combinedPrompt, setCombinedPrompt] = useState("");
-  const [combinedNegative, setCombinedNegative] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState<"base" | "combined" | null>(null);
@@ -22,15 +22,9 @@ export function ArtPromptPanel({
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch("/api/admin/generate-art-prompt", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ orderId }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Request failed");
+      const data = await combineArtPromptForOrder(orderId);
+      if (!data.ok) throw new Error(data.error || "Request failed");
       setCombinedPrompt(data.prompt);
-      setCombinedNegative(data.negativePrompt);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
     } finally {
@@ -43,8 +37,6 @@ export function ArtPromptPanel({
     setCopied(which);
     setTimeout(() => setCopied(null), 2000);
   }
-
-  const baseBlock = `${stylePrompt.prompt}\n\nNegative prompt: ${stylePrompt.negativePrompt}`;
 
   return (
     <article className="rounded-2xl border border-line bg-surface p-6 shadow-card">
@@ -75,20 +67,10 @@ export function ArtPromptPanel({
         className="mt-2 w-full rounded-xl border border-line bg-ink px-4 py-3 text-sm leading-relaxed text-cream"
       />
 
-      <label className="mt-3 block text-xs font-semibold uppercase text-faint">
-        Negative prompt
-      </label>
-      <textarea
-        readOnly
-        rows={3}
-        value={stylePrompt.negativePrompt}
-        className="mt-2 w-full rounded-xl border border-line bg-ink px-4 py-3 text-sm text-muted"
-      />
-
       <div className="mt-4 flex flex-wrap gap-2">
         <button
           type="button"
-          onClick={() => copyText(baseBlock, "base")}
+          onClick={() => copyText(stylePrompt.prompt, "base")}
           className="rounded-full border border-line px-4 py-2 text-xs font-semibold text-cream hover:bg-line"
         >
           {copied === "base" ? "Copied" : "Copy base prompt"}
@@ -116,27 +98,9 @@ export function ArtPromptPanel({
             value={combinedPrompt}
             className="mt-2 w-full rounded-xl border border-flame/30 bg-ink px-4 py-3 text-sm leading-relaxed text-cream"
           />
-          {combinedNegative && (
-            <>
-              <label className="mt-3 block text-xs font-semibold uppercase text-faint">
-                Combined negative prompt
-              </label>
-              <textarea
-                readOnly
-                rows={3}
-                value={combinedNegative}
-                className="mt-2 w-full rounded-xl border border-line bg-ink px-4 py-3 text-sm text-muted"
-              />
-            </>
-          )}
           <button
             type="button"
-            onClick={() =>
-              copyText(
-                `${combinedPrompt}\n\nNegative prompt: ${combinedNegative}`,
-                "combined"
-              )
-            }
+            onClick={() => copyText(combinedPrompt, "combined")}
             className="mt-3 rounded-full border border-line px-4 py-2 text-xs font-semibold text-cream hover:bg-line"
           >
             {copied === "combined" ? "Copied" : "Copy combined prompt"}

@@ -10,7 +10,7 @@ export interface CombineArtPromptInput {
 
 export async function combineArtPromptWithOpenAI(
   input: CombineArtPromptInput
-): Promise<{ prompt: string; negativePrompt: string }> {
+): Promise<{ prompt: string }> {
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
     throw new Error("OPENAI_API_KEY is not configured.");
@@ -26,14 +26,12 @@ Rules:
 - Honor customer notes for poses, outfits, pets, relationships, inside jokes, and background requests when compatible.
 - Respect character count: ${input.characters}.
 - Background preference from order form: ${input.backgroundChoice}.
-- Output JSON only: {"prompt":"...","negativePrompt":"..."}
-- Prompt should be one cohesive block an artist or image model can follow; stay under 220 words for prompt.
-- Include a strong negativePrompt string.`;
+- Output JSON only: {"prompt":"..."}
+- Prompt should be one cohesive block an artist or image model can follow; stay under 220 words for prompt.`;
 
   const user = JSON.stringify(
     {
       styleTemplate: input.stylePrompt.prompt,
-      templateNegative: input.stylePrompt.negativePrompt,
       customerNotes: input.customerNotes.trim() || "(none)",
       characters: input.characters,
       backgroundChoice: input.backgroundChoice,
@@ -71,9 +69,9 @@ Rules:
   const raw = data.choices?.[0]?.message?.content;
   if (!raw) throw new Error("Empty OpenAI response");
 
-  let parsed: { prompt?: string; negativePrompt?: string };
+  let parsed: { prompt?: string };
   try {
-    parsed = JSON.parse(raw) as { prompt?: string; negativePrompt?: string };
+    parsed = JSON.parse(raw) as { prompt?: string };
   } catch {
     throw new Error("OpenAI returned invalid JSON");
   }
@@ -84,6 +82,5 @@ Rules:
 
   return {
     prompt: parsed.prompt.trim(),
-    negativePrompt: (parsed.negativePrompt ?? input.stylePrompt.negativePrompt).trim(),
   };
 }

@@ -10,7 +10,7 @@ import { StyleCard } from "@/components/StyleCard";
 import { getGiftGuideForStyle } from "@/data/blog";
 import { globalFaqs } from "@/data/faqs";
 import { getShowcase } from "@/data/gallery";
-import { REVIEWS_ARE_REAL, reviews } from "@/data/reviews";
+import { REVIEWS_ARE_REAL, reviews, shuffleReviews } from "@/data/reviews";
 import { site } from "@/data/site";
 import { allStyles, getStyleBySlug } from "@/data/styles";
 
@@ -60,8 +60,8 @@ export default async function StylePage({ params }: Props) {
   if (!style) notFound();
 
   const pageFaqs = [...style.faqs, ...globalFaqs.slice(0, 4)];
-  const styleReviews = reviews.filter((r) => r.style === style.name).slice(0, 3);
-  const shownReviews = styleReviews.length > 0 ? styleReviews : reviews.slice(0, 3);
+  const styleReviews = shuffleReviews(reviews.filter((r) => r.style === style.name)).slice(0, 3);
+  const shownReviews = styleReviews.length > 0 ? styleReviews : shuffleReviews(reviews).slice(0, 3);
   const related = allStyles
     .filter((s) => s.slug !== style.slug && s.category === style.category)
     .slice(0, 4);

@@ -17,13 +17,60 @@ export function verifyPassword(input: string): boolean {
   return a.length === b.length && timingSafeEqual(a, b);
 }
 
-export async function isAdminAuthenticated(): Promise<boolean> {
-  if (!process.env.ADMIN_PASSWORD) return false;
-  const store = await cookies();
-  const cookie = store.get(ADMIN_COOKIE)?.value;
-  if (!cookie) return false;
-  const expected = sessionToken();
+function adminSessionFromCookieHeader(header: string | null): string | undefined {
+  if (!header) return undefined;
+  for (const part of header.split(";")) {
+    const trimmed = part.trim();
+    if (!trimmed.startsWith(`${ADMIN_COOKIE}=`)) continue;
+    const value = trimmed.slice(ADMIN_COOKIE.length + 1);
+    try {
+      return decodeURIComponent(value);
+    } catch {
+      return value;
+    }
+  }
+  return undefined;
+}
+
+function verifyAdminSessionCookie(cookie: string | undefined): boolean {
+  if (!cookie || !process.env.ADMIN_PASSWORD) return false;
+  let expected: string;
+  try {
+    expected = sessionToken();
+  } catch {
+    return false;
+  }
   const a = Buffer.from(cookie);
   const b = Buffer.from(expected);
   return a.length === b.length && timingSafeEqual(a, b);
+}
+
+/** Pass `request` from Route Handlers so the session cookie is read from the incoming Cookie header. */
+export async function isAdminAuthenticated(request?: Request): Promise<boolean> {
+  if (!process.env.ADMIN_PASSWORD) return false;
+
+  let cookie: string | undefined;
+  try {
+    cookie = (await cookies()).get(ADMIN_COOKIE)?.value;
+  } catch {
+    cookie = undefined;
+  }
+
+  if (!cookie && request) {
+    cookie = adminSessionFromCookieHeader(request.headers.get("cookie"));
+  }
+
+  return verifyAdminSessionCookie(cookie);
+}
+
+export function adminCookieDomain(): string | undefined {
+  if (process.env.NODE_ENV !== "production") return undefined;
+  const host =
+    process.env.NEXT_PUBLIC_SITE_URL?.replace(/^https?:\/\//, "").split("/")[0] ??
+    process.env.VERCEL_PROJECT_PRODUCTION_URL ??
+    process.env.VERCEL_URL;
+  if (host?.endsWith("animecabinet.com")) {
+    return ".animecabinet.com";
+  }
+  return undefined;
 }

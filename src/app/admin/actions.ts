@@ -15,10 +15,12 @@ import {
 import { statusAfterArtworkApproval } from "@/lib/orderWorkflow";
 import {
   ADMIN_COOKIE,
+  adminCookieDomain,
   isAdminAuthenticated,
   sessionToken,
   verifyPassword,
 } from "@/lib/adminAuth";
+import { generateArtPromptForOrder } from "@/lib/generateArtPromptForOrder";
 import { addOrderTimelineEvent } from "@/lib/orderTimeline";
 import { getLatestSentDelivery } from "@/lib/orderDeliveries";
 import { notifyCustomerOfStatusChange } from "@/lib/orderStatusEmails";
@@ -43,6 +45,7 @@ export async function login(formData: FormData): Promise<void> {
   const store = await cookies();
   store.set(ADMIN_COOKIE, sessionToken(), {
     ...COOKIE_OPTIONS,
+    domain: adminCookieDomain(),
     maxAge: 60 * 60 * 24 * 14,
   });
   redirect("/admin");
@@ -50,8 +53,29 @@ export async function login(formData: FormData): Promise<void> {
 
 export async function logout(): Promise<void> {
   const store = await cookies();
-  store.set(ADMIN_COOKIE, "", { ...COOKIE_OPTIONS, maxAge: 0 });
+  store.set(ADMIN_COOKIE, "", { ...COOKIE_OPTIONS, domain: adminCookieDomain(), maxAge: 0 });
   redirect("/admin");
+}
+
+export async function combineArtPromptForOrder(orderId: string) {
+  if (!(await isAdminAuthenticated())) {
+    return { ok: false as const, error: "Unauthorized. Log in again at /admin." };
+  }
+
+  try {
+    const result = await generateArtPromptForOrder(orderId);
+    if (!result.ok) {
+      return { ok: false as const, error: result.error };
+    }
+    return {
+      ok: true as const,
+      prompt: result.prompt,
+    };
+  } catch (error) {
+    console.error("combineArtPromptForOrder:", error);
+    const message = error instanceof Error ? error.message : "Generation failed";
+    return { ok: false as const, error: message };
+  }
 }
 
 export async function updateOrderStatus(formData: FormData): Promise<void> {

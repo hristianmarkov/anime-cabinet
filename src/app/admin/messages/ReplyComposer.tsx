@@ -15,6 +15,7 @@ export function ReplyComposer({ inquiryId }: { inquiryId: string }) {
     try {
       const res = await fetch("/api/admin/generate-contact-reply", {
         method: "POST",
+        credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ inquiryId, adminNotes }),
       });

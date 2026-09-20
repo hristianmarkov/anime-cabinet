@@ -1,11 +1,9 @@
-"use client";
-
 import Link from "next/link";
 import { AnimatedGallery } from "@/components/AnimatedGallery";
 import { ReviewCard } from "@/components/ReviewCard";
 import { StarRating } from "@/components/StarRating";
 import { galleryItems } from "@/data/gallery";
-import type { Review } from "@/data/reviews";
+import { shuffleReviews, type Review } from "@/data/reviews";
 
 interface CustomersSectionProps {
   reviews: Review[];
@@ -21,7 +19,7 @@ export function CustomersSection({
   showGalleryLink = true,
   pageHeading = false,
 }: CustomersSectionProps) {
-  const displayed = showAllReviews ? reviews : reviews.slice(0, 3);
+  const displayed = shuffleReviews(reviews).slice(0, showAllReviews ? reviews.length : 3);
   const Heading = pageHeading ? "h1" : "h2";
   const headingClass = pageHeading
     ? "font-display text-4xl text-cream sm:text-5xl"
