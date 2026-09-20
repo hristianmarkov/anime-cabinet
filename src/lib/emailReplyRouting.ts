@@ -3,21 +3,19 @@ import { site } from "@/data/site";
 const INBOUND_PREFIX_ORDER = "orders+";
 const INBOUND_PREFIX_CONTACT = "contact+";
 
-export function inboundEmailDomain(): string | null {
-  const domain = process.env.EMAIL_INBOUND_DOMAIN?.trim();
-  return domain && domain.length > 0 ? domain : null;
+/** Subdomain where Resend receives mail (never use ADMIN_EMAIL for customer Reply-To). */
+export function inboundEmailDomain(): string {
+  const configured = process.env.EMAIL_INBOUND_DOMAIN?.trim();
+  if (configured) return configured;
+  return `reply.${site.domain}`;
 }
 
 export function orderReplyToAddress(trackToken: string): string {
-  const domain = inboundEmailDomain();
-  if (domain) return `${INBOUND_PREFIX_ORDER}${trackToken}@${domain}`;
-  return process.env.ADMIN_EMAIL ?? site.email;
+  return `${INBOUND_PREFIX_ORDER}${trackToken}@${inboundEmailDomain()}`;
 }
 
 export function contactReplyToAddress(inquiryId: string): string {
-  const domain = inboundEmailDomain();
-  if (domain) return `${INBOUND_PREFIX_CONTACT}${inquiryId}@${domain}`;
-  return process.env.ADMIN_EMAIL ?? site.email;
+  return `${INBOUND_PREFIX_CONTACT}${inquiryId}@${inboundEmailDomain()}`;
 }
 
 export function parseInboundRecipient(address: string): { kind: "order"; trackToken: string } | { kind: "contact"; inquiryId: string } | null {
