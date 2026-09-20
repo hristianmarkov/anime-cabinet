@@ -27,7 +27,7 @@ import { getLatestSentDelivery } from "@/lib/orderDeliveries";
 import { notifyCustomerOfStatusChange } from "@/lib/orderStatusEmails";
 import { createGelatoPrintOrder, isGelatoConfigured } from "@/lib/gelato";
 import { sendOrderDeliveryToCustomer } from "@/lib/sendOrderDelivery";
-import { uploadOrderDeliveryImages } from "@/lib/uploadOrderDeliveryImages";
+import { createDeliveryUploadToken } from "@/lib/adminDeliveryUploadToken";
 
 const COOKIE_OPTIONS = {
   httpOnly: true,
@@ -137,34 +137,31 @@ export async function updateOrderStatus(formData: FormData): Promise<void> {
   }
 }
 
+export async function getDeliveryUploadToken(orderId: string) {
+  if (!(await isAdminAuthenticated())) {
+    return { ok: false as const, error: "Unauthorized. Log in again at /admin." };
+  }
+  const trimmed = orderId.trim();
+  if (!trimmed) {
+    return { ok: false as const, error: "orderId is required" };
+  }
+  return { ok: true as const, token: createDeliveryUploadToken(trimmed) };
+}
+
 export async function sendDelivery(formData: FormData): Promise<void> {
   if (!(await isAdminAuthenticated())) return;
 
   const orderId = String(formData.get("orderId") ?? "");
   const comment = String(formData.get("comment") ?? "");
+  const imageUrlsRaw = String(formData.get("imageUrls") ?? "[]");
   let imageUrls: string[] = [];
-
-  const artworkFiles = formData
-    .getAll("artwork")
-    .filter((entry): entry is File => entry instanceof File && entry.size > 0);
-
-  if (artworkFiles.length > 0) {
-    try {
-      imageUrls = await uploadOrderDeliveryImages(orderId, artworkFiles);
-    } catch (err) {
-      const message = err instanceof Error ? err.message : "Upload failed";
-      redirect(`/admin/orders/${orderId}?error=${encodeURIComponent(message)}`);
+  try {
+    const parsed = JSON.parse(imageUrlsRaw) as unknown;
+    if (Array.isArray(parsed)) {
+      imageUrls = parsed.filter((u): u is string => typeof u === "string");
     }
-  } else {
-    const imageUrlsRaw = String(formData.get("imageUrls") ?? "[]");
-    try {
-      const parsed = JSON.parse(imageUrlsRaw) as unknown;
-      if (Array.isArray(parsed)) {
-        imageUrls = parsed.filter((u): u is string => typeof u === "string");
-      }
-    } catch {
-      redirect(`/admin/orders/${orderId}?error=invalid_images`);
-    }
+  } catch {
+    redirect(`/admin/orders/${orderId}?error=invalid_images`);
   }
 
   const result = await sendOrderDeliveryToCustomer({ orderId, comment, imageUrls });

@@ -1,11 +1,14 @@
 import { handleUpload, type HandleUploadBody } from "@vercel/blob/client";
 import { NextResponse } from "next/server";
-import { isAdminAuthenticated } from "@/lib/adminAuth";
+import {
+  assertDeliveryUploadPathAllowed,
+  canAdminUseBlobUpload,
+} from "@/lib/adminBlobUploadAuth";
 
 export const dynamic = "force-dynamic";
 
 export async function POST(request: Request): Promise<NextResponse> {
-  if (!(await isAdminAuthenticated(request))) {
+  if (!(await canAdminUseBlobUpload(request))) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -16,9 +19,7 @@ export async function POST(request: Request): Promise<NextResponse> {
       body,
       request,
       onBeforeGenerateToken: async (pathname) => {
-        if (!pathname.startsWith("orders/deliveries/")) {
-          throw new Error("Invalid upload path");
-        }
+        assertDeliveryUploadPathAllowed(request, pathname);
         return {
           allowedContentTypes: [
             "image/jpeg",

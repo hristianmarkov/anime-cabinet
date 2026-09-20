@@ -1,7 +1,14 @@
 "use client";
 
+import { upload } from "@vercel/blob/client";
 import { useMemo, useState } from "react";
-import { draftDeliveryMessageForOrder, sendDelivery } from "../../actions";
+import {
+  draftDeliveryMessageForOrder,
+  getDeliveryUploadToken,
+  sendDelivery,
+} from "../../actions";
+
+const MAX_FILE_BYTES = 100 * 1024 * 1024;
 
 export function SendDeliveryForm({
   orderId,
@@ -46,14 +53,40 @@ export function SendDeliveryForm({
       return;
     }
 
+    for (const file of files) {
+      if (file.size > MAX_FILE_BYTES) {
+        setError(`File too large (max 100MB each): ${file.name}`);
+        return;
+      }
+    }
+
     setUploading(true);
     try {
+      const tokenResult = await getDeliveryUploadToken(orderId);
+      if (!tokenResult.ok) {
+        throw new Error(tokenResult.error || "Could not start upload");
+      }
+      const uploadHeaders = { Authorization: `Bearer ${tokenResult.token}` };
+
+      const imageUrls: string[] = [];
+      for (const file of files) {
+        const safeName = file.name.replace(/[^a-zA-Z0-9.\-_]/g, "_");
+        const blob = await upload(
+          `orders/deliveries/${orderId}/${Date.now()}-${safeName}`,
+          file,
+          {
+            access: "public",
+            handleUploadUrl: "/api/admin/blob-upload",
+            headers: uploadHeaders,
+          }
+        );
+        imageUrls.push(blob.url);
+      }
+
       const formData = new FormData();
       formData.set("orderId", orderId);
       formData.set("comment", comment);
-      for (const file of files) {
-        formData.append("artwork", file);
-      }
+      formData.set("imageUrls", JSON.stringify(imageUrls));
       await sendDelivery(formData);
     } catch (err) {
       if (
@@ -94,7 +127,10 @@ export function SendDeliveryForm({
           onChange={(e) => setFiles(Array.from(e.target.files ?? []))}
           className="mt-2 block w-full text-sm text-muted file:mr-4 file:rounded-full file:border-0 file:bg-accent file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white"
         />
-        <p className="mt-1 text-xs text-faint">{fileLabel}</p>
+        <p className="mt-1 text-xs text-faint">
+          {fileLabel}
+          {files.length > 0 && " · Large files upload directly to storage (up to 100MB each)."}
+        </p>
       </div>
 
       <div>
