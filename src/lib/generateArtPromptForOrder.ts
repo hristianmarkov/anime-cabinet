@@ -33,7 +33,8 @@ export async function generateArtPromptForOrder(orderId: string): Promise<Genera
   const combined = await combineArtPromptWithOpenAI({
     stylePrompt,
     customerNotes: order.notes,
-    characters: order.characters,
+    humanCharacterCount: order.characters,
+    referencePhotoCount: order.photoUrls?.length ?? 0,
     backgroundChoice: backgroundLabel,
     expedited: order.expedited,
   });

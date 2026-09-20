@@ -32,12 +32,31 @@ async function main() {
   const art = await combineArtPromptWithOpenAI({
     stylePrompt,
     customerNotes: "Include our dog in the background, heroic pose.",
-    characters: 2,
+    humanCharacterCount: 2,
+    referencePhotoCount: 2,
     backgroundChoice: "Custom scene",
     expedited: false,
   });
   console.log("\nArt prompt OK — length:", art.prompt.length);
   console.log("Preview:", art.prompt.slice(0, 120) + "…");
+
+  const ghibli = getStyleArtPromptOrFallback("ghibli-style", "Studio Ghibli");
+  const memorial = await combineArtPromptWithOpenAI({
+    stylePrompt: ghibli,
+    humanCharacterCount: 1,
+    referencePhotoCount: 1,
+    backgroundChoice: "Classic scene from the show",
+    customerNotes:
+      "Gift for our veterinarian. Photo is our two dogs Ribeye (black Basenji) and Tig (yellow Lab), both passed. Capture their sweet recognizable faces. Warm, peaceful, happy.",
+    expedited: false,
+  });
+  console.log("\nMemorial pet edge case OK — length:", memorial.prompt.length);
+  const lower = memorial.prompt.toLowerCase();
+  if (lower.includes("sole human") || lower.includes("veterinarian's face shape")) {
+    console.error("FAIL: prompt wrongly treats dog photo as human likeness");
+    process.exit(1);
+  }
+  console.log("Preview:", memorial.prompt.slice(0, 200) + "…");
 
   const reply = await draftContactReplyWithOpenAI({
     customerName: "Alex",

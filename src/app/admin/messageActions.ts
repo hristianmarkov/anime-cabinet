@@ -15,6 +15,19 @@ import {
   replyEmailSubject,
   threadReplyHeaders,
 } from "@/lib/emailThreading";
+import { generateContactReplyForInquiry } from "@/lib/generateContactReplyForInquiry";
+
+export async function draftContactReplyForInquiry(inquiryId: string, adminNotes?: string) {
+  if (!(await isAdminAuthenticated())) {
+    return { ok: false as const, error: "Unauthorized. Log in again at /admin." };
+  }
+
+  const result = await generateContactReplyForInquiry(inquiryId, adminNotes);
+  if (!result.ok) {
+    return { ok: false as const, error: result.error };
+  }
+  return { ok: true as const, draft: result.draft };
+}
 
 export async function closeInquiry(formData: FormData): Promise<void> {
   if (!(await isAdminAuthenticated())) return;

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { sendInquiryReply } from "../messageActions";
+import { draftContactReplyForInquiry, sendInquiryReply } from "../messageActions";
 
 export function ReplyComposer({ inquiryId }: { inquiryId: string }) {
   const [draft, setDraft] = useState("");
@@ -13,14 +13,8 @@ export function ReplyComposer({ inquiryId }: { inquiryId: string }) {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch("/api/admin/generate-contact-reply", {
-        method: "POST",
-        credentials: "include",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ inquiryId, adminNotes }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Request failed");
+      const data = await draftContactReplyForInquiry(inquiryId, adminNotes);
+      if (!data.ok) throw new Error(data.error || "Request failed");
       setDraft(data.draft);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
