@@ -1,6 +1,8 @@
 import { eq } from "drizzle-orm";
 import { getDb } from "@/lib/db";
+import { recordInboundContactThreadHeaders } from "@/lib/contactThreadState";
 import { extractRoutingFromRecipients } from "@/lib/emailReplyRouting";
+import { headerValue, normalizeRfcMessageId } from "@/lib/emailThreading";
 import { addOrderTimelineEvent } from "@/lib/orderTimeline";
 import {
   contactInquiries,
@@ -32,6 +34,7 @@ export async function processInboundEmail(input: {
   subject: string;
   text: string | null;
   html: string | null;
+  headers?: Record<string, string>;
 }): Promise<{ handled: boolean; kind?: string }> {
   const route = extractRoutingFromRecipients(input.to);
   const bodyRaw = input.text?.trim() || input.html?.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim() || "";
@@ -88,11 +91,21 @@ export async function processInboundEmail(input: {
       return { handled: false };
     }
 
+    const inboundMessageId = headerValue(input.headers, "Message-ID");
+    const normalizedInboundId = inboundMessageId
+      ? normalizeRfcMessageId(inboundMessageId)
+      : null;
+
     await db.insert(contactMessages).values({
       inquiryId: inquiry.id,
       direction: "inbound",
       body: `[Email] ${input.subject}\n\n${body}`,
+      rfcMessageId: normalizedInboundId,
     });
+
+    if (input.headers) {
+      await recordInboundContactThreadHeaders(inquiry.id, input.headers);
+    }
 
     await db.update(contactInquiries).set({ status: "open" }).where(eq(contactInquiries.id, inquiry.id));
 

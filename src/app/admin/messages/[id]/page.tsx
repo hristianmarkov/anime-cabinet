@@ -6,7 +6,7 @@ import { getDb } from "@/lib/db";
 import { isAdminAuthenticated } from "@/lib/adminAuth";
 import { contactInquiries, contactMessages, type ContactMessage } from "@/lib/schema";
 import { AdminShell } from "../../AdminShell";
-import { closeInquiry, logInboundMessage } from "../../messageActions";
+import { closeInquiry } from "../../messageActions";
 import { ReplyComposer } from "../ReplyComposer";
 
 export const metadata: Metadata = {
@@ -115,23 +115,6 @@ export default async function AdminMessageDetailPage({
             </div>
           ))}
         </div>
-
-        <form action={logInboundMessage} className="mt-6 rounded-2xl border border-line bg-surface p-4">
-          <input type="hidden" name="inquiryId" value={inquiry.id} />
-          <label className="text-xs font-semibold text-faint">Log inbound email</label>
-          <textarea
-            name="body"
-            rows={3}
-            className="mt-2 w-full rounded-xl border border-line bg-ink px-4 py-3 text-sm text-cream"
-            placeholder="Paste a reply they sent by email…"
-          />
-          <button
-            type="submit"
-            className="mt-2 rounded-full border border-line px-4 py-2 text-xs font-semibold text-muted hover:text-cream"
-          >
-            Add to thread
-          </button>
-        </form>
 
         {inquiry.status === "open" && <ReplyComposer inquiryId={inquiry.id} />}
       </section>

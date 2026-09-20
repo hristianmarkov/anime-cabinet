@@ -4,6 +4,7 @@ import { eq } from "drizzle-orm";
 import { getDb } from "@/lib/db";
 import { site } from "@/data/site";
 import { contactInquiries, contactMessages, orders } from "@/lib/schema";
+import { defaultThreadSubject } from "@/lib/contactThreadState";
 import { contactReplyToAddress } from "@/lib/emailReplyRouting";
 
 export async function POST(request: Request) {
@@ -35,6 +36,7 @@ export async function POST(request: Request) {
       name,
       email: order.email,
       subject,
+      threadSubject: defaultThreadSubject(subject),
       linkedOrderId: order.id,
       status: "open",
     })

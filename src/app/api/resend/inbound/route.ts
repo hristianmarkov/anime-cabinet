@@ -57,6 +57,7 @@ export async function POST(request: Request) {
       subject: email.subject || event.data.subject || "",
       text: email.text,
       html: email.html,
+      headers: email.headers,
     });
     return NextResponse.json({ ok: true, ...result });
   } catch (err) {

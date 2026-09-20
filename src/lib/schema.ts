@@ -131,6 +131,10 @@ export const contactInquiries = pgTable("contact_inquiries", {
   subject: text("subject").notNull(),
   status: text("status").$type<ContactInquiryStatus>().default("open").notNull(),
   linkedOrderId: text("linked_order_id"),
+  /** Subject line shared across the customer email thread (without Re:). */
+  threadSubject: text("thread_subject"),
+  lastRfcMessageId: text("last_rfc_message_id"),
+  emailReferences: text("email_references"),
 });
 
 export type ContactInquiry = typeof contactInquiries.$inferSelect;
@@ -140,6 +144,7 @@ export const contactMessages = pgTable("contact_messages", {
   inquiryId: uuid("inquiry_id").notNull(),
   direction: text("direction").$type<"inbound" | "outbound">().notNull(),
   body: text("body").notNull(),
+  rfcMessageId: text("rfc_message_id"),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
 });
 

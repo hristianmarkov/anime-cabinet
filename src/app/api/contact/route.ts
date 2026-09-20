@@ -2,7 +2,9 @@ import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { site } from "@/data/site";
 import { getDb } from "@/lib/db";
+import { recordOutboundContactThread } from "@/lib/contactThreadState";
 import { contactReplyToAddress } from "@/lib/emailReplyRouting";
+import { buildRfcMessageId, contactAckSubject } from "@/lib/emailThreading";
 import { contactInquiries, contactMessages } from "@/lib/schema";
 
 const SUBJECTS = ["Order help", "Group quote", "New style request", "Commercial use", "Other"] as const;
@@ -88,16 +90,27 @@ export async function POST(request: Request) {
   });
 
   if (inquiryId) {
-    await resend.emails.send({
+    const threadSubject = contactAckSubject(subject);
+    const ackMessageId = buildRfcMessageId(`contact-ack-${inquiryId}`);
+    const { error: ackError } = await resend.emails.send({
       from,
       to: email,
       replyTo: contactReplyToAddress(inquiryId),
-      subject: `We received your message — ${subject}`,
+      subject: threadSubject,
+      headers: { "Message-ID": ackMessageId },
       html: `<p>Hi ${name},</p>
              <p>Thanks for contacting ${site.name}. We received your message and will reply within 24 hours.</p>
              <p>You can reply to this email to add more detail — it goes to the same thread our team sees.</p>
              <p style="color:#777">— The ${site.name} team</p>`,
     });
+    if (!ackError) {
+      await recordOutboundContactThread(inquiryId, {
+        threadSubject,
+        outboundMessageId: ackMessageId,
+        priorReferences: null,
+        priorLastId: null,
+      });
+    }
   }
 
   return NextResponse.json({ ok: true });

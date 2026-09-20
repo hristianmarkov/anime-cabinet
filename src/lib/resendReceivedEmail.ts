@@ -4,6 +4,7 @@ export interface ReceivedEmailContent {
   subject: string;
   from: string;
   to: string[];
+  headers: Record<string, string>;
 }
 
 export async function fetchReceivedEmail(emailId: string): Promise<ReceivedEmailContent> {
@@ -25,6 +26,7 @@ export async function fetchReceivedEmail(emailId: string): Promise<ReceivedEmail
     to?: string[];
     text?: string | null;
     html?: string | null;
+    headers?: Record<string, string>;
   };
 
   return {
@@ -33,5 +35,6 @@ export async function fetchReceivedEmail(emailId: string): Promise<ReceivedEmail
     to: Array.isArray(data.to) ? data.to : [],
     text: data.text ?? null,
     html: data.html ?? null,
+    headers: data.headers ?? {},
   };
 }
