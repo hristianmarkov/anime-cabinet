@@ -2,7 +2,11 @@
   "crons": [
     {
       "path": "/api/cron/order-deliveries",
-      "schedule": "0 * * * *"
+      "schedule": "15 * * * *"
+    },
+    {
+      "path": "/api/cron/gelato-sync",
+      "schedule": "30 * * * *"
     }
   ]
 }

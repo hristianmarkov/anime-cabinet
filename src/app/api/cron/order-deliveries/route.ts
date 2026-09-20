@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { processPendingDeliveries } from "@/lib/processPendingDeliveries";
+import { processScheduledProduction } from "@/lib/processScheduledProduction";
 
 export const dynamic = "force-dynamic";
 
@@ -15,8 +16,11 @@ export async function GET(request: Request) {
   }
 
   try {
-    const result = await processPendingDeliveries();
-    return NextResponse.json({ ok: true, ...result });
+    const [deliveries, productionStarted] = await Promise.all([
+      processPendingDeliveries(),
+      processScheduledProduction(),
+    ]);
+    return NextResponse.json({ ok: true, ...deliveries, productionStarted });
   } catch (error) {
     console.error("Cron order-deliveries failed:", error);
     return NextResponse.json({ error: "Processing failed" }, { status: 500 });

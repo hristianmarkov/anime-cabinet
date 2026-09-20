@@ -6,6 +6,7 @@ import { orders } from "@/lib/schema";
 import { getStripe } from "@/lib/stripe";
 import { sendNewOrderAlert, sendOrderConfirmation } from "@/lib/emails";
 import { incrementSatisfiedBuyers } from "@/lib/siteStats";
+import { nextWorkingDay915London } from "@/lib/londonSchedule";
 import { addOrderTimelineEvent } from "@/lib/orderTimeline";
 
 export async function POST(request: Request) {
@@ -34,9 +35,13 @@ export async function POST(request: Request) {
 
     if (orderId) {
       const db = getDb();
+      const paidAt = new Date();
       const [order] = await db
         .update(orders)
-        .set({ status: "paid" })
+        .set({
+          status: "paid",
+          productionScheduledAt: nextWorkingDay915London(paidAt),
+        })
         .where(eq(orders.id, orderId))
         .returning();
 

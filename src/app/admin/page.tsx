@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { desc } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 import { getDb } from "@/lib/db";
-import { orders, type Order } from "@/lib/schema";
+import { orders, type Order, type OrderStatus } from "@/lib/schema";
 import { isAdminAuthenticated } from "@/lib/adminAuth";
 import { PRINT_FORMATS, formatUsd } from "@/data/pricing";
-import { login, logout } from "./actions";
-import { statusColors, statusLabels } from "./order-ui";
+import { login } from "./actions";
+import { AdminShell } from "./AdminShell";
+import { FILTER_STATUSES, statusColors, statusLabels } from "./order-ui";
 
 export const metadata: Metadata = {
   title: "Admin Dashboard",
@@ -52,115 +53,138 @@ function LoginForm({ error }: { error?: string }) {
   );
 }
 
-function OrderRow({ order }: { order: Order }) {
-  const format = PRINT_FORMATS.find((f) => f.id === order.formatId);
-  return (
-    <Link
-      href={`/admin/orders/${order.id}`}
-      className="block rounded-2xl border border-line bg-surface p-5 shadow-card transition hover:border-accent/40 hover:bg-surface-raised"
-    >
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <div>
-          <h2 className="text-base font-semibold text-cream">
-            {order.styleName}
-            {order.expedited && (
-              <span className="ml-2 rounded-full bg-flame/20 px-2 py-0.5 text-xs font-semibold text-flame">
-                24h
-              </span>
-            )}
-          </h2>
-          <p className="mt-0.5 text-xs text-faint">
-            {order.email} · {new Date(order.createdAt).toLocaleString("en-GB")}
-          </p>
-        </div>
-        <span
-          className={`rounded-full px-3 py-1 text-xs font-semibold ${statusColors[order.status]}`}
-        >
-          {statusLabels[order.status]}
-        </span>
-      </div>
-      <p className="mt-3 text-sm text-muted">
-        {format?.label ?? order.formatId} · {order.characters} character
-        {order.characters > 1 ? "s" : ""} ·{" "}
-        <span className="text-cream">
-          {formatUsd(order.amountTotal / 100)} {order.currency.toUpperCase()}
-        </span>
-      </p>
-      <p className="mt-2 text-xs font-semibold text-accent">Open order →</p>
-    </Link>
-  );
-}
-
 export default async function AdminPage({
   searchParams,
 }: {
-  searchParams: Promise<{ error?: string }>;
+  searchParams: Promise<{ error?: string; status?: string }>;
 }) {
   const params = await searchParams;
   if (!(await isAdminAuthenticated())) {
     return <LoginForm error={params.error} />;
   }
 
+  const statusFilter = params.status ?? "all";
+  const validFilter =
+    statusFilter === "all" || FILTER_STATUSES.some((f) => f.value === statusFilter);
+
   let allOrders: Order[] = [];
   let dbError: string | null = null;
   try {
     const db = getDb();
-    allOrders = await db.select().from(orders).orderBy(desc(orders.createdAt));
+    if (validFilter && statusFilter !== "all") {
+      allOrders = await db
+        .select()
+        .from(orders)
+        .where(eq(orders.status, statusFilter as OrderStatus))
+        .orderBy(desc(orders.createdAt));
+    } else {
+      allOrders = await db.select().from(orders).orderBy(desc(orders.createdAt));
+    }
   } catch {
     dbError =
       "Could not connect to the database. Check that DATABASE_URL is set and the schema has been pushed (npm run db:push).";
   }
 
-  const active = allOrders.filter((o) => !["delivered", "cancelled"].includes(o.status));
-  const done = allOrders.filter((o) => ["delivered", "cancelled"].includes(o.status));
-
   return (
-    <section className="mx-auto max-w-5xl px-4 py-12 sm:px-6">
-      <div className="flex items-center justify-between">
+    <AdminShell active="orders">
+      <section className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
         <h1 className="font-display text-3xl text-cream">Orders</h1>
-        <form action={logout}>
-          <button
-            type="submit"
-            className="rounded-full border border-line px-5 py-2 text-sm font-semibold text-muted transition hover:text-cream"
-          >
-            Log Out
-          </button>
-        </form>
-      </div>
 
-      {dbError && (
-        <p className="mt-8 rounded-xl border border-flame/40 bg-flame/10 px-5 py-4 text-sm text-flame">
-          {dbError}
-        </p>
-      )}
+        {dbError && (
+          <p className="mt-8 rounded-xl border border-flame/40 bg-flame/10 px-5 py-4 text-sm text-flame">
+            {dbError}
+          </p>
+        )}
 
-      {!dbError && allOrders.length === 0 && (
-        <p className="mt-8 rounded-xl border border-line bg-surface px-5 py-8 text-center text-sm text-muted">
-          No orders yet. They&apos;ll appear here the moment someone checks out.
-        </p>
-      )}
+        {!dbError && (
+          <>
+            <div className="mt-6 flex flex-wrap gap-2">
+              {FILTER_STATUSES.map((f) => {
+                const active = (validFilter ? statusFilter : "all") === f.value;
+                const href = f.value === "all" ? "/admin" : `/admin?status=${f.value}`;
+                return (
+                  <Link
+                    key={f.value}
+                    href={href}
+                    className={
+                      active
+                        ? "rounded-full bg-accent/20 px-3 py-1.5 text-xs font-semibold text-accent"
+                        : "rounded-full border border-line px-3 py-1.5 text-xs font-semibold text-muted hover:text-cream"
+                    }
+                  >
+                    {f.label}
+                  </Link>
+                );
+              })}
+            </div>
 
-      {active.length > 0 && (
-        <div className="mt-8 space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-muted">
-            Active ({active.length})
-          </h2>
-          {active.map((o) => (
-            <OrderRow key={o.id} order={o} />
-          ))}
-        </div>
-      )}
-
-      {done.length > 0 && (
-        <div className="mt-10 space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-muted">
-            Completed ({done.length})
-          </h2>
-          {done.map((o) => (
-            <OrderRow key={o.id} order={o} />
-          ))}
-        </div>
-      )}
-    </section>
+            {allOrders.length === 0 ? (
+              <p className="mt-8 rounded-xl border border-line bg-surface px-5 py-8 text-center text-sm text-muted">
+                No orders match this filter.
+              </p>
+            ) : (
+              <div className="mt-6 overflow-x-auto rounded-2xl border border-line bg-surface shadow-card">
+                <table className="w-full min-w-[720px] text-left text-sm">
+                  <thead>
+                    <tr className="border-b border-line text-xs uppercase tracking-wider text-faint">
+                      <th className="px-4 py-3 font-semibold">Date</th>
+                      <th className="px-4 py-3 font-semibold">Customer</th>
+                      <th className="px-4 py-3 font-semibold">Style</th>
+                      <th className="px-4 py-3 font-semibold">Format</th>
+                      <th className="px-4 py-3 font-semibold">Total</th>
+                      <th className="px-4 py-3 font-semibold">Status</th>
+                      <th className="px-4 py-3 font-semibold" />
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {allOrders.map((order) => {
+                      const format = PRINT_FORMATS.find((f) => f.id === order.formatId);
+                      return (
+                        <tr key={order.id} className="border-b border-line/80 last:border-0 hover:bg-surface-raised/50">
+                          <td className="px-4 py-3 whitespace-nowrap text-muted">
+                            {new Date(order.createdAt).toLocaleString("en-GB", {
+                              dateStyle: "short",
+                              timeStyle: "short",
+                            })}
+                          </td>
+                          <td className="max-w-[180px] truncate px-4 py-3 text-cream" title={order.email}>
+                            {order.email}
+                          </td>
+                          <td className="px-4 py-3 text-cream">
+                            {order.styleName}
+                            {order.expedited && (
+                              <span className="ml-1 text-xs text-flame">24h</span>
+                            )}
+                          </td>
+                          <td className="px-4 py-3 text-muted">{format?.label ?? order.formatId}</td>
+                          <td className="px-4 py-3 font-semibold text-cream">
+                            {formatUsd(order.amountTotal / 100)}
+                          </td>
+                          <td className="px-4 py-3">
+                            <span
+                              className={`inline-block rounded-full px-2.5 py-1 text-xs font-semibold ${statusColors[order.status]}`}
+                            >
+                              {statusLabels[order.status]}
+                            </span>
+                          </td>
+                          <td className="px-4 py-3 text-right">
+                            <Link
+                              href={`/admin/orders/${order.id}`}
+                              className="text-xs font-semibold text-accent hover:underline"
+                            >
+                              Open →
+                            </Link>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </>
+        )}
+      </section>
+    </AdminShell>
   );
 }

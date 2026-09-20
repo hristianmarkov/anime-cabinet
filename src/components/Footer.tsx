@@ -21,7 +21,10 @@ export function Footer() {
               professional artist team. Unlimited revisions, delivered in{" "}
               {site.deliveryHours} hours.
             </p>
-            <p className="mt-4 text-sm text-faint">
+            <p className="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-sm text-faint">
+              <Link href="/track" className="hover:text-cream">
+                Track my order
+              </Link>
               <Link href="/contact" className="hover:text-cream">
                 Contact us
               </Link>
@@ -80,6 +83,7 @@ export function Footer() {
                 ["/faq", "FAQs"],
                 ["/about", "About Us"],
                 ["/blog", "Blog"],
+                ["/track", "Track My Order"],
                 ["/contact", "Contact"],
                 ["/shipping", "Shipping & Delivery"],
                 ["/refund-policy", "Refund & Cancellation Policy"],

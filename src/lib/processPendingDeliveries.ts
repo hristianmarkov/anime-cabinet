@@ -5,6 +5,7 @@ import {
   sendDeliveryAutoCompletedEmail,
   sendRevisionReminderEmail,
 } from "@/lib/emails";
+import { statusAfterReviewWindowLapse } from "@/lib/orderWorkflow";
 import { orderDeliveries, orders, type Order, type OrderDelivery } from "@/lib/schema";
 
 const HOUR_MS = 60 * 60 * 1000;
@@ -24,16 +25,20 @@ async function completeDelivery(order: Order, delivery: OrderDelivery): Promise<
     .set({ autoCompletedAt: now })
     .where(eq(orderDeliveries.id, delivery.id));
 
-  await db.update(orders).set({ status: "delivered" }).where(eq(orders.id, order.id));
+  const nextStatus = statusAfterReviewWindowLapse(order);
+  await db.update(orders).set({ status: nextStatus }).where(eq(orders.id, order.id));
 
   await sendDeliveryAutoCompletedEmail(order, delivery);
 
   await addOrderTimelineEvent({
     orderId: order.id,
     kind: "auto_completed",
-    summary: "Review window ended — order marked complete",
+    summary:
+      nextStatus === "delivered"
+        ? "Review window ended — order completed"
+        : "Review window ended — artwork approved, ready for print",
     detail: `Version ${delivery.versionNumber} auto-approved after revision window.`,
-    metadata: { deliveryId: delivery.id },
+    metadata: { deliveryId: delivery.id, status: nextStatus },
   });
 }
 

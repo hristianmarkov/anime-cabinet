@@ -1,0 +1,103 @@
+import { eq } from "drizzle-orm";
+import { getDb } from "@/lib/db";
+import { extractRoutingFromRecipients } from "@/lib/emailReplyRouting";
+import { addOrderTimelineEvent } from "@/lib/orderTimeline";
+import {
+  contactInquiries,
+  contactMessages,
+  orderCustomerFeedback,
+  orders,
+} from "@/lib/schema";
+
+function normalizeEmail(email: string): string {
+  const match = email.match(/<([^>]+)>/);
+  return (match ? match[1] : email).trim().toLowerCase();
+}
+
+function stripQuotedReply(text: string): string {
+  const lines = text.split(/\r?\n/);
+  const kept: string[] = [];
+  for (const line of lines) {
+    if (/^On .+ wrote:$/i.test(line.trim())) break;
+    if (/^>{1,}\s/.test(line)) continue;
+    if (/^From:\s/i.test(line)) break;
+    kept.push(line);
+  }
+  return kept.join("\n").trim();
+}
+
+export async function processInboundEmail(input: {
+  to: string[];
+  from: string;
+  subject: string;
+  text: string | null;
+  html: string | null;
+}): Promise<{ handled: boolean; kind?: string }> {
+  const route = extractRoutingFromRecipients(input.to);
+  const bodyRaw = input.text?.trim() || input.html?.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim() || "";
+  const body = stripQuotedReply(bodyRaw);
+  if (!body) {
+    return { handled: false };
+  }
+
+  const fromEmail = normalizeEmail(input.from);
+  const db = getDb();
+
+  if (route?.kind === "order") {
+    const [order] = await db
+      .select()
+      .from(orders)
+      .where(eq(orders.trackToken, route.trackToken))
+      .limit(1);
+    if (!order) return { handled: false };
+    if (normalizeEmail(order.email) !== fromEmail) {
+      console.warn("Inbound order email from non-matching address", fromEmail, order.id);
+      return { handled: false };
+    }
+
+    await db.insert(orderCustomerFeedback).values({
+      orderId: order.id,
+      body: `[Email] ${input.subject}\n\n${body}`,
+      source: "email",
+    });
+
+    await addOrderTimelineEvent({
+      orderId: order.id,
+      kind: "customer_feedback",
+      summary: "Customer replied by email",
+      detail: body.slice(0, 2000),
+    });
+
+    if (order.status === "delivered" || order.status === "cancelled") {
+      // still log feedback
+    } else if (order.status === "review") {
+      // admin reviews in panel — no auto status change
+    }
+
+    return { handled: true, kind: "order" };
+  }
+
+  if (route?.kind === "contact") {
+    const [inquiry] = await db
+      .select()
+      .from(contactInquiries)
+      .where(eq(contactInquiries.id, route.inquiryId))
+      .limit(1);
+    if (!inquiry) return { handled: false };
+    if (normalizeEmail(inquiry.email) !== fromEmail) {
+      return { handled: false };
+    }
+
+    await db.insert(contactMessages).values({
+      inquiryId: inquiry.id,
+      direction: "inbound",
+      body: `[Email] ${input.subject}\n\n${body}`,
+    });
+
+    await db.update(contactInquiries).set({ status: "open" }).where(eq(contactInquiries.id, inquiry.id));
+
+    return { handled: true, kind: "contact" };
+  }
+
+  return { handled: false };
+}

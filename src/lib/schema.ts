@@ -13,6 +13,9 @@ export const ORDER_STATUSES = [
   "paid",
   "in_progress",
   "review",
+  "approved",
+  "printing",
+  "shipped",
   "delivered",
   "cancelled",
 ] as const;
@@ -46,6 +49,15 @@ export const orders = pgTable("orders", {
   shippingMethodName: text("shipping_method_name"),
   shippingAmount: integer("shipping_amount").default(0).notNull(),
   gelatoQuoteId: text("gelato_quote_id"),
+  gelatoOrderId: text("gelato_order_id"),
+  gelatoFulfillmentStatus: text("gelato_fulfillment_status"),
+  printFileUrl: text("print_file_url"),
+  trackToken: text("track_token")
+    .$defaultFn(() => crypto.randomUUID())
+    .notNull(),
+  productionScheduledAt: timestamp("production_scheduled_at", { withTimezone: true }),
+  trackingNumber: text("tracking_number"),
+  trackingUrl: text("tracking_url"),
   amountTotal: integer("amount_total").notNull(),
   currency: text("currency").default("usd").notNull(),
   stripeSessionId: text("stripe_session_id"),
@@ -78,6 +90,11 @@ export const TIMELINE_EVENT_KINDS = [
   "reminder_24h",
   "reminder_48h",
   "auto_completed",
+  "customer_feedback",
+  "artwork_approved",
+  "revision_requested",
+  "gelato_submitted",
+  "gelato_status_sync",
 ] as const;
 
 export type TimelineEventKind = (typeof TIMELINE_EVENT_KINDS)[number];
@@ -93,6 +110,41 @@ export const orderTimelineEvents = pgTable("order_timeline_events", {
 });
 
 export type OrderTimelineEvent = typeof orderTimelineEvents.$inferSelect;
+
+export const orderCustomerFeedback = pgTable("order_customer_feedback", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  orderId: uuid("order_id").notNull(),
+  body: text("body").notNull(),
+  source: text("source").default("manual").notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+});
+
+export type OrderCustomerFeedback = typeof orderCustomerFeedback.$inferSelect;
+
+export const CONTACT_INQUIRY_STATUSES = ["open", "closed"] as const;
+export type ContactInquiryStatus = (typeof CONTACT_INQUIRY_STATUSES)[number];
+
+export const contactInquiries = pgTable("contact_inquiries", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  name: text("name").notNull(),
+  email: text("email").notNull(),
+  subject: text("subject").notNull(),
+  status: text("status").$type<ContactInquiryStatus>().default("open").notNull(),
+  linkedOrderId: text("linked_order_id"),
+});
+
+export type ContactInquiry = typeof contactInquiries.$inferSelect;
+
+export const contactMessages = pgTable("contact_messages", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  inquiryId: uuid("inquiry_id").notNull(),
+  direction: text("direction").$type<"inbound" | "outbound">().notNull(),
+  body: text("body").notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+});
+
+export type ContactMessage = typeof contactMessages.$inferSelect;
 
 export const siteCounters = pgTable("site_counters", {
   key: text("key").primaryKey(),
