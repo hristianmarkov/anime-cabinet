@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { AnalyticsEvents, trackFunnel } from "@/lib/analytics";
 
 const SUBJECTS = ["Order help", "Group quote", "New style request", "Commercial use", "Other"];
 
@@ -26,6 +27,10 @@ export function ContactForm() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Failed to send");
+      trackFunnel(AnalyticsEvents.contactSubmit, {
+        contact_subject: subject,
+        has_order_id: Boolean(orderId.trim()),
+      });
       setStatus("success");
       setName("");
       setEmail("");

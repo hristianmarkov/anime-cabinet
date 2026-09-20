@@ -5,6 +5,7 @@ import Link from "next/link";
 import type { PortraitStyle } from "@/data/types";
 import { useCurrency } from "@/context/CurrencyContext";
 import { getShowcase } from "@/data/gallery";
+import { AnalyticsEvents, trackFunnel } from "@/lib/analytics";
 
 const badgeStyles: Record<string, string> = {
   bestseller: "bg-gold text-ink",
@@ -25,6 +26,14 @@ export function StyleCard({ style }: { style: PortraitStyle }) {
   return (
     <Link
       href={`/portraits/${style.slug}`}
+      onClick={() =>
+        trackFunnel(AnalyticsEvents.selectStyle, {
+          item_list_name: "all_portrait_styles",
+          item_id: style.slug,
+          item_name: style.productName,
+          price: style.priceFrom,
+        })
+      }
       className="group relative flex flex-col overflow-hidden rounded-2xl border border-line bg-surface shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-line-bright"
     >
       <div className="relative w-full overflow-hidden">

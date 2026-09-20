@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/JsonLd";
+import { PortraitsAnalytics } from "@/components/PortraitsAnalytics";
 import { StyleCard } from "@/components/StyleCard";
 import { site } from "@/data/site";
 import { allStyles, animeStyles, cartoonStyles } from "@/data/styles";
@@ -37,6 +38,7 @@ export default function PortraitsPage() {
     <>
       <JsonLd data={breadcrumbJsonLd} />
       <JsonLd data={itemListJsonLd} />
+      <PortraitsAnalytics styleCount={allStyles.length} />
 
       <section className="bg-hero-glow border-b border-line">
         <div className="mx-auto max-w-7xl px-4 py-16 text-center sm:px-6">

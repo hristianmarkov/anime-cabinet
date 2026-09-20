@@ -21,6 +21,12 @@ import {
 } from "@/data/pricing";
 import type { ShippingAddress } from "@/lib/schema";
 import { site } from "@/data/site";
+import {
+  AnalyticsEvents,
+  trackBeginCheckout,
+  trackFunnel,
+  trackViewItem,
+} from "@/lib/analytics";
 
 const MAX_FILES = 8;
 const MAX_FILE_MB = 15;
@@ -53,6 +59,8 @@ export function OrderConfigurator({ style }: { style: PortraitStyle }) {
   const [progress, setProgress] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const photosTracked = useRef(false);
+  const productViewTracked = useRef(false);
 
   const [shipFirst, setShipFirst] = useState("");
   const [shipLast, setShipLast] = useState("");
@@ -170,6 +178,30 @@ export function OrderConfigurator({ style }: { style: PortraitStyle }) {
     return () => clearTimeout(t);
   }, [fetchShipping]);
 
+  useEffect(() => {
+    if (productViewTracked.current) return;
+    productViewTracked.current = true;
+    trackViewItem(
+      {
+        item_id: style.slug,
+        item_name: style.productName,
+        item_category: style.category,
+        price: style.priceFrom,
+      },
+      total,
+      currency
+    );
+  }, [style.slug, style.productName, style.category, style.priceFrom, total, currency]);
+
+  useEffect(() => {
+    if (files.length === 0 || photosTracked.current) return;
+    photosTracked.current = true;
+    trackFunnel(AnalyticsEvents.addPhotos, {
+      item_id: style.slug,
+      photo_count: files.length,
+    });
+  }, [files.length, style.slug]);
+
   function addFiles(list: FileList | null) {
     if (!list) return;
     setError(null);
@@ -253,6 +285,18 @@ export function OrderConfigurator({ style }: { style: PortraitStyle }) {
       if (!res.ok || !data.url) {
         throw new Error(data.error || "Could not start checkout.");
       }
+      trackBeginCheckout({
+        value: total,
+        currency,
+        characters,
+        format_id: formatId,
+        item: {
+          item_id: style.slug,
+          item_name: style.productName,
+          item_category: formatId,
+          price: total,
+        },
+      });
       window.location.href = data.url;
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong.");

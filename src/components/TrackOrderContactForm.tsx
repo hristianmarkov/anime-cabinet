@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { AnalyticsEvents, trackFunnel } from "@/lib/analytics";
 
 export function TrackOrderContactForm({ trackToken }: { trackToken: string }) {
   const [message, setMessage] = useState("");
@@ -19,6 +20,7 @@ export function TrackOrderContactForm({ trackToken }: { trackToken: string }) {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Could not send message");
+      trackFunnel(AnalyticsEvents.trackMessage, { source: "order_tracking" });
       setStatus("sent");
       setMessage("");
     } catch (err) {

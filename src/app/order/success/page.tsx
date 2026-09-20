@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { OrderSuccessPurchaseTracker } from "@/components/OrderSuccessPurchaseTracker";
 import { site } from "@/data/site";
 
 export const metadata: Metadata = {
@@ -7,9 +8,16 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function OrderSuccessPage() {
+export default async function OrderSuccessPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ session_id?: string }>;
+}) {
+  const { session_id: sessionId } = await searchParams;
+
   return (
     <section className="bg-hero-glow">
+      <OrderSuccessPurchaseTracker sessionId={sessionId ?? null} />
       <div className="mx-auto max-w-2xl px-4 py-24 text-center sm:px-6">
         <div
           className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-accent/15 text-3xl"
