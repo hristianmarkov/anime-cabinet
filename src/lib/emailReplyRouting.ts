@@ -7,7 +7,7 @@ const INBOUND_PREFIX_CONTACT = "contact+";
 export function inboundEmailDomain(): string {
   const configured = process.env.EMAIL_INBOUND_DOMAIN?.trim();
   if (configured) return configured;
-  return `reply.${site.domain}`;
+  return site.domain;
 }
 
 export function orderReplyToAddress(trackToken: string): string {
