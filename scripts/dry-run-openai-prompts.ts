@@ -4,6 +4,7 @@
  */
 import { combineArtPromptWithOpenAI } from "../src/lib/artPromptOpenAi";
 import { draftContactReplyWithOpenAI } from "../src/lib/contactReplyOpenAi";
+import { draftDeliveryMessageWithOpenAI } from "../src/lib/deliveryMessageOpenAi";
 import {
   buildOpenAiChatBody,
   getOpenAiModel,
@@ -57,6 +58,30 @@ async function main() {
     process.exit(1);
   }
   console.log("Preview:", memorial.prompt.slice(0, 200) + "…");
+
+  const deliveryMsg = await draftDeliveryMessageWithOpenAI({
+    customerName: "Kourtney",
+    styleName: "Studio Ghibli",
+    characters: 1,
+    formatLabel: "Digital File Only",
+    backgroundLabel: "Classic Scene",
+    customerNotes: "Memorial portrait of two dogs for their vet.",
+    expedited: false,
+    isDigital: true,
+    revisionHours: 48,
+    deliveryVersion: 1,
+    adminNotes: "First preview — warm and peaceful tone.",
+  });
+  console.log("\nDelivery message OK — length:", deliveryMsg.length);
+  const deliveryLower = deliveryMsg.toLowerCase();
+  if (
+    deliveryLower.includes("hand-painted ghibli") ||
+    deliveryLower.includes("transform the entire image")
+  ) {
+    console.error("FAIL: delivery draft leaked art-direction language");
+    process.exit(1);
+  }
+  console.log("Preview:", deliveryMsg.slice(0, 160) + "…");
 
   const reply = await draftContactReplyWithOpenAI({
     customerName: "Alex",

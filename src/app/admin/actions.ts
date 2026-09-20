@@ -21,6 +21,7 @@ import {
   verifyPassword,
 } from "@/lib/adminAuth";
 import { generateArtPromptForOrder } from "@/lib/generateArtPromptForOrder";
+import { generateDeliveryMessageForOrder } from "@/lib/generateDeliveryMessageForOrder";
 import { addOrderTimelineEvent } from "@/lib/orderTimeline";
 import { getLatestSentDelivery } from "@/lib/orderDeliveries";
 import { notifyCustomerOfStatusChange } from "@/lib/orderStatusEmails";
@@ -76,6 +77,18 @@ export async function combineArtPromptForOrder(orderId: string) {
     const message = error instanceof Error ? error.message : "Generation failed";
     return { ok: false as const, error: message };
   }
+}
+
+export async function draftDeliveryMessageForOrder(orderId: string, adminNotes?: string) {
+  if (!(await isAdminAuthenticated())) {
+    return { ok: false as const, error: "Unauthorized. Log in again at /admin." };
+  }
+
+  const result = await generateDeliveryMessageForOrder(orderId, adminNotes);
+  if (!result.ok) {
+    return { ok: false as const, error: result.error };
+  }
+  return { ok: true as const, draft: result.draft };
 }
 
 export async function updateOrderStatus(formData: FormData): Promise<void> {

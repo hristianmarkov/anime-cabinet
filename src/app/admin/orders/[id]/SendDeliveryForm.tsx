@@ -2,7 +2,7 @@
 
 import { upload } from "@vercel/blob/client";
 import { useMemo, useState } from "react";
-import { sendDelivery } from "../../actions";
+import { draftDeliveryMessageForOrder, sendDelivery } from "../../actions";
 
 export function SendDeliveryForm({
   orderId,
@@ -14,6 +14,9 @@ export function SendDeliveryForm({
   isDigital: boolean;
 }) {
   const [comment, setComment] = useState("");
+  const [adminNotes, setAdminNotes] = useState("");
+  const [draftLoading, setDraftLoading] = useState(false);
+  const [draftError, setDraftError] = useState<string | null>(null);
   const [files, setFiles] = useState<File[]>([]);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -22,6 +25,20 @@ export function SendDeliveryForm({
     if (files.length === 0) return "No files selected";
     return files.map((f) => f.name).join(", ");
   }, [files]);
+
+  async function handleDraftMessage() {
+    setDraftLoading(true);
+    setDraftError(null);
+    try {
+      const data = await draftDeliveryMessageForOrder(orderId, adminNotes);
+      if (!data.ok) throw new Error(data.error || "Request failed");
+      setComment(data.draft);
+    } catch (err) {
+      setDraftError(err instanceof Error ? err.message : "Something went wrong");
+    } finally {
+      setDraftLoading(false);
+    }
+  }
 
   async function handleSend() {
     setError(null);
@@ -82,6 +99,31 @@ export function SendDeliveryForm({
       </div>
 
       <div>
+        <label htmlFor="delivery-ai-notes" className="text-sm font-semibold text-cream">
+          Notes for AI <span className="font-normal text-faint">(optional)</span>
+        </label>
+        <input
+          id="delivery-ai-notes"
+          value={adminNotes}
+          onChange={(e) => setAdminNotes(e.target.value)}
+          placeholder="e.g. first preview, softened background per their note, mention 48h revision window…"
+          className="mt-2 w-full rounded-xl border border-line bg-ink px-4 py-2 text-sm text-cream placeholder:text-faint focus:border-accent focus:outline-none"
+        />
+        <button
+          type="button"
+          onClick={handleDraftMessage}
+          disabled={draftLoading || uploading}
+          className="mt-3 rounded-full border border-accent/40 px-4 py-2 text-xs font-semibold text-accent hover:bg-accent/10 disabled:opacity-50"
+        >
+          {draftLoading ? "Generating…" : "Draft message with OpenAI"}
+        </button>
+        {draftError && <p className="mt-2 text-xs text-flame">{draftError}</p>}
+        <p className="mt-2 text-xs text-faint">
+          Uses order details only (style name, format, notes, etc.) — not the art-direction prompt.
+        </p>
+      </div>
+
+      <div>
         <label htmlFor="delivery-comment" className="text-sm font-semibold text-cream">
           Message to customer <span className="font-normal text-faint">(optional)</span>
         </label>
@@ -90,7 +132,7 @@ export function SendDeliveryForm({
           rows={4}
           value={comment}
           onChange={(e) => setComment(e.target.value)}
-          placeholder="e.g. Here's your first preview — let us know if you'd like the background darker."
+          placeholder="Edit the draft or write your own message…"
           className="mt-2 w-full rounded-xl border border-line bg-ink px-4 py-3 text-sm text-cream placeholder:text-faint focus:border-accent focus:outline-none"
         />
       </div>
