@@ -6,6 +6,7 @@ import { orders } from "@/lib/schema";
 import { getStripe } from "@/lib/stripe";
 import { sendNewOrderAlert, sendOrderConfirmation } from "@/lib/emails";
 import { incrementSatisfiedBuyers } from "@/lib/siteStats";
+import { addOrderTimelineEvent } from "@/lib/orderTimeline";
 
 export async function POST(request: Request) {
   const secret = process.env.STRIPE_WEBHOOK_SECRET;
@@ -41,6 +42,16 @@ export async function POST(request: Request) {
 
       if (order) {
         await incrementSatisfiedBuyers();
+        try {
+          await addOrderTimelineEvent({
+            orderId: order.id,
+            kind: "payment_received",
+            summary: "Payment received",
+            metadata: { amountTotal: order.amountTotal, currency: order.currency },
+          });
+        } catch (err) {
+          console.error("Timeline event failed:", err);
+        }
         // Emails must not fail the webhook — Stripe retries on non-2xx.
         try {
           await Promise.all([

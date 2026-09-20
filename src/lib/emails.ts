@@ -1,7 +1,8 @@
 import { Resend } from "resend";
-import type { Order } from "./schema";
+import type { Order, OrderDelivery } from "./schema";
 import { PRINT_FORMATS } from "@/data/pricing";
 import { site } from "@/data/site";
+import { isDigitalOrder, revisionWindowHours } from "@/lib/orderDeliveryRules";
 
 function getResend(): Resend | null {
   const key = process.env.RESEND_API_KEY;
@@ -44,6 +45,7 @@ export async function sendOrderConfirmation(order: Order): Promise<void> {
   await resend.emails.send({
     from: FROM,
     to: order.email,
+    replyTo: ADMIN_EMAIL,
     subject: `Your ${order.styleName} is in the queue! 🎨`,
     html: `
       <div style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto;color:#222">
@@ -84,7 +86,158 @@ export async function sendNewOrderAlert(order: Order): Promise<void> {
         <p><strong>Notes:</strong> ${order.notes || "(none)"}</p>
         <p><strong>Photos:</strong></p>
         <ul>${photosHtml}</ul>
-        <p><a href="${site.url}/admin">Open the admin dashboard</a></p>
+        <p><a href="${site.url}/admin/orders/${order.id}">Open this order in admin</a></p>
+      </div>`,
+  });
+}
+
+function escapeHtml(text: string): string {
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function deliveryImagesHtml(urls: string[]): string {
+  if (urls.length === 0) return "";
+  const items = urls
+    .map(
+      (url, i) =>
+        `<li style="margin:8px 0"><a href="${url}" style="color:#c44">View artwork ${urls.length > 1 ? i + 1 : ""}</a></li>`
+    )
+    .join("");
+  return `<ul style="padding-left:18px;line-height:1.6">${items}</ul>`;
+}
+
+function formatDeadline(deadline: Date): string {
+  return deadline.toLocaleString("en-GB", {
+    dateStyle: "medium",
+    timeStyle: "short",
+    timeZone: "UTC",
+  });
+}
+
+export async function sendDeliveryPreviewEmail(
+  order: Order,
+  delivery: OrderDelivery
+): Promise<void> {
+  const resend = getResend();
+  if (!resend) {
+    console.warn("RESEND_API_KEY not set — skipping delivery email");
+    return;
+  }
+
+  const digital = isDigitalOrder(order);
+  const hours = delivery.revisionHours;
+  const deadline = delivery.revisionDeadline
+    ? formatDeadline(new Date(delivery.revisionDeadline))
+    : `${hours} hours from now`;
+  const versionLabel =
+    delivery.versionNumber > 1 ? ` (revision ${delivery.versionNumber})` : "";
+  const commentBlock = delivery.comment.trim()
+    ? `<p style="margin-top:16px"><strong>Note from our artist:</strong><br>${escapeHtml(delivery.comment).replace(/\n/g, "<br>")}</p>`
+    : "";
+
+  const afterWindow = digital
+    ? `<p>If we don&apos;t hear from you within <strong>${hours} hours</strong>, we&apos;ll treat the artwork as approved and consider your digital order complete.</p>`
+    : `<p>If we don&apos;t hear from you within <strong>${hours} hours</strong>, we&apos;ll treat the artwork as approved and move your print into production for shipping.</p>`;
+
+  await resend.emails.send({
+    from: FROM,
+    to: order.email,
+    replyTo: ADMIN_EMAIL,
+    subject: `Your ${order.styleName} artwork is ready to review${versionLabel}`,
+    html: `
+      <div style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto;color:#222">
+        <h1 style="font-size:22px">Your portrait is ready</h1>
+        <p>We&apos;ve finished transforming your photo into a custom <strong>${escapeHtml(order.styleName)}</strong> artwork. Open the link${delivery.imageUrls.length > 1 ? "s" : ""} below to view your ${digital ? "preview" : "approved-for-print preview"}.</p>
+        ${deliveryImagesHtml(delivery.imageUrls)}
+        ${commentBlock}
+        <p><strong>Need changes?</strong> Reply to this email within <strong>${hours} hours</strong> (by ${deadline} UTC) and tell us exactly what to adjust. Include your order ID: <strong>${order.id}</strong>.</p>
+        ${afterWindow}
+        ${orderSummaryHtml(order)}
+        <p style="color:#777;margin-top:24px">— The ${site.name} team</p>
+      </div>`,
+  });
+}
+
+export async function sendRevisionReminderEmail(
+  order: Order,
+  delivery: OrderDelivery,
+  which: 1 | 2
+): Promise<void> {
+  const resend = getResend();
+  if (!resend) return;
+
+  const digital = isDigitalOrder(order);
+  const deadline = delivery.revisionDeadline
+    ? formatDeadline(new Date(delivery.revisionDeadline))
+    : "soon";
+  const hoursLeft = Math.max(
+    0,
+    Math.round(
+      (new Date(delivery.revisionDeadline!).getTime() - Date.now()) / (60 * 60 * 1000)
+    )
+  );
+
+  const urgency =
+    which === 1
+      ? "Friendly reminder — your artwork is waiting for feedback."
+      : "Last reminder — your revision window is closing soon.";
+
+  await resend.emails.send({
+    from: FROM,
+    to: order.email,
+    replyTo: ADMIN_EMAIL,
+    subject:
+      which === 1
+        ? `Reminder: review your ${order.styleName} artwork`
+        : `Final reminder: ${hoursLeft}h left to request changes`,
+    html: `
+      <div style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto;color:#222">
+        <h1 style="font-size:20px">${urgency}</h1>
+        <p>We sent your custom portrait for order <strong>${order.id}</strong>. If you&apos;d like any changes, reply to this email before <strong>${deadline} UTC</strong>.</p>
+        ${deliveryImagesHtml(delivery.imageUrls)}
+        <p>${
+          digital
+            ? `If we don&apos;t hear from you, we'll mark your digital order complete after the ${delivery.revisionHours}-hour review window.`
+            : `If we don&apos;t hear from you, we'll approve the artwork and prepare your print for shipment after the ${delivery.revisionHours}-hour review window.`
+        }</p>
+        <p style="color:#777">— The ${site.name} team</p>
+      </div>`,
+  });
+}
+
+export async function sendDeliveryAutoCompletedEmail(
+  order: Order,
+  delivery: OrderDelivery
+): Promise<void> {
+  const resend = getResend();
+  if (!resend) return;
+
+  const digital = isDigitalOrder(order);
+  const images = deliveryImagesHtml(delivery.imageUrls);
+
+  await resend.emails.send({
+    from: FROM,
+    to: order.email,
+    replyTo: ADMIN_EMAIL,
+    subject: digital
+      ? `Order complete — your ${order.styleName} files`
+      : `Artwork approved — preparing your ${order.styleName} print`,
+    html: `
+      <div style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto;color:#222">
+        <h1 style="font-size:20px">${digital ? "Your order is complete" : "We're preparing your print"}</h1>
+        <p>${
+          digital
+            ? `The ${revisionWindowHours(order)}-hour review window has passed with no revision requests, so your digital order is now complete.`
+            : `The ${revisionWindowHours(order)}-hour review window has passed with no revision requests. Your artwork is approved and we're moving your print into production for shipment.`
+        }</p>
+        ${images}
+        <p>If you still need help, reply to this email — we'll do our best to assist.</p>
+        ${orderSummaryHtml(order)}
+        <p style="color:#777">— The ${site.name} team</p>
       </div>`,
   });
 }

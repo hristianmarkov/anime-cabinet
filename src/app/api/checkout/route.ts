@@ -15,6 +15,7 @@ import { getDb } from "@/lib/db";
 import { getPrintAddOnForFormat } from "@/lib/gelato-pricing";
 import { orders, type ShippingAddress } from "@/lib/schema";
 import { getStripe } from "@/lib/stripe";
+import { addOrderTimelineEvent } from "@/lib/orderTimeline";
 
 interface CheckoutPayload {
   styleSlug: string;
@@ -157,6 +158,17 @@ export async function POST(request: Request) {
       .update(orders)
       .set({ stripeSessionId: session.id })
       .where(eq(orders.id, order.id));
+
+    try {
+      await addOrderTimelineEvent({
+        orderId: order.id,
+        kind: "order_created",
+        summary: "Order created — awaiting payment",
+        metadata: { styleSlug: style.slug, formatId: format.id },
+      });
+    } catch (err) {
+      console.error("Timeline event failed:", err);
+    }
 
     return NextResponse.json({ url: session.url });
   } catch (error) {

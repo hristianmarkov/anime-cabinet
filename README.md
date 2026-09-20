@@ -29,7 +29,8 @@ The site runs without any env vars for browsing/design work — only checkout, u
 | `src/app/api/checkout/` | Creates the order row + Stripe Checkout session. |
 | `src/app/api/stripe-webhook/` | Marks orders paid, triggers customer + admin emails. |
 | `src/app/api/blob-upload/` | Secure client upload endpoint for customer photos. |
-| `src/app/admin/` | Password-protected order dashboard. |
+| `src/app/admin/` | Password-protected order list and `/admin/orders/[id]` detail (timeline, send artwork, emails). |
+| `src/app/api/cron/order-deliveries/` | Hourly cron: revision reminders (24h/48h) and auto-complete after review window. |
 
 ## Launch checklist
 
@@ -64,7 +65,7 @@ See **[TODO.md](./TODO.md)** for the full launch checklist, Gelato integration s
 
 ### 5. Environment variables (Vercel → Project → Settings → Environment Variables)
 
-Set everything in `.env.example`: `NEXT_PUBLIC_SITE_URL`, `DATABASE_URL`, `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `BLOB_READ_WRITE_TOKEN`, `RESEND_API_KEY`, `EMAIL_FROM`, `ADMIN_EMAIL`, and a strong `ADMIN_PASSWORD` for the `/admin` dashboard.
+Set everything in `.env.example`: `NEXT_PUBLIC_SITE_URL`, `DATABASE_URL`, `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `BLOB_READ_WRITE_TOKEN`, `RESEND_API_KEY`, `EMAIL_FROM`, `ADMIN_EMAIL`, a strong `ADMIN_PASSWORD` for `/admin`, and `CRON_SECRET` for revision reminders (Vercel Cron uses this automatically when `vercel.json` crons are enabled).
 
 ## Google Merchant Center feed
 
