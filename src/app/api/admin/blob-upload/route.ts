@@ -27,7 +27,7 @@ export async function POST(request: Request): Promise<NextResponse> {
             "image/gif",
             "application/pdf",
           ],
-          maximumSizeInBytes: 25 * 1024 * 1024,
+          maximumSizeInBytes: 100 * 1024 * 1024,
           addRandomSuffix: true,
         };
       },

@@ -1,6 +1,5 @@
 "use client";
 
-import { upload } from "@vercel/blob/client";
 import { useMemo, useState } from "react";
 import { draftDeliveryMessageForOrder, sendDelivery } from "../../actions";
 
@@ -49,23 +48,23 @@ export function SendDeliveryForm({
 
     setUploading(true);
     try {
-      const imageUrls: string[] = [];
-      for (const file of files) {
-        const safeName = file.name.replace(/[^a-zA-Z0-9.\-_]/g, "_");
-        const blob = await upload(
-          `orders/deliveries/${orderId}/${Date.now()}-${safeName}`,
-          file,
-          { access: "public", handleUploadUrl: "/api/admin/blob-upload" }
-        );
-        imageUrls.push(blob.url);
-      }
-
       const formData = new FormData();
       formData.set("orderId", orderId);
       formData.set("comment", comment);
-      formData.set("imageUrls", JSON.stringify(imageUrls));
+      for (const file of files) {
+        formData.append("artwork", file);
+      }
       await sendDelivery(formData);
     } catch (err) {
+      if (
+        typeof err === "object" &&
+        err !== null &&
+        "digest" in err &&
+        typeof (err as { digest: string }).digest === "string" &&
+        (err as { digest: string }).digest.startsWith("NEXT_REDIRECT")
+      ) {
+        throw err;
+      }
       setError(err instanceof Error ? err.message : "Upload failed");
       setUploading(false);
     }
