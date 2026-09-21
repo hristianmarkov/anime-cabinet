@@ -1,8 +1,17 @@
+function getSiteUrl(): string {
+  const configured = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  if (!configured) return "https://www.animecabinet.com";
+
+  // Keep every canonical, feed link, and structured-data URL on the exact host
+  // that is configured and verified in Search Console / Merchant Center.
+  return configured.replace(/\/+$/, "");
+}
+
 export const site = {
   name: "Anime Cabinet",
   domain: "animecabinet.com",
   /** Primary host — apex redirects to www on Vercel; keep canonicals/sitemap aligned. */
-  url: "https://www.animecabinet.com",
+  url: getSiteUrl(),
   tagline: "Custom Anime Portraits From Your Photos",
   description:
     "Anime Cabinet turns your photos into custom anime and cartoon portraits. 24 styles, unlimited revisions, preview delivered within 72 hours.",

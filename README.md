@@ -76,6 +76,24 @@ new portrait styles are included automatically. Add that URL as a scheduled
 primary data source in Merchant Center. Configure target-country shipping and
 tax settings in Merchant Center before publishing products.
 
+## Google Merchant Center feed
+
+The site publishes an RSS 2.0 product feed at
+`https://www.animecabinet.com/google-merchant-feed.xml`. It is generated from the
+same style catalogue, pricing, descriptions, and artwork as the product pages, so
+new portrait styles are included automatically. Add that URL as a scheduled
+primary data source in Merchant Center. Configure target-country shipping and
+tax settings in Merchant Center before publishing products.
+
+`NEXT_PUBLIC_SITE_URL` must exactly match the production host verified in
+Merchant Center (for example, `https://www.animecabinet.com`, with no path). The
+feed, canonical URLs, sitemap, and structured data all use this value. After a
+deployment or DNS outage, Merchant Center can retain a **Landing page not
+working** account-level issue until it crawls the pages again; verify a product
+URL in an incognito window, confirm Vercel Deployment Protection and bot/WAF
+challenges are disabled for production, then request a review in Merchant
+Center. Do not request a review while the production URL returns an error.
+
 ### 6. Point animecabinet.com (GoDaddy) at Vercel
 
 1. Vercel → project → **Settings → Domains** → add `animecabinet.com` and `www.animecabinet.com`.
