@@ -24,6 +24,12 @@ export const ORDER_STATUSES = [
 
 export type OrderStatus = (typeof ORDER_STATUSES)[number];
 
+export const DIGITAL_FULFILLMENT_STATUSES = ["pending", "completed"] as const;
+export type DigitalFulfillmentStatus = (typeof DIGITAL_FULFILLMENT_STATUSES)[number];
+
+export const SHIPPING_FULFILLMENT_STATUSES = ["pending", "approved", "printing", "shipped", "delivered"] as const;
+export type ShippingFulfillmentStatus = (typeof SHIPPING_FULFILLMENT_STATUSES)[number];
+
 export interface ShippingAddress {
   firstName: string;
   lastName: string;
@@ -37,6 +43,14 @@ export const orders = pgTable("orders", {
   id: uuid("id").defaultRandom().primaryKey(),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
   status: text("status").$type<OrderStatus>().default("pending").notNull(),
+  digitalFulfillmentStatus: text("digital_fulfillment_status")
+    .$type<DigitalFulfillmentStatus>()
+    .default("pending")
+    .notNull(),
+  shippingFulfillmentStatus: text("shipping_fulfillment_status")
+    .$type<ShippingFulfillmentStatus>()
+    .default("pending")
+    .notNull(),
   styleSlug: text("style_slug").notNull(),
   styleName: text("style_name").notNull(),
   characters: integer("characters").notNull(),
@@ -56,6 +70,8 @@ export const orders = pgTable("orders", {
   printFileUrl: text("print_file_url"),
   trackToken: text("track_token").default(sql`gen_random_uuid()`).notNull(),
   productionScheduledAt: timestamp("production_scheduled_at", { withTimezone: true }),
+  paidAt: timestamp("paid_at", { withTimezone: true }),
+  firstPreviewDeadline: timestamp("first_preview_deadline", { withTimezone: true }),
   trackingNumber: text("tracking_number"),
   trackingUrl: text("tracking_url"),
   amountTotal: integer("amount_total").notNull(),
@@ -82,6 +98,18 @@ export const orderDeliveries = pgTable("order_deliveries", {
 
 export type OrderDelivery = typeof orderDeliveries.$inferSelect;
 
+/** Final, full-resolution customer asset. Kept separate from review previews. */
+export const orderFinalFiles = pgTable("order_final_files", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  orderId: uuid("order_id").notNull().unique(),
+  fileUrl: text("file_url").notNull(),
+  previewUrl: text("preview_url").notNull(),
+  sentAt: timestamp("sent_at", { withTimezone: true }).notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+});
+
+export type OrderFinalFile = typeof orderFinalFiles.$inferSelect;
+
 export const TIMELINE_EVENT_KINDS = [
   "order_created",
   "payment_received",
@@ -95,6 +123,7 @@ export const TIMELINE_EVENT_KINDS = [
   "revision_requested",
   "gelato_submitted",
   "gelato_status_sync",
+  "final_file_sent",
 ] as const;
 
 export type TimelineEventKind = (typeof TIMELINE_EVENT_KINDS)[number];

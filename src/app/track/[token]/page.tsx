@@ -5,7 +5,9 @@ import { notFound } from "next/navigation";
 import { OrderTrackingDisplay } from "@/components/OrderTrackingDisplay";
 import { getDb } from "@/lib/db";
 import { buildPublicOrderTracking } from "@/lib/orderTrackingPublic";
-import { orderDeliveries, orderReviewMessages, orderTimelineEvents, orders } from "@/lib/schema";
+
+import { orderDeliveries, orderFinalFiles, orderReviewMessages, orderTimelineEvents, orders } from "@/lib/schema";
+
 
 export const metadata: Metadata = {
   title: "Order status",
@@ -20,7 +22,11 @@ export default async function TrackOrderTokenPage({ params }: { params: Promise<
   let order = null;
   let deliveries: (typeof orderDeliveries.$inferSelect)[] = [];
   let timeline: (typeof orderTimelineEvents.$inferSelect)[] = [];
+
   let reviewMessages: (typeof orderReviewMessages.$inferSelect)[] = [];
+
+  let finalFile: (typeof orderFinalFiles.$inferSelect) | null = null;
+
 
   try {
     const db = getDb();
@@ -38,11 +44,17 @@ export default async function TrackOrderTokenPage({ params }: { params: Promise<
         .where(eq(orderTimelineEvents.orderId, order.id))
         .orderBy(desc(orderTimelineEvents.createdAt))
         .limit(20);
+
       reviewMessages = await db
         .select()
         .from(orderReviewMessages)
         .where(eq(orderReviewMessages.orderId, order.id))
         .orderBy(orderReviewMessages.createdAt);
+
+      const [storedFinalFile] = await db.select().from(orderFinalFiles)
+        .where(eq(orderFinalFiles.orderId, order.id)).limit(1);
+      finalFile = storedFinalFile ?? null;
+
     }
   } catch {
     return (
@@ -56,7 +68,9 @@ export default async function TrackOrderTokenPage({ params }: { params: Promise<
     notFound();
   }
 
-  const tracking = buildPublicOrderTracking(order, deliveries, timeline, reviewMessages);
+
+  const tracking = buildPublicOrderTracking(order, deliveries, timeline, reviewMessages, finalFile);
+
 
   return (
     <section className="mx-auto max-w-2xl px-4 py-12 sm:px-6">
