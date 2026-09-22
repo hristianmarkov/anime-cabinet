@@ -3,7 +3,7 @@ import { isDigitalOrder } from "@/lib/orderDeliveryRules";
 import { buildOrderPipeline, getActiveDelivery, type PipelineStep } from "@/lib/orderWorkflow";
 import { statusLabels } from "@/app/admin/order-ui";
 import { PRINT_FORMATS, formatUsd } from "@/data/pricing";
-import { formatLondon915Label } from "@/lib/londonSchedule";
+import { formatLondonNineLabel } from "@/lib/londonSchedule";
 
 export interface PublicOrderTracking {
   styleName: string;
@@ -91,7 +91,7 @@ export function buildPublicOrderTracking(
     milestones,
     productionStartsAt:
       order.status === "paid" && order.productionScheduledAt
-        ? formatLondon915Label(new Date(order.productionScheduledAt))
+        ? formatLondonNineLabel(new Date(order.productionScheduledAt))
         : null,
   };
 }

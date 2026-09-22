@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import type Stripe from "stripe";
 import { getDb } from "@/lib/db";
 import { orders } from "@/lib/schema";
 import { getStripe } from "@/lib/stripe";
 import { sendNewOrderAlert, sendOrderConfirmation } from "@/lib/emails";
 import { incrementSatisfiedBuyers } from "@/lib/siteStats";
-import { nextWorkingDay915London } from "@/lib/londonSchedule";
+import { nextWorkingDayAtNineLondon } from "@/lib/londonSchedule";
 import { addOrderTimelineEvent } from "@/lib/orderTimeline";
 
 export async function POST(request: Request) {
@@ -29,20 +29,23 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
   }
 
-  if (event.type === "checkout.session.completed") {
+  if (
+    (event.type === "checkout.session.completed" && event.data.object.payment_status === "paid") ||
+    event.type === "checkout.session.async_payment_succeeded"
+  ) {
     const session = event.data.object;
     const orderId = session.metadata?.orderId;
 
     if (orderId) {
       const db = getDb();
-      const paidAt = new Date();
+      const paidAt = new Date(event.created * 1_000);
       const [order] = await db
         .update(orders)
         .set({
           status: "paid",
-          productionScheduledAt: nextWorkingDay915London(paidAt),
+          productionScheduledAt: nextWorkingDayAtNineLondon(paidAt),
         })
-        .where(eq(orders.id, orderId))
+        .where(and(eq(orders.id, orderId), eq(orders.status, "pending")))
         .returning();
 
       if (order) {

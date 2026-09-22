@@ -64,7 +64,7 @@ export async function sendOrderConfirmation(order: Order): Promise<void> {
         </p>
         <p><strong>What happens next:</strong></p>
         <ol style="line-height:1.7">
-          <li>Your order is <strong>created</strong> as soon as payment clears. Our artists pick it up at <strong>9:15 AM UK time</strong> on the next working day (Mon–Fri).</li>
+          <li>Your order is <strong>created</strong> as soon as payment clears. Our artists pick it up at <strong>9:00 AM UK time</strong> on the next working day (Mon–Fri).</li>
           <li>Within ${site.deliveryHours} hours after that you'll receive a preview at this email address.${order.expedited ? " (Priority order — 24h turnaround)" : ""}</li>
           <li>Request as many free revisions as you like.</li>
           <li>Once you approve it, we send the final high-resolution file${order.formatId !== "digital" ? " and ship your print" : ""}.</li>
