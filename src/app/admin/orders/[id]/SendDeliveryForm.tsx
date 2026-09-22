@@ -13,11 +13,9 @@ const MAX_FILE_BYTES = 100 * 1024 * 1024;
 export function SendDeliveryForm({
   orderId,
   revisionHours,
-  isDigital,
 }: {
   orderId: string;
   revisionHours: number;
-  isDigital: boolean;
 }) {
   const [comment, setComment] = useState("");
   const [adminNotes, setAdminNotes] = useState("");
@@ -108,10 +106,8 @@ export function SendDeliveryForm({
       <p className="text-sm text-muted">
         Sends the customer an email with download links. They have{" "}
         <strong className="text-cream">{revisionHours} hours</strong> to reply with
-        revision notes
-        {isDigital
-          ? " — after that, the digital order is marked complete."
-          : " — after that, the artwork is approved and the print goes into production."}{" "}
+        revision notes. After that, the order advances to <strong className="text-cream">Digital File</strong>,
+        where the final high-resolution, print-ready file is supplied separately.{" "}
         Reminders go out at 24h and 48h after send.
       </p>
 
@@ -141,7 +137,7 @@ export function SendDeliveryForm({
           id="delivery-ai-notes"
           value={adminNotes}
           onChange={(e) => setAdminNotes(e.target.value)}
-          placeholder="e.g. first preview, softened background per their note, mention 48h revision window…"
+          placeholder="e.g. first preview, preserved their requested details, mention the 72-hour review window…"
           className="mt-2 w-full rounded-xl border border-line bg-ink px-4 py-2 text-sm text-cream placeholder:text-faint focus:border-accent focus:outline-none"
         />
         <button

@@ -13,7 +13,6 @@ export interface CombineArtPromptInput {
   /** People count from checkout (pricing), not total subjects in the artwork. */
   humanCharacterCount: number;
   referencePhotoCount: number;
-  backgroundChoice: string;
   formatLabel: string;
   printCompositionHint: string | null;
   expedited?: boolean;
@@ -27,7 +26,7 @@ const STRUCTURED_JSON_SHAPE = `{
   "mustRemoveOrAvoid": "Explicit removals from notes (phone, obscured faces, etc.) or empty string.",
   "outfitsCharacterTreatment": "Outfits, poses, relationship energy — from notes + style template, original characters only.",
   "styleVisuals": "Concrete show-specific visuals from the style template (linework, shading, anatomy) — avoid vague repeats like 'high quality' or saying 'authentic X style' three times.",
-  "background": "Environment from notes, else template world, respecting backgroundChoice from the order form.",
+  "background": "Environment implied by the fixed style template and overall composition.",
   "compositionAndPrint": "Orientation, aspect ratio, safe margins — use printCompositionHint when provided; else from customer notes.",
   "exclusions": "No copied named cast, logos, text — brief."
 }`;
@@ -42,7 +41,7 @@ PRIORITY (strict, highest first):
 2. Correct human subject count (humanCharacterCount).
 3. Requested composition and reference-photo roles from customer notes.
 4. ${show} aesthetic (original characters in that show's look — not copying named cast).
-5. Background embellishments and extras only when requested.
+5. Supporting environmental details from the fixed style template.
 
 humanCharacterCount (${input.humanCharacterCount}) counts HUMAN subjects based on uploaded people / notes. It does NOT prohibit pets, creatures, monsters, spirits, dragons, or other non-human elements explicitly requested in customer notes.
 
@@ -52,7 +51,6 @@ NON-INVENTION (critical): Never invent physical traits, clothing, accessories, r
 
 The style template may say not to keep original composition — customer notes OVERRIDE that when they ask to keep pose/closeness from a specific photo.
 
-backgroundChoice from order form: ${input.backgroundChoice}.
 formatLabel: ${input.formatLabel}.
 ${input.printCompositionHint ? `printCompositionHint: ${input.printCompositionHint}` : "printCompositionHint: (none — use customer notes if they mention print size/orientation.)"}
 
@@ -75,7 +73,6 @@ export async function combineArtPromptWithOpenAI(
       customerNotes: input.customerNotes.trim() || "(none)",
       humanCharacterCount: input.humanCharacterCount,
       referencePhotoCount: input.referencePhotoCount,
-      backgroundChoice: input.backgroundChoice,
       formatLabel: input.formatLabel,
       printCompositionHint: input.printCompositionHint,
       expedited: input.expedited ?? false,

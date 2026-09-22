@@ -133,8 +133,8 @@ export const animeStyles: PortraitStyle[] = [
         a: "Yes — pick any form you like: base, Super Saiyan, SSJ2, blue-haired forms, or your own custom aura colour. Mention it in the order notes and we'll draw the energy effects to match.",
       },
       {
-        q: "Can you recreate a specific DBZ scene with me in it?",
-        a: "Definitely. Link or describe the scene — the Cell Games arena, Kame House, the World Tournament — and we'll rebuild the background with you in the starring role.",
+        q: "Can you match details from my reference photos?",
+        a: "Yes. Upload clear references and note the important outfit, accessory, or pose details you want our artists to preserve.",
       },
     ],
     badge: "bestseller",
@@ -268,8 +268,8 @@ export const animeStyles: PortraitStyle[] = [
     ],
     faqs: [
       {
-        q: "What kind of backgrounds work best for this style?",
-        a: "Nature scenes shine here — meadows, forests, seaside towns, cosy interiors with warm light. Describe a place you love (or upload a photo of it) and we'll paint it in the soft Ghibli-inspired palette.",
+        q: "What kind of photos work best for this style?",
+        a: "Clear, well-lit photos with visible faces work best. Separate reference photos are welcome for couples, families, and pets.",
       },
       {
         q: "Is this style good for pets?",

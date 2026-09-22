@@ -100,7 +100,7 @@ export const styleGuidePosts: BlogPost[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "Anime portrait styles explained simply: pick fandom first, mood second, photo third. If you love the show and your photo suits the composition, you are ninety percent there. Browse twenty-four galleries, read style-specific FAQs, and note any custom details — poses, backgrounds, inside jokes — before checkout.",
+            text: "Anime portrait styles explained simply: pick fandom first, mood second, photo third. If you love the show and your photo suits the composition, you are ninety percent there. Browse twenty-four galleries, read style-specific FAQs, and note any important details — poses, outfits, inside jokes — before checkout.",
           },
           {
             type: "paragraph",
@@ -500,7 +500,7 @@ export const styleGuidePosts: BlogPost[] = [
           },
           {
             type: "paragraph",
-            text: "Browse gallery examples on each style page, write order notes with poses and backgrounds, and approve the preview — unlimited revisions until the tone feels right for your wall.",
+            text: "Browse gallery examples on each style page, write order notes with important pose and outfit details, and approve the preview — unlimited revisions until the tone feels right for your wall.",
           },
         ],
       },

@@ -5,7 +5,9 @@ export const statusColors: Record<OrderStatus, string> = {
   paid: "bg-gold/20 text-gold",
   in_progress: "bg-electric/20 text-electric",
   review: "bg-flame/20 text-flame",
-  digital_file: "bg-[#4ade80]/20 text-[#4ade80]",
+
+  digital_file: "bg-cyan-400/20 text-cyan-300",
+
   approved: "bg-[#a78bfa]/20 text-[#c4b5fd]",
   printing: "bg-gold/20 text-gold",
   shipped: "bg-electric/20 text-electric",
@@ -18,7 +20,9 @@ export const statusLabels: Record<OrderStatus, string> = {
   paid: "Paid — new",
   in_progress: "In production",
   review: "Customer review",
-  digital_file: "Digital file ready",
+
+  digital_file: "Digital File",
+
   approved: "Artwork approved",
   printing: "Printing",
   shipped: "Dispatched",

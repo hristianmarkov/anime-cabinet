@@ -60,25 +60,6 @@ export const PRINT_FORMATS: PrintFormat[] = [
   },
 ];
 
-export interface BackgroundOption {
-  id: string;
-  label: string;
-  description: string;
-}
-
-export const BACKGROUND_OPTIONS: BackgroundOption[] = [
-  {
-    id: "classic-scene",
-    label: "Classic Scene",
-    description: "An iconic location from the show, chosen by our artists",
-  },
-  {
-    id: "custom-scene",
-    label: "Custom Scene",
-    description: "Describe any scene or upload a photo of a place — we'll draw it",
-  },
-];
-
 export interface ShippingOption {
   uid: string;
   name: string;
