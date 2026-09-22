@@ -28,7 +28,7 @@ test("every preliminary version receives an exact 72-hour review deadline", () =
 test("approval and revision feedback move orders to their expected statuses", () => {
   assert.equal(statusAfterArtworkApproval(order("digital")), "digital_file");
   assert.equal(statusAfterArtworkApproval(order("poster")), "digital_file");
-  assert.equal(statusAfterRevisionRequest(), "in_progress");
+  assert.equal(statusAfterRevisionRequest(), "review");
 });
 
 test("review reminders are due at 24 and 48 hours only once", () => {

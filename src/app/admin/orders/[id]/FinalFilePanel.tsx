@@ -17,17 +17,16 @@ export function FinalFilePanel({
   canSend: boolean;
 }) {
   const [file, setFile] = useState<File | null>(null);
-  const [preview, setPreview] = useState<File | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   async function handleSend() {
-    if (!file || !preview) {
-      setError("Choose both the high-resolution file and a lightweight preview image.");
+    if (!file) {
+      setError("Choose the final high-resolution file.");
       return;
     }
-    if (file.size > MAX_FILE_BYTES || preview.size > MAX_FILE_BYTES) {
-      setError("Files must be no larger than 100MB each.");
+    if (file.size > MAX_FILE_BYTES) {
+      setError("The file must be no larger than 100MB.");
       return;
     }
     setBusy(true);
@@ -36,22 +35,16 @@ export function FinalFilePanel({
       const auth = await getDeliveryUploadToken(orderId);
       if (!auth.ok) throw new Error(auth.error);
       const headers = { Authorization: `Bearer ${auth.token}` };
-      const send = async (kind: "original" | "preview", selected: File) => {
-        const name = selected.name.replace(/[^a-zA-Z0-9._-]/g, "_");
-        return upload(`orders/deliveries/${orderId}/final/${kind}-${Date.now()}-${name}`, selected, {
+      const name = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+      const originalBlob = await upload(`orders/deliveries/${orderId}/final/original-${Date.now()}-${name}`, file, {
           access: "public",
           handleUploadUrl: "/api/admin/blob-upload",
           headers,
-        });
-      };
-      const [originalBlob, previewBlob] = await Promise.all([
-        send("original", file),
-        send("preview", preview),
-      ]);
+      });
       const data = new FormData();
       data.set("orderId", orderId);
       data.set("fileUrl", originalBlob.url);
-      data.set("previewUrl", previewBlob.url);
+      data.set("previewUrl", originalBlob.url);
       await sendFinalFile(data);
     } catch (err) {
       if (typeof err === "object" && err && "digest" in err) throw err;
@@ -71,12 +64,9 @@ export function FinalFilePanel({
       )}
       {canSend ? (
         <div className="mt-4 space-y-4">
-          <p className="text-sm text-muted">The original is the customer download. The smaller preview is the only image displayed on tracking.</p>
+          <p className="text-sm text-muted">Upload the final high-resolution artwork. The tracking page will show the same artwork in a constrained preview and provide the original as the download.</p>
           <label className="block text-sm text-cream">High-resolution final file
             <input className="mt-2 block w-full text-sm text-muted" type="file" onChange={(e) => setFile(e.target.files?.[0] ?? null)} />
-          </label>
-          <label className="block text-sm text-cream">Lightweight preview / thumbnail
-            <input className="mt-2 block w-full text-sm text-muted" type="file" accept="image/jpeg,image/png,image/webp,image/gif" onChange={(e) => setPreview(e.target.files?.[0] ?? null)} />
           </label>
           {error && <p className="text-sm text-flame">{error}</p>}
           <button type="button" onClick={handleSend} disabled={busy} className="rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white disabled:opacity-60">

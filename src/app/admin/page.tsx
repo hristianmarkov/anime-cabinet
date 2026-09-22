@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { desc, eq } from "drizzle-orm";
 import { getDb } from "@/lib/db";
-import { orders, type Order, type OrderStatus } from "@/lib/schema";
+import { contactInquiries, contactMessages, orderReviewMessages, orderTimelineEvents, orders, type Order, type OrderStatus } from "@/lib/schema";
+import { orderNotice, type NoticeItem } from "@/lib/adminNotices";
 import { isAdminAuthenticated } from "@/lib/adminAuth";
 import { PRINT_FORMATS, formatUsd } from "@/data/pricing";
 import { login } from "./actions";
@@ -68,6 +69,7 @@ export default async function AdminPage({
     statusFilter === "all" || FILTER_STATUSES.some((f) => f.value === statusFilter);
 
   let allOrders: Order[] = [];
+  const notices = new Map<string, string>();
   let dbError: string | null = null;
   try {
     const db = getDb();
@@ -79,6 +81,26 @@ export default async function AdminPage({
         .orderBy(desc(orders.createdAt));
     } else {
       allOrders = await db.select().from(orders).orderBy(desc(orders.createdAt));
+    }
+    const [reviewRows, inquiries, contactRows, events] = await Promise.all([
+      db.select().from(orderReviewMessages),
+      db.select().from(contactInquiries),
+      db.select().from(contactMessages),
+      db.select().from(orderTimelineEvents),
+    ]);
+    const inquiryOrder = new Map(inquiries.filter((row) => row.linkedOrderId).map((row) => [row.id, row.linkedOrderId!]));
+    for (const order of allOrders) {
+      const messages: NoticeItem[] = reviewRows
+        .filter((row) => row.orderId === order.id)
+        .map((row) => ({ direction: row.direction === "customer" ? "customer" : "admin", createdAt: row.createdAt }));
+      messages.push(...contactRows
+        .filter((row) => inquiryOrder.get(row.inquiryId) === order.id)
+        .map((row) => ({ direction: row.direction === "inbound" ? "customer" as const : "admin" as const, createdAt: row.createdAt })));
+      const latestDecision = events
+        .filter((row) => row.orderId === order.id && (row.kind === "artwork_approved" || row.kind === "revision_requested"))
+        .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())[0];
+      const notice = orderNotice({ messages, latestDecision });
+      if (notice) notices.set(order.id, notice);
     }
   } catch {
     dbError =
@@ -129,10 +151,10 @@ export default async function AdminPage({
                     <tr className="border-b border-line text-xs uppercase tracking-wider text-faint">
                       <th className="px-4 py-3 font-semibold">Date</th>
                       <th className="px-4 py-3 font-semibold">Customer</th>
-                      <th className="px-4 py-3 font-semibold">Style</th>
                       <th className="px-4 py-3 font-semibold">Format</th>
                       <th className="px-4 py-3 font-semibold">Total</th>
                       <th className="px-4 py-3 font-semibold">Status</th>
+                      <th className="px-4 py-3 font-semibold">Notice</th>
                       <th className="px-4 py-3 font-semibold" />
                     </tr>
                   </thead>
@@ -150,12 +172,6 @@ export default async function AdminPage({
                           <td className="max-w-[180px] truncate px-4 py-3 text-cream" title={order.email}>
                             {order.email}
                           </td>
-                          <td className="px-4 py-3 text-cream">
-                            {order.styleName}
-                            {order.expedited && (
-                              <span className="ml-1 text-xs text-flame">24h</span>
-                            )}
-                          </td>
                           <td className="px-4 py-3 text-muted">{format?.label ?? order.formatId}</td>
                           <td className="px-4 py-3 font-semibold text-cream">
                             {formatUsd(order.amountTotal / 100)}
@@ -166,6 +182,13 @@ export default async function AdminPage({
                             >
                               {statusLabels[order.status]}
                             </span>
+                          </td>
+                          <td className="px-4 py-3">
+                            {notices.has(order.id) && (
+                              <span className="inline-block rounded-full bg-flame/20 px-2.5 py-1 text-xs font-semibold text-flame">
+                                {notices.get(order.id)}
+                              </span>
+                            )}
                           </td>
                           <td className="px-4 py-3 text-right">
                             <Link

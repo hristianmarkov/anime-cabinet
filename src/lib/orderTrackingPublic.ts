@@ -3,7 +3,6 @@ import { isDigitalOrder } from "@/lib/orderDeliveryRules";
 import { buildOrderPipeline, getActiveDelivery, type OrderPipeline } from "@/lib/orderWorkflow";
 import { statusLabels } from "@/app/admin/order-ui";
 import { PRINT_FORMATS, formatUsd } from "@/data/pricing";
-import { formatLondonNineLabel } from "@/lib/londonSchedule";
 import { resolveFirstPreviewDeadline } from "@/lib/firstPreviewDeadline";
 
 export interface PublicOrderTracking {
@@ -24,7 +23,6 @@ export interface PublicOrderTracking {
   maskedDestination: string | null;
   amountDisplay: string;
   milestones: { label: string; at: string }[];
-  productionStartsAt: string | null;
 
   previewDelivery: {
     id: string;
@@ -40,6 +38,7 @@ export interface PublicOrderTracking {
     body: string;
     deliveryVersion: number | null;
     createdAt: string;
+    imageUrls: string[];
   }[];
   firstPreviewDeadline: string | null;
   customerCopy: string | null;
@@ -90,6 +89,35 @@ export function buildPublicOrderTracking(
   const digital = isDigitalOrder(order);
   const active = getActiveDelivery(deliveries);
   const shipping = order.shippingAddress;
+  const representedDeliveryIds = new Set(
+    reviewMessages.map((message) => message.deliveryId).filter(Boolean)
+  );
+  const conversation = [
+    ...reviewMessages.map((message) => ({
+      id: message.id,
+      direction: message.direction,
+      author: message.author,
+      body: message.body,
+      deliveryVersion:
+        deliveries.find((delivery) => delivery.id === message.deliveryId)?.versionNumber ?? null,
+      createdAt: new Date(message.createdAt).toISOString(),
+      imageUrls:
+        deliveries
+          .find((delivery) => delivery.id === message.deliveryId)
+          ?.imageUrls.filter((url) => /^https:\/\//i.test(url)) ?? [],
+    })),
+    ...deliveries
+      .filter((delivery) => delivery.sentAt && !representedDeliveryIds.has(delivery.id))
+      .map((delivery) => ({
+        id: `delivery-${delivery.id}`,
+        direction: "admin" as const,
+        author: "Anime Cabinet",
+        body: delivery.comment.trim() || `Artwork preview version ${delivery.versionNumber}`,
+        deliveryVersion: delivery.versionNumber,
+        createdAt: new Date(delivery.sentAt!).toISOString(),
+        imageUrls: delivery.imageUrls.filter((url) => /^https:\/\//i.test(url)),
+      })),
+  ].sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
 
   const milestones = timeline
     .filter((e) => PUBLIC_MILESTONE_KINDS.has(e.kind))
@@ -122,11 +150,6 @@ export function buildPublicOrderTracking(
     maskedDestination: !digital && shipping ? maskDestination(shipping) : null,
     amountDisplay: `${formatUsd(order.amountTotal / 100)} ${order.currency.toUpperCase()}`,
     milestones,
-    productionStartsAt:
-      order.status === "paid" && order.productionScheduledAt
-        ? formatLondonNineLabel(new Date(order.productionScheduledAt))
-        : null,
-
     previewDelivery: active
       ? {
           id: active.id,
@@ -138,15 +161,7 @@ export function buildPublicOrderTracking(
             : null,
         }
       : null,
-    reviewMessages: reviewMessages.map((message) => ({
-      id: message.id,
-      direction: message.direction,
-      author: message.author,
-      body: message.body,
-      deliveryVersion:
-        deliveries.find((delivery) => delivery.id === message.deliveryId)?.versionNumber ?? null,
-      createdAt: new Date(message.createdAt).toISOString(),
-    })),
+    reviewMessages: conversation,
     firstPreviewDeadline:
       order.status === "paid" || order.status === "in_progress"
         ? resolveFirstPreviewDeadline(order).toISOString()

@@ -16,16 +16,19 @@ function normalizeEmail(email: string): string {
   return (match ? match[1] : email).trim().toLowerCase();
 }
 
-function stripQuotedReply(text: string): string {
+export function stripQuotedReply(text: string): string {
   const lines = text.split(/\r?\n/);
   const kept: string[] = [];
   for (const line of lines) {
     if (/^On .+ wrote:$/i.test(line.trim())) break;
     if (/^>{1,}\s/.test(line)) continue;
     if (/^From:\s/i.test(line)) break;
+    if (/^(--\s*$|_{5,}|-{5,})/.test(line.trim())) break;
+    if (/^(information about brokerage services|texas real estate commission|the information contained in this email)/i.test(line.trim())) break;
+    if (/^(direct|mobile|office|website|email):\s/i.test(line.trim()) && kept.length > 0) break;
     kept.push(line);
   }
-  return kept.join("\n").trim();
+  return kept.join("\n").replace(/\n{3,}/g, "\n\n").trim();
 }
 
 export async function processInboundEmail(input: {

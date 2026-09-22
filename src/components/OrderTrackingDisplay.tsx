@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { PublicOrderTracking } from "@/lib/orderTrackingPublic";
 import { TrackOrderContactForm } from "./TrackOrderContactForm";
 import { PublicArtworkReview } from "./PublicArtworkReview";
@@ -40,23 +41,16 @@ export function OrderTrackingDisplay({
         <div className="mt-7 border-t border-line pt-5">
         <h2 className="text-sm font-semibold uppercase tracking-wider text-muted">Progress</h2>
         <div className="mt-6"><OrderProgressTimeline pipeline={tracking.pipeline} /></div>
-        {tracking.productionStartsAt && tracking.status === "paid" && (
-          <p className="mt-4 text-sm text-muted">
-            Our artists start on the next UK working day at{" "}
-            <span className="font-semibold text-cream">{tracking.productionStartsAt}</span>.
-          </p>
-        )}
         {tracking.customerCopy && <p className="mt-4 text-sm text-muted">{tracking.customerCopy}</p>}
         {tracking.firstPreviewDeadline && (
           <FirstPreviewCountdown deadline={tracking.firstPreviewDeadline} />
         )}
         {tracking.revisionDeadline && tracking.status === "review" && (
-          <p className="mt-4 text-sm text-flame">
-            Preview review window until{" "}
-            {new Date(tracking.revisionDeadline).toLocaleString("en-GB", { dateStyle: "medium", timeStyle: "short" })}{" "}
-            UTC
-            {tracking.revisionHours ? ` (${tracking.revisionHours}h)` : ""}
-          </p>
+          <FirstPreviewCountdown
+            deadline={tracking.revisionDeadline}
+            label="Review time remaining"
+            expiredLabel="Your review window has ended. We are preparing your final file."
+          />
         )}
         </div>
       </header>
@@ -96,9 +90,12 @@ export function OrderTrackingDisplay({
       {tracking.finalFile && (
         <section className="rounded-2xl border border-line bg-surface p-6 shadow-card">
           <h2 className="text-sm font-semibold uppercase tracking-wider text-muted">Your final artwork</h2>
-          <img
+          <Image
             src={tracking.finalFile.previewUrl}
             alt={`Preview of ${tracking.styleName}`}
+            width={800}
+            height={800}
+            sizes="(max-width: 768px) 100vw, 768px"
             className="mt-4 max-h-64 w-full rounded-xl object-contain"
           />
           <a

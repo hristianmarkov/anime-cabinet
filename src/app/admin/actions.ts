@@ -15,7 +15,6 @@ import {
 } from "@/lib/schema";
 import {
   statusAfterArtworkApproval,
-  statusAfterRevisionRequest,
 } from "@/lib/orderWorkflow";
 import {
   ADMIN_COOKIE,
@@ -305,26 +304,13 @@ export async function requestRevision(formData: FormData): Promise<void> {
   const [order] = await db.select().from(orders).where(eq(orders.id, orderId)).limit(1);
   if (!order || order.status !== "review") return;
 
-  await closeActiveDelivery(orderId);
-  await db
-    .update(orders)
-    .set({ status: statusAfterRevisionRequest() })
-    .where(eq(orders.id, orderId));
+  await db.update(orders).set({ status: "review" }).where(eq(orders.id, orderId));
 
   await addOrderTimelineEvent({
     orderId,
     kind: "revision_requested",
-    summary: "Revision requested — back in production",
+    summary: "Revision requested — awaiting updated artwork",
   });
-
-  const [updated] = await db.select().from(orders).where(eq(orders.id, orderId)).limit(1);
-  if (updated) {
-    try {
-      await notifyCustomerOfStatusChange(updated, "review", "in_progress");
-    } catch (err) {
-      console.error("Revision email failed:", err);
-    }
-  }
 
   revalidatePath("/admin");
   revalidatePath(`/admin/orders/${orderId}`);

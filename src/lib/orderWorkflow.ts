@@ -88,5 +88,5 @@ export function statusAfterReviewWindowLapse(order: Order): OrderStatus {
 }
 
 export function statusAfterRevisionRequest(): OrderStatus {
-  return "in_progress";
+  return "review";
 }

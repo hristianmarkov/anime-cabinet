@@ -13,7 +13,15 @@ function remainingParts(deadline: string) {
   };
 }
 
-export function FirstPreviewCountdown({ deadline }: { deadline: string }) {
+export function FirstPreviewCountdown({
+  deadline,
+  label = "First preview within",
+  expiredLabel = "This deadline has passed.",
+}: {
+  deadline: string;
+  label?: string;
+  expiredLabel?: string;
+}) {
   const [remaining, setRemaining] = useState<ReturnType<typeof remainingParts> | null>(null);
 
   useEffect(() => {
@@ -28,12 +36,12 @@ export function FirstPreviewCountdown({ deadline }: { deadline: string }) {
   }
 
   if (remaining.expired) {
-    return <p className="mt-3 font-semibold text-flame">Your first preview is due now.</p>;
+    return <p className="mt-3 font-semibold text-flame">{expiredLabel}</p>;
   }
 
   return (
     <div className="mt-4" aria-live="polite" aria-label="Time until first preview">
-      <p className="text-xs font-semibold uppercase tracking-wider text-faint">First preview in</p>
+      <p className="text-xs font-semibold uppercase tracking-wider text-faint">{label}</p>
       <p className="font-display mt-1 text-2xl text-cream tabular-nums">
         {remaining.hours}h {String(remaining.minutes).padStart(2, "0")}m{" "}
         {String(remaining.seconds).padStart(2, "0")}s
