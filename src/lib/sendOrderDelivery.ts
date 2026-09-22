@@ -3,7 +3,7 @@ import { getDb } from "@/lib/db";
 import { sendDeliveryPreviewEmail } from "@/lib/emails";
 import { revisionWindowHours } from "@/lib/orderDeliveryRules";
 import { addOrderTimelineEvent } from "@/lib/orderTimeline";
-import { orderDeliveries, orders } from "@/lib/schema";
+import { orderDeliveries, orderReviewMessages, orders } from "@/lib/schema";
 
 export async function sendOrderDeliveryToCustomer(input: {
   orderId: string;
@@ -61,6 +61,16 @@ export async function sendOrderDeliveryToCustomer(input: {
     .returning();
 
   await db.update(orders).set({ status: "review" }).where(eq(orders.id, order.id));
+
+  if (input.comment.trim()) {
+    await db.insert(orderReviewMessages).values({
+      orderId: order.id,
+      deliveryId: delivery.id,
+      direction: "admin",
+      author: "Anime Cabinet",
+      body: input.comment.trim().slice(0, 5000),
+    });
+  }
 
   await sendDeliveryPreviewEmail(order, delivery);
 

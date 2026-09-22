@@ -56,6 +56,8 @@ export function buildOrderPipeline(order: Order): PipelineStep[] {
         return "production";
       case "review":
         return "customer_review";
+      case "digital_file":
+        return "completed";
       case "approved":
         return digital ? "completed" : "approved";
       case "printing":
@@ -74,7 +76,7 @@ export function buildOrderPipeline(order: Order): PipelineStep[] {
   const current = currentStepId();
   const currentIndex = defs.findIndex((d) => d.id === current);
 
-  if (s === "delivered") {
+  if (s === "delivered" || s === "digital_file") {
     return defs.map((d) => ({ ...d, state: "done" as const }));
   }
   if (s === "cancelled") {
@@ -92,9 +94,9 @@ export function buildOrderPipeline(order: Order): PipelineStep[] {
 }
 
 export function statusAfterArtworkApproval(order: Order): OrderStatus {
-  return isDigitalOrder(order) ? "delivered" : "approved";
+  return isDigitalOrder(order) ? "digital_file" : "approved";
 }
 
 export function statusAfterReviewWindowLapse(order: Order): OrderStatus {
-  return isDigitalOrder(order) ? "delivered" : "approved";
+  return isDigitalOrder(order) ? "digital_file" : "approved";
 }

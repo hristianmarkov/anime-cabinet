@@ -7,7 +7,7 @@ import { and, eq, isNotNull, isNull } from "drizzle-orm";
 import { getDb } from "@/lib/db";
 import {
   ORDER_STATUSES,
-  orderCustomerFeedback,
+  orderReviewMessages,
   orderDeliveries,
   orders,
   type OrderStatus,
@@ -213,8 +213,8 @@ export async function approveArtwork(formData: FormData): Promise<void> {
     orderId,
     kind: "artwork_approved",
     summary:
-      next === "delivered"
-        ? "Artwork approved — order closed"
+      next === "digital_file"
+        ? "Artwork approved — digital file ready"
         : "Artwork approved — ready for print",
     metadata: { status: next },
   });
@@ -273,10 +273,11 @@ export async function logCustomerFeedback(formData: FormData): Promise<void> {
   if (!orderId || !body) return;
 
   const db = getDb();
-  await db.insert(orderCustomerFeedback).values({
+  await db.insert(orderReviewMessages).values({
     orderId,
     body,
-    source: "manual",
+    direction: "customer",
+    author: "Customer (logged by admin)",
   });
 
   await addOrderTimelineEvent({

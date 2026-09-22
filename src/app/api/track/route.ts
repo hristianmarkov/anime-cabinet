@@ -4,6 +4,7 @@ import { getDb } from "@/lib/db";
 import { buildPublicOrderTracking } from "@/lib/orderTrackingPublic";
 import {
   orderDeliveries,
+  orderReviewMessages,
   orderTimelineEvents,
   orders,
 } from "@/lib/schema";
@@ -42,9 +43,15 @@ export async function POST(request: Request) {
       .orderBy(desc(orderTimelineEvents.createdAt))
       .limit(20);
 
+    const reviewMessages = await db
+      .select()
+      .from(orderReviewMessages)
+      .where(eq(orderReviewMessages.orderId, order.id))
+      .orderBy(orderReviewMessages.createdAt);
+
     return NextResponse.json({
       trackToken: order.trackToken,
-      tracking: buildPublicOrderTracking(order, deliveries, timeline),
+      tracking: buildPublicOrderTracking(order, deliveries, timeline, reviewMessages),
     });
   } catch {
     return NextResponse.json({ error: "Tracking is temporarily unavailable." }, { status: 503 });

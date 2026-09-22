@@ -1,4 +1,4 @@
-import type { Order, OrderDelivery, OrderTimelineEvent } from "@/lib/schema";
+import type { Order, OrderDelivery, OrderReviewMessage, OrderTimelineEvent } from "@/lib/schema";
 import { isDigitalOrder } from "@/lib/orderDeliveryRules";
 import { buildOrderPipeline, getActiveDelivery, type PipelineStep } from "@/lib/orderWorkflow";
 import { statusLabels } from "@/app/admin/order-ui";
@@ -24,6 +24,21 @@ export interface PublicOrderTracking {
   amountDisplay: string;
   milestones: { label: string; at: string }[];
   productionStartsAt: string | null;
+  previewDelivery: {
+    id: string;
+    versionNumber: number;
+    imageUrls: string[];
+    adminMessage: string;
+    revisionDeadline: string | null;
+  } | null;
+  reviewMessages: {
+    id: string;
+    direction: "customer" | "admin";
+    author: string;
+    body: string;
+    deliveryVersion: number | null;
+    createdAt: string;
+  }[];
 }
 
 function maskName(first: string, last: string): string {
@@ -51,7 +66,8 @@ const PUBLIC_MILESTONE_KINDS = new Set([
 export function buildPublicOrderTracking(
   order: Order,
   deliveries: OrderDelivery[],
-  timeline: OrderTimelineEvent[]
+  timeline: OrderTimelineEvent[],
+  reviewMessages: OrderReviewMessage[] = []
 ): PublicOrderTracking {
   const format = PRINT_FORMATS.find((f) => f.id === order.formatId);
   const digital = isDigitalOrder(order);
@@ -93,5 +109,25 @@ export function buildPublicOrderTracking(
       order.status === "paid" && order.productionScheduledAt
         ? formatLondon915Label(new Date(order.productionScheduledAt))
         : null,
+    previewDelivery: active
+      ? {
+          id: active.id,
+          versionNumber: active.versionNumber,
+          imageUrls: active.imageUrls.filter((url) => /^https:\/\//i.test(url)),
+          adminMessage: active.comment,
+          revisionDeadline: active.revisionDeadline
+            ? new Date(active.revisionDeadline).toISOString()
+            : null,
+        }
+      : null,
+    reviewMessages: reviewMessages.map((message) => ({
+      id: message.id,
+      direction: message.direction,
+      author: message.author,
+      body: message.body,
+      deliveryVersion:
+        deliveries.find((delivery) => delivery.id === message.deliveryId)?.versionNumber ?? null,
+      createdAt: new Date(message.createdAt).toISOString(),
+    })),
   };
 }

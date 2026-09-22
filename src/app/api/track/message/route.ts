@@ -17,7 +17,7 @@ export async function POST(request: Request) {
 
   const trackToken = body.trackToken?.trim();
   const message = body.message?.trim();
-  if (!trackToken || !message || message.length < 5) {
+  if (!trackToken || !message || message.length < 5 || message.length > 5000) {
     return NextResponse.json({ error: "Please enter a message (at least 5 characters)." }, { status: 400 });
   }
 
@@ -30,17 +30,24 @@ export async function POST(request: Request) {
   const name = body.name?.trim() || order.email.split("@")[0] || "Customer";
   const subject = `Order help — ${order.styleName}`;
 
-  const [inquiry] = await db
-    .insert(contactInquiries)
-    .values({
+  const [existingInquiry] = await db
+    .select()
+    .from(contactInquiries)
+    .where(eq(contactInquiries.linkedOrderId, order.id))
+    .limit(1);
+  const [createdInquiry] = existingInquiry ? [] : await db.insert(contactInquiries).values({
       name,
       email: order.email,
       subject,
       threadSubject: defaultThreadSubject(subject),
       linkedOrderId: order.id,
       status: "open",
-    })
-    .returning();
+    }).returning();
+  const inquiry = existingInquiry ?? createdInquiry;
+  if (!inquiry) return NextResponse.json({ error: "Could not open the order conversation." }, { status: 500 });
+  if (existingInquiry?.status === "closed") {
+    await db.update(contactInquiries).set({ status: "open" }).where(eq(contactInquiries.id, inquiry.id));
+  }
 
   await db.insert(contactMessages).values({
     inquiryId: inquiry.id,

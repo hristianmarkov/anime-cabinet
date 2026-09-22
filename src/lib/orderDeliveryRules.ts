@@ -6,7 +6,8 @@ export function isDigitalOrder(order: Order): boolean {
 
 /** Hours the customer has to request revisions after a delivery email. */
 export function revisionWindowHours(order: Order): number {
-  return isDigitalOrder(order) ? 48 : 72;
+  void order;
+  return 72;
 }
 
 export function revisionWindowLabel(order: Order): string {
