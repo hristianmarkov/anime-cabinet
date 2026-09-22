@@ -38,13 +38,13 @@ function HorizontalTrack({ steps, start }: { steps: PipelineStep[]; start: numbe
 
 export function OrderProgressTimeline({ pipeline }: { pipeline: OrderPipeline }) {
   const shipping = pipeline.branches.shipping;
+  const mainSteps = [...pipeline.shared, ...pipeline.branches.digital];
 
   if (!shipping) {
-    const steps = [...pipeline.shared, ...pipeline.branches.digital];
     return (
       <div className="overflow-x-auto pb-2">
         <div className="min-w-[620px]">
-          <HorizontalTrack steps={steps} start={1} />
+          <HorizontalTrack steps={mainSteps} start={1} />
         </div>
       </div>
     );
@@ -54,23 +54,16 @@ export function OrderProgressTimeline({ pipeline }: { pipeline: OrderPipeline })
   return (
     <div className="overflow-x-auto pb-2">
       <div className="min-w-[720px]">
-        <HorizontalTrack steps={pipeline.shared} start={1} />
+        <HorizontalTrack steps={mainSteps} start={1} />
 
-        <div className="relative mx-auto h-10 w-1/2" aria-hidden>
-          <div className="absolute left-1/2 top-0 h-5 border-l-2 border-line" />
-          <div className="absolute left-0 right-0 top-5 border-t-2 border-line" />
-          <div className="absolute bottom-0 left-0 h-5 border-l-2 border-line" />
-          <div className="absolute bottom-0 right-0 h-5 border-r-2 border-line" />
+        <div className="relative h-12" aria-hidden>
+          <div className="absolute left-1/2 top-0 h-8 border-l-2 border-line" />
+          <div className="absolute left-1/2 right-[8.333%] top-8 border-t-2 border-line" />
+          <div className="absolute right-[8.333%] top-8 h-4 border-r-2 border-line" />
         </div>
 
-        <div className="grid grid-cols-2 gap-8">
-          <section aria-labelledby="timeline-digital" className="rounded-xl border border-line/70 px-3 py-4">
-            <h3 id="timeline-digital" className="mb-4 text-center text-xs font-bold uppercase tracking-wider text-muted">
-              Digital
-            </h3>
-            <HorizontalTrack steps={pipeline.branches.digital} start={branchStart} />
-          </section>
-          <section aria-labelledby="timeline-shipping" className="rounded-xl border border-line/70 px-3 py-4">
+        <div className="ml-auto w-1/2">
+          <section aria-labelledby="timeline-shipping" className="px-3 pt-2">
             <h3 id="timeline-shipping" className="mb-4 text-center text-xs font-bold uppercase tracking-wider text-muted">
               Print &amp; shipping
             </h3>

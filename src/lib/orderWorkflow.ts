@@ -64,16 +64,16 @@ export function buildOrderPipeline(order: Order): OrderPipeline {
     ? s as "approved" | "printing" | "shipped" | "delivered"
     : "pending";
   const shippingStatus = order.shippingFulfillmentStatus ?? legacyShipping;
-  const shippingRank = { pending: -1, approved: 0, printing: 1, shipped: 2, delivered: 3 }[shippingStatus];
+  const shippingRank = { pending: -1, approved: -1, printing: 0, shipped: 1, delivered: 2 }[shippingStatus];
   const shippingDefs = [
-    { id: "approved" as const, label: "Artwork approval" },
     { id: "printing" as const, label: "Print production" },
     { id: "dispatched" as const, label: "Dispatch" },
     { id: "completed" as const, label: "Delivery" },
   ];
+  const shippingStarted = s !== "digital_file" && reviewComplete;
   const shipping = digital ? null : shippingDefs.map((step, index) => ({
     ...step,
-    state: (index <= shippingRank ? "done" : index === shippingRank + 1 && reviewComplete ? "current" : "upcoming") as PipelineStep["state"],
+    state: (index <= shippingRank ? "done" : index === shippingRank + 1 && shippingStarted ? "current" : "upcoming") as PipelineStep["state"],
   }));
 
   return { shared, branches: { digital: digitalSteps, shipping } };

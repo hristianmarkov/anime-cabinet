@@ -58,7 +58,7 @@ export default async function TrackOrderTokenPage({ params }: { params: Promise<
     }
   } catch {
     return (
-      <section className="mx-auto max-w-2xl px-4 py-16 text-center">
+      <section className="mx-auto max-w-6xl px-4 py-16 text-center sm:px-6">
         <p className="text-flame">Tracking is temporarily unavailable. Please try again later.</p>
       </section>
     );
@@ -73,7 +73,7 @@ export default async function TrackOrderTokenPage({ params }: { params: Promise<
 
 
   return (
-    <section className="mx-auto max-w-2xl px-4 py-12 sm:px-6">
+    <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
       <Link href="/track" className="text-sm font-semibold text-accent hover:underline">
         ← Look up another order
       </Link>
