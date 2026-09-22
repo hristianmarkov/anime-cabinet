@@ -301,18 +301,19 @@ export default async function AdminOrderPage({
               customerNotes={order.notes}
             />
 
-            <article className="rounded-2xl border border-line bg-surface p-6 shadow-card">
-              <h2 className="text-sm font-semibold uppercase tracking-wider text-muted">
-                Send artwork
-              </h2>
-              <div className="mt-4">
-                <SendDeliveryForm
-                  orderId={order.id}
-                  revisionHours={revisionHours}
-                  isDigital={digital}
-                />
-              </div>
-            </article>
+            {order.status === "in_progress" && (
+              <article className="rounded-2xl border border-line bg-surface p-6 shadow-card">
+                <h2 className="text-sm font-semibold uppercase tracking-wider text-muted">
+                  Send artwork
+                </h2>
+                <div className="mt-4">
+                  <SendDeliveryForm
+                    orderId={order.id}
+                    revisionHours={revisionHours}
+                  />
+                </div>
+              </article>
+            )}
 
             {deliveries.length > 0 && (
               <article className="rounded-2xl border border-line bg-surface p-6 shadow-card">

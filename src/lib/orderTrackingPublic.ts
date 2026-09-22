@@ -4,6 +4,7 @@ import { buildOrderPipeline, getActiveDelivery, type OrderPipeline } from "@/lib
 import { statusLabels } from "@/app/admin/order-ui";
 import { PRINT_FORMATS, formatUsd } from "@/data/pricing";
 import { formatLondonNineLabel } from "@/lib/londonSchedule";
+import { resolveFirstPreviewDeadline } from "@/lib/firstPreviewDeadline";
 
 export interface PublicOrderTracking {
   styleName: string;
@@ -147,12 +148,12 @@ export function buildPublicOrderTracking(
       createdAt: new Date(message.createdAt).toISOString(),
     })),
     firstPreviewDeadline:
-      (order.status === "paid" || order.status === "in_progress") && order.firstPreviewDeadline
-        ? new Date(order.firstPreviewDeadline).toISOString()
+      order.status === "paid" || order.status === "in_progress"
+        ? resolveFirstPreviewDeadline(order).toISOString()
         : null,
     customerCopy: getFirstPreviewCopy(order.status),
     finalFile:
-      order.status === "delivered" && finalFile
+      order.digitalFulfillmentStatus === "completed" && finalFile
         ? { previewUrl: finalFile.previewUrl, downloadUrl: finalFile.fileUrl }
         : null,
 

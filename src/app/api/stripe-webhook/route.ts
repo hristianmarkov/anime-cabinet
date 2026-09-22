@@ -41,7 +41,7 @@ export async function POST(request: Request) {
       const db = getDb();
       const paidAt = new Date(event.created * 1_000);
       const [pendingOrder] = await db
-        .select({ expedited: orders.expedited })
+        .select({ createdAt: orders.createdAt, expedited: orders.expedited })
         .from(orders)
         .where(and(eq(orders.id, orderId), eq(orders.status, "pending")))
         .limit(1);
@@ -52,7 +52,10 @@ export async function POST(request: Request) {
         .set({
           status: "paid",
           paidAt,
-          firstPreviewDeadline: calculateFirstPreviewDeadline(paidAt, pendingOrder.expedited),
+          firstPreviewDeadline: calculateFirstPreviewDeadline(
+            new Date(pendingOrder.createdAt),
+            pendingOrder.expedited
+          ),
           productionScheduledAt: nextWorkingDayAtNineLondon(paidAt),
         })
         .where(and(eq(orders.id, orderId), eq(orders.status, "pending")))

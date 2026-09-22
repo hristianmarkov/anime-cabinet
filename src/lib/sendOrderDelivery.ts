@@ -23,8 +23,8 @@ export async function sendOrderDeliveryToCustomer(input: {
   const db = getDb();
   const [order] = await db.select().from(orders).where(eq(orders.id, input.orderId)).limit(1);
   if (!order) return { ok: false, error: "Order not found." };
-  if (order.status === "cancelled") {
-    return { ok: false, error: "Cannot send artwork for a cancelled order." };
+  if (order.status !== "in_progress") {
+    return { ok: false, error: "Artwork previews can only be sent while the order is in production." };
   }
 
   const [latest] = await db
