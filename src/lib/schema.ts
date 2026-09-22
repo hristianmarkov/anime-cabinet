@@ -55,6 +55,8 @@ export const orders = pgTable("orders", {
   printFileUrl: text("print_file_url"),
   trackToken: text("track_token").default(sql`gen_random_uuid()`).notNull(),
   productionScheduledAt: timestamp("production_scheduled_at", { withTimezone: true }),
+  paidAt: timestamp("paid_at", { withTimezone: true }),
+  firstPreviewDeadline: timestamp("first_preview_deadline", { withTimezone: true }),
   trackingNumber: text("tracking_number"),
   trackingUrl: text("tracking_url"),
   amountTotal: integer("amount_total").notNull(),

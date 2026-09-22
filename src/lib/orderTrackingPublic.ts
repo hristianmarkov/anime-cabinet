@@ -24,6 +24,18 @@ export interface PublicOrderTracking {
   amountDisplay: string;
   milestones: { label: string; at: string }[];
   productionStartsAt: string | null;
+  firstPreviewDeadline: string | null;
+  customerCopy: string | null;
+}
+
+function getFirstPreviewCopy(status: Order["status"]): string | null {
+  if (status === "paid") {
+    return "We’ve received your order and are allocating it to an artist.";
+  }
+  if (status === "in_progress") {
+    return "Your artist is working on the first draft and will provide it within the time shown.";
+  }
+  return null;
 }
 
 function maskName(first: string, last: string): string {
@@ -93,5 +105,10 @@ export function buildPublicOrderTracking(
       order.status === "paid" && order.productionScheduledAt
         ? formatLondon915Label(new Date(order.productionScheduledAt))
         : null,
+    firstPreviewDeadline:
+      (order.status === "paid" || order.status === "in_progress") && order.firstPreviewDeadline
+        ? new Date(order.firstPreviewDeadline).toISOString()
+        : null,
+    customerCopy: getFirstPreviewCopy(order.status),
   };
 }

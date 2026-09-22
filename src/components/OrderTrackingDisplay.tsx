@@ -1,5 +1,6 @@
 import type { PublicOrderTracking } from "@/lib/orderTrackingPublic";
 import { TrackOrderContactForm } from "./TrackOrderContactForm";
+import { FirstPreviewCountdown } from "./FirstPreviewCountdown";
 
 function stepClass(state: PublicOrderTracking["pipeline"][0]["state"]): string {
   if (state === "done") return "bg-[#4ade80]/20 text-[#4ade80]";
@@ -66,6 +67,10 @@ export function OrderTrackingDisplay({
             <span className="font-semibold text-cream">{tracking.productionStartsAt}</span>.
           </p>
         )}
+        {tracking.customerCopy && <p className="mt-4 text-sm text-muted">{tracking.customerCopy}</p>}
+        {tracking.firstPreviewDeadline && (
+          <FirstPreviewCountdown deadline={tracking.firstPreviewDeadline} />
+        )}
         {tracking.revisionDeadline && tracking.status === "review" && (
           <p className="mt-4 text-sm text-flame">
             Preview review window until{" "}
@@ -75,6 +80,8 @@ export function OrderTrackingDisplay({
           </p>
         )}
       </section>
+
+      <TrackOrderContactForm trackToken={trackToken} />
 
       {!tracking.digital && (tracking.maskedRecipient || tracking.trackingUrl) && (
         <section className="rounded-2xl border border-line bg-surface p-6 shadow-card">
@@ -115,8 +122,6 @@ export function OrderTrackingDisplay({
           </ul>
         </section>
       )}
-
-      <TrackOrderContactForm trackToken={trackToken} />
     </div>
   );
 }

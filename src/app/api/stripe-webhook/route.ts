@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import type Stripe from "stripe";
 import { getDb } from "@/lib/db";
 import { orders } from "@/lib/schema";
@@ -8,6 +8,7 @@ import { sendNewOrderAlert, sendOrderConfirmation } from "@/lib/emails";
 import { incrementSatisfiedBuyers } from "@/lib/siteStats";
 import { nextWorkingDay915London } from "@/lib/londonSchedule";
 import { addOrderTimelineEvent } from "@/lib/orderTimeline";
+import { calculateFirstPreviewDeadline } from "@/lib/firstPreviewDeadline";
 
 export async function POST(request: Request) {
   const secret = process.env.STRIPE_WEBHOOK_SECRET;
@@ -35,14 +36,24 @@ export async function POST(request: Request) {
 
     if (orderId) {
       const db = getDb();
-      const paidAt = new Date();
+      const paidAt = new Date(event.created * 1000);
+      const [pendingOrder] = await db
+        .select({ expedited: orders.expedited })
+        .from(orders)
+        .where(and(eq(orders.id, orderId), eq(orders.status, "pending")))
+        .limit(1);
+
+      if (!pendingOrder) return NextResponse.json({ received: true });
+
       const [order] = await db
         .update(orders)
         .set({
           status: "paid",
+          paidAt,
+          firstPreviewDeadline: calculateFirstPreviewDeadline(paidAt, pendingOrder.expedited),
           productionScheduledAt: nextWorkingDay915London(paidAt),
         })
-        .where(eq(orders.id, orderId))
+        .where(and(eq(orders.id, orderId), eq(orders.status, "pending")))
         .returning();
 
       if (order) {
