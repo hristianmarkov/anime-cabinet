@@ -5,7 +5,6 @@ export interface DeliveryMessageOrderContext {
   styleName: string;
   characters: number;
   formatLabel: string;
-  backgroundLabel: string;
   customerNotes: string;
   expedited: boolean;
   isDigital: boolean;
@@ -54,7 +53,6 @@ Rules:
         styleName: input.styleName,
         characters: input.characters,
         formatLabel: input.formatLabel,
-        backgroundLabel: input.backgroundLabel,
         customerNotes: input.customerNotes.trim() || null,
         expedited: input.expedited,
         isDigital: input.isDigital,

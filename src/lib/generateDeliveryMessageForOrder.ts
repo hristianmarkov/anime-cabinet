@@ -1,5 +1,5 @@
 import { desc, eq } from "drizzle-orm";
-import { BACKGROUND_OPTIONS, PRINT_FORMATS } from "@/data/pricing";
+import { PRINT_FORMATS } from "@/data/pricing";
 import { draftDeliveryMessageWithOpenAI } from "@/lib/deliveryMessageOpenAi";
 import { getDb } from "@/lib/db";
 import { isDigitalOrder } from "@/lib/orderDeliveryRules";
@@ -41,8 +41,6 @@ export async function generateDeliveryMessageForOrder(
   const deliveryVersion = (latestDelivery?.versionNumber ?? 0) + 1;
   const formatLabel =
     PRINT_FORMATS.find((f) => f.id === order.formatId)?.label ?? order.formatId;
-  const backgroundLabel =
-    BACKGROUND_OPTIONS.find((b) => b.id === order.background)?.label ?? order.background;
 
   try {
     const draft = await draftDeliveryMessageWithOpenAI({
@@ -50,7 +48,6 @@ export async function generateDeliveryMessageForOrder(
       styleName: order.styleName,
       characters: order.characters,
       formatLabel,
-      backgroundLabel,
       customerNotes: order.notes,
       expedited: order.expedited,
       isDigital: isDigitalOrder(order),

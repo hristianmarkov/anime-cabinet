@@ -240,10 +240,6 @@ export default async function AdminOrderPage({
                   <dd className="text-cream">{format?.label ?? order.formatId}</dd>
                 </div>
                 <div>
-                  <dt className="text-xs text-faint">Background</dt>
-                  <dd className="text-cream">{order.background}</dd>
-                </div>
-                <div>
                   <dt className="text-xs text-faint">Total</dt>
                   <dd className="font-semibold text-cream">
                     {formatUsd(order.amountTotal / 100)} {order.currency.toUpperCase()}

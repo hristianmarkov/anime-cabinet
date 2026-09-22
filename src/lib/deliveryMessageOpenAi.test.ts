@@ -10,7 +10,6 @@ const baseInput: DeliveryMessageOrderContext = {
   styleName: "Anime",
   characters: 2,
   formatLabel: "Digital File",
-  backgroundLabel: "Detailed",
   customerNotes: "",
   expedited: false,
   isDigital: true,

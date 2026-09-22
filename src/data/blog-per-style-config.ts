@@ -603,7 +603,7 @@ export const styleBlogConfigs: StyleBlogConfig[] = [
     photoTips: [
       "Well-dressed source photos translate instantly into spy gala energy.",
       "Family photos: specify who plays spy, assassin, or telepath joke roles in notes.",
-      "Couples can request ballroom or city-night backgrounds.",
+      "Couples can highlight elegant outfits, expressive poses, and city-night energy.",
       "Pets as Bond-style companions — mention breed and demeanour.",
       "Neutral expressions with a hint of smile suit the series' dry humour.",
     ],
@@ -868,10 +868,10 @@ export const styleBlogConfigs: StyleBlogConfig[] = [
     posterIdeas: [
       "Full family on the couch — holiday card replacement forever.",
       "Couple portrait for partners who still quote Homer daily.",
-      "Best-friend duo at Moe's — bar background requested in notes.",
+      "Best-friend duo with recognisable expressions and favourite-character energy.",
       "Housewarming Springfield map background with family in foreground.",
       "Birthday gift for the Lisa in your life — saxophone detail optional.",
-      "Anniversary 'D'oh' love story caption requested as subtle background sign.",
+      "Anniversary portrait with a subtle love-story caption.",
     ],
     recogniseDetail:
       "Yellow skin is stylistic, not erasure — hairlines, heights, outfits, and expressions stay true to your family. Everyone is identifiable by silhouette alone after revisions. The Simpsons lens is a joke everyone gets; the likeness is the personal punchline.",
@@ -955,7 +955,7 @@ export const styleBlogConfigs: StyleBlogConfig[] = [
     posterIdeas: [
       "Couple as complementary benders — anniversary staple for ATLA fans.",
       "Friend trio with earth, fire, and air assignments in notes.",
-      "Solo portrait with sky bison cloud background request.",
+      "Solo portrait with adventurous sky-bison energy.",
       "Kid's birthday with their favourite element colour theme.",
       "Long-distance partners with matching maps and different poses.",
       "Graduation 'journey finished, new adventure' gift with custom caption.",
@@ -991,7 +991,7 @@ export const styleBlogConfigs: StyleBlogConfig[] = [
     photoTips: [
       "Dramatic side-lighting in source photos extends beautifully into Arcane shadows.",
       "Serious or intense expressions match the series' emotional weight.",
-      "Couples can request Zaun vs Piltover colour split backgrounds.",
+      "Couples can lean into contrasting Zaun and Piltover colour palettes.",
       "Specify hextech or graffiti motif preferences in notes.",
       "Avoid flat phone flash — moody source light helps artists immensely.",
     ],

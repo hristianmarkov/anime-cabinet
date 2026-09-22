@@ -159,7 +159,7 @@ export const giftIntentPosts: BlogPost[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "Standard preview delivery is within 72 hours, but build in revision time — especially if you're requesting specific outfits or backgrounds. A framed print unwrapped at dinner beats a digital file sent at midnight. For long-distance anniversaries, schedule a video call around preview approval so you experience the reveal together.",
+            text: "Standard preview delivery is within 72 hours, but build in revision time — especially if you're requesting specific outfits or poses. A framed print unwrapped at dinner beats a digital file sent at midnight. For long-distance anniversaries, schedule a video call around preview approval so you experience the reveal together.",
           },
           {
             type: "imageGrid",
@@ -273,7 +273,7 @@ export const giftIntentPosts: BlogPost[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "Collect one clear photo per person — phone quality is fine if faces are visible and well-lit. Designate one person to place the order and include everyone's names in the notes. Mention who stands where, who's doing what pose, and any inside jokes that should appear in the background.",
+            text: "Collect one clear photo per person — phone quality is fine if faces are visible and well-lit. Designate one person to place the order and include everyone's names in the notes. Mention who stands where, who's doing what pose, and any inside jokes the artwork should include.",
           },
           {
             type: "figurePair",

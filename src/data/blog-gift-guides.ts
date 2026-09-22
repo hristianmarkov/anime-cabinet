@@ -78,7 +78,7 @@ function buildGiftGuide(c: GiftGuideConfig): BlogPost {
         heading: "Photo tips for surprise portrait orders",
         paragraphs: [
           `You do not need a professional photo — a clear, well-lit image from their camera roll works. Face visible, minimal filters, natural expression. For stealth gift orders, grab a photo from a shared album or ask a mutual friend.`,
-          `Include context in the order notes: their favourite character energy, inside jokes, preferred poses, or background ideas. Our artists read every note and use those details to personalise the ${c.fanLabel} portrait beyond a generic template.`,
+          `Include context in the order notes: their favourite character energy, inside jokes, preferred poses, or important outfit details. Our artists read every note and use those details to personalise the ${c.fanLabel} portrait beyond a generic template.`,
         ],
         list: [
           "Pick a photo where their face is clearly visible — selfies and candid shots both work.",
@@ -478,7 +478,7 @@ const giftGuideConfigs: GiftGuideConfig[] = [
     intro:
       "Simpsons fans span forty years of references. They've dreamed of being yellow since childhood. These gifts make Springfield personal.",
     pickParagraph:
-      "Couch composition for families. Solo fans want Moe's Tavern, the nuclear plant, or a custom background from their own photo of home.",
+      "Couch composition for families, with solo portraits focused on recognisable character details and expression.",
     keywords: ["best gifts for simpsons fans", "turn me yellow gift", "simpsons portrait gift", "simpsons family portrait"],
     date: "2026-05-22",
   },

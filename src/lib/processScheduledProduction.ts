@@ -5,11 +5,23 @@ import { addOrderTimelineEvent } from "@/lib/orderTimeline";
 import { notifyCustomerOfStatusChange } from "@/lib/orderStatusEmails";
 import { orders } from "@/lib/schema";
 
+export const SCHEDULED_PRODUCTION_SOURCE_STATUS = "paid" as const;
+
+/** Only successfully paid orders may enter production from the scheduled job. */
+export function isEligibleForScheduledProduction(status: string): boolean {
+  return status === SCHEDULED_PRODUCTION_SOURCE_STATUS;
+}
+
 export async function processScheduledProduction(): Promise<number> {
   const db = getDb();
   const now = new Date();
 
-  const paidOrders = await db.select().from(orders).where(eq(orders.status, "paid"));
+  // Filter at the database boundary so pending-payment (and every other)
+  // order is never considered for scheduling, notification, or progression.
+  const paidOrders = await db
+    .select()
+    .from(orders)
+    .where(eq(orders.status, SCHEDULED_PRODUCTION_SOURCE_STATUS));
 
   let moved = 0;
   let backfilled = 0;
@@ -24,7 +36,11 @@ export async function processScheduledProduction(): Promise<number> {
       const backfill = await db
         .update(orders)
         .set({ productionScheduledAt: scheduled })
-        .where(and(eq(orders.id, order.id), eq(orders.status, "paid"), isNull(orders.productionScheduledAt)))
+        .where(and(
+          eq(orders.id, order.id),
+          eq(orders.status, SCHEDULED_PRODUCTION_SOURCE_STATUS),
+          isNull(orders.productionScheduledAt)
+        ))
         .returning({ id: orders.id });
       backfilled += backfill.length;
     }
@@ -37,7 +53,10 @@ export async function processScheduledProduction(): Promise<number> {
     const [claimed] = await db
       .update(orders)
       .set({ status: "in_progress" })
-      .where(and(eq(orders.id, order.id), eq(orders.status, "paid")))
+      .where(and(
+        eq(orders.id, order.id),
+        eq(orders.status, SCHEDULED_PRODUCTION_SOURCE_STATUS)
+      ))
       .returning();
     if (!claimed) continue;
 

@@ -35,7 +35,6 @@ function orderSummaryHtml(order: Order): string {
       <tr><td style="padding:6px 0;color:#777">Style</td><td style="padding:6px 0">${order.styleName}</td></tr>
       <tr><td style="padding:6px 0;color:#777">Characters</td><td style="padding:6px 0">${order.characters}</td></tr>
       <tr><td style="padding:6px 0;color:#777">Format</td><td style="padding:6px 0">${format?.label ?? order.formatId}</td></tr>
-      <tr><td style="padding:6px 0;color:#777">Background</td><td style="padding:6px 0">${order.background}</td></tr>
       ${order.expedited ? `<tr><td style="padding:6px 0;color:#777">Delivery</td><td style="padding:6px 0">24-hour expedited</td></tr>` : ""}
       ${shippingRow}
       <tr><td style="padding:6px 0;color:#777">Total</td><td style="padding:6px 0"><strong>${total} ${currency}</strong></td></tr>

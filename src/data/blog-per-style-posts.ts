@@ -133,7 +133,7 @@ function buildTransformPost(c: StyleBlogConfig): BlogPost {
         blocks: [
           {
             type: "paragraph",
-            text: `Ordering takes minutes: visit ${portraitLink(c)}, upload your photo, choose digital or print, and describe your vision in the notes field — poses, background, outfit colours, inside jokes. Standard preview delivery is within ${site.deliveryHours} hours; priority delivery is available if you are on a deadline.`,
+            text: `Ordering takes minutes: visit ${portraitLink(c)}, upload your photo, choose digital or print, and describe the important portrait details in the notes field — poses, outfit colours, and inside jokes. Standard preview delivery is within ${site.deliveryHours} hours; priority delivery is available if you are on a deadline.`,
           },
           {
             type: "paragraph",
