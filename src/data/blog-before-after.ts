@@ -211,7 +211,7 @@ export const beforeAfterPosts: BlogPost[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "Upload the best couple photo you have — clear faces beat perfect lighting. Describe your dynamic in the notes: who stands where, favourite shared show, any props or backgrounds you want. [Ghibli-style](/portraits/ghibli-style), [Jujutsu Kaisen](/portraits/jujutsu-kaisen), and [The Simpsons](/portraits/the-simpsons) couch scenes are popular starting points. Approve the preview together if it's a gift. The transformation is collaborative; the result is permanent.",
+            text: "Upload the best couple photo you have — clear faces beat perfect lighting. Describe your dynamic in the notes: who stands where, your favourite shared show, and any important props or outfit details. [Ghibli-style](/portraits/ghibli-style), [Jujutsu Kaisen](/portraits/jujutsu-kaisen), and [The Simpsons](/portraits/the-simpsons) portraits are popular starting points. Approve the preview together if it's a gift. The transformation is collaborative; the result is permanent.",
           },
           {
             type: "paragraph",

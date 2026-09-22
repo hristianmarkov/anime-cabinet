@@ -1,8 +1,8 @@
-import type { PipelineStep } from "@/lib/orderWorkflow";
+import type { OrderPipeline as OrderPipelineModel, PipelineStep } from "@/lib/orderWorkflow";
 
-export function OrderPipeline({ steps }: { steps: PipelineStep[] }) {
+function StepList({ steps, start = 1 }: { steps: PipelineStep[]; start?: number }) {
   return (
-    <ol className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+    <ol className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
       {steps.map((step, index) => (
         <li key={step.id} className="flex flex-1 items-start gap-3 sm:flex-col sm:items-center sm:text-center">
           <div className="flex items-center gap-3 sm:flex-col">
@@ -16,7 +16,7 @@ export function OrderPipeline({ steps }: { steps: PipelineStep[] }) {
               }`}
               aria-current={step.state === "current" ? "step" : undefined}
             >
-              {step.state === "done" ? "✓" : index + 1}
+              {step.state === "done" ? "✓" : start + index}
             </span>
             {index < steps.length - 1 && (
               <span
@@ -39,5 +39,26 @@ export function OrderPipeline({ steps }: { steps: PipelineStep[] }) {
         </li>
       ))}
     </ol>
+  );
+}
+
+export function OrderPipeline({ steps }: { steps: OrderPipelineModel }) {
+  const branches = [
+    { id: "digital", title: "Digital", steps: steps.branches.digital },
+    ...(steps.branches.shipping ? [{ id: "shipping", title: "Print & shipping", steps: steps.branches.shipping }] : []),
+  ];
+  return (
+    <div>
+      <StepList steps={steps.shared} />
+      <div className="mx-4 h-6 border-l-2 border-line sm:mx-auto sm:h-8 sm:w-1/2 sm:border-x-2 sm:border-t-2" aria-hidden />
+      <div className={`grid gap-4 ${branches.length > 1 ? "sm:grid-cols-2" : "sm:mx-auto sm:max-w-md"}`}>
+        {branches.map((branch) => (
+          <section key={branch.id} aria-labelledby={`pipeline-${branch.id}`} className="rounded-xl border border-line/70 p-4">
+            <h3 id={`pipeline-${branch.id}`} className="mb-4 text-xs font-bold uppercase tracking-wider text-muted">{branch.title}</h3>
+            <StepList steps={branch.steps} start={steps.shared.length + 1} />
+          </section>
+        ))}
+      </div>
+    </div>
   );
 }

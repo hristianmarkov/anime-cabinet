@@ -1,5 +1,11 @@
 const LONDON = "Europe/London";
 
+/**
+ * Production starts on the next Monday-Friday London calendar day after payment,
+ * at exactly 09:00 local time. The payment day itself is never included.
+ */
+export const PRODUCTION_SCHEDULE_LABEL = "09:00 Europe/London (next working day)";
+
 export interface LondonYmd {
   y: number;
   m: number;
@@ -95,17 +101,17 @@ export function dateAtLondonTime(y: number, m: number, d: number, hour: number, 
   return guess;
 }
 
-/** Next UK working day after `from` (London calendar), at 09:15 Europe/London. */
-export function nextWorkingDay915London(from: Date = new Date()): Date {
+/** Next UK working day after `from` (London calendar), at 09:00 Europe/London. */
+export function nextWorkingDayAtNineLondon(from: Date = new Date()): Date {
   let ymd = getLondonYmd(from);
   ymd = addCalendarDaysYmd(ymd, 1);
   while (ymd.weekday === 0 || ymd.weekday === 6) {
     ymd = addCalendarDaysYmd(ymd, 1);
   }
-  return dateAtLondonTime(ymd.y, ymd.m, ymd.d, 9, 15);
+  return dateAtLondonTime(ymd.y, ymd.m, ymd.d, 9, 0);
 }
 
-export function formatLondon915Label(when: Date): string {
+export function formatLondonNineLabel(when: Date): string {
   return when.toLocaleString("en-GB", {
     timeZone: LONDON,
     weekday: "long",

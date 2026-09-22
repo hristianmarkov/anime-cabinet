@@ -35,7 +35,7 @@ const faqJsonLd = {
 const steps = [
   {
     title: "Pick Your Style",
-    body: "Choose from 24 anime and cartoon styles — from Naruto to The Simpsons. Select how many people (and pets) you want drawn, your background, and digital or print.",
+    body: "Choose from 24 anime and cartoon styles — from Naruto to The Simpsons. Select how many people (and pets) you want drawn, then choose digital or print.",
   },
   {
     title: "Upload Your Photos",
@@ -302,4 +302,3 @@ export default function HomePage() {
     </>
   );
 }
-
