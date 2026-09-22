@@ -23,6 +23,12 @@ export const ORDER_STATUSES = [
 
 export type OrderStatus = (typeof ORDER_STATUSES)[number];
 
+export const DIGITAL_FULFILLMENT_STATUSES = ["pending", "completed"] as const;
+export type DigitalFulfillmentStatus = (typeof DIGITAL_FULFILLMENT_STATUSES)[number];
+
+export const SHIPPING_FULFILLMENT_STATUSES = ["pending", "approved", "printing", "shipped", "delivered"] as const;
+export type ShippingFulfillmentStatus = (typeof SHIPPING_FULFILLMENT_STATUSES)[number];
+
 export interface ShippingAddress {
   firstName: string;
   lastName: string;
@@ -36,6 +42,14 @@ export const orders = pgTable("orders", {
   id: uuid("id").defaultRandom().primaryKey(),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
   status: text("status").$type<OrderStatus>().default("pending").notNull(),
+  digitalFulfillmentStatus: text("digital_fulfillment_status")
+    .$type<DigitalFulfillmentStatus>()
+    .default("pending")
+    .notNull(),
+  shippingFulfillmentStatus: text("shipping_fulfillment_status")
+    .$type<ShippingFulfillmentStatus>()
+    .default("pending")
+    .notNull(),
   styleSlug: text("style_slug").notNull(),
   styleName: text("style_name").notNull(),
   characters: integer("characters").notNull(),

@@ -1,10 +1,25 @@
 import type { PublicOrderTracking } from "@/lib/orderTrackingPublic";
 import { TrackOrderContactForm } from "./TrackOrderContactForm";
 
-function stepClass(state: PublicOrderTracking["pipeline"][0]["state"]): string {
+import type { PipelineStep } from "@/lib/orderWorkflow";
+
+function stepClass(state: PipelineStep["state"]): string {
   if (state === "done") return "bg-[#4ade80]/20 text-[#4ade80]";
   if (state === "current") return "bg-accent/25 text-accent ring-2 ring-accent/40";
   return "bg-line/30 text-faint";
+}
+
+function TrackingSteps({ steps, start = 1 }: { steps: PipelineStep[]; start?: number }) {
+  return <ol className="space-y-3 sm:flex sm:space-y-0 sm:gap-4">
+    {steps.map((step, i) => (
+      <li key={step.id} className="flex flex-1 items-center gap-3">
+        <span aria-current={step.state === "current" ? "step" : undefined} className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-bold ${stepClass(step.state)}`}>
+          {step.state === "done" ? "✓" : start + i}
+        </span>
+        <span className={step.state === "current" ? "font-semibold text-cream" : "text-muted"}>{step.label}</span>
+      </li>
+    ))}
+  </ol>;
 }
 
 export function OrderTrackingDisplay({
@@ -46,20 +61,16 @@ export function OrderTrackingDisplay({
 
       <section className="rounded-2xl border border-line bg-surface p-6 shadow-card">
         <h2 className="text-sm font-semibold uppercase tracking-wider text-muted">Progress</h2>
-        <ol className="mt-6 space-y-3">
-          {tracking.pipeline.map((step, i) => (
-            <li key={step.id} className="flex items-center gap-3">
-              <span
-                className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-bold ${stepClass(step.state)}`}
-              >
-                {step.state === "done" ? "✓" : i + 1}
-              </span>
-              <span className={step.state === "current" ? "font-semibold text-cream" : "text-muted"}>
-                {step.label}
-              </span>
-            </li>
+        <div className="mt-6"><TrackingSteps steps={tracking.pipeline.shared} /></div>
+        <div className="ml-4 h-5 border-l-2 border-line sm:mx-auto sm:w-1/2 sm:border-x-2 sm:border-t-2" aria-hidden />
+        <div className={`grid gap-4 ${tracking.pipeline.branches.shipping ? "sm:grid-cols-2" : "sm:mx-auto sm:max-w-md"}`}>
+          {[{ id: "digital", title: "Digital", steps: tracking.pipeline.branches.digital }, ...(tracking.pipeline.branches.shipping ? [{ id: "shipping", title: "Print & shipping", steps: tracking.pipeline.branches.shipping }] : [])].map((branch) => (
+            <section key={branch.id} aria-labelledby={`tracking-${branch.id}`} className="rounded-xl border border-line/70 p-4">
+              <h3 id={`tracking-${branch.id}`} className="mb-4 text-xs font-bold uppercase tracking-wider text-muted">{branch.title}</h3>
+              <TrackingSteps steps={branch.steps} start={tracking.pipeline.shared.length + 1} />
+            </section>
           ))}
-        </ol>
+        </div>
         {tracking.productionStartsAt && tracking.status === "paid" && (
           <p className="mt-4 text-sm text-muted">
             Our artists start on the next UK working day at{" "}

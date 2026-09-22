@@ -1,6 +1,6 @@
 import type { Order, OrderDelivery, OrderTimelineEvent } from "@/lib/schema";
 import { isDigitalOrder } from "@/lib/orderDeliveryRules";
-import { buildOrderPipeline, getActiveDelivery, type PipelineStep } from "@/lib/orderWorkflow";
+import { buildOrderPipeline, getActiveDelivery, type OrderPipeline } from "@/lib/orderWorkflow";
 import { statusLabels } from "@/app/admin/order-ui";
 import { PRINT_FORMATS, formatUsd } from "@/data/pricing";
 import { formatLondon915Label } from "@/lib/londonSchedule";
@@ -13,7 +13,7 @@ export interface PublicOrderTracking {
   placedAt: string;
   expedited: boolean;
   digital: boolean;
-  pipeline: PipelineStep[];
+  pipeline: OrderPipeline;
   revisionDeadline: string | null;
   revisionHours: number | null;
   trackingNumber: string | null;

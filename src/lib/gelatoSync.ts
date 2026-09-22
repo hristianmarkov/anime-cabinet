@@ -18,7 +18,8 @@ export async function syncGelatoOrdersFromApi(): Promise<{ synced: number; updat
     .where(
       and(
         isNotNull(orders.gelatoOrderId),
-        notInArray(orders.status, ["delivered", "cancelled"])
+        notInArray(orders.status, ["cancelled"]),
+        notInArray(orders.shippingFulfillmentStatus, ["delivered"])
       )
     );
 
@@ -38,17 +39,18 @@ export async function syncGelatoOrdersFromApi(): Promise<{ synced: number; updat
         trackingUrl: remote.trackingUrl ?? order.trackingUrl,
       };
 
-      let nextStatus = order.status;
-      if (mapped && mapped !== order.status) {
+      let nextStatus = order.shippingFulfillmentStatus;
+      if (mapped && mapped !== order.shippingFulfillmentStatus) {
         const rank: Record<string, number> = {
           approved: 1,
           printing: 2,
           shipped: 3,
           delivered: 4,
         };
-        if ((rank[mapped] ?? 0) >= (rank[order.status] ?? 0)) {
-          patch.status = mapped;
-          nextStatus = mapped;
+        if ((rank[mapped] ?? 0) >= (rank[order.shippingFulfillmentStatus] ?? 0)) {
+          const shippingStatus = mapped as "approved" | "printing" | "shipped" | "delivered";
+          patch.shippingFulfillmentStatus = shippingStatus;
+          nextStatus = shippingStatus;
         }
       }
 
@@ -56,7 +58,7 @@ export async function syncGelatoOrdersFromApi(): Promise<{ synced: number; updat
         patch.gelatoFulfillmentStatus !== order.gelatoFulfillmentStatus ||
         patch.trackingNumber !== order.trackingNumber ||
         patch.trackingUrl !== order.trackingUrl ||
-        patch.status !== undefined;
+        patch.shippingFulfillmentStatus !== undefined;
 
       if (!changed) continue;
 
@@ -73,7 +75,7 @@ export async function syncGelatoOrdersFromApi(): Promise<{ synced: number; updat
         },
       });
 
-      if (patch.status && order.status !== nextStatus) {
+      if (patch.shippingFulfillmentStatus && order.shippingFulfillmentStatus !== nextStatus) {
         const [fresh] = await db.select().from(orders).where(eq(orders.id, order.id)).limit(1);
         if (fresh) {
           const latestDelivery = await getLatestSentDelivery(order.id);

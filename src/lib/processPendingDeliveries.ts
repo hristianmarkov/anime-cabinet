@@ -26,7 +26,11 @@ async function completeDelivery(order: Order, delivery: OrderDelivery): Promise<
     .where(eq(orderDeliveries.id, delivery.id));
 
   const nextStatus = statusAfterReviewWindowLapse(order);
-  await db.update(orders).set({ status: nextStatus }).where(eq(orders.id, order.id));
+  await db.update(orders).set({
+    status: nextStatus,
+    digitalFulfillmentStatus: "completed",
+    ...(nextStatus === "delivered" ? {} : { shippingFulfillmentStatus: "approved" as const }),
+  }).where(eq(orders.id, order.id));
 
   await sendDeliveryAutoCompletedEmail(order, delivery);
 

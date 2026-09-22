@@ -207,7 +207,11 @@ export async function approveArtwork(formData: FormData): Promise<void> {
 
   await closeActiveDelivery(orderId);
   const next = statusAfterArtworkApproval(order);
-  await db.update(orders).set({ status: next }).where(eq(orders.id, orderId));
+  await db.update(orders).set({
+    status: next,
+    digitalFulfillmentStatus: "completed",
+    ...(next === "delivered" ? {} : { shippingFulfillmentStatus: "approved" as const }),
+  }).where(eq(orders.id, orderId));
 
   await addOrderTimelineEvent({
     orderId,
@@ -310,7 +314,7 @@ export async function updatePrintFulfillment(formData: FormData): Promise<void> 
     gelatoOrderId: string | null;
     trackingNumber: string | null;
     trackingUrl: string | null;
-    status?: OrderStatus;
+    shippingFulfillmentStatus?: "approved" | "printing" | "shipped" | "delivered";
   } = {
     printFileUrl: printFileUrl || null,
     gelatoOrderId: gelatoOrderId || null,
@@ -322,23 +326,23 @@ export async function updatePrintFulfillment(formData: FormData): Promise<void> 
     ORDER_STATUSES.includes(status) &&
     ["printing", "shipped", "delivered", "approved"].includes(status)
   ) {
-    patch.status = status;
+    patch.shippingFulfillmentStatus = status as "approved" | "printing" | "shipped" | "delivered";
   }
 
   await db.update(orders).set(patch).where(eq(orders.id, orderId));
 
-  if (patch.status && existing.status !== patch.status) {
+  if (patch.shippingFulfillmentStatus && existing.shippingFulfillmentStatus !== patch.shippingFulfillmentStatus) {
     await addOrderTimelineEvent({
       orderId,
       kind: "status_updated",
-      summary: `Fulfillment: ${String(patch.status).replace(/_/g, " ")}`,
+      summary: `Shipping: ${patch.shippingFulfillmentStatus.replace(/_/g, " ")}`,
       metadata: { gelatoOrderId, trackingNumber },
     });
     const [updated] = await db.select().from(orders).where(eq(orders.id, orderId)).limit(1);
     if (updated) {
       try {
         const latestDelivery = await getLatestSentDelivery(orderId);
-        await notifyCustomerOfStatusChange(updated, existing.status, patch.status, {
+        await notifyCustomerOfStatusChange(updated, existing.status, patch.shippingFulfillmentStatus, {
           latestDelivery,
         });
       } catch (err) {
@@ -379,7 +383,7 @@ export async function submitGelatoOrder(formData: FormData): Promise<void> {
       .set({
         gelatoOrderId: created.gelatoOrderId,
         gelatoFulfillmentStatus: created.fulfillmentStatus,
-        status: "printing",
+        shippingFulfillmentStatus: "printing",
       })
       .where(eq(orders.id, orderId));
 
