@@ -72,7 +72,6 @@ export async function processInboundEmail(input: {
       orderId: order.id,
       kind: "customer_feedback",
       summary: "Customer replied by email",
-      detail: body.slice(0, 2000),
     });
 
     if (order.status === "digital_file" || order.status === "delivered" || order.status === "cancelled") {

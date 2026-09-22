@@ -335,7 +335,6 @@ export async function logCustomerFeedback(formData: FormData): Promise<void> {
     orderId,
     kind: "customer_feedback",
     summary: "Customer message logged",
-    detail: body,
   });
 
   revalidatePath(`/admin/orders/${orderId}`);
