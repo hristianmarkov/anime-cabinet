@@ -4,7 +4,11 @@ import { getDb } from "@/lib/db";
 import { buildPublicOrderTracking } from "@/lib/orderTrackingPublic";
 import {
   orderDeliveries,
+
   orderReviewMessages,
+
+  orderFinalFiles,
+
   orderTimelineEvents,
   orders,
 } from "@/lib/schema";
@@ -43,15 +47,20 @@ export async function POST(request: Request) {
       .orderBy(desc(orderTimelineEvents.createdAt))
       .limit(20);
 
+
     const reviewMessages = await db
       .select()
       .from(orderReviewMessages)
       .where(eq(orderReviewMessages.orderId, order.id))
       .orderBy(orderReviewMessages.createdAt);
 
+    const [finalFile] = await db.select().from(orderFinalFiles)
+      .where(eq(orderFinalFiles.orderId, order.id)).limit(1);
+
     return NextResponse.json({
       trackToken: order.trackToken,
-      tracking: buildPublicOrderTracking(order, deliveries, timeline, reviewMessages),
+      tracking: buildPublicOrderTracking(order, deliveries, timeline, reviewMessages, finalFile ?? null),
+
     });
   } catch {
     return NextResponse.json({ error: "Tracking is temporarily unavailable." }, { status: 503 });

@@ -13,7 +13,7 @@ import {
 import { getStyleArtPromptOrFallback } from "../src/data/style-art-prompts";
 import { printCompositionHint } from "../src/lib/artPromptStructured";
 
-const DBZ_COUPLE_NOTES = `Birthday gift for my boyfriend — romantic, powerful, personal. First photo of us together = main reference for pose, closeness, composition; faces partially covered so use individual photos for facial likeness. Individual photos for each face, braids, facial hair, jewelry. DBZ-inspired Saiyan look, original characters not Goku. Him: orange/blue outfit, golden aura. Her: blue/white/gold outfit, long braids. Romantic closeness, no phone covering faces. Background: mountains, energy, Dragon Balls, Shenron. Landscape for 16x20 print. Mature cinematic tone.`;
+const DBZ_COUPLE_NOTES = `Birthday gift for my boyfriend — romantic, powerful, personal. First photo of us together = main reference for pose, closeness, composition; faces partially covered so use individual photos for facial likeness. Individual photos for each face, braids, facial hair, jewelry. DBZ-inspired Saiyan look, original characters not Goku. Him: orange/blue outfit, golden aura. Her: blue/white/gold outfit, long braids. Romantic closeness, no phone covering faces. Landscape for 16x20 print. Mature cinematic tone.`;
 
 
 async function main() {
@@ -36,10 +36,9 @@ async function main() {
   const stylePrompt = getStyleArtPromptOrFallback("naruto", "Naruto");
   const art = await combineArtPromptWithOpenAI({
     stylePrompt,
-    customerNotes: "Include our dog in the background, heroic pose.",
+    customerNotes: "Include our dog beside us in a heroic pose.",
     humanCharacterCount: 2,
     referencePhotoCount: 2,
-    backgroundChoice: "Custom scene",
     formatLabel: "Poster Print — 12x18",
     printCompositionHint: null,
     expedited: false,
@@ -52,7 +51,6 @@ async function main() {
     stylePrompt: ghibli,
     humanCharacterCount: 1,
     referencePhotoCount: 1,
-    backgroundChoice: "Classic scene from the show",
     customerNotes:
       "Gift for our veterinarian. Photo is our two dogs Ribeye (black Basenji) and Tig (yellow Lab), both passed. Capture their sweet recognizable faces. Warm, peaceful, happy.",
     formatLabel: "Digital File Only",
@@ -72,7 +70,6 @@ async function main() {
     stylePrompt: dbz,
     humanCharacterCount: 2,
     referencePhotoCount: 3,
-    backgroundChoice: "Classic Scene",
     formatLabel: "Poster Print — 18x24",
     printCompositionHint: printCompositionHint("poster-18x24", DBZ_COUPLE_NOTES),
     customerNotes: DBZ_COUPLE_NOTES,
@@ -94,7 +91,6 @@ async function main() {
     styleName: "Studio Ghibli",
     characters: 1,
     formatLabel: "Digital File Only",
-    backgroundLabel: "Classic Scene",
     customerNotes: "Memorial portrait of two dogs for their vet.",
     expedited: false,
     isDigital: true,

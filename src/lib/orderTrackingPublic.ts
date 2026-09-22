@@ -1,9 +1,10 @@
-import type { Order, OrderDelivery, OrderReviewMessage, OrderTimelineEvent } from "@/lib/schema";
+import type { Order, OrderDelivery, OrderFinalFile, OrderReviewMessage, OrderTimelineEvent } from "@/lib/schema";
 import { isDigitalOrder } from "@/lib/orderDeliveryRules";
-import { buildOrderPipeline, getActiveDelivery, type PipelineStep } from "@/lib/orderWorkflow";
+import { buildOrderPipeline, getActiveDelivery, type OrderPipeline } from "@/lib/orderWorkflow";
 import { statusLabels } from "@/app/admin/order-ui";
 import { PRINT_FORMATS, formatUsd } from "@/data/pricing";
-import { formatLondon915Label } from "@/lib/londonSchedule";
+import { formatLondonNineLabel } from "@/lib/londonSchedule";
+import { resolveFirstPreviewDeadline } from "@/lib/firstPreviewDeadline";
 
 export interface PublicOrderTracking {
   styleName: string;
@@ -13,7 +14,7 @@ export interface PublicOrderTracking {
   placedAt: string;
   expedited: boolean;
   digital: boolean;
-  pipeline: PipelineStep[];
+  pipeline: OrderPipeline;
   revisionDeadline: string | null;
   revisionHours: number | null;
   trackingNumber: string | null;
@@ -24,6 +25,7 @@ export interface PublicOrderTracking {
   amountDisplay: string;
   milestones: { label: string; at: string }[];
   productionStartsAt: string | null;
+
   previewDelivery: {
     id: string;
     versionNumber: number;
@@ -39,6 +41,19 @@ export interface PublicOrderTracking {
     deliveryVersion: number | null;
     createdAt: string;
   }[];
+  firstPreviewDeadline: string | null;
+  customerCopy: string | null;
+  finalFile: { previewUrl: string; downloadUrl: string } | null;
+}
+
+function getFirstPreviewCopy(status: Order["status"]): string | null {
+  if (status === "paid") {
+    return "We’ve received your order and are allocating it to an artist.";
+  }
+  if (status === "in_progress") {
+    return "Your artist is working on the first draft and will provide it within the time shown.";
+  }
+  return null;
 }
 
 function maskName(first: string, last: string): string {
@@ -60,6 +75,7 @@ const PUBLIC_MILESTONE_KINDS = new Set([
   "delivery_sent",
   "artwork_approved",
   "auto_completed",
+  "final_file_sent",
   "status_updated",
 ]);
 
@@ -67,7 +83,8 @@ export function buildPublicOrderTracking(
   order: Order,
   deliveries: OrderDelivery[],
   timeline: OrderTimelineEvent[],
-  reviewMessages: OrderReviewMessage[] = []
+  reviewMessages: OrderReviewMessage[] = [],
+  finalFile: OrderFinalFile | null = null
 ): PublicOrderTracking {
   const format = PRINT_FORMATS.find((f) => f.id === order.formatId);
   const digital = isDigitalOrder(order);
@@ -107,8 +124,9 @@ export function buildPublicOrderTracking(
     milestones,
     productionStartsAt:
       order.status === "paid" && order.productionScheduledAt
-        ? formatLondon915Label(new Date(order.productionScheduledAt))
+        ? formatLondonNineLabel(new Date(order.productionScheduledAt))
         : null,
+
     previewDelivery: active
       ? {
           id: active.id,
@@ -129,5 +147,15 @@ export function buildPublicOrderTracking(
         deliveries.find((delivery) => delivery.id === message.deliveryId)?.versionNumber ?? null,
       createdAt: new Date(message.createdAt).toISOString(),
     })),
+    firstPreviewDeadline:
+      order.status === "paid" || order.status === "in_progress"
+        ? resolveFirstPreviewDeadline(order).toISOString()
+        : null,
+    customerCopy: getFirstPreviewCopy(order.status),
+    finalFile:
+      order.digitalFulfillmentStatus === "completed" && finalFile
+        ? { previewUrl: finalFile.previewUrl, downloadUrl: finalFile.fileUrl }
+        : null,
+
   };
 }

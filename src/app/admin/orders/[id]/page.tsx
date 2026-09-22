@@ -8,7 +8,11 @@ import { isDigitalOrder, revisionWindowHours } from "@/lib/orderDeliveryRules";
 import { buildOrderPipeline, getActiveDelivery } from "@/lib/orderWorkflow";
 import {
   orderDeliveries,
+
   orderReviewMessages,
+
+  orderFinalFiles,
+
   orderTimelineEvents,
   orders,
   type OrderDelivery,
@@ -26,6 +30,7 @@ import { OrderPipeline } from "./OrderPipeline";
 import { PrintFulfillmentPanel } from "./PrintFulfillmentPanel";
 import { ReviewCountdown } from "./ReviewCountdown";
 import { SendDeliveryForm } from "./SendDeliveryForm";
+import { FinalFilePanel } from "./FinalFilePanel";
 
 export const metadata: Metadata = {
   title: "Order detail — Admin",
@@ -72,7 +77,10 @@ export default async function AdminOrderPage({
   let order = null;
   let timeline: OrderTimelineEvent[] = [];
   let deliveries: OrderDelivery[] = [];
+
   let reviewMessages: (typeof orderReviewMessages.$inferSelect)[] = [];
+  let finalFile: (typeof orderFinalFiles.$inferSelect) | null = null;
+
 
   try {
     const db = getDb();
@@ -91,9 +99,17 @@ export default async function AdminOrderPage({
         .orderBy(desc(orderDeliveries.versionNumber));
       reviewMessages = await db
         .select()
+
         .from(orderReviewMessages)
         .where(eq(orderReviewMessages.orderId, id))
         .orderBy(orderReviewMessages.createdAt);
+      const [storedFinalFile] = await db
+        .select()
+        .from(orderFinalFiles)
+        .where(eq(orderFinalFiles.orderId, id))
+        .limit(1);
+      finalFile = storedFinalFile ?? null;
+
     }
   } catch {
     dbError =
@@ -122,7 +138,7 @@ export default async function AdminOrderPage({
   const showReviewPanel = order.status === "review" || reviewMessages.length > 0;
   const showPrintPanel =
     !digital &&
-    ["approved", "printing", "shipped", "delivered", "review"].includes(order.status);
+    ["digital_file", "approved", "printing", "shipped", "delivered", "review"].includes(order.status);
 
   return (
     <AdminShell active="orders">
@@ -190,6 +206,12 @@ export default async function AdminOrderPage({
               />
             )}
 
+            <FinalFilePanel
+              orderId={order.id}
+              finalFile={finalFile}
+              canSend={order.status === "digital_file"}
+            />
+
             {showPrintPanel && <PrintFulfillmentPanel order={order} />}
 
             <article className="rounded-2xl border border-line bg-surface p-6 shadow-card">
@@ -216,10 +238,6 @@ export default async function AdminOrderPage({
                 <div>
                   <dt className="text-xs text-faint">Format</dt>
                   <dd className="text-cream">{format?.label ?? order.formatId}</dd>
-                </div>
-                <div>
-                  <dt className="text-xs text-faint">Background</dt>
-                  <dd className="text-cream">{order.background}</dd>
                 </div>
                 <div>
                   <dt className="text-xs text-faint">Total</dt>
@@ -283,18 +301,19 @@ export default async function AdminOrderPage({
               customerNotes={order.notes}
             />
 
-            <article className="rounded-2xl border border-line bg-surface p-6 shadow-card">
-              <h2 className="text-sm font-semibold uppercase tracking-wider text-muted">
-                Send artwork
-              </h2>
-              <div className="mt-4">
-                <SendDeliveryForm
-                  orderId={order.id}
-                  revisionHours={revisionHours}
-                  isDigital={digital}
-                />
-              </div>
-            </article>
+            {order.status === "in_progress" && (
+              <article className="rounded-2xl border border-line bg-surface p-6 shadow-card">
+                <h2 className="text-sm font-semibold uppercase tracking-wider text-muted">
+                  Send artwork
+                </h2>
+                <div className="mt-4">
+                  <SendDeliveryForm
+                    orderId={order.id}
+                    revisionHours={revisionHours}
+                  />
+                </div>
+              </article>
+            )}
 
             {deliveries.length > 0 && (
               <article className="rounded-2xl border border-line bg-surface p-6 shadow-card">

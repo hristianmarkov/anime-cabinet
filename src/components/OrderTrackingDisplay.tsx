@@ -1,12 +1,8 @@
 import type { PublicOrderTracking } from "@/lib/orderTrackingPublic";
 import { TrackOrderContactForm } from "./TrackOrderContactForm";
 import { PublicArtworkReview } from "./PublicArtworkReview";
-
-function stepClass(state: PublicOrderTracking["pipeline"][0]["state"]): string {
-  if (state === "done") return "bg-[#4ade80]/20 text-[#4ade80]";
-  if (state === "current") return "bg-accent/25 text-accent ring-2 ring-accent/40";
-  return "bg-line/30 text-faint";
-}
+import { FirstPreviewCountdown } from "./FirstPreviewCountdown";
+import { OrderProgressTimeline } from "./OrderProgressTimeline";
 
 export function OrderTrackingDisplay({
   tracking,
@@ -43,25 +39,16 @@ export function OrderTrackingDisplay({
         </dl>
         <div className="mt-7 border-t border-line pt-5">
         <h2 className="text-sm font-semibold uppercase tracking-wider text-muted">Progress</h2>
-        <ol className="mt-6 space-y-3">
-          {tracking.pipeline.map((step, i) => (
-            <li key={step.id} className="flex items-center gap-3">
-              <span
-                className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-bold ${stepClass(step.state)}`}
-              >
-                {step.state === "done" ? "✓" : i + 1}
-              </span>
-              <span className={step.state === "current" ? "font-semibold text-cream" : "text-muted"}>
-                {step.label}
-              </span>
-            </li>
-          ))}
-        </ol>
+        <div className="mt-6"><OrderProgressTimeline pipeline={tracking.pipeline} /></div>
         {tracking.productionStartsAt && tracking.status === "paid" && (
           <p className="mt-4 text-sm text-muted">
             Our artists start on the next UK working day at{" "}
             <span className="font-semibold text-cream">{tracking.productionStartsAt}</span>.
           </p>
+        )}
+        {tracking.customerCopy && <p className="mt-4 text-sm text-muted">{tracking.customerCopy}</p>}
+        {tracking.firstPreviewDeadline && (
+          <FirstPreviewCountdown deadline={tracking.firstPreviewDeadline} />
         )}
         {tracking.revisionDeadline && tracking.status === "review" && (
           <p className="mt-4 text-sm text-flame">
@@ -77,6 +64,8 @@ export function OrderTrackingDisplay({
 
 
       <PublicArtworkReview tracking={tracking} trackToken={trackToken} />
+
+      <TrackOrderContactForm trackToken={trackToken} />
 
       {!tracking.digital && (tracking.maskedRecipient || tracking.trackingUrl) && (
         <section className="rounded-2xl border border-line bg-surface p-6 shadow-card">
@@ -104,6 +93,24 @@ export function OrderTrackingDisplay({
         </section>
       )}
 
+      {tracking.finalFile && (
+        <section className="rounded-2xl border border-line bg-surface p-6 shadow-card">
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-muted">Your final artwork</h2>
+          <img
+            src={tracking.finalFile.previewUrl}
+            alt={`Preview of ${tracking.styleName}`}
+            className="mt-4 max-h-64 w-full rounded-xl object-contain"
+          />
+          <a
+            href={tracking.finalFile.downloadUrl}
+            download
+            className="mt-4 inline-block rounded-full bg-accent px-5 py-3 text-sm font-semibold text-white"
+          >
+            Download high-resolution file
+          </a>
+        </section>
+      )}
+
       {tracking.milestones.length > 0 && (
         <section className="rounded-2xl border border-line bg-surface p-6 shadow-card">
           <h2 className="text-sm font-semibold uppercase tracking-wider text-muted">Recent updates</h2>
@@ -117,8 +124,6 @@ export function OrderTrackingDisplay({
           </ul>
         </section>
       )}
-
-      <TrackOrderContactForm trackToken={trackToken} />
     </div>
   );
 }

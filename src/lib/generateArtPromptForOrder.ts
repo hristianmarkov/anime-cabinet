@@ -2,7 +2,7 @@ import { eq } from "drizzle-orm";
 import { combineArtPromptWithOpenAI } from "@/lib/artPromptOpenAi";
 import { getDb } from "@/lib/db";
 import { getStyleArtPromptOrFallback } from "@/data/style-art-prompts";
-import { BACKGROUND_OPTIONS, PRINT_FORMATS } from "@/data/pricing";
+import { PRINT_FORMATS } from "@/data/pricing";
 import { printCompositionHint } from "@/lib/artPromptStructured";
 import { orders } from "@/lib/schema";
 
@@ -28,8 +28,6 @@ export async function generateArtPromptForOrder(orderId: string): Promise<Genera
   }
 
   const stylePrompt = getStyleArtPromptOrFallback(order.styleSlug, order.styleName);
-  const backgroundLabel =
-    BACKGROUND_OPTIONS.find((b) => b.id === order.background)?.label ?? order.background;
   const formatLabel =
     PRINT_FORMATS.find((f) => f.id === order.formatId)?.label ?? order.formatId;
 
@@ -38,7 +36,6 @@ export async function generateArtPromptForOrder(orderId: string): Promise<Genera
     customerNotes: order.notes,
     humanCharacterCount: order.characters,
     referencePhotoCount: order.photoUrls?.length ?? 0,
-    backgroundChoice: backgroundLabel,
     formatLabel,
     printCompositionHint: printCompositionHint(order.formatId, order.notes),
     expedited: order.expedited,

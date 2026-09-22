@@ -3,7 +3,6 @@ import { eq } from "drizzle-orm";
 import { convertFromUsd } from "@/data/currencies";
 import type { CurrencyCode } from "@/data/currencies";
 import {
-  BACKGROUND_OPTIONS,
   MAX_CHARACTERS,
   PRINT_FORMATS,
   calcTotal,
@@ -20,7 +19,6 @@ import { addOrderTimelineEvent } from "@/lib/orderTimeline";
 interface CheckoutPayload {
   styleSlug: string;
   characters: number;
-  background: string;
   formatId: string;
   notes: string;
   email: string;
@@ -50,7 +48,6 @@ export async function POST(request: Request) {
 
   const style = getStyleBySlug(payload.styleSlug);
   const format = PRINT_FORMATS.find((f) => f.id === payload.formatId);
-  const background = BACKGROUND_OPTIONS.find((b) => b.id === payload.background);
   const characters = Number(payload.characters);
   const currencyCode = (payload.currency ?? "USD").toLowerCase();
   const expedited = Boolean(payload.expedited);
@@ -59,7 +56,6 @@ export async function POST(request: Request) {
   if (
     !style ||
     !format ||
-    !background ||
     !Number.isInteger(characters) ||
     characters < 1 ||
     characters > MAX_CHARACTERS ||
@@ -100,7 +96,6 @@ export async function POST(request: Request) {
   const descParts = [
     `${characters} character${characters > 1 ? "s" : ""}`,
     format.label,
-    background.label,
     expedited ? "24h priority" : `${site.deliveryHours}h delivery`,
   ];
   if (shippingUsd > 0 && payload.shippingMethodName) {
@@ -115,7 +110,9 @@ export async function POST(request: Request) {
         styleSlug: style.slug,
         styleName: style.productName,
         characters,
-        background: background.id,
+        // Retained as an internal compatibility value for existing schemas;
+        // customers no longer select or see a background option.
+        background: "artist-choice",
         formatId: format.id,
         notes: (payload.notes ?? "").slice(0, 5000),
         email: payload.email.slice(0, 320),

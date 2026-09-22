@@ -59,8 +59,8 @@ export const cartoonStyles: PortraitStyle[] = [
     ],
     faqs: [
       {
-        q: "What backgrounds can I choose?",
-        a: "The living-room couch scene is the classic, but the Drunken Clam, the kitchen, and fully custom backgrounds from your own photos are all available at no extra cost.",
+        q: "Can you draw my whole family?",
+        a: "Yes. Upload a clear photo of each person and select the matching character count so everyone can be included.",
       },
       {
         q: "Can you draw just me, not a whole family?",
@@ -90,7 +90,7 @@ export const cartoonStyles: PortraitStyle[] = [
     heroHeading: "Time to Turn Yellow",
     description: [
       "The original, the icon, the yellow standard. Getting 'Simpsonized' is the most requested cartoon transformation on the internet, and our artists have it down to a science: the overbite, the four fingers, the eyes, the exact shade of yellow — all built from your photo until you're recognisable at a glance.",
-      "The classic couch scene is the bestseller (it fits families of any size, pets included), but Moe's Tavern, the Kwik-E-Mart and the power plant are all on the menu, along with any custom background you can describe. Thirty-five seasons of source material means there's a Springfield scene for everyone.",
+      "The classic couch composition is the bestseller because it fits families of any size, pets included. Thirty-five seasons of source material give our artists plenty of inspiration while keeping your family at the centre of the portrait.",
     ],
     faqs: [
       {
@@ -125,7 +125,7 @@ export const cartoonStyles: PortraitStyle[] = [
     heroHeading: "You're Going Down to South Park",
     description: [
       "Simple? Deceptively. South Park's construction-paper style lives and dies on the details — the right hat, the right coat, the right deadpan dot-eyes. Our artists hand-build your character the way the show would: your actual winter wardrobe, your hairstyle poking out of a beanie, and the classic snowy mountain-town backdrop behind you.",
-      "Friend groups are the heart of this style. Four friends at the bus stop is the composition — you already know who's who, and so do they. We also do couples, families and solo portraits, with custom props and background gags on request. Respect our artists' authoritah.",
+      "Friend groups are the heart of this style. Four friends together is the composition — you already know who's who, and so do they. We also do couples, families and solo portraits, with character details drawn from your references. Respect our artists' authoritah.",
     ],
     faqs: [
       {
