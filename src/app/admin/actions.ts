@@ -12,7 +12,10 @@ import {
   orders,
   type OrderStatus,
 } from "@/lib/schema";
-import { statusAfterArtworkApproval } from "@/lib/orderWorkflow";
+import {
+  statusAfterArtworkApproval,
+  statusAfterRevisionRequest,
+} from "@/lib/orderWorkflow";
 import {
   ADMIN_COOKIE,
   adminCookieDomain,
@@ -244,7 +247,10 @@ export async function requestRevision(formData: FormData): Promise<void> {
   if (!order || order.status !== "review") return;
 
   await closeActiveDelivery(orderId);
-  await db.update(orders).set({ status: "in_progress" }).where(eq(orders.id, orderId));
+  await db
+    .update(orders)
+    .set({ status: statusAfterRevisionRequest() })
+    .where(eq(orders.id, orderId));
 
   await addOrderTimelineEvent({
     orderId,

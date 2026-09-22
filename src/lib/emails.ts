@@ -151,7 +151,7 @@ export async function sendDeliveryPreviewEmail(
     : "";
 
   const afterWindow = digital
-    ? `<p>If we don&apos;t hear from you within <strong>${hours} hours</strong>, we&apos;ll treat the artwork as approved and consider your digital order complete.</p>`
+    ? `<p>If we don&apos;t hear from you within <strong>${hours} hours</strong>, we&apos;ll treat the artwork as approved and advance your order to <strong>Digital File</strong>.</p>`
     : `<p>If we don&apos;t hear from you within <strong>${hours} hours</strong>, we&apos;ll treat the artwork as approved and move your print into production for shipping.</p>`;
 
   await resend.emails.send({
@@ -176,7 +176,7 @@ export async function sendDeliveryPreviewEmail(
 export async function sendRevisionReminderEmail(
   order: Order,
   delivery: OrderDelivery,
-  which: 1 | 2
+  reminderHour: 24 | 48
 ): Promise<void> {
   const resend = getResend();
   if (!resend) return;
@@ -193,7 +193,7 @@ export async function sendRevisionReminderEmail(
   );
 
   const urgency =
-    which === 1
+    reminderHour === 24
       ? "Friendly reminder — your artwork is waiting for feedback."
       : "Last reminder — your revision window is closing soon.";
 
@@ -202,7 +202,7 @@ export async function sendRevisionReminderEmail(
     to: order.email,
     replyTo: customerReplyTo(order),
     subject:
-      which === 1
+      reminderHour === 24
         ? `Reminder: review your ${order.styleName} artwork`
         : `Final reminder: ${hoursLeft}h left to request changes`,
     html: `
@@ -212,7 +212,7 @@ export async function sendRevisionReminderEmail(
         ${deliveryImagesHtml(delivery.imageUrls)}
         <p>${
           digital
-            ? `If we don&apos;t hear from you, we'll mark your digital order complete after the ${delivery.revisionHours}-hour review window.`
+            ? `If we don&apos;t hear from you, we'll advance your order to Digital File after the ${delivery.revisionHours}-hour review window.`
             : `If we don&apos;t hear from you, we'll approve the artwork and prepare your print for shipment after the ${delivery.revisionHours}-hour review window.`
         }</p>
         <p style="color:#777">— The ${site.name} team</p>
@@ -220,7 +220,7 @@ export async function sendRevisionReminderEmail(
   });
 }
 
-export async function sendDeliveryAutoCompletedEmail(
+export async function sendDeliveryReviewExpiredEmail(
   order: Order,
   delivery: OrderDelivery
 ): Promise<void> {
@@ -235,14 +235,14 @@ export async function sendDeliveryAutoCompletedEmail(
     to: order.email,
     replyTo: customerReplyTo(order),
     subject: digital
-      ? `Order complete — your ${order.styleName} files`
+      ? `Digital File ready — your ${order.styleName} files`
       : `Artwork approved — preparing your ${order.styleName} print`,
     html: `
       <div style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto;color:#222">
-        <h1 style="font-size:20px">${digital ? "Your order is complete" : "We're preparing your print"}</h1>
+        <h1 style="font-size:20px">${digital ? "Your Digital File is ready" : "We're preparing your print"}</h1>
         <p>${
           digital
-            ? `The ${revisionWindowHours(order)}-hour review window has passed with no revision requests, so your digital order is now complete.`
+            ? `The ${revisionWindowHours(order)}-hour review window has passed with no revision requests, so your order has advanced to Digital File.`
             : `The ${revisionWindowHours(order)}-hour review window has passed with no revision requests. Your artwork is approved and we're moving your print into production for shipment.`
         }</p>
         ${images}

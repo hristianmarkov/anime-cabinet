@@ -1,7 +1,10 @@
 import { and, desc, eq, isNotNull, isNull } from "drizzle-orm";
 import { getDb } from "@/lib/db";
 import { sendDeliveryPreviewEmail } from "@/lib/emails";
-import { revisionWindowHours } from "@/lib/orderDeliveryRules";
+import {
+  revisionDeadlineFromSentAt,
+  revisionWindowHours,
+} from "@/lib/orderDeliveryRules";
 import { addOrderTimelineEvent } from "@/lib/orderTimeline";
 import { orderDeliveries, orders } from "@/lib/schema";
 
@@ -34,7 +37,7 @@ export async function sendOrderDeliveryToCustomer(input: {
   const versionNumber = (latest?.versionNumber ?? 0) + 1;
   const revisionHours = revisionWindowHours(order);
   const now = new Date();
-  const revisionDeadline = new Date(now.getTime() + revisionHours * 60 * 60 * 1000);
+  const revisionDeadline = revisionDeadlineFromSentAt(now);
 
   await db
     .update(orderDeliveries)

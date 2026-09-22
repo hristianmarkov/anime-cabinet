@@ -34,7 +34,7 @@ export function buildOrderPipeline(order: Order): PipelineStep[] {
         { id: "started", label: "Created" },
         { id: "production", label: "In production" },
         { id: "customer_review", label: "Customer review" },
-        { id: "completed", label: "Completed" },
+        { id: "completed", label: "Digital File" },
       ]
     : [
         { id: "started", label: "Created" },
@@ -97,4 +97,8 @@ export function statusAfterArtworkApproval(order: Order): OrderStatus {
 
 export function statusAfterReviewWindowLapse(order: Order): OrderStatus {
   return isDigitalOrder(order) ? "delivered" : "approved";
+}
+
+export function statusAfterRevisionRequest(): OrderStatus {
+  return "in_progress";
 }

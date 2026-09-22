@@ -110,7 +110,7 @@ export function SendDeliveryForm({
         <strong className="text-cream">{revisionHours} hours</strong> to reply with
         revision notes
         {isDigital
-          ? " — after that, the digital order is marked complete."
+          ? " — after that, the order advances to Digital File."
           : " — after that, the artwork is approved and the print goes into production."}{" "}
         Reminders go out at 24h and 48h after send.
       </p>
@@ -141,7 +141,7 @@ export function SendDeliveryForm({
           id="delivery-ai-notes"
           value={adminNotes}
           onChange={(e) => setAdminNotes(e.target.value)}
-          placeholder="e.g. first preview, softened background per their note, mention 48h revision window…"
+          placeholder="e.g. first preview, softened background per their note, mention 72h revision window…"
           className="mt-2 w-full rounded-xl border border-line bg-ink px-4 py-2 text-sm text-cream placeholder:text-faint focus:border-accent focus:outline-none"
         />
         <button

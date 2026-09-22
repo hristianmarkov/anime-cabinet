@@ -2,13 +2,42 @@ import { and, eq, isNotNull, isNull } from "drizzle-orm";
 import { getDb } from "@/lib/db";
 import { addOrderTimelineEvent } from "@/lib/orderTimeline";
 import {
-  sendDeliveryAutoCompletedEmail,
+  sendDeliveryReviewExpiredEmail,
   sendRevisionReminderEmail,
 } from "@/lib/emails";
 import { statusAfterReviewWindowLapse } from "@/lib/orderWorkflow";
+import { REVISION_REMINDER_HOURS } from "@/lib/orderDeliveryRules";
 import { orderDeliveries, orders, type Order, type OrderDelivery } from "@/lib/schema";
 
 const HOUR_MS = 60 * 60 * 1000;
+
+export function pendingDeliveryActions(
+  delivery: Pick<
+    OrderDelivery,
+    "sentAt" | "revisionDeadline" | "reminder24SentAt" | "reminder48SentAt"
+  >,
+  now: Date
+): { expire: boolean; reminder24: boolean; reminder48: boolean } {
+  if (!delivery.sentAt) {
+    return { expire: false, reminder24: false, reminder48: false };
+  }
+
+  const nowMs = now.getTime();
+  if (delivery.revisionDeadline && nowMs >= new Date(delivery.revisionDeadline).getTime()) {
+    return { expire: true, reminder24: false, reminder48: false };
+  }
+
+  const elapsedMs = nowMs - new Date(delivery.sentAt).getTime();
+  return {
+    expire: false,
+    reminder24:
+      elapsedMs >= REVISION_REMINDER_HOURS[0] * HOUR_MS &&
+      elapsedMs < REVISION_REMINDER_HOURS[1] * HOUR_MS &&
+      !delivery.reminder24SentAt,
+    reminder48:
+      elapsedMs >= REVISION_REMINDER_HOURS[1] * HOUR_MS && !delivery.reminder48SentAt,
+  };
+}
 
 async function loadOrder(orderId: string): Promise<Order | null> {
   const db = getDb();
@@ -16,7 +45,7 @@ async function loadOrder(orderId: string): Promise<Order | null> {
   return order ?? null;
 }
 
-async function completeDelivery(order: Order, delivery: OrderDelivery): Promise<void> {
+async function expireDeliveryReview(order: Order, delivery: OrderDelivery): Promise<void> {
   const db = getDb();
   const now = new Date();
 
@@ -28,14 +57,14 @@ async function completeDelivery(order: Order, delivery: OrderDelivery): Promise<
   const nextStatus = statusAfterReviewWindowLapse(order);
   await db.update(orders).set({ status: nextStatus }).where(eq(orders.id, order.id));
 
-  await sendDeliveryAutoCompletedEmail(order, delivery);
+  await sendDeliveryReviewExpiredEmail(order, delivery);
 
   await addOrderTimelineEvent({
     orderId: order.id,
     kind: "auto_completed",
     summary:
       nextStatus === "delivered"
-        ? "Review window ended — order completed"
+        ? "Review window ended — advanced to Digital File"
         : "Review window ended — artwork approved, ready for print",
     detail: `Version ${delivery.versionNumber} auto-approved after revision window.`,
     metadata: { deliveryId: delivery.id, status: nextStatus },
@@ -45,13 +74,13 @@ async function completeDelivery(order: Order, delivery: OrderDelivery): Promise<
 export async function processPendingDeliveries(): Promise<{
   reminders24: number;
   reminders48: number;
-  completed: number;
+  expired: number;
 }> {
   const db = getDb();
   const now = new Date();
   let reminders24 = 0;
   let reminders48 = 0;
-  let completed = 0;
+  let expired = 0;
 
   const openDeliveries = await db
     .select()
@@ -65,10 +94,16 @@ export async function processPendingDeliveries(): Promise<{
     const order = await loadOrder(delivery.orderId);
     if (!order || order.status === "cancelled") continue;
 
-    const sentMs = new Date(sentAt).getTime();
+    const actions = pendingDeliveryActions(delivery, now);
 
-    if (now.getTime() >= sentMs + 24 * HOUR_MS && !delivery.reminder24SentAt) {
-      await sendRevisionReminderEmail(order, delivery, 1);
+    if (actions.expire) {
+      await expireDeliveryReview(order, delivery);
+      expired++;
+      continue;
+    }
+
+    if (actions.reminder24) {
+      await sendRevisionReminderEmail(order, delivery, 24);
       await db
         .update(orderDeliveries)
         .set({ reminder24SentAt: now })
@@ -82,8 +117,8 @@ export async function processPendingDeliveries(): Promise<{
       reminders24++;
     }
 
-    if (now.getTime() >= sentMs + 48 * HOUR_MS && !delivery.reminder48SentAt) {
-      await sendRevisionReminderEmail(order, delivery, 2);
+    if (actions.reminder48) {
+      await sendRevisionReminderEmail(order, delivery, 48);
       await db
         .update(orderDeliveries)
         .set({ reminder48SentAt: now })
@@ -97,14 +132,7 @@ export async function processPendingDeliveries(): Promise<{
       reminders48++;
     }
 
-    if (
-      delivery.revisionDeadline &&
-      now.getTime() >= new Date(delivery.revisionDeadline).getTime()
-    ) {
-      await completeDelivery(order, delivery);
-      completed++;
-    }
   }
 
-  return { reminders24, reminders48, completed };
+  return { reminders24, reminders48, expired };
 }

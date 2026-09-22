@@ -7,6 +7,7 @@
     "build": "next build",
     "vercel-build": "drizzle-kit push --force && tsx scripts/seed-contact-cristina.ts && next build",
     "start": "next start",
+    "test": "node --import tsx --test src/lib/*.test.ts",
     "lint": "next lint",
     "db:generate": "drizzle-kit generate",
     "db:push": "drizzle-kit push",
