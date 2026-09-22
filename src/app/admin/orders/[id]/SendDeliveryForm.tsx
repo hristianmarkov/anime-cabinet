@@ -154,7 +154,8 @@ export function SendDeliveryForm({
         </button>
         {draftError && <p className="mt-2 text-xs text-flame">{draftError}</p>}
         <p className="mt-2 text-xs text-faint">
-          Uses order details only (style name, format, notes, etc.) — not the art-direction prompt.
+          AI polishes your supplied content for the customer while preserving every meaningful
+          detail, explanation, uncertainty, and artistic choice — it does not summarize your notes.
         </p>
       </div>
 
