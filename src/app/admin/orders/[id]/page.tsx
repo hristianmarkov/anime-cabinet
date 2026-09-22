@@ -377,7 +377,7 @@ export default async function AdminOrderPage({
                     />
                     <div>
                       <p className="text-sm text-cream">{event.summary}</p>
-                      {event.detail && (
+                      {event.detail && event.kind !== "customer_feedback" && (
                         <p className="mt-1 whitespace-pre-wrap text-xs text-muted">{event.detail}</p>
                       )}
                       <p className="mt-1 text-xs text-faint">
