@@ -19,6 +19,6 @@ export async function POST(request: Request) {
   // Keep the order in customer review while the artist prepares another version.
   // Sending the replacement preview closes this delivery and starts a fresh window.
   await review.db.update(orders).set({ status: "review" }).where(eq(orders.id, review.order.id));
-  await addOrderTimelineEvent({ orderId: review.order.id, kind: "revision_requested", summary: `Revision requested for artwork v${review.delivery.versionNumber}`, detail: message.slice(0, 2000), metadata: { deliveryId: review.delivery.id } });
+  await addOrderTimelineEvent({ orderId: review.order.id, kind: "revision_requested", summary: `Revision requested for artwork v${review.delivery.versionNumber}`, metadata: { deliveryId: review.delivery.id } });
   return NextResponse.json({ ok: true });
 }

@@ -79,7 +79,6 @@ export async function sendOrderDeliveryToCustomer(input: {
     orderId: order.id,
     kind: "delivery_sent",
     summary: `Artwork v${versionNumber} sent to customer`,
-    detail: input.comment.trim() || undefined,
     metadata: {
       deliveryId: delivery.id,
       imageCount: input.imageUrls.length,
