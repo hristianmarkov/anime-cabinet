@@ -141,7 +141,7 @@ export function SendDeliveryForm({
           id="delivery-ai-notes"
           value={adminNotes}
           onChange={(e) => setAdminNotes(e.target.value)}
-          placeholder="e.g. first preview, softened background per their note, mention 48h revision window…"
+          placeholder="e.g. first preview, softened background per their note, mention the 72-hour review window…"
           className="mt-2 w-full rounded-xl border border-line bg-ink px-4 py-2 text-sm text-cream placeholder:text-faint focus:border-accent focus:outline-none"
         />
         <button

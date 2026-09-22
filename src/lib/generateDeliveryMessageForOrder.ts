@@ -2,7 +2,7 @@ import { desc, eq } from "drizzle-orm";
 import { BACKGROUND_OPTIONS, PRINT_FORMATS } from "@/data/pricing";
 import { draftDeliveryMessageWithOpenAI } from "@/lib/deliveryMessageOpenAi";
 import { getDb } from "@/lib/db";
-import { isDigitalOrder, revisionWindowHours } from "@/lib/orderDeliveryRules";
+import { isDigitalOrder } from "@/lib/orderDeliveryRules";
 import { orderDeliveries, orders } from "@/lib/schema";
 
 export type GenerateDeliveryMessageResult =
@@ -54,7 +54,6 @@ export async function generateDeliveryMessageForOrder(
       customerNotes: order.notes,
       expedited: order.expedited,
       isDigital: isDigitalOrder(order),
-      revisionHours: revisionWindowHours(order),
       deliveryVersion,
       adminNotes,
     });

@@ -47,7 +47,7 @@ export function PrintFulfillmentPanel({ order }: { order: Order }) {
           <select
             id="fulfillment-status"
             name="status"
-            defaultValue={order.status}
+            defaultValue={order.shippingFulfillmentStatus}
             className="mt-1 w-full rounded-lg border border-line bg-ink px-3 py-2 text-sm text-cream"
           >
             {(["approved", "printing", "shipped", "delivered"] as const).map((s) => (
