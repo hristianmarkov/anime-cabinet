@@ -102,6 +102,24 @@ export function OrderTrackingDisplay({
         </section>
       )}
 
+      {tracking.finalFile && (
+        <section className="rounded-2xl border border-line bg-surface p-6 shadow-card">
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-muted">Your final artwork</h2>
+          <img
+            src={tracking.finalFile.previewUrl}
+            alt={`Preview of ${tracking.styleName}`}
+            className="mt-4 max-h-64 w-full rounded-xl object-contain"
+          />
+          <a
+            href={tracking.finalFile.downloadUrl}
+            download
+            className="mt-4 inline-block rounded-full bg-accent px-5 py-3 text-sm font-semibold text-white"
+          >
+            Download high-resolution file
+          </a>
+        </section>
+      )}
+
       {tracking.milestones.length > 0 && (
         <section className="rounded-2xl border border-line bg-surface p-6 shadow-card">
           <h2 className="text-sm font-semibold uppercase tracking-wider text-muted">Recent updates</h2>

@@ -38,6 +38,10 @@ export async function notifyCustomerOfStatusChange(
     return;
   }
 
+  // Entering this state is an internal hand-off: the dedicated final-file
+  // action sends the customer email only after the asset is safely stored.
+  if (to === "digital_file") return;
+
   if (to === "cancelled") {
     if (options.sendCancelEmail) {
       await sendOrderCancelledEmail(order, options.cancelNote);

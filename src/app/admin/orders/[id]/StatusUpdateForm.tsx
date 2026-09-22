@@ -10,6 +10,7 @@ const STATUSES: OrderStatus[] = [
   "paid",
   "in_progress",
   "review",
+  "digital_file",
   "approved",
   "printing",
   "shipped",

@@ -5,6 +5,7 @@ export type PipelineStepId =
   | "started"
   | "production"
   | "customer_review"
+  | "digital_file"
   | "approved"
   | "printing"
   | "dispatched"
@@ -34,12 +35,14 @@ export function buildOrderPipeline(order: Order): PipelineStep[] {
         { id: "started", label: "Created" },
         { id: "production", label: "In production" },
         { id: "customer_review", label: "Customer review" },
+        { id: "digital_file", label: "Digital File" },
         { id: "completed", label: "Completed" },
       ]
     : [
         { id: "started", label: "Created" },
         { id: "production", label: "In production" },
         { id: "customer_review", label: "Customer review" },
+        { id: "digital_file", label: "Digital File" },
         { id: "approved", label: "Artwork approved" },
         { id: "printing", label: "Print production" },
         { id: "dispatched", label: "Dispatched" },
@@ -56,6 +59,8 @@ export function buildOrderPipeline(order: Order): PipelineStep[] {
         return "production";
       case "review":
         return "customer_review";
+      case "digital_file":
+        return "digital_file";
       case "approved":
         return digital ? "completed" : "approved";
       case "printing":
@@ -92,9 +97,9 @@ export function buildOrderPipeline(order: Order): PipelineStep[] {
 }
 
 export function statusAfterArtworkApproval(order: Order): OrderStatus {
-  return isDigitalOrder(order) ? "delivered" : "approved";
+  return "digital_file";
 }
 
 export function statusAfterReviewWindowLapse(order: Order): OrderStatus {
-  return isDigitalOrder(order) ? "delivered" : "approved";
+  return "digital_file";
 }

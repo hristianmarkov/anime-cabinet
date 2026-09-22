@@ -4,6 +4,7 @@ import { getDb } from "@/lib/db";
 import { buildPublicOrderTracking } from "@/lib/orderTrackingPublic";
 import {
   orderDeliveries,
+  orderFinalFiles,
   orderTimelineEvents,
   orders,
 } from "@/lib/schema";
@@ -42,9 +43,12 @@ export async function POST(request: Request) {
       .orderBy(desc(orderTimelineEvents.createdAt))
       .limit(20);
 
+    const [finalFile] = await db.select().from(orderFinalFiles)
+      .where(eq(orderFinalFiles.orderId, order.id)).limit(1);
+
     return NextResponse.json({
       trackToken: order.trackToken,
-      tracking: buildPublicOrderTracking(order, deliveries, timeline),
+      tracking: buildPublicOrderTracking(order, deliveries, timeline, finalFile ?? null),
     });
   } catch {
     return NextResponse.json({ error: "Tracking is temporarily unavailable." }, { status: 503 });

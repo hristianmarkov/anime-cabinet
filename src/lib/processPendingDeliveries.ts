@@ -33,10 +33,7 @@ async function completeDelivery(order: Order, delivery: OrderDelivery): Promise<
   await addOrderTimelineEvent({
     orderId: order.id,
     kind: "auto_completed",
-    summary:
-      nextStatus === "delivered"
-        ? "Review window ended — order completed"
-        : "Review window ended — artwork approved, ready for print",
+    summary: "Review window ended — final file required",
     detail: `Version ${delivery.versionNumber} auto-approved after revision window.`,
     metadata: { deliveryId: delivery.id, status: nextStatus },
   });

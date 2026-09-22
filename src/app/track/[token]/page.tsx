@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { OrderTrackingDisplay } from "@/components/OrderTrackingDisplay";
 import { getDb } from "@/lib/db";
 import { buildPublicOrderTracking } from "@/lib/orderTrackingPublic";
-import { orderDeliveries, orderTimelineEvents, orders } from "@/lib/schema";
+import { orderDeliveries, orderFinalFiles, orderTimelineEvents, orders } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Order status",
@@ -20,6 +20,7 @@ export default async function TrackOrderTokenPage({ params }: { params: Promise<
   let order = null;
   let deliveries: (typeof orderDeliveries.$inferSelect)[] = [];
   let timeline: (typeof orderTimelineEvents.$inferSelect)[] = [];
+  let finalFile: (typeof orderFinalFiles.$inferSelect) | null = null;
 
   try {
     const db = getDb();
@@ -37,6 +38,9 @@ export default async function TrackOrderTokenPage({ params }: { params: Promise<
         .where(eq(orderTimelineEvents.orderId, order.id))
         .orderBy(desc(orderTimelineEvents.createdAt))
         .limit(20);
+      const [storedFinalFile] = await db.select().from(orderFinalFiles)
+        .where(eq(orderFinalFiles.orderId, order.id)).limit(1);
+      finalFile = storedFinalFile ?? null;
     }
   } catch {
     return (
@@ -50,7 +54,7 @@ export default async function TrackOrderTokenPage({ params }: { params: Promise<
     notFound();
   }
 
-  const tracking = buildPublicOrderTracking(order, deliveries, timeline);
+  const tracking = buildPublicOrderTracking(order, deliveries, timeline, finalFile);
 
   return (
     <section className="mx-auto max-w-2xl px-4 py-12 sm:px-6">

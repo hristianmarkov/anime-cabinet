@@ -1,4 +1,4 @@
-import type { Order, OrderDelivery, OrderTimelineEvent } from "@/lib/schema";
+import type { Order, OrderDelivery, OrderFinalFile, OrderTimelineEvent } from "@/lib/schema";
 import { isDigitalOrder } from "@/lib/orderDeliveryRules";
 import { buildOrderPipeline, getActiveDelivery, type PipelineStep } from "@/lib/orderWorkflow";
 import { statusLabels } from "@/app/admin/order-ui";
@@ -24,6 +24,7 @@ export interface PublicOrderTracking {
   amountDisplay: string;
   milestones: { label: string; at: string }[];
   productionStartsAt: string | null;
+  finalFile: { previewUrl: string; downloadUrl: string } | null;
 }
 
 function maskName(first: string, last: string): string {
@@ -45,13 +46,15 @@ const PUBLIC_MILESTONE_KINDS = new Set([
   "delivery_sent",
   "artwork_approved",
   "auto_completed",
+  "final_file_sent",
   "status_updated",
 ]);
 
 export function buildPublicOrderTracking(
   order: Order,
   deliveries: OrderDelivery[],
-  timeline: OrderTimelineEvent[]
+  timeline: OrderTimelineEvent[],
+  finalFile: OrderFinalFile | null = null
 ): PublicOrderTracking {
   const format = PRINT_FORMATS.find((f) => f.id === order.formatId);
   const digital = isDigitalOrder(order);
@@ -92,6 +95,10 @@ export function buildPublicOrderTracking(
     productionStartsAt:
       order.status === "paid" && order.productionScheduledAt
         ? formatLondon915Label(new Date(order.productionScheduledAt))
+        : null,
+    finalFile:
+      order.status === "delivered" && finalFile
+        ? { previewUrl: finalFile.previewUrl, downloadUrl: finalFile.fileUrl }
         : null,
   };
 }

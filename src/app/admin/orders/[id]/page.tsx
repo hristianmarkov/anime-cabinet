@@ -9,6 +9,7 @@ import { buildOrderPipeline, getActiveDelivery } from "@/lib/orderWorkflow";
 import {
   orderCustomerFeedback,
   orderDeliveries,
+  orderFinalFiles,
   orderTimelineEvents,
   orders,
   type OrderDelivery,
@@ -26,6 +27,7 @@ import { OrderPipeline } from "./OrderPipeline";
 import { PrintFulfillmentPanel } from "./PrintFulfillmentPanel";
 import { ReviewCountdown } from "./ReviewCountdown";
 import { SendDeliveryForm } from "./SendDeliveryForm";
+import { FinalFilePanel } from "./FinalFilePanel";
 
 export const metadata: Metadata = {
   title: "Order detail — Admin",
@@ -73,6 +75,7 @@ export default async function AdminOrderPage({
   let timeline: OrderTimelineEvent[] = [];
   let deliveries: OrderDelivery[] = [];
   let feedback: (typeof orderCustomerFeedback.$inferSelect)[] = [];
+  let finalFile: (typeof orderFinalFiles.$inferSelect) | null = null;
 
   try {
     const db = getDb();
@@ -94,6 +97,12 @@ export default async function AdminOrderPage({
         .from(orderCustomerFeedback)
         .where(eq(orderCustomerFeedback.orderId, id))
         .orderBy(desc(orderCustomerFeedback.createdAt));
+      const [storedFinalFile] = await db
+        .select()
+        .from(orderFinalFiles)
+        .where(eq(orderFinalFiles.orderId, id))
+        .limit(1);
+      finalFile = storedFinalFile ?? null;
     }
   } catch {
     dbError =
@@ -122,7 +131,7 @@ export default async function AdminOrderPage({
   const showReviewPanel = order.status === "review" || feedback.length > 0;
   const showPrintPanel =
     !digital &&
-    ["approved", "printing", "shipped", "delivered", "review"].includes(order.status);
+    ["digital_file", "approved", "printing", "shipped", "delivered", "review"].includes(order.status);
 
   return (
     <AdminShell active="orders">
@@ -188,6 +197,12 @@ export default async function AdminOrderPage({
                 showActions={order.status === "review"}
               />
             )}
+
+            <FinalFilePanel
+              orderId={order.id}
+              finalFile={finalFile}
+              canSend={order.status === "digital_file"}
+            />
 
             {showPrintPanel && <PrintFulfillmentPanel order={order} />}
 

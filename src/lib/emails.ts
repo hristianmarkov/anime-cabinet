@@ -1,5 +1,5 @@
 import { Resend } from "resend";
-import type { Order, OrderDelivery } from "./schema";
+import type { Order, OrderDelivery, OrderFinalFile } from "./schema";
 import { PRINT_FORMATS } from "@/data/pricing";
 import { site } from "@/data/site";
 import { isDigitalOrder, revisionWindowHours } from "@/lib/orderDeliveryRules";
@@ -151,8 +151,8 @@ export async function sendDeliveryPreviewEmail(
     : "";
 
   const afterWindow = digital
-    ? `<p>If we don&apos;t hear from you within <strong>${hours} hours</strong>, we&apos;ll treat the artwork as approved and consider your digital order complete.</p>`
-    : `<p>If we don&apos;t hear from you within <strong>${hours} hours</strong>, we&apos;ll treat the artwork as approved and move your print into production for shipping.</p>`;
+    ? `<p>If we don&apos;t hear from you within <strong>${hours} hours</strong>, we&apos;ll treat the artwork as approved and prepare your final high-resolution file.</p>`
+    : `<p>If we don&apos;t hear from you within <strong>${hours} hours</strong>, we&apos;ll treat the artwork as approved, prepare your final file, and then move your print into production.</p>`;
 
   await resend.emails.send({
     from: FROM,
@@ -212,8 +212,8 @@ export async function sendRevisionReminderEmail(
         ${deliveryImagesHtml(delivery.imageUrls)}
         <p>${
           digital
-            ? `If we don&apos;t hear from you, we'll mark your digital order complete after the ${delivery.revisionHours}-hour review window.`
-            : `If we don&apos;t hear from you, we'll approve the artwork and prepare your print for shipment after the ${delivery.revisionHours}-hour review window.`
+            ? `If we don&apos;t hear from you, we'll approve the artwork and prepare your final high-resolution file after the ${delivery.revisionHours}-hour review window.`
+            : `If we don&apos;t hear from you, we'll approve the artwork and prepare its final file before print production after the ${delivery.revisionHours}-hour review window.`
         }</p>
         <p style="color:#777">— The ${site.name} team</p>
       </div>`,
@@ -235,15 +235,15 @@ export async function sendDeliveryAutoCompletedEmail(
     to: order.email,
     replyTo: customerReplyTo(order),
     subject: digital
-      ? `Order complete — your ${order.styleName} files`
-      : `Artwork approved — preparing your ${order.styleName} print`,
+      ? `Artwork approved — preparing your ${order.styleName} file`
+      : `Artwork approved — preparing your final ${order.styleName} file`,
     html: `
       <div style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto;color:#222">
-        <h1 style="font-size:20px">${digital ? "Your order is complete" : "We're preparing your print"}</h1>
+        <h1 style="font-size:20px">We're preparing your final file</h1>
         <p>${
           digital
-            ? `The ${revisionWindowHours(order)}-hour review window has passed with no revision requests, so your digital order is now complete.`
-            : `The ${revisionWindowHours(order)}-hour review window has passed with no revision requests. Your artwork is approved and we're moving your print into production for shipment.`
+            ? `The ${revisionWindowHours(order)}-hour review window has passed with no revision requests. Your artwork is approved; we'll send the high-resolution download separately when it is ready.`
+            : `The ${revisionWindowHours(order)}-hour review window has passed with no revision requests. Your artwork is approved; we'll send the final file before moving the print into production.`
         }</p>
         ${images}
         <p>If you still need help, reply to this email — we'll do our best to assist.</p>
@@ -417,6 +417,31 @@ export async function sendOrderDeliveredEmail(
       `${intros[reason]}
        ${digital && images ? `<p><strong>Your files:</strong></p>${images}` : ""}
        <p>If you&apos;re happy with the result, we&apos;d love a photo tag on Instagram — it means a lot to our artists.</p>`,
+      order
+    ),
+  });
+}
+
+export async function sendFinalFileEmail(
+  order: Order,
+  finalFile: OrderFinalFile
+): Promise<void> {
+  const resend = getResend();
+  if (!resend) return;
+
+  const next = isDigitalOrder(order)
+    ? "Your digital order is now complete."
+    : "Your high-resolution file is ready, and your print will now move into production.";
+  await resend.emails.send({
+    from: FROM,
+    to: order.email,
+    replyTo: customerReplyTo(order),
+    subject: `Your final ${order.styleName} file is ready`,
+    html: emailShell(
+      "Your high-resolution artwork is ready",
+      `<p>${next}</p>
+       <p><a href="${escapeHtml(finalFile.fileUrl)}" style="display:inline-block;padding:12px 18px;border-radius:999px;background:#cc4444;color:#fff;text-decoration:none;font-weight:bold">Download the final file</a></p>
+       <p style="font-size:13px;color:#666">Please save a copy of the file to your own device.</p>`,
       order
     ),
   });

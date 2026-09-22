@@ -14,6 +14,7 @@ export const ORDER_STATUSES = [
   "paid",
   "in_progress",
   "review",
+  "digital_file",
   "approved",
   "printing",
   "shipped",
@@ -81,6 +82,18 @@ export const orderDeliveries = pgTable("order_deliveries", {
 
 export type OrderDelivery = typeof orderDeliveries.$inferSelect;
 
+/** Final, full-resolution customer asset. Kept separate from review previews. */
+export const orderFinalFiles = pgTable("order_final_files", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  orderId: uuid("order_id").notNull().unique(),
+  fileUrl: text("file_url").notNull(),
+  previewUrl: text("preview_url").notNull(),
+  sentAt: timestamp("sent_at", { withTimezone: true }).notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+});
+
+export type OrderFinalFile = typeof orderFinalFiles.$inferSelect;
+
 export const TIMELINE_EVENT_KINDS = [
   "order_created",
   "payment_received",
@@ -94,6 +107,7 @@ export const TIMELINE_EVENT_KINDS = [
   "revision_requested",
   "gelato_submitted",
   "gelato_status_sync",
+  "final_file_sent",
 ] as const;
 
 export type TimelineEventKind = (typeof TIMELINE_EVENT_KINDS)[number];

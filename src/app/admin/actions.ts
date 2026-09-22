@@ -9,6 +9,7 @@ import {
   ORDER_STATUSES,
   orderCustomerFeedback,
   orderDeliveries,
+  orderFinalFiles,
   orders,
   type OrderStatus,
 } from "@/lib/schema";
@@ -28,6 +29,8 @@ import { notifyCustomerOfStatusChange } from "@/lib/orderStatusEmails";
 import { createGelatoPrintOrder, isGelatoConfigured } from "@/lib/gelato";
 import { sendOrderDeliveryToCustomer } from "@/lib/sendOrderDelivery";
 import { createDeliveryUploadToken } from "@/lib/adminDeliveryUploadToken";
+import { isDigitalOrder } from "@/lib/orderDeliveryRules";
+import { sendFinalFileEmail } from "@/lib/emails";
 
 const COOKIE_OPTIONS = {
   httpOnly: true,
@@ -106,6 +109,17 @@ export async function updateOrderStatus(formData: FormData): Promise<void> {
   const [existing] = await db.select().from(orders).where(eq(orders.id, orderId)).limit(1);
   if (!existing) return;
 
+  if (status === "delivered" && isDigitalOrder(existing)) {
+    const [finalFile] = await db
+      .select({ id: orderFinalFiles.id })
+      .from(orderFinalFiles)
+      .where(eq(orderFinalFiles.orderId, orderId))
+      .limit(1);
+    if (!finalFile) {
+      redirect(`/admin/orders/${orderId}?error=${encodeURIComponent("Upload and send the final file before completing a digital order.")}`);
+    }
+  }
+
   await db.update(orders).set({ status }).where(eq(orders.id, orderId));
 
   if (existing.status !== status) {
@@ -174,6 +188,47 @@ export async function sendDelivery(formData: FormData): Promise<void> {
   redirect(`/admin/orders/${orderId}?sent=1`);
 }
 
+export async function sendFinalFile(formData: FormData): Promise<void> {
+  if (!(await isAdminAuthenticated())) return;
+  const orderId = String(formData.get("orderId") ?? "").trim();
+  const fileUrl = String(formData.get("fileUrl") ?? "").trim();
+  const previewUrl = String(formData.get("previewUrl") ?? "").trim();
+  if (!orderId || !fileUrl || !previewUrl) return;
+
+  const db = getDb();
+  const [order] = await db.select().from(orders).where(eq(orders.id, orderId)).limit(1);
+  if (!order || order.status !== "digital_file") {
+    redirect(`/admin/orders/${orderId}?error=${encodeURIComponent("The order must be awaiting its digital file.")}`);
+  }
+
+  const now = new Date();
+  const [finalFile] = await db
+    .insert(orderFinalFiles)
+    .values({ orderId, fileUrl, previewUrl, sentAt: now })
+    .onConflictDoUpdate({
+      target: orderFinalFiles.orderId,
+      set: { fileUrl, previewUrl, sentAt: now },
+    })
+    .returning();
+
+  await sendFinalFileEmail(order, finalFile);
+  const next: OrderStatus = isDigitalOrder(order) ? "delivered" : "approved";
+  await db.update(orders).set({ status: next }).where(eq(orders.id, orderId));
+  await addOrderTimelineEvent({
+    orderId,
+    kind: "final_file_sent",
+    summary: isDigitalOrder(order)
+      ? "Final digital file sent — order complete"
+      : "Final digital file sent — ready for print",
+    metadata: { status: next },
+  });
+
+  revalidatePath("/admin");
+  revalidatePath(`/admin/orders/${orderId}`);
+  revalidatePath(`/track/${order.trackToken}`);
+  redirect(`/admin/orders/${orderId}?sent=final`);
+}
+
 async function closeActiveDelivery(orderId: string): Promise<void> {
   const db = getDb();
   const now = new Date();
@@ -213,9 +268,7 @@ export async function approveArtwork(formData: FormData): Promise<void> {
     orderId,
     kind: "artwork_approved",
     summary:
-      next === "delivered"
-        ? "Artwork approved — order closed"
-        : "Artwork approved — ready for print",
+      "Artwork approved — final file required",
     metadata: { status: next },
   });
 
@@ -319,6 +372,7 @@ export async function updatePrintFulfillment(formData: FormData): Promise<void> 
   };
 
   if (
+    existing.status !== "digital_file" &&
     ORDER_STATUSES.includes(status) &&
     ["printing", "shipped", "delivered", "approved"].includes(status)
   ) {
@@ -362,6 +416,9 @@ export async function submitGelatoOrder(formData: FormData): Promise<void> {
   const db = getDb();
   const [order] = await db.select().from(orders).where(eq(orders.id, orderId)).limit(1);
   if (!order) return;
+  if (order.status === "digital_file") {
+    redirect(`/admin/orders/${orderId}?error=${encodeURIComponent("Send the final digital file before starting print fulfillment.")}`);
+  }
   if (order.gelatoOrderId) {
     redirect(`/admin/orders/${orderId}?error=${encodeURIComponent("Gelato order already exists.")}`);
   }
