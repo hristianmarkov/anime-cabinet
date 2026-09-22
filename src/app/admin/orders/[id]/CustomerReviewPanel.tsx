@@ -1,29 +1,33 @@
-import type { OrderCustomerFeedback } from "@/lib/schema";
+import type { OrderDelivery, OrderReviewMessage } from "@/lib/schema";
 import { approveArtwork, logCustomerFeedback, requestRevision } from "../../actions";
 
 export function CustomerReviewPanel({
   orderId,
-  feedback,
+  messages,
+  deliveries,
   showActions,
 }: {
   orderId: string;
-  feedback: OrderCustomerFeedback[];
+  messages: OrderReviewMessage[];
+  deliveries: OrderDelivery[];
   showActions: boolean;
 }) {
   return (
     <article className="rounded-2xl border border-flame/30 bg-surface p-6 shadow-card">
       <h2 className="text-sm font-semibold uppercase tracking-wider text-flame">Customer review</h2>
       <p className="mt-2 text-xs text-muted">
-        Paste email replies here for your records. Approve to close the order (digital) or move to print
-        (physical). Request revision to send the order back to production.
+        The chronological customer and artist conversation, linked to each artwork version.
       </p>
 
-      {feedback.length > 0 && (
+      {messages.length > 0 && (
         <ul className="mt-4 space-y-3">
-          {feedback.map((item) => (
+          {messages.map((item) => (
             <li key={item.id} className="rounded-xl border border-line bg-ink p-4">
               <p className="text-xs text-faint">
-                {new Date(item.createdAt).toLocaleString("en-GB")} · {item.source}
+                {new Date(item.createdAt).toLocaleString("en-GB")} · {item.author} · {item.direction}
+                {item.deliveryId
+                  ? ` · Version ${deliveries.find((delivery) => delivery.id === item.deliveryId)?.versionNumber ?? "?"}`
+                  : ""}
               </p>
               <p className="mt-2 whitespace-pre-wrap text-sm text-cream">{item.body}</p>
             </li>

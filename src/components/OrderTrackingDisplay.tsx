@@ -1,5 +1,6 @@
 import type { PublicOrderTracking } from "@/lib/orderTrackingPublic";
 import { TrackOrderContactForm } from "./TrackOrderContactForm";
+import { PublicArtworkReview } from "./PublicArtworkReview";
 
 function stepClass(state: PublicOrderTracking["pipeline"][0]["state"]): string {
   if (state === "done") return "bg-[#4ade80]/20 text-[#4ade80]";
@@ -19,9 +20,7 @@ export function OrderTrackingDisplay({
       <header className="rounded-2xl border border-line bg-surface p-6 shadow-card">
         <p className="text-xs font-semibold uppercase tracking-wider text-muted">Order status</p>
         <h1 className="font-display mt-2 text-2xl text-cream sm:text-3xl">{tracking.styleName}</h1>
-        <p className="mt-2 inline-block rounded-full bg-accent/15 px-3 py-1 text-sm font-semibold text-accent">
-          {tracking.statusLabel}
-        </p>
+
         <dl className="mt-6 grid gap-3 text-sm sm:grid-cols-2">
           <div>
             <dt className="text-xs text-faint">Placed</dt>
@@ -42,9 +41,7 @@ export function OrderTrackingDisplay({
             </div>
           )}
         </dl>
-      </header>
-
-      <section className="rounded-2xl border border-line bg-surface p-6 shadow-card">
+        <div className="mt-7 border-t border-line pt-5">
         <h2 className="text-sm font-semibold uppercase tracking-wider text-muted">Progress</h2>
         <ol className="mt-6 space-y-3">
           {tracking.pipeline.map((step, i) => (
@@ -74,7 +71,12 @@ export function OrderTrackingDisplay({
             {tracking.revisionHours ? ` (${tracking.revisionHours}h)` : ""}
           </p>
         )}
-      </section>
+        </div>
+      </header>
+
+
+
+      <PublicArtworkReview tracking={tracking} trackToken={trackToken} />
 
       {!tracking.digital && (tracking.maskedRecipient || tracking.trackingUrl) && (
         <section className="rounded-2xl border border-line bg-surface p-6 shadow-card">

@@ -61,6 +61,11 @@ export async function notifyCustomerOfStatusChange(
     return;
   }
 
+  if (to === "digital_file" && digital) {
+    await sendOrderDeliveredEmail(order, options.latestDelivery ?? null, "approved");
+    return;
+  }
+
   if (to === "printing") {
     await sendPrintProductionEmail(order);
     return;

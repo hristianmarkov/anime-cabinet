@@ -14,6 +14,7 @@ export const ORDER_STATUSES = [
   "paid",
   "in_progress",
   "review",
+  "digital_file",
   "approved",
   "printing",
   "shipped",
@@ -119,6 +120,19 @@ export const orderCustomerFeedback = pgTable("order_customer_feedback", {
 });
 
 export type OrderCustomerFeedback = typeof orderCustomerFeedback.$inferSelect;
+
+/** Messages shown in the artwork-review conversation on both customer and admin pages. */
+export const orderReviewMessages = pgTable("order_review_messages", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  orderId: uuid("order_id").notNull(),
+  deliveryId: uuid("delivery_id"),
+  direction: text("direction").$type<"customer" | "admin">().notNull(),
+  author: text("author").notNull(),
+  body: text("body").notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+});
+
+export type OrderReviewMessage = typeof orderReviewMessages.$inferSelect;
 
 export const CONTACT_INQUIRY_STATUSES = ["open", "closed"] as const;
 export type ContactInquiryStatus = (typeof CONTACT_INQUIRY_STATUSES)[number];

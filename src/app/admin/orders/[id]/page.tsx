@@ -7,8 +7,8 @@ import { isAdminAuthenticated } from "@/lib/adminAuth";
 import { isDigitalOrder, revisionWindowHours } from "@/lib/orderDeliveryRules";
 import { buildOrderPipeline, getActiveDelivery } from "@/lib/orderWorkflow";
 import {
-  orderCustomerFeedback,
   orderDeliveries,
+  orderReviewMessages,
   orderTimelineEvents,
   orders,
   type OrderDelivery,
@@ -72,7 +72,7 @@ export default async function AdminOrderPage({
   let order = null;
   let timeline: OrderTimelineEvent[] = [];
   let deliveries: OrderDelivery[] = [];
-  let feedback: (typeof orderCustomerFeedback.$inferSelect)[] = [];
+  let reviewMessages: (typeof orderReviewMessages.$inferSelect)[] = [];
 
   try {
     const db = getDb();
@@ -89,11 +89,11 @@ export default async function AdminOrderPage({
         .from(orderDeliveries)
         .where(eq(orderDeliveries.orderId, id))
         .orderBy(desc(orderDeliveries.versionNumber));
-      feedback = await db
+      reviewMessages = await db
         .select()
-        .from(orderCustomerFeedback)
-        .where(eq(orderCustomerFeedback.orderId, id))
-        .orderBy(desc(orderCustomerFeedback.createdAt));
+        .from(orderReviewMessages)
+        .where(eq(orderReviewMessages.orderId, id))
+        .orderBy(orderReviewMessages.createdAt);
     }
   } catch {
     dbError =
@@ -119,7 +119,7 @@ export default async function AdminOrderPage({
   const stylePrompt = getStyleArtPromptOrFallback(order.styleSlug, order.styleName);
   const pipelineSteps = buildOrderPipeline(order);
   const activeDelivery = getActiveDelivery(deliveries);
-  const showReviewPanel = order.status === "review" || feedback.length > 0;
+  const showReviewPanel = order.status === "review" || reviewMessages.length > 0;
   const showPrintPanel =
     !digital &&
     ["approved", "printing", "shipped", "delivered", "review"].includes(order.status);
@@ -184,7 +184,8 @@ export default async function AdminOrderPage({
             {showReviewPanel && (
               <CustomerReviewPanel
                 orderId={order.id}
-                feedback={feedback}
+                messages={reviewMessages}
+                deliveries={deliveries}
                 showActions={order.status === "review"}
               />
             )}

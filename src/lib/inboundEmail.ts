@@ -7,7 +7,7 @@ import { addOrderTimelineEvent } from "@/lib/orderTimeline";
 import {
   contactInquiries,
   contactMessages,
-  orderCustomerFeedback,
+  orderReviewMessages,
   orders,
 } from "@/lib/schema";
 
@@ -58,10 +58,11 @@ export async function processInboundEmail(input: {
       return { handled: false };
     }
 
-    await db.insert(orderCustomerFeedback).values({
+    await db.insert(orderReviewMessages).values({
       orderId: order.id,
       body: `[Email] ${input.subject}\n\n${body}`,
-      source: "email",
+      direction: "customer",
+      author: order.email,
     });
 
     await addOrderTimelineEvent({
@@ -71,7 +72,7 @@ export async function processInboundEmail(input: {
       detail: body.slice(0, 2000),
     });
 
-    if (order.status === "delivered" || order.status === "cancelled") {
+    if (order.status === "digital_file" || order.status === "delivered" || order.status === "cancelled") {
       // still log feedback
     } else if (order.status === "review") {
       // admin reviews in panel — no auto status change
