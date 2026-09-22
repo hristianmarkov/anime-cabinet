@@ -29,10 +29,39 @@ export function CustomerReviewPanel({
                   ? ` · Version ${deliveries.find((delivery) => delivery.id === item.deliveryId)?.versionNumber ?? "?"}`
                   : ""}
               </p>
+              {item.deliveryId && deliveries.find((delivery) => delivery.id === item.deliveryId)?.imageUrls.length ? (
+                <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                  {deliveries.find((delivery) => delivery.id === item.deliveryId)!.imageUrls.map((url, index) => (
+                    <a key={url} href={url} target="_blank" rel="noreferrer">
+                      <img src={url} alt={`Artwork version preview ${index + 1}`} className="max-h-72 w-full rounded-lg border border-line object-contain" />
+                    </a>
+                  ))}
+                </div>
+              ) : null}
               <p className="mt-2 whitespace-pre-wrap text-sm text-cream">{item.body}</p>
             </li>
           ))}
         </ul>
+      )}
+
+      {deliveries.some((delivery) => !messages.some((message) => message.deliveryId === delivery.id)) && (
+        <div className="mt-4 space-y-3">
+          {deliveries
+            .filter((delivery) => !messages.some((message) => message.deliveryId === delivery.id))
+            .map((delivery) => (
+              <div key={delivery.id} className="rounded-xl border border-line bg-ink p-4">
+                <p className="text-xs text-faint">Anime Cabinet · Version {delivery.versionNumber}</p>
+                <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                  {delivery.imageUrls.map((url, index) => (
+                    <a key={url} href={url} target="_blank" rel="noreferrer">
+                      <img src={url} alt={`Artwork version ${delivery.versionNumber} preview ${index + 1}`} className="max-h-72 w-full rounded-lg border border-line object-contain" />
+                    </a>
+                  ))}
+                </div>
+                <p className="mt-2 whitespace-pre-wrap text-sm text-cream">{delivery.comment || `Artwork preview version ${delivery.versionNumber}`}</p>
+              </div>
+            ))}
+        </div>
       )}
 
       <form action={logCustomerFeedback} className="mt-4 space-y-2">

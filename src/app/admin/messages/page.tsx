@@ -4,7 +4,8 @@ import { desc, eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import { getDb } from "@/lib/db";
 import { isAdminAuthenticated } from "@/lib/adminAuth";
-import { contactInquiries, type ContactInquiry, type ContactInquiryStatus } from "@/lib/schema";
+import { contactInquiries, contactMessages, type ContactInquiry, type ContactInquiryStatus } from "@/lib/schema";
+import { unansweredCount } from "@/lib/adminNotices";
 import { AdminShell } from "../AdminShell";
 
 export const metadata: Metadata = {
@@ -27,6 +28,7 @@ export default async function AdminMessagesPage({
   const filter = params.status === "closed" ? "closed" : params.status === "open" ? "open" : "all";
 
   let inquiries: ContactInquiry[] = [];
+  const notices = new Map<string, number>();
   let dbError: string | null = null;
 
   try {
@@ -39,6 +41,16 @@ export default async function AdminMessagesPage({
         .from(contactInquiries)
         .where(eq(contactInquiries.status, filter as ContactInquiryStatus))
         .orderBy(desc(contactInquiries.createdAt));
+    }
+    const messages = await db.select().from(contactMessages);
+    for (const inquiry of inquiries) {
+      const count = unansweredCount(messages
+        .filter((message) => message.inquiryId === inquiry.id)
+        .map((message) => ({
+          direction: message.direction === "inbound" ? "customer" as const : "admin" as const,
+          createdAt: message.createdAt,
+        })));
+      if (count) notices.set(inquiry.id, count);
     }
   } catch {
     dbError = "Could not load messages. Run npm run db:push for contact_inquiries tables.";
@@ -95,6 +107,7 @@ export default async function AdminMessagesPage({
                       <th className="px-4 py-3 font-semibold">Email</th>
                       <th className="px-4 py-3 font-semibold">Subject</th>
                       <th className="px-4 py-3 font-semibold">Status</th>
+                      <th className="px-4 py-3 font-semibold">Notice</th>
                       <th className="px-4 py-3 font-semibold" />
                     </tr>
                   </thead>
@@ -125,6 +138,13 @@ export default async function AdminMessagesPage({
                           >
                             {row.status}
                           </span>
+                        </td>
+                        <td className="px-4 py-3">
+                          {notices.has(row.id) && (
+                            <span className="inline-block rounded-full bg-flame/20 px-2.5 py-1 text-xs font-semibold text-flame">
+                              {notices.get(row.id)}
+                            </span>
+                          )}
                         </td>
                         <td className="px-4 py-3 text-right">
                           <Link

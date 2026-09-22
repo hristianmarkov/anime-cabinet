@@ -1,5 +1,5 @@
 import { Resend } from "resend";
-import type { Order, OrderDelivery } from "./schema";
+import type { Order, OrderDelivery, OrderFinalFile } from "./schema";
 import { PRINT_FORMATS } from "@/data/pricing";
 import { site } from "@/data/site";
 import { isDigitalOrder, revisionWindowHours } from "@/lib/orderDeliveryRules";
@@ -35,7 +35,6 @@ function orderSummaryHtml(order: Order): string {
       <tr><td style="padding:6px 0;color:#777">Style</td><td style="padding:6px 0">${order.styleName}</td></tr>
       <tr><td style="padding:6px 0;color:#777">Characters</td><td style="padding:6px 0">${order.characters}</td></tr>
       <tr><td style="padding:6px 0;color:#777">Format</td><td style="padding:6px 0">${format?.label ?? order.formatId}</td></tr>
-      <tr><td style="padding:6px 0;color:#777">Background</td><td style="padding:6px 0">${order.background}</td></tr>
       ${order.expedited ? `<tr><td style="padding:6px 0;color:#777">Delivery</td><td style="padding:6px 0">24-hour expedited</td></tr>` : ""}
       ${shippingRow}
       <tr><td style="padding:6px 0;color:#777">Total</td><td style="padding:6px 0"><strong>${total} ${currency}</strong></td></tr>
@@ -64,8 +63,8 @@ export async function sendOrderConfirmation(order: Order): Promise<void> {
         </p>
         <p><strong>What happens next:</strong></p>
         <ol style="line-height:1.7">
-          <li>Your order is <strong>created</strong> as soon as payment clears. Our artists pick it up at <strong>9:15 AM UK time</strong> on the next working day (Mon–Fri).</li>
-          <li>Within ${site.deliveryHours} hours after that you'll receive a preview at this email address.${order.expedited ? " (Priority order — 24h turnaround)" : ""}</li>
+          <li>Your order has been placed and will be assigned to an artist shortly.</li>
+          <li>Within ${order.expedited ? site.expeditedHours : site.deliveryHours} hours of placing your order, you&apos;ll receive a preview.${order.expedited ? " (Priority order — 24h turnaround)" : ""}</li>
           <li>Request as many free revisions as you like.</li>
           <li>Once you approve it, we send the final high-resolution file${order.formatId !== "digital" ? " and ship your print" : ""}.</li>
         </ol>
@@ -110,15 +109,8 @@ function escapeHtml(text: string): string {
     .replace(/"/g, "&quot;");
 }
 
-function deliveryImagesHtml(urls: string[]): string {
-  if (urls.length === 0) return "";
-  const items = urls
-    .map(
-      (url, i) =>
-        `<li style="margin:8px 0"><a href="${url}" style="color:#c44">View artwork ${urls.length > 1 ? i + 1 : ""}</a></li>`
-    )
-    .join("");
-  return `<ul style="padding-left:18px;line-height:1.6">${items}</ul>`;
+function trackOrderButton(order: Order, label = "Track your order"): string {
+  return `<p style="margin:20px 0"><a href="${trackOrderUrl(order)}" style="display:inline-block;padding:12px 18px;border-radius:999px;background:#cc4444;color:#fff;text-decoration:none;font-weight:bold">${label}</a></p>`;
 }
 
 function formatDeadline(deadline: Date): string {
@@ -141,9 +133,6 @@ export async function sendDeliveryPreviewEmail(
 
   const digital = isDigitalOrder(order);
   const hours = delivery.revisionHours;
-  const deadline = delivery.revisionDeadline
-    ? formatDeadline(new Date(delivery.revisionDeadline))
-    : `${hours} hours from now`;
   const versionLabel =
     delivery.versionNumber > 1 ? ` (revision ${delivery.versionNumber})` : "";
   const commentBlock = delivery.comment.trim()
@@ -151,8 +140,8 @@ export async function sendDeliveryPreviewEmail(
     : "";
 
   const afterWindow = digital
-    ? `<p>If we don&apos;t hear from you within <strong>${hours} hours</strong>, we&apos;ll treat the artwork as approved and consider your digital order complete.</p>`
-    : `<p>If we don&apos;t hear from you within <strong>${hours} hours</strong>, we&apos;ll treat the artwork as approved and move your print into production for shipping.</p>`;
+    ? `<p>If we don&apos;t hear from you within <strong>${hours} hours</strong>, we&apos;ll treat the artwork as approved and prepare your final high-resolution file.</p>`
+    : `<p>If we don&apos;t hear from you within <strong>${hours} hours</strong>, we&apos;ll treat the artwork as approved, prepare your final file, and then move your print into production.</p>`;
 
   await resend.emails.send({
     from: FROM,
@@ -161,11 +150,11 @@ export async function sendDeliveryPreviewEmail(
     subject: `Your ${order.styleName} artwork is ready to review${versionLabel}`,
     html: `
       <div style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto;color:#222">
-        <h1 style="font-size:22px">Your portrait is ready</h1>
-        <p>We&apos;ve finished transforming your photo into a custom <strong>${escapeHtml(order.styleName)}</strong> artwork. Open the link${delivery.imageUrls.length > 1 ? "s" : ""} below to view your ${digital ? "preview" : "approved-for-print preview"}.</p>
-        ${deliveryImagesHtml(delivery.imageUrls)}
+        <h1 style="font-size:22px">Your artwork preview is ready</h1>
+        <p>We&apos;ve prepared a preliminary version of your <strong>${escapeHtml(order.styleName)}</strong>. View it securely on your order page, where you can compare versions and leave revision comments.</p>
+        ${trackOrderButton(order, "Review your artwork")}
         ${commentBlock}
-        <p><strong>Need changes?</strong> Reply to this email within <strong>${hours} hours</strong> (by ${deadline} UTC) and tell us exactly what to adjust. Include your order ID: <strong>${order.id}</strong>.</p>
+        <p><strong>Need changes?</strong> Add your comments on the Track My Order page within <strong>${hours} hours</strong>. Please do not reply by email with revision notes.</p>
         ${afterWindow}
         ${orderSummaryHtml(order)}
         <p style="color:#777;margin-top:24px">— The ${site.name} team</p>
@@ -208,12 +197,12 @@ export async function sendRevisionReminderEmail(
     html: `
       <div style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto;color:#222">
         <h1 style="font-size:20px">${urgency}</h1>
-        <p>We sent your custom portrait for order <strong>${order.id}</strong>. If you&apos;d like any changes, reply to this email before <strong>${deadline} UTC</strong>.</p>
-        ${deliveryImagesHtml(delivery.imageUrls)}
+        <p>Your custom portrait for order <strong>${order.id}</strong> is waiting for review. If you&apos;d like any changes, add them on your secure order page before <strong>${deadline} UTC</strong>.</p>
+        ${trackOrderButton(order, "Review your artwork")}
         <p>${
           digital
-            ? `If we don&apos;t hear from you, we'll mark your digital order complete after the ${delivery.revisionHours}-hour review window.`
-            : `If we don&apos;t hear from you, we'll approve the artwork and prepare your print for shipment after the ${delivery.revisionHours}-hour review window.`
+            ? `If we don&apos;t hear from you, we'll approve the artwork and prepare your final high-resolution file after the ${delivery.revisionHours}-hour review window.`
+            : `If we don&apos;t hear from you, we'll approve the artwork and prepare its final file before print production after the ${delivery.revisionHours}-hour review window.`
         }</p>
         <p style="color:#777">— The ${site.name} team</p>
       </div>`,
@@ -228,25 +217,23 @@ export async function sendDeliveryAutoCompletedEmail(
   if (!resend) return;
 
   const digital = isDigitalOrder(order);
-  const images = deliveryImagesHtml(delivery.imageUrls);
-
   await resend.emails.send({
     from: FROM,
     to: order.email,
     replyTo: customerReplyTo(order),
     subject: digital
-      ? `Order complete — your ${order.styleName} files`
-      : `Artwork approved — preparing your ${order.styleName} print`,
+      ? `Artwork approved — preparing your ${order.styleName} file`
+      : `Artwork approved — preparing your final ${order.styleName} file`,
     html: `
       <div style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto;color:#222">
-        <h1 style="font-size:20px">${digital ? "Your order is complete" : "We're preparing your print"}</h1>
+        <h1 style="font-size:20px">We're preparing your final file</h1>
         <p>${
           digital
-            ? `The ${revisionWindowHours(order)}-hour review window has passed with no revision requests, so your digital order is now complete.`
-            : `The ${revisionWindowHours(order)}-hour review window has passed with no revision requests. Your artwork is approved and we're moving your print into production for shipment.`
+            ? `The ${revisionWindowHours(order)}-hour review window has passed with no revision requests. Your artwork is approved; we'll send the high-resolution download separately when it is ready.`
+            : `The ${revisionWindowHours(order)}-hour review window has passed with no revision requests. Your artwork is approved; we'll send the final file before moving the print into production.`
         }</p>
-        ${images}
-        <p>If you still need help, reply to this email — we'll do our best to assist.</p>
+        ${trackOrderButton(order)}
+        <p>If you still need help, use the message form on your order page.</p>
         ${orderSummaryHtml(order)}
         <p style="color:#777">— The ${site.name} team</p>
       </div>`,
@@ -270,7 +257,7 @@ export async function sendProductionStartedEmail(order: Order): Promise<void> {
 
   const expedited = order.expedited
     ? `<p>Your order is <strong>24-hour expedited</strong> — we&apos;re prioritising it in the queue.</p>`
-    : `<p>Most previews arrive within <strong>${site.deliveryHours} hours</strong>. We&apos;ll email you as soon as your artwork is ready to review.</p>`;
+    : `<p>Your first preview will be completed within <strong>${site.deliveryHours} hours of when your order was placed</strong>. We&apos;ll email you as soon as it is ready to review.</p>`;
 
   await resend.emails.send({
     from: FROM,
@@ -312,8 +299,6 @@ export async function sendPrintArtworkApprovedEmail(
   const resend = getResend();
   if (!resend) return;
 
-  const images = delivery ? deliveryImagesHtml(delivery.imageUrls) : "";
-
   await resend.emails.send({
     from: FROM,
     to: order.email,
@@ -322,7 +307,7 @@ export async function sendPrintArtworkApprovedEmail(
     html: emailShell(
       "Your print is next",
       `<p>Your artwork for <strong>${escapeHtml(order.styleName)}</strong> is approved and locked in for printing.</p>
-       ${images}
+       ${trackOrderButton(order)}
        <p>We&apos;ll email you again when your order ships${order.shippingMethodName ? ` via ${escapeHtml(order.shippingMethodName)}` : ""}.</p>`,
       order
     ),
@@ -390,8 +375,6 @@ export async function sendOrderDeliveredEmail(
   if (!resend) return;
 
   const digital = isDigitalOrder(order);
-  const images = delivery ? deliveryImagesHtml(delivery.imageUrls) : "";
-
   const titles: Record<typeof reason, string> = {
     approved: digital ? "You're all set — enjoy your portrait" : "Order complete",
     complete: "Your order is complete",
@@ -415,8 +398,34 @@ export async function sendOrderDeliveredEmail(
     html: emailShell(
       titles[reason],
       `${intros[reason]}
-       ${digital && images ? `<p><strong>Your files:</strong></p>${images}` : ""}
+       ${digital && delivery ? trackOrderButton(order, "View your order") : ""}
        <p>If you&apos;re happy with the result, we&apos;d love a photo tag on Instagram — it means a lot to our artists.</p>`,
+      order
+    ),
+  });
+}
+
+export async function sendFinalFileEmail(
+  order: Order,
+  finalFile: OrderFinalFile
+): Promise<void> {
+  const resend = getResend();
+  if (!resend) return;
+
+  const next = isDigitalOrder(order)
+    ? "Your digital order is now complete."
+    : "Your high-resolution file is ready, and your print will now move into production.";
+  await resend.emails.send({
+    from: FROM,
+    to: order.email,
+    replyTo: customerReplyTo(order),
+    subject: `Your final ${order.styleName} file is ready`,
+    html: emailShell(
+      "Your high-resolution artwork is ready",
+      `<p>${next}</p>
+       <p>Your high-resolution download is available securely from your Track My Order page.</p>
+       ${trackOrderButton(order, "Download your final artwork")}
+       <p style="font-size:13px;color:#666">Please save a copy of the file to your own device.</p>`,
       order
     ),
   });

@@ -9,10 +9,13 @@ import {
   ORDER_STATUSES,
   orderReviewMessages,
   orderDeliveries,
+  orderFinalFiles,
   orders,
   type OrderStatus,
 } from "@/lib/schema";
-import { statusAfterArtworkApproval } from "@/lib/orderWorkflow";
+import {
+  statusAfterArtworkApproval,
+} from "@/lib/orderWorkflow";
 import {
   ADMIN_COOKIE,
   adminCookieDomain,
@@ -28,6 +31,8 @@ import { notifyCustomerOfStatusChange } from "@/lib/orderStatusEmails";
 import { createGelatoPrintOrder, isGelatoConfigured } from "@/lib/gelato";
 import { sendOrderDeliveryToCustomer } from "@/lib/sendOrderDelivery";
 import { createDeliveryUploadToken } from "@/lib/adminDeliveryUploadToken";
+import { isDigitalOrder } from "@/lib/orderDeliveryRules";
+import { sendFinalFileEmail } from "@/lib/emails";
 
 const COOKIE_OPTIONS = {
   httpOnly: true,
@@ -106,6 +111,17 @@ export async function updateOrderStatus(formData: FormData): Promise<void> {
   const [existing] = await db.select().from(orders).where(eq(orders.id, orderId)).limit(1);
   if (!existing) return;
 
+  if (status === "delivered" && isDigitalOrder(existing)) {
+    const [finalFile] = await db
+      .select({ id: orderFinalFiles.id })
+      .from(orderFinalFiles)
+      .where(eq(orderFinalFiles.orderId, orderId))
+      .limit(1);
+    if (!finalFile) {
+      redirect(`/admin/orders/${orderId}?error=${encodeURIComponent("Upload and send the final file before completing a digital order.")}`);
+    }
+  }
+
   await db.update(orders).set({ status }).where(eq(orders.id, orderId));
 
   if (existing.status !== status) {
@@ -174,6 +190,51 @@ export async function sendDelivery(formData: FormData): Promise<void> {
   redirect(`/admin/orders/${orderId}?sent=1`);
 }
 
+export async function sendFinalFile(formData: FormData): Promise<void> {
+  if (!(await isAdminAuthenticated())) return;
+  const orderId = String(formData.get("orderId") ?? "").trim();
+  const fileUrl = String(formData.get("fileUrl") ?? "").trim();
+  const previewUrl = String(formData.get("previewUrl") ?? "").trim();
+  if (!orderId || !fileUrl || !previewUrl) return;
+
+  const db = getDb();
+  const [order] = await db.select().from(orders).where(eq(orders.id, orderId)).limit(1);
+  if (!order || order.status !== "digital_file") {
+    redirect(`/admin/orders/${orderId}?error=${encodeURIComponent("The order must be awaiting its digital file.")}`);
+  }
+
+  const now = new Date();
+  const [finalFile] = await db
+    .insert(orderFinalFiles)
+    .values({ orderId, fileUrl, previewUrl, sentAt: now })
+    .onConflictDoUpdate({
+      target: orderFinalFiles.orderId,
+      set: { fileUrl, previewUrl, sentAt: now },
+    })
+    .returning();
+
+  await sendFinalFileEmail(order, finalFile);
+  const next: OrderStatus = isDigitalOrder(order) ? "delivered" : "approved";
+  await db.update(orders).set({
+    status: next,
+    digitalFulfillmentStatus: "completed",
+    ...(isDigitalOrder(order) ? {} : { shippingFulfillmentStatus: "approved" as const }),
+  }).where(eq(orders.id, orderId));
+  await addOrderTimelineEvent({
+    orderId,
+    kind: "final_file_sent",
+    summary: isDigitalOrder(order)
+      ? "Final digital file sent — order complete"
+      : "Final digital file sent — ready for print",
+    metadata: { status: next },
+  });
+
+  revalidatePath("/admin");
+  revalidatePath(`/admin/orders/${orderId}`);
+  revalidatePath(`/track/${order.trackToken}`);
+  redirect(`/admin/orders/${orderId}?sent=final`);
+}
+
 async function closeActiveDelivery(orderId: string): Promise<void> {
   const db = getDb();
   const now = new Date();
@@ -213,9 +274,9 @@ export async function approveArtwork(formData: FormData): Promise<void> {
     orderId,
     kind: "artwork_approved",
     summary:
-      next === "digital_file"
-        ? "Artwork approved — digital file ready"
-        : "Artwork approved — ready for print",
+
+      "Artwork approved — final file required",
+
     metadata: { status: next },
   });
 
@@ -243,23 +304,13 @@ export async function requestRevision(formData: FormData): Promise<void> {
   const [order] = await db.select().from(orders).where(eq(orders.id, orderId)).limit(1);
   if (!order || order.status !== "review") return;
 
-  await closeActiveDelivery(orderId);
-  await db.update(orders).set({ status: "in_progress" }).where(eq(orders.id, orderId));
+  await db.update(orders).set({ status: "review" }).where(eq(orders.id, orderId));
 
   await addOrderTimelineEvent({
     orderId,
     kind: "revision_requested",
-    summary: "Revision requested — back in production",
+    summary: "Revision requested — awaiting updated artwork",
   });
-
-  const [updated] = await db.select().from(orders).where(eq(orders.id, orderId)).limit(1);
-  if (updated) {
-    try {
-      await notifyCustomerOfStatusChange(updated, "review", "in_progress");
-    } catch (err) {
-      console.error("Revision email failed:", err);
-    }
-  }
 
   revalidatePath("/admin");
   revalidatePath(`/admin/orders/${orderId}`);
@@ -311,7 +362,7 @@ export async function updatePrintFulfillment(formData: FormData): Promise<void> 
     gelatoOrderId: string | null;
     trackingNumber: string | null;
     trackingUrl: string | null;
-    status?: OrderStatus;
+    shippingFulfillmentStatus?: "approved" | "printing" | "shipped" | "delivered";
   } = {
     printFileUrl: printFileUrl || null,
     gelatoOrderId: gelatoOrderId || null,
@@ -320,26 +371,27 @@ export async function updatePrintFulfillment(formData: FormData): Promise<void> 
   };
 
   if (
+    existing.status !== "digital_file" &&
     ORDER_STATUSES.includes(status) &&
     ["printing", "shipped", "delivered", "approved"].includes(status)
   ) {
-    patch.status = status;
+    patch.shippingFulfillmentStatus = status as "approved" | "printing" | "shipped" | "delivered";
   }
 
   await db.update(orders).set(patch).where(eq(orders.id, orderId));
 
-  if (patch.status && existing.status !== patch.status) {
+  if (patch.shippingFulfillmentStatus && existing.shippingFulfillmentStatus !== patch.shippingFulfillmentStatus) {
     await addOrderTimelineEvent({
       orderId,
       kind: "status_updated",
-      summary: `Fulfillment: ${String(patch.status).replace(/_/g, " ")}`,
+      summary: `Shipping: ${patch.shippingFulfillmentStatus.replace(/_/g, " ")}`,
       metadata: { gelatoOrderId, trackingNumber },
     });
     const [updated] = await db.select().from(orders).where(eq(orders.id, orderId)).limit(1);
     if (updated) {
       try {
         const latestDelivery = await getLatestSentDelivery(orderId);
-        await notifyCustomerOfStatusChange(updated, existing.status, patch.status, {
+        await notifyCustomerOfStatusChange(updated, existing.status, patch.shippingFulfillmentStatus, {
           latestDelivery,
         });
       } catch (err) {
@@ -363,6 +415,9 @@ export async function submitGelatoOrder(formData: FormData): Promise<void> {
   const db = getDb();
   const [order] = await db.select().from(orders).where(eq(orders.id, orderId)).limit(1);
   if (!order) return;
+  if (order.status === "digital_file") {
+    redirect(`/admin/orders/${orderId}?error=${encodeURIComponent("Send the final digital file before starting print fulfillment.")}`);
+  }
   if (order.gelatoOrderId) {
     redirect(`/admin/orders/${orderId}?error=${encodeURIComponent("Gelato order already exists.")}`);
   }
@@ -380,7 +435,7 @@ export async function submitGelatoOrder(formData: FormData): Promise<void> {
       .set({
         gelatoOrderId: created.gelatoOrderId,
         gelatoFulfillmentStatus: created.fulfillmentStatus,
-        status: "printing",
+        shippingFulfillmentStatus: "printing",
       })
       .where(eq(orders.id, orderId));
 

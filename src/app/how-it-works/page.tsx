@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 const steps = [
   {
     title: "Choose your style and options",
-    body: "Browse our 24 anime and cartoon styles and pick your favorite. On the product page, choose how many characters (people and pets), your background — an iconic scene or a custom one you describe — and your format: digital file or add a poster, canvas, or framed print.",
+    body: "Browse our 24 anime and cartoon styles and pick your favorite. On the product page, choose how many characters (people and pets) and your format: digital file or add a poster, canvas, or framed print.",
   },
   {
     title: "Upload your photos and notes",

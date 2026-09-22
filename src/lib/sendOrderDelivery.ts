@@ -1,7 +1,10 @@
 import { and, desc, eq, isNotNull, isNull } from "drizzle-orm";
 import { getDb } from "@/lib/db";
 import { sendDeliveryPreviewEmail } from "@/lib/emails";
-import { revisionWindowHours } from "@/lib/orderDeliveryRules";
+import {
+  revisionDeadlineFromSentAt,
+  revisionWindowHours,
+} from "@/lib/orderDeliveryRules";
 import { addOrderTimelineEvent } from "@/lib/orderTimeline";
 import { orderDeliveries, orderReviewMessages, orders } from "@/lib/schema";
 
@@ -20,8 +23,8 @@ export async function sendOrderDeliveryToCustomer(input: {
   const db = getDb();
   const [order] = await db.select().from(orders).where(eq(orders.id, input.orderId)).limit(1);
   if (!order) return { ok: false, error: "Order not found." };
-  if (order.status === "cancelled") {
-    return { ok: false, error: "Cannot send artwork for a cancelled order." };
+  if (order.status !== "in_progress" && order.status !== "review") {
+    return { ok: false, error: "Artwork previews can only be sent while the order is in production or customer review." };
   }
 
   const [latest] = await db
@@ -34,7 +37,7 @@ export async function sendOrderDeliveryToCustomer(input: {
   const versionNumber = (latest?.versionNumber ?? 0) + 1;
   const revisionHours = revisionWindowHours(order);
   const now = new Date();
-  const revisionDeadline = new Date(now.getTime() + revisionHours * 60 * 60 * 1000);
+  const revisionDeadline = revisionDeadlineFromSentAt(now);
 
   await db
     .update(orderDeliveries)
@@ -62,15 +65,13 @@ export async function sendOrderDeliveryToCustomer(input: {
 
   await db.update(orders).set({ status: "review" }).where(eq(orders.id, order.id));
 
-  if (input.comment.trim()) {
-    await db.insert(orderReviewMessages).values({
-      orderId: order.id,
-      deliveryId: delivery.id,
-      direction: "admin",
-      author: "Anime Cabinet",
-      body: input.comment.trim().slice(0, 5000),
-    });
-  }
+  await db.insert(orderReviewMessages).values({
+    orderId: order.id,
+    deliveryId: delivery.id,
+    direction: "admin",
+    author: "Anime Cabinet",
+    body: input.comment.trim().slice(0, 5000) || `Artwork preview version ${versionNumber}`,
+  });
 
   await sendDeliveryPreviewEmail(order, delivery);
 

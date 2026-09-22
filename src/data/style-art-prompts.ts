@@ -19,7 +19,7 @@ function posterPrompt(input: {
 }): string {
   const kind = input.medium === "anime" ? "anime poster" : "cartoon poster";
   return [
-    `Use the uploaded photo(s) only as likeness reference (face shape, hair, skin tone, expression, body type, relationship dynamic). Fully transform the entire image into an authentic ${input.showTitle}-style ${kind}. Do not automatically preserve the original composition, street clothes, or background unless the customer notes specifically request keeping pose, closeness, or layout from a reference photo.`,
+    `Use the uploaded photo(s) only as likeness reference (face shape, hair, skin tone, expression, body type, relationship dynamic). Fully transform the entire image into an authentic ${input.showTitle}-style ${kind}. Do not automatically preserve the original composition or street clothes unless the customer notes specifically request keeping pose, closeness, or layout from a reference photo.`,
     `Redraw everyone as original characters who clearly belong in ${input.showTitle} — ${input.look}. You may change poses, outfits, camera angle, and action completely.`,
     `Replace the full background with a dramatic ${input.showTitle}-themed scene: ${input.world}.`,
     `The result must read instantly as ${input.showTitle} (${input.medium} linework, color, and atmosphere), while each person stays recognizable as the people from the reference photo.`,

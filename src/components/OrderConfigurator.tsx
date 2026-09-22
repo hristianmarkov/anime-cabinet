@@ -5,7 +5,6 @@ import { upload } from "@vercel/blob/client";
 import type { PortraitStyle } from "@/data/types";
 import { useCurrency } from "@/context/CurrencyContext";
 import {
-  BACKGROUND_OPTIONS,
   EXPEDITED_PRICE,
   EXTRA_CHARACTER_PRICE,
   MAX_CHARACTERS,
@@ -47,7 +46,6 @@ const COUNTRIES = [
 export function OrderConfigurator({ style }: { style: PortraitStyle }) {
   const { currency, formatPrice } = useCurrency();
   const [characters, setCharacters] = useState(1);
-  const [background, setBackground] = useState(BACKGROUND_OPTIONS[0].id);
   const [printCategory, setPrintCategory] = useState<PrintCategory>("digital");
   const [printSize, setPrintSize] = useState<PrintSize>("12x18");
   const formatId = formatIdFromCategory(printCategory, printSize);
@@ -257,7 +255,6 @@ export function OrderConfigurator({ style }: { style: PortraitStyle }) {
         body: JSON.stringify({
           styleSlug: style.slug,
           characters,
-          background,
           formatId,
           notes,
           email,
@@ -339,33 +336,6 @@ export function OrderConfigurator({ style }: { style: PortraitStyle }) {
             >
               {n}
             </button>
-          ))}
-        </div>
-      </fieldset>
-
-      <fieldset className="mt-6">
-        <legend className="text-sm font-semibold text-cream">Background</legend>
-        <div className="mt-3 grid gap-2">
-          {BACKGROUND_OPTIONS.map((b) => (
-            <label
-              key={b.id}
-              className={`flex cursor-pointer items-start gap-3 rounded-xl border p-4 ${
-                background === b.id ? "border-accent bg-ink" : "border-line bg-ink"
-              }`}
-            >
-              <input
-                type="radio"
-                name="background"
-                value={b.id}
-                checked={background === b.id}
-                onChange={() => setBackground(b.id)}
-                className="mt-1 accent-[#ff3860]"
-              />
-              <span>
-                <span className="block text-sm font-semibold text-cream">{b.label}</span>
-                <span className="block text-xs text-muted">{b.description}</span>
-              </span>
-            </label>
           ))}
         </div>
       </fieldset>
@@ -521,7 +491,7 @@ export function OrderConfigurator({ style }: { style: PortraitStyle }) {
 
       <div className="mt-6">
         <label className="text-sm font-semibold text-cream" htmlFor="order-notes">Notes for our artists</label>
-        <textarea id="order-notes" rows={4} value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="Outfits, poses, background details…" className={`mt-3 ${inputBase} resize-y`} />
+        <textarea id="order-notes" rows={4} value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="Outfits, poses, expressions, and other important details…" className={`mt-3 ${inputBase} resize-y`} />
       </div>
 
       <div className="mt-6">

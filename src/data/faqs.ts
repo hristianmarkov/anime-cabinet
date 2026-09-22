@@ -5,7 +5,7 @@ import { site } from "./site";
 export const globalFaqs: StyleFaq[] = [
   {
     q: "How does Anime Cabinet work?",
-    a: `Pick a style, upload a clear photo of each person (or pet), add any notes about outfits, poses or backgrounds, and check out. Our artists create your portrait and email you a preview within ${site.deliveryHours} hours. You get unlimited free revisions until it's perfect, then we deliver the final high-resolution file — and ship any prints you ordered.`,
+    a: `Pick a style, upload a clear photo of each person (or pet), add any important notes about their appearance or pose, and check out. Our artists create your portrait and email you a preview within ${site.deliveryHours} hours. You get unlimited free revisions until it's perfect, then we deliver the final high-resolution file — and ship any prints you ordered.`,
   },
   {
     q: "Who creates my portrait?",
@@ -21,7 +21,7 @@ export const globalFaqs: StyleFaq[] = [
   },
   {
     q: "What if I don't like the result?",
-    a: "You get unlimited free revisions. Tell us exactly what to change — hair, outfit, expression, background, anything — and our artists will revise until you're happy. We don't consider an order finished until you approve it.",
+    a: "You get unlimited free revisions. Tell us exactly what to change — hair, outfit, expression, or any other portrait detail — and our artists will revise until you're happy. We don't consider an order finished until you approve it.",
   },
   {
     q: "Can you draw pets?",
