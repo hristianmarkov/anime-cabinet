@@ -31,6 +31,7 @@ import { PrintFulfillmentPanel } from "./PrintFulfillmentPanel";
 import { ReviewCountdown } from "./ReviewCountdown";
 import { SendDeliveryForm } from "./SendDeliveryForm";
 import { FinalFilePanel } from "./FinalFilePanel";
+import { shouldShowTimelineDetail } from "@/lib/timelinePresentation";
 
 export const metadata: Metadata = {
   title: "Order detail — Admin",
@@ -377,7 +378,7 @@ export default async function AdminOrderPage({
                     />
                     <div>
                       <p className="text-sm text-cream">{event.summary}</p>
-                      {event.detail && event.kind !== "customer_feedback" && (
+                      {event.detail && shouldShowTimelineDetail(event.kind) && (
                         <p className="mt-1 whitespace-pre-wrap text-xs text-muted">{event.detail}</p>
                       )}
                       <p className="mt-1 text-xs text-faint">
