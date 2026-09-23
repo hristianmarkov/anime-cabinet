@@ -1,4 +1,5 @@
 import { Resend } from "resend";
+import { deliveryPreviewEmailCopy } from "@/lib/deliveryPreviewEmailCopy";
 import type { Order, OrderDelivery, OrderFinalFile } from "./schema";
 import { PRINT_FORMATS } from "@/data/pricing";
 import { site } from "@/data/site";
@@ -133,8 +134,7 @@ export async function sendDeliveryPreviewEmail(
 
   const digital = isDigitalOrder(order);
   const hours = delivery.revisionHours;
-  const versionLabel =
-    delivery.versionNumber > 1 ? ` (revision ${delivery.versionNumber})` : "";
+  const emailCopy = deliveryPreviewEmailCopy(order.styleName, delivery.versionNumber);
   const commentBlock = delivery.comment.trim()
     ? `<p style="margin-top:16px"><strong>Note from our artist:</strong><br>${escapeHtml(delivery.comment).replace(/\n/g, "<br>")}</p>`
     : "";
@@ -147,11 +147,11 @@ export async function sendDeliveryPreviewEmail(
     from: FROM,
     to: order.email,
     replyTo: customerReplyTo(order),
-    subject: `Your ${order.styleName} artwork is ready to review${versionLabel}`,
+    subject: emailCopy.subject,
     html: `
       <div style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto;color:#222">
-        <h1 style="font-size:22px">Your artwork preview is ready</h1>
-        <p>We&apos;ve prepared a preliminary version of your <strong>${escapeHtml(order.styleName)}</strong>. View it securely on your order page, where you can compare versions and leave revision comments.</p>
+        <h1 style="font-size:22px">${emailCopy.heading}</h1>
+        <p>${escapeHtml(emailCopy.introduction)}</p>
         ${trackOrderButton(order, "Review your artwork")}
         ${commentBlock}
         <p><strong>Need changes?</strong> Add your comments on the Track My Order page within <strong>${hours} hours</strong>. Please do not reply by email with revision notes.</p>

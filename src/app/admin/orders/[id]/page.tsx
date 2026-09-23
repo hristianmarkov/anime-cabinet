@@ -136,6 +136,7 @@ export default async function AdminOrderPage({
   const stylePrompt = getStyleArtPromptOrFallback(order.styleSlug, order.styleName);
   const pipelineSteps = buildOrderPipeline(order);
   const activeDelivery = getActiveDelivery(deliveries);
+  const nextVersionNumber = Math.max(0, ...deliveries.map((delivery) => delivery.versionNumber)) + 1;
   const showReviewPanel = order.status === "review" || reviewMessages.length > 0;
   const showPrintPanel =
     !digital &&
@@ -302,15 +303,16 @@ export default async function AdminOrderPage({
               customerNotes={order.notes}
             />
 
-            {order.status === "in_progress" && (
+            {(order.status === "in_progress" || order.status === "review") && (
               <article className="rounded-2xl border border-line bg-surface p-6 shadow-card">
                 <h2 className="text-sm font-semibold uppercase tracking-wider text-muted">
-                  Send artwork
+                  {nextVersionNumber > 1 ? `Send revised artwork — version ${nextVersionNumber}` : "Send artwork"}
                 </h2>
                 <div className="mt-4">
                   <SendDeliveryForm
                     orderId={order.id}
                     revisionHours={revisionHours}
+                    versionNumber={nextVersionNumber}
                   />
                 </div>
               </article>
