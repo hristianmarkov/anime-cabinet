@@ -13,9 +13,11 @@ const MAX_FILE_BYTES = 100 * 1024 * 1024;
 export function SendDeliveryForm({
   orderId,
   revisionHours,
+  versionNumber,
 }: {
   orderId: string;
   revisionHours: number;
+  versionNumber: number;
 }) {
   const [comment, setComment] = useState("");
   const [adminNotes, setAdminNotes] = useState("");
@@ -104,7 +106,10 @@ export function SendDeliveryForm({
   return (
     <div className="space-y-4">
       <p className="text-sm text-muted">
-        Sends the customer an email with download links. They have{" "}
+        {versionNumber > 1
+          ? `Upload version ${versionNumber} with the requested changes. The customer will receive an email directing them to the Track My Order page, where they can compare every version.`
+          : "Upload the first artwork preview. The customer will receive an email directing them to the Track My Order page."}{" "}
+        They have{" "}
         <strong className="text-cream">{revisionHours} hours</strong> to reply with
         revision notes. After that, the order advances to <strong className="text-cream">Digital File</strong>,
         where the final high-resolution, print-ready file is supplied separately.{" "}
@@ -177,7 +182,11 @@ export function SendDeliveryForm({
         disabled={uploading}
         className="rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white transition hover:bg-accent-bright disabled:opacity-60"
       >
-        {uploading ? "Uploading…" : "Send to customer"}
+        {uploading
+          ? "Uploading…"
+          : versionNumber > 1
+            ? `Send version ${versionNumber}`
+            : "Send to customer"}
       </button>
     </div>
   );
