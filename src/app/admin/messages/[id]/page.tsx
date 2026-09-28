@@ -112,6 +112,17 @@ export default async function AdminMessageDetailPage({
                 {new Date(msg.createdAt).toLocaleString("en-GB")}
               </p>
               <p className="mt-2 whitespace-pre-wrap text-sm text-cream">{msg.body}</p>
+              {msg.imageUrls.length > 0 && (
+                <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
+                  {msg.imageUrls.map((url, index) => (
+                    <a key={url} href={url} target="_blank" rel="noreferrer" className="overflow-hidden rounded-xl border border-line">
+                      {/* Customer uploads may be HEIC, so use the browser's native rendering support. */}
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={url} alt={`Customer attachment ${index + 1}`} className="aspect-square h-full w-full object-cover" />
+                    </a>
+                  ))}
+                </div>
+              )}
             </div>
           ))}
         </div>
