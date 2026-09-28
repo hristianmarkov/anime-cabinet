@@ -187,6 +187,7 @@ export const contactMessages = pgTable("contact_messages", {
   inquiryId: uuid("inquiry_id").notNull(),
   direction: text("direction").$type<"inbound" | "outbound">().notNull(),
   body: text("body").notNull(),
+  imageUrls: jsonb("image_urls").$type<string[]>().default([]).notNull(),
   rfcMessageId: text("rfc_message_id"),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
 });

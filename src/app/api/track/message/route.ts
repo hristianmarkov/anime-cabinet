@@ -6,9 +6,10 @@ import { site } from "@/data/site";
 import { contactInquiries, contactMessages, orders } from "@/lib/schema";
 import { defaultThreadSubject } from "@/lib/contactThreadState";
 import { contactReplyToAddress } from "@/lib/emailReplyRouting";
+import { validateTrackMessageImageUrls } from "@/lib/trackMessageAttachments";
 
 export async function POST(request: Request) {
-  let body: { trackToken?: string; message?: string; name?: string };
+  let body: { trackToken?: string; message?: string; name?: string; imageUrls?: unknown };
   try {
     body = await request.json();
   } catch {
@@ -17,8 +18,12 @@ export async function POST(request: Request) {
 
   const trackToken = body.trackToken?.trim();
   const message = body.message?.trim();
+  const imageUrls = validateTrackMessageImageUrls(body.imageUrls);
   if (!trackToken || !message || message.length < 5 || message.length > 5000) {
     return NextResponse.json({ error: "Please enter a message (at least 5 characters)." }, { status: 400 });
+  }
+  if (!imageUrls) {
+    return NextResponse.json({ error: "Please attach no more than 5 valid images." }, { status: 400 });
   }
 
   const db = getDb();
@@ -53,6 +58,7 @@ export async function POST(request: Request) {
     inquiryId: inquiry.id,
     direction: "inbound",
     body: message,
+    imageUrls,
   });
 
   const key = process.env.RESEND_API_KEY;
@@ -69,6 +75,7 @@ export async function POST(request: Request) {
       html: `<p><strong>From:</strong> ${name} (${order.email})</p>
              <p><strong>Order:</strong> ${order.id}</p>
              <p>${message.replace(/\n/g, "<br>")}</p>
+             ${imageUrls.length ? `<p><strong>Images:</strong><br>${imageUrls.map((url) => `<a href="${url}">View attached image</a>`).join("<br>")}</p>` : ""}
              <p><a href="${site.url}/admin/messages/${inquiry.id}">Open in admin</a></p>`,
     });
   }
