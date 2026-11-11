@@ -43,15 +43,11 @@ type RawBlogSection = {
   links?: string;
 };
 
-function normalizeBlogSection(section: RawBlogSection): { heading?: string; paragraphs: string[]; blocks: unknown[] } {
-  if (section.blocks?.length) {
-    const blocks = section.blocks
-      .map((block) => normalizeBlogBlock(block))
-      .filter((block) => block !== null);
-    return { heading: section.heading, paragraphs: section.paragraphs ?? [], blocks };
-  }
-
-  const blocks: unknown[] = [];
+export function normalizeBlogSection(section: RawBlogSection): { heading?: string; paragraphs: string[]; blocks: unknown[] } {
+  // Visual blocks must not suppress paragraphs/body fields in the same section.
+  const blocks: unknown[] = (section.blocks ?? [])
+    .map((block) => normalizeBlogBlock(block))
+    .filter((block) => block !== null);
 
   if (section.body) {
     for (const paragraph of section.body.split(/\n\n+/).filter(Boolean)) {
@@ -98,16 +94,16 @@ function mergeAggregate(filename: string, slug: string, entry: Record<string, un
   writeJson(file, current);
 }
 
-function injectStyleBlogBlocks(
-  sections: Array<{ heading?: string; blocks?: unknown[] }>,
+export function injectStyleBlogBlocks(
+  sections: Array<{ heading?: string; paragraphs?: string[]; blocks?: unknown[] }>,
   styleSlug: string,
   layout: string
-): Array<{ heading?: string; blocks: unknown[] }> {
+): Array<{ heading?: string; paragraphs: string[]; blocks: unknown[] }> {
   const config = styleBlogConfigs.find((c) => c.slug === styleSlug);
   if (!config) {
     return sections.map((s) => ({
-      heading: s.heading,
-      paragraphs: [],
+      ...s,
+      paragraphs: s.paragraphs ?? [],
       blocks: (s.blocks ?? []) as unknown[],
     }));
   }
@@ -119,12 +115,12 @@ function injectStyleBlogBlocks(
       blocks.push({
         type: "figure",
         artFile: config.galleryFile,
-        caption: `${config.inspiredLabel} custom artwork — hand-drawn style study from our gallery.`,
+        caption: `${config.inspiredLabel} artwork from our gallery.`,
       });
       blocks.push(
         productShowcase(
           styleSlug,
-          `Turn your photo into ${config.inspiredLabel} custom artwork — hand-drawn by a real artist with unlimited revisions.`
+          `Our artists create ${config.inspiredLabel} artwork from your photo, with unlimited revisions.`
         )
       );
     }
@@ -147,7 +143,7 @@ function injectStyleBlogBlocks(
       );
     }
 
-    return { heading: section.heading, paragraphs: [], blocks };
+    return { ...section, paragraphs: section.paragraphs ?? [], blocks };
   });
 }
 
@@ -196,6 +192,12 @@ export function applyDraft(brief: ContentBrief, draft: ContentDraft): { path: st
 
     if (brief.styleSlug && (brief.layout === "blog-style-transform" || brief.layout === "blog-style-gift")) {
       sections = injectStyleBlogBlocks(sections, brief.styleSlug, brief.layout);
+    }
+
+    if (!sections.length || sections.some((section) =>
+      !section.paragraphs?.some((paragraph) => paragraph.trim()) && !section.blocks.length
+    )) {
+      throw new Error("Cannot publish an article with empty sections. Repair the draft before applying it.");
     }
 
     const payload = {

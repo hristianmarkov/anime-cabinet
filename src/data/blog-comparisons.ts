@@ -434,146 +434,63 @@ export const comparisonPosts: BlogPost[] = [
     ctaLabel: "Order a Couple Portrait",
   },
   {
-    slug: "custom-anime-poster-vs-ai-avatar-generator",
-    title: "Custom Anime Poster vs AI Avatar Generator: What's the Difference?",
-    description:
-      "AI avatars are fast and cheap. Hand-drawn anime posters are permanent and personal. An honest comparison for anyone deciding between them.",
-    metaTitle: "Custom Anime Poster vs AI Avatar Generator",
-    date: "2026-06-01",
-    readingMinutes: 4,
-    keywords: [
-      "anime poster vs ai avatar",
-      "custom anime portrait vs ai",
-      "hand drawn vs ai anime art",
-      "ai avatar vs custom portrait",
-      "anime art ai generator comparison",
+    "slug": "custom-anime-poster-vs-profile-picture",
+    "title": "Custom Anime Poster or Profile Picture: How to Plan Your Portrait",
+    "metaTitle": "Anime Poster vs Profile Picture: Size, Crop & Details",
+    "description": "Plan an anime portrait for a wall print or a profile picture. Compare crops, background detail, group layouts and what to check before approving the artwork.",
+    "date": "2026-06-01",
+    "updatedAt": "2026-11-11",
+    "readingMinutes": 3,
+    "keywords": [
+      "anime poster vs profile picture",
+      "anime portrait crop",
+      "custom anime wall art"
     ],
-    category: "comparison",
-    intro:
-      "AI avatar generators promise instant anime transformations — upload a photo, get a result in seconds. Custom anime posters promise something different: an artist studying your face, translating it into a specific show's visual language, and revising until you're happy. Both exist. They serve different needs. Here's an honest anime poster vs AI avatar comparison without dismissing either approach — including when to commission hand-drawn art for gifts and walls. Unlimited revisions are included with every order. Preview delivery is within seventy-two hours standard across all twenty-four portrait styles.",
-    sections: [
+    "intro": "Where you plan to use a portrait changes the composition. A small profile picture needs a clear face and a simple silhouette. A poster can give a setting, outfit or group scene more room. Decide on the main use before ordering, then include it in your notes so our artists can plan the artwork around it.",
+    "sections": [
       {
-        heading: "What AI avatars do well",
-        paragraphs: [],
-        blocks: [
-          {
-            type: "paragraph",
-            text: "Speed and price. AI tools generate a stylised image in seconds, often free or cheap. For a temporary profile picture or a quick laugh in the group chat, they work fine. The output is generic 'anime-ish' — not [Naruto](/portraits/naruto) specifically, not [Ghibli-style](/portraits/ghibli-style) specifically, just broadly anime-filtered.",
-          },
-          {
-            type: "paragraph",
-            text: "The limitation shows in likeness. AI smooths distinctive features, applies the same treatment to every face, and can't compose multi-person scenes with individual accuracy. Hands, glasses, and asymmetry often look wrong. For anything you'd frame or gift, the quality gap becomes obvious fast.",
-          },
-        ],
+        "heading": "For a profile picture, keep the face readable",
+        "paragraphs": [
+          "Choose a head-and-shoulders crop if the portrait will usually appear as a small circle or square. Keep the face near the centre, leave room around the hair, and avoid placing important details near the corners. A simple background gives glasses, expression and hairstyle more space to stand out.",
+          "Check a small version of the preview as well as the full-size image. If you cannot recognise the expression at thumbnail size, request a closer crop or less background detail."
+        ]
       },
       {
-        heading: "What hand-drawn posters do differently",
-        paragraphs: [],
-        blocks: [
-          {
-            type: "paragraph",
-            text: "Our artists draw in specific styles — [Naruto](/portraits/naruto) cel shading, [Ghibli-style](/portraits/ghibli-style) painterly warmth, [One Piece](/portraits/one-piece) Oda proportions. They preserve your likeness, compose multi-person scenes from individual photos, and revise until the result is right. The output is a high-resolution file ready for printing at any poster size.",
-          },
-          productShowcase(
-            "hunter-x-hunter",
-            "Hand-drawn Hunter x Hunter portraits — clean Togashi character design with your likeness intact."
-          ),
-          {
-            type: "beforeAfter",
-            beforeFile: "hunter-x-hunter-before.jpg",
-            afterFile: "hunter-x-hunter-after.jpg",
-            caption: "Hand-drawn Hunter x Hunter portrait — specific style, preserved likeness, print-ready.",
-          },
-          {
-            type: "pullQuote",
-            text: "AI gives you an avatar. An artist gives you a portrait.",
-          },
-        ],
+        "heading": "For a poster, plan the whole composition",
+        "paragraphs": [
+          "Choose the print format before approving the artwork. A taller composition can show a pose or costume, while a wider scene can give a couple or family room to interact. Text, weapons and other important details should sit away from the edges.",
+          "Use the [portrait catalogue](/portraits) to compare visual styles. [Solo Leveling](/portraits/solo-leveling) suits dramatic lighting; [Ghibli-inspired portraits](/portraits/ghibli-style) give a quieter setting more emphasis. Your preferred style and the intended size both belong in the order notes."
+        ]
       },
       {
-        heading: "When to choose which",
-        paragraphs: [],
-        blocks: [
-          {
-            type: "paragraph",
-            text: "AI avatar: temporary fun, profile pictures, experimenting with a look. Custom poster: gifts, wall art, couple portraits, family commissions, anything permanent. If you'd frame it, commission it. If you'd forget it by next week, AI is fine.",
-          },
-          {
-            type: "figurePair",
-            left: { artFile: "review-hunter-x-hunter-03.jpg", caption: "Hand-drawn — specific, personal" },
-            right: { artFile: "review-attack-on-titan-03.jpg", caption: "Print-ready quality" },
-          },
-          {
-            type: "paragraph",
-            text: "Custom anime poster vs AI avatar generator is a permanence question. Temporary profile fun → AI. Gifts, wall art, couple portraits, likeness that survives printing → hand-drawn commission with revisions.",
-          },
-        ],
+        "heading": "Can one portrait work for both?",
+        "paragraphs": [
+          "It can, if the layout is planned for both uses. Ask for the face to remain clear within a central crop while the surrounding scene provides interest for the print. A large group scene is harder to reuse as a tiny avatar because each face occupies less of the image.",
+          "Do not assume that cropping a preview guarantees a particular print size. Tell us the size you intend to use and confirm the final file is suitable before printing. Optional poster, canvas and framed-print formats appear in the order form."
+        ]
       },
       {
-        heading: "Why likeness matters for gifts",
-        paragraphs: [],
-        blocks: [
-          {
-            type: "paragraph",
-            text: "AI smooths faces and genericises styles. Artists preserve asymmetry, glasses, multi-person compositions, and show-specific linework — [Naruto](/portraits/naruto) cel shading vs [Ghibli-style](/portraits/ghibli-style) painterly warmth are not interchangeable filters.",
-          },
-          {
-            type: "paragraph",
-            text: "If you would frame it or cry at unwrapping, commission it. If you would forget it by next week, AI is fine. Hand-drawn anime posters cost more because they are built to last — on walls and in memory.",
-          },
-          {
-            type: "list",
-            items: [
-              "AI: fast, cheap, generic anime-ish output.",
-              "Hand-drawn: specific style, preserved likeness, revisions.",
-              "Commission for gifts, couples, families, wall art.",
-              "AI for temporary profile experiments only.",
-            ],
-          },
-        ],
+        "heading": "What to include in your order notes",
+        "paragraphs": [],
+        "list": [
+          "The main use: profile picture, wall print or both.",
+          "Your intended crop and print format.",
+          "The people or pets to include, with a clear reference photo for each.",
+          "Outfits, colours and any wording, spelled exactly as you want it.",
+          "Details that must stay visible in a smaller crop."
+        ]
       },
       {
-        heading: "Commission vs AI takeaway",
-        paragraphs: [],
-        blocks: [
-          {
-            type: "paragraph",
-            text: "Custom anime poster vs AI avatar generator: speed vs permanence, generic vs specific, experiment vs heirloom. AI gives an avatar; an artist gives a portrait in [Naruto](/portraits/naruto), [Ghibli-style](/portraits/ghibli-style), or [One Piece](/portraits/one-piece) language with your likeness intact.",
-          },
-          {
-            type: "paragraph",
-            text: "If you would frame it, commission it. Hand-drawn posters include unlimited revisions and print-ready files — built for walls, gifts, and couple compositions AI still mishandles.",
-          },
-          {
-            type: "paragraph",
-            text: "Anime poster vs AI avatar is not snobbery — it is use-case fit. Profile experiments vs framed gifts require different tools. Commission when likeness, specific style, and permanence matter.",
-          },
-          {
-            type: "paragraph",
-            text: "Hand drawn vs AI anime art for gifts comes down to revision control and multi-person accuracy. Artists fix hands, glasses, and group layout; algorithms guess once. Frame the difference literally.",
-          },
-          {
-            type: "paragraph",
-            text: "Custom anime portrait vs AI avatar generator — choose commission when the result must survive printing, gifting, and close scrutiny from friends who know your face.",
-          },
-          {
-            type: "list",
-            items: [
-              "AI → quick profile experiments.",
-              "Hand-drawn → gifts and wall art.",
-              "Revisions fix likeness issues.",
-              "Specific styles, not generic filters.",
-            ],
-          },
-          {
-            type: "paragraph",
-            text: "Custom anime poster vs AI avatar: commission when likeness, specific fandom style, and print permanence matter — AI for experiments only.",
-          },
-        ],
-      },
+        "heading": "Check the preview before approval",
+        "paragraphs": [
+          "Check likeness, expression, spelling and the placement of important details. You receive a preview within 72 hours, and unlimited revisions are included before approval. Prints are produced after you approve the artwork; preview timing is separate from shipping time. See [how ordering works](/how-it-works) and our [shipping information](/shipping)."
+        ]
+      }
     ],
-    ctaStyle: "hunter-x-hunter",
-    ctaLabel: "Order a Hand-Drawn Portrait",
+    "ctaStyle": "hunter-x-hunter",
+    "ctaLabel": "Choose Your Portrait Style",
+    "category": "comparison",
+    "heroImage": "hunter-x-hunter-after.jpg"
   },
   {
     slug: "full-body-vs-portrait-anime-style-comparison",

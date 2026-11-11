@@ -27,7 +27,7 @@ export const giftIntentPosts: BlogPost[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "Official couple merchandise is designed for mass appeal. Matching hoodies are sweet, but they're also what every other couple on your feed already owns. A hand-drawn [Jujutsu Kaisen](/portraits/jujutsu-kaisen) or [Ghibli-style](/portraits/ghibli-style) portrait takes your actual faces, your actual dynamic, and places you inside a world you both care about. The result reads instantly to anyone who walks into your apartment — and it sparks the story every time.",
+            text: "Official couple merchandise is designed for mass appeal. Matching hoodies are sweet, but they're also what every other couple on your feed already owns. A custom [Jujutsu Kaisen](/portraits/jujutsu-kaisen) or [Ghibli-style](/portraits/ghibli-style) portrait takes your actual faces, your actual dynamic, and places you inside a world you both care about. The result reads instantly to anyone who walks into your apartment — and it sparks the story every time.",
           },
           {
             type: "paragraph",
@@ -216,7 +216,7 @@ export const giftIntentPosts: BlogPost[] = [
           },
           {
             type: "paragraph",
-            text: "Custom anime art anniversary presents work because they are singular — hand-drawn from your photo, revised until perfect, delivered within seventy-two hours standard. The portrait keeps counting on the wall long after the restaurant reservation fades.",
+            text: "Custom anime art anniversary presents work because they are singular — custom from your photo, revised until perfect, delivered within seventy-two hours standard. The portrait keeps counting on the wall long after the restaurant reservation fades.",
           },
         ],
       },

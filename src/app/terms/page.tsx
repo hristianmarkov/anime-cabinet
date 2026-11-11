@@ -79,7 +79,7 @@ export default function TermsPage() {
         non-commercial purposes, including personal display, gifts, social
         profiles, and personal printing. You may not sell the artwork, use it
         on merchandise, use it as a logo or brand asset, falsely claim
-        authorship, remove rights notices, or use it to train an AI system.
+        authorship, remove rights notices, or use it for automated model training.
         Commercial use requires a separate written licence from us.
       </p>
       <p>

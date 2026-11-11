@@ -106,7 +106,7 @@ export function Footer() {
             associated with, authorized, or endorsed by any anime studio,
             broadcaster, or rights holder — including but not limited to Shueisha,
             Toei Animation, Studio Ghibli, The Pokemon Company, Fox Broadcasting
-            Company, or their affiliates. All portraits are original, hand-drawn
+            Company, or their affiliates. All portraits are original, custom
             works inspired by animation art styles, created for personal use by
             fans, for fans.
           </p>

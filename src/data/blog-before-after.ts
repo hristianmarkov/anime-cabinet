@@ -6,7 +6,7 @@ export const beforeAfterPosts: BlogPost[] = [
     slug: "photo-to-anime-poster-real-examples",
     title: "Photo to Anime Poster: Real Before-and-After Examples",
     description:
-      "See actual customer photos transformed into Naruto, One Piece, and Ghibli posters — what changes, what stays, and why hand-drawn beats filters.",
+      "See actual customer photos transformed into Naruto, One Piece, and Ghibli posters — what changes, what stays, and why custom beats filters.",
     metaTitle: "Photo to Anime Poster — Real Examples",
     date: "2026-06-25",
     readingMinutes: 4,
@@ -19,7 +19,7 @@ export const beforeAfterPosts: BlogPost[] = [
     ],
     category: "transformation",
     intro:
-      "People ask us constantly: 'Will it actually look like me?' Fair question — the internet is full of AI slop and filter apps that turn faces into mush. Our process is different. Real artists study your photo and redraw you in the chosen style. The before-and-after comparisons tell the story better than any sales copy: same person, same expression, completely new visual world. This guide walks through photo-to-anime poster transformations with real examples — what stays, what changes, and why hand-drawn beats automated filters every time for likeness.",
+      "People ask us constantly: 'Will it actually look like me?' Fair question — the important question is whether the artwork keeps the features you recognise. Real artists study your photo and redraw you in the chosen style. The before-and-after comparisons tell the story better than any sales copy: same person, same expression, completely new visual world. This guide walks through photo-to-anime poster transformations with real examples — what stays, what changes, and why custom beats automated filters every time for likeness.",
     sections: [
       {
         heading: "What stays the same",
@@ -64,12 +64,12 @@ export const beforeAfterPosts: BlogPost[] = [
         ],
       },
       {
-        heading: "Why hand-drawn matters",
+        heading: "Why custom matters",
         paragraphs: [],
         blocks: [
           {
             type: "paragraph",
-            text: "Automated filters apply the same algorithm to every face. Hand-drawn portraits adapt to your specific features — how your eyes crinkle when you smile, the way your hair falls, the asymmetry that makes you you. Browse [Naruto](/portraits/naruto), [One Piece](/portraits/one-piece), or [Ghibli-style](/portraits/ghibli-style) examples to see the difference. That's why our preview process includes unlimited revisions. The first draft is close; the final draft is you.",
+            text: "Automated filters apply the same algorithm to every face. custom portraits adapt to your specific features — how your eyes crinkle when you smile, the way your hair falls, the asymmetry that makes you you. Browse [Naruto](/portraits/naruto), [One Piece](/portraits/one-piece), or [Ghibli-style](/portraits/ghibli-style) examples to see the difference. That's why our preview process includes unlimited revisions. The first draft is close; the final draft is you.",
           },
           {
             type: "figurePair",
@@ -88,17 +88,17 @@ export const beforeAfterPosts: BlogPost[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "Upload a clear photo, pick from twenty-four hand-drawn styles, and describe any custom details in the order notes. Preview delivery is within seventy-two hours with unlimited revisions until you approve. Digital files are high-resolution and print-ready at any standard poster size.",
+            text: "Upload a clear photo, pick from twenty-four custom styles, and describe any custom details in the order notes. Preview delivery is within seventy-two hours with unlimited revisions until you approve. Digital files are high-resolution and print-ready at any standard poster size.",
           },
           {
             type: "paragraph",
-            text: "Whether you choose [Naruto](/portraits/naruto), [One Piece](/portraits/one-piece), [Ghibli-style](/portraits/ghibli-style), or another look, the process is the same: your photo in, hand-drawn art out. Browse gallery examples on each style page before ordering — seeing finished work builds confidence faster than imagining it.",
+            text: "Whether you choose [Naruto](/portraits/naruto), [One Piece](/portraits/one-piece), [Ghibli-style](/portraits/ghibli-style), or another look, the process is the same: your photo in, custom art out. Browse gallery examples on each style page before ordering — seeing finished work builds confidence faster than imagining it.",
           },
           {
             type: "list",
             items: [
               "Likeness first — friends should recognise you before the style.",
-              "Hand-drawn beats filters — artists adapt to your specific features.",
+              "custom beats filters — artists adapt to your specific features.",
               "Unlimited revisions until the preview is approved.",
               "Preview within seventy-two hours standard.",
               "Print-ready digital files at any poster size.",
@@ -112,7 +112,7 @@ export const beforeAfterPosts: BlogPost[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "Photo to anime poster transformations succeed when likeness comes first. Friends should recognise you before they comment on the style. Hand-drawn art preserves expression, asymmetry, and distinguishing features that filters flatten — that is why customers commission portraits for gifts and walls instead of using apps.",
+            text: "Photo to anime poster transformations succeed when likeness comes first. Friends should recognise you before they comment on the style. custom art preserves expression, asymmetry, and distinguishing features that filters flatten — that is why customers commission portraits for gifts and walls instead of using apps.",
           },
           {
             type: "paragraph",
@@ -134,7 +134,7 @@ export const beforeAfterPosts: BlogPost[] = [
             type: "list",
             items: [
               "Likeness preserved, style transformed.",
-              "Hand-drawn — not AI filters.",
+              "Created by artists, with revisions included.",
               "Unlimited revisions included.",
               "Preview within seventy-two hours.",
             ],

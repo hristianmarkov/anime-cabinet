@@ -2,14 +2,13 @@
 
 import type { PortraitStyle } from "@/data/types";
 import { getShowcase } from "@/data/gallery";
-import { getStyleSeoExtra } from "@/data/styles-seo-extras";
 import { site } from "@/data/site";
+import { RichText } from "./RichText";
 import { PriceFrom } from "./PriceFrom";
 import { ProductShowcase } from "./ProductShowcase";
 
 export function ProductStyleHero({ style }: { style: PortraitStyle }) {
   const showcase = getShowcase(style.slug);
-  const seoExtra = getStyleSeoExtra(style.slug);
 
   return (
     <>
@@ -26,12 +25,9 @@ export function ProductStyleHero({ style }: { style: PortraitStyle }) {
       <div className="prose-invert mt-8 space-y-4">
         {style.description.map((para) => (
           <p key={para.slice(0, 32)} className="leading-relaxed text-muted">
-            {para}
+            <RichText text={para} />
           </p>
         ))}
-        {seoExtra && (
-          <p className="leading-relaxed text-muted">{seoExtra}</p>
-        )}
       </div>
 
       <ul className="mt-8 grid gap-3 sm:grid-cols-2">

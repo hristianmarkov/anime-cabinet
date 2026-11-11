@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Track My Order",
   description: "Check the status of your Anime Cabinet portrait order — production, preview, and shipping.",
   alternates: { canonical: "/track" },
+  robots: { index: false, follow: true },
 };
 
 export default function TrackOrderPage() {

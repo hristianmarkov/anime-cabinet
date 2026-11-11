@@ -65,7 +65,7 @@ export function buildBrief(
     outline,
     slots,
     uniqueAngle:
-      "Hand-drawn human artist (not AI filters). 24 anime & cartoon styles. Preview within 72 hours. Unlimited free revisions. Fan-art inspired style — customers as original characters, not copyrighted impersonation.",
+      "Artists create portraits from customer photos. Explain style-specific choices and ordering details. 24 anime & cartoon styles. Preview within 72 hours; unlimited revisions before approval. Do not invent production-method claims or pad copy with search phrases.",
     cannibalization: getCannibalizationRules(page),
   };
 

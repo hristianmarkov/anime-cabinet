@@ -13,7 +13,14 @@ const styleOverrides = allStylesJson as StyleOverrides;
 export function mergeBlogPost(base: BlogPost): BlogPost {
   const override = blogOverrides[base.slug];
   if (!override) return base;
-  const sections = normalizeBlogSections(override.sections ?? base.sections);
+  const generatedSections = normalizeBlogSections(override.sections ?? []);
+  // Some saved generations contain headings with empty bodies. Keep the
+  // complete editorial article rather than publishing those empty outlines.
+  const hasCompleteSections = generatedSections.length > 0 && generatedSections.every(
+    (section) => section.paragraphs.some((text) => text.trim()) ||
+      section.list?.some((text) => text.trim()) || section.blocks?.length
+  );
+  const sections = hasCompleteSections ? generatedSections : normalizeBlogSections(base.sections);
   return {
     ...base,
     ...override,

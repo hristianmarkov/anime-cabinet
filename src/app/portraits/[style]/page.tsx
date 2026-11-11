@@ -10,7 +10,9 @@ import { StyleCard } from "@/components/StyleCard";
 import { getGiftGuideForStyle } from "@/data/blog";
 import { globalFaqs } from "@/data/faqs";
 import { getShowcase } from "@/data/gallery";
-import { REVIEWS_ARE_REAL, reviews, shuffleReviews } from "@/data/reviews";
+import { reviews } from "@/data/reviews";
+import { EXTRA_CHARACTER_PRICE, MAX_CHARACTERS, EXPEDITED_PRICE } from "@/data/pricing";
+import { PriceFrom } from "@/components/PriceFrom";
 import { site } from "@/data/site";
 import { allStyles, getStyleBySlug } from "@/data/styles";
 
@@ -60,8 +62,7 @@ export default async function StylePage({ params }: Props) {
   if (!style) notFound();
 
   const pageFaqs = [...style.faqs, ...globalFaqs.slice(0, 4)];
-  const styleReviews = shuffleReviews(reviews.filter((r) => r.style === style.name)).slice(0, 3);
-  const shownReviews = styleReviews.length > 0 ? styleReviews : shuffleReviews(reviews).slice(0, 3);
+  const shownReviews = reviews.filter((r) => r.style === style.name).slice(0, 3);
   const related = allStyles
     .filter((s) => s.slug !== style.slug && s.category === style.category)
     .slice(0, 4);
@@ -83,19 +84,8 @@ export default async function StylePage({ params }: Props) {
       availability: "https://schema.org/InStock",
       url: `${site.url}/portraits/${style.slug}`,
     },
-    // Star ratings intentionally omitted from structured data until
-    // REVIEWS_ARE_REAL is true (see src/data/reviews.ts).
-    ...(REVIEWS_ARE_REAL && reviews.length >= 5
-      ? {
-          aggregateRating: {
-            "@type": "AggregateRating",
-            ratingValue: (
-              reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length
-            ).toFixed(1),
-            reviewCount: reviews.length,
-          },
-        }
-      : {}),
+    // Store-wide ratings are not ratings for this specific product. Add product
+    // ratings only when their provenance and per-product totals are verified.
   };
 
   const faqJsonLd = {
@@ -159,7 +149,30 @@ export default async function StylePage({ params }: Props) {
         </div>
       </section>
 
-      {/* Reviews */}
+      <section className="mx-auto max-w-7xl border-t border-line px-4 py-12 sm:px-6">
+        <h2 className="font-display text-3xl text-cream">What your portrait includes</h2>
+        <dl className="mt-6 grid gap-6 text-sm leading-relaxed sm:grid-cols-2 lg:grid-cols-4">
+          <div>
+            <dt className="font-semibold text-cream">Personalisation</dt>
+            <dd className="mt-2 text-muted">Your photos, chosen outfits, pose and background. Order up to {MAX_CHARACTERS} people or pets; for larger groups, <Link href="/contact" className="text-accent underline">contact us</Link>.</dd>
+          </div>
+          <div>
+            <dt className="font-semibold text-cream">Price and options</dt>
+            <dd className="mt-2 text-muted">One character and a digital file from <PriceFrom usd={style.priceFrom} prefix="" />. Additional people or pets cost <PriceFrom usd={EXTRA_CHARACTER_PRICE} prefix="" /> each. Prints and shipping cost extra; your total appears before payment.</dd>
+          </div>
+          <div>
+            <dt className="font-semibold text-cream">Preview and revisions</dt>
+            <dd className="mt-2 text-muted">Preview within {site.deliveryHours} hours, with unlimited revisions before approval. Priority {site.expeditedHours}-hour preview costs an extra <PriceFrom usd={EXPEDITED_PRICE} prefix="" />. This is preview timing; print delivery takes longer.</dd>
+          </div>
+          <div>
+            <dt className="font-semibold text-cream">Final artwork</dt>
+            <dd className="mt-2 text-muted">A high-resolution digital file after approval. Optional posters, canvases and framed prints are produced after you approve. See <Link href="/shipping" className="text-accent underline">shipping details</Link> and our <Link href="/refund-policy" className="text-accent underline">refund policy</Link>.</dd>
+          </div>
+        </dl>
+      </section>
+
+      {/* Reviews for this style only */}
+      {shownReviews.length > 0 && (
       <section className="border-t border-line bg-ink-soft">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
           <h2 className="font-display text-3xl text-cream">Customer Reviews</h2>
@@ -170,6 +183,7 @@ export default async function StylePage({ params }: Props) {
           </div>
         </div>
       </section>
+      )}
 
       {/* FAQs */}
       <section className="mx-auto max-w-3xl px-4 py-16 sm:px-6">

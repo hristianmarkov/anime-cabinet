@@ -139,7 +139,7 @@ export const styleBlogConfigs: StyleBlogConfig[] = [
       "Graduation gift with epithet referencing their major or hobby.",
     ],
     recogniseDetail:
-      "Even within the tight wanted poster crop, we preserve your facial features — eye shape, brows, hairline, and expression. The stylisation skews manga, but guests should identify you before reading the bounty. Epithet and number are fully custom; likeness is hand-drawn from your photo with revision rounds until the mugshot feels right.",
+      "Even within the tight wanted poster crop, we preserve your facial features — eye shape, brows, hairline, and expression. The stylisation skews manga, but guests should identify you before reading the bounty. Epithet and number are fully custom; likeness is custom from your photo with revision rounds until the mugshot feels right.",
     pullQuote: "Every One Piece fan has a bounty in mind. We just put your face on the poster.",
     galleryFile: "gallery-one-piece-wanted-poster.jpg",
     relatedSlugs: ["one-piece", "naruto", "dragon-ball-z"],

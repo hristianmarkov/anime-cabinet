@@ -8,7 +8,7 @@ import { allStyles, animeStyles, cartoonStyles } from "@/data/styles";
 export const metadata: Metadata = {
   title: "All Custom Portrait Styles — 24 Anime & Cartoon Options",
   description:
-    "Browse every custom portrait style we offer: Naruto, One Piece, Dragon Ball Z, Ghibli, The Simpsons, Rick and Morty and 24 hand-drawn styles. Hand-drawn from your photo.",
+    "Compare 24 custom anime and cartoon portrait styles. See examples, choose your look and order from your photos, with a preview in 72 hours and unlimited revisions.",
   alternates: { canonical: "/portraits" },
 };
 
@@ -46,9 +46,9 @@ export default function PortraitsPage() {
             Choose Your <span className="text-gradient">Style</span>
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-lg text-muted">
-            {allStyles.length} hand-drawn styles and counting. Every portrait is
-            drawn from your photo by a professional artist — pick the universe
-            you belong in.
+            Compare {allStyles.length} anime and cartoon styles. Our artists
+            create your portrait from your photos, with your choice of outfits,
+            pose and background. Open a style to see examples and order options.
           </p>
           <nav className="mt-8 flex flex-wrap justify-center gap-3" aria-label="Style categories">
             <a

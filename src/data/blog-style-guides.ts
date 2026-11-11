@@ -6,7 +6,7 @@ export const styleGuidePosts: BlogPost[] = [
     slug: "anime-portrait-styles-explained",
     title: "Anime Portrait Styles Explained: From Naruto to Arcane",
     description:
-      "Twenty-four hand-drawn portrait styles, two categories, one question — which visual language fits you? A plain-English guide to every style we offer.",
+      "Twenty-four custom portrait styles, two categories, one question — which visual language fits you? A plain-English guide to every style we offer.",
     metaTitle: "Anime Portrait Styles Explained — Full Guide",
     date: "2026-07-10",
     readingMinutes: 5,
