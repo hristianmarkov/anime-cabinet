@@ -1,4 +1,5 @@
 import type { StyleFaq } from "@/data/types";
+import { RichText } from "./RichText";
 
 export function FaqAccordion({ faqs }: { faqs: StyleFaq[] }) {
   return (
@@ -8,7 +9,7 @@ export function FaqAccordion({ faqs }: { faqs: StyleFaq[] }) {
           <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-left text-base font-semibold text-cream">
             {faq.q}
           </summary>
-          <p className="mt-3 text-sm leading-relaxed text-muted">{faq.a}</p>
+          <p className="mt-3 text-sm leading-relaxed text-muted"><RichText text={faq.a} /></p>
         </details>
       ))}
     </div>

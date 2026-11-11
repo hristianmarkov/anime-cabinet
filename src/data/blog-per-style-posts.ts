@@ -29,14 +29,14 @@ function buildTransformPost(c: StyleBlogConfig): BlogPost {
   return {
     slug,
     title: `How to Turn Your Photo into a ${styleName}-Inspired Custom Poster`,
-    description: `Turn your photo into ${c.inspiredLabel} custom artwork — style-specific tips, photo guidance, before-and-after examples, and how to order your hand-drawn poster.`,
+    description: `Turn your photo into ${c.inspiredLabel} custom artwork — style-specific tips, photo guidance, before-and-after examples, and how to order your custom poster.`,
     metaTitle: `${primaryKw.charAt(0).toUpperCase() + primaryKw.slice(1)} From Your Photo`,
     date: c.dateTransform,
     readingMinutes: 5,
     keywords: [primaryKw, ...c.transformKeywords],
     category: "style",
     heroImage: heroImage(c.slug),
-    intro: `A ${primaryKw} starts with a photo you already have — not a character sheet, not AI slop, but your face translated into ${styleName} visual language by a human artist. Whether you want wall art for yourself or a gift that only exists because someone you love exists, the process is the same: pick the style, upload a clear photo, describe the scene, approve the preview. This guide walks through what makes the ${styleName}-inspired look unique, which photos work best, and how we keep you recognisable inside the style. For gift inspiration, see our ${giftLink}.`,
+    intro: `A ${primaryKw} starts with a photo you already have — your face translated into ${styleName} visual language by an artist. Whether you want wall art for yourself or a gift that only exists because someone you love exists, the process is the same: pick the style, upload a clear photo, describe the scene, approve the preview. This guide walks through what makes the ${styleName}-inspired look unique, which photos work best, and how we keep you recognisable inside the style. For gift inspiration, see our ${giftLink}.`,
     sections: [
       {
         heading: `What Makes the ${styleName}-Inspired Look Unique?`,
@@ -49,13 +49,13 @@ function buildTransformPost(c: StyleBlogConfig): BlogPost {
           {
             type: "figure",
             artFile: c.galleryFile,
-            caption: `${c.inspiredLabel} custom artwork — hand-drawn style study from our gallery.`,
+            caption: `${c.inspiredLabel} custom artwork — custom style study from our gallery.`,
           },
           {
             type: "paragraph",
             text: `The goal is always inspired style, not imitation of copyrighted characters. Your ${primaryKw} should feel like it belongs in that world's art direction while starring people everyone in your life recognises. ${portraitLink(c)} to browse examples and pricing.`,
           },
-          productShowcase(c.slug, `Turn your photo into ${c.inspiredLabel} custom artwork — hand-drawn by a real artist with unlimited revisions.`),
+          productShowcase(c.slug, `Turn your photo into ${c.inspiredLabel} custom artwork — created by a real artist with unlimited revisions.`),
         ],
       },
       {
@@ -155,14 +155,14 @@ function buildGiftPost(c: StyleBlogConfig): BlogPost {
   return {
     slug,
     title: c.giftTitle,
-    description: `${primaryKw.charAt(0).toUpperCase() + primaryKw.slice(1)} ideas for couples, friends, and fans — personalised poster inspiration, photo tips, and how to order hand-drawn ${c.inspiredLabel} custom artwork.`,
+    description: `${primaryKw.charAt(0).toUpperCase() + primaryKw.slice(1)} ideas for couples, friends, and fans — personalised poster inspiration, photo tips, and how to order custom ${c.inspiredLabel} custom artwork.`,
     metaTitle: `${c.giftTitle}`,
     date: c.dateGift,
     readingMinutes: 5,
     keywords: [primaryKw, ...c.giftKeywords],
     category: "gift",
     heroImage: heroImage(c.slug),
-    intro: `The best ${primaryKw} is not another figure they already pre-ordered — it is custom artwork starring them inside a world they love. A ${c.inspiredLabel} custom poster turns a couple selfie, friend-group photo, or solo portrait into wall art that sparks stories every time someone visits. Unlike mass-produced merch, every poster is hand-drawn from their photo with unlimited revisions until it feels right. Below: what makes this style special, photo tips, poster ideas, recognisability, real examples, and how to order. New to the process? Start with our guide on ${transformLink}.`,
+    intro: `The best ${primaryKw} is not another figure they already pre-ordered — it is custom artwork starring them inside a world they love. A ${c.inspiredLabel} custom poster turns a couple selfie, friend-group photo, or solo portrait into wall art that sparks stories every time someone visits. Unlike mass-produced merch, every poster is custom from their photo with unlimited revisions until it feels right. Below: what makes this style special, photo tips, poster ideas, recognisability, real examples, and how to order. New to the process? Start with our guide on ${transformLink}.`,
     sections: [
       {
         heading: `What Makes the ${c.name}-Inspired Look Unique?`,
@@ -178,7 +178,7 @@ function buildGiftPost(c: StyleBlogConfig): BlogPost {
             type: "paragraph",
             text: `We use inspired style language only — never official or licensed character art. Your gift says 'I know your fandom' without copying a specific protagonist. ${portraitLink(c, `Order a ${c.inspiredLabel} custom poster`)} to see pricing and turnaround.`,
           },
-          productShowcase(c.slug, `Hand-drawn ${c.inspiredLabel} custom artwork from their photo — the personalised gift they cannot buy anywhere else.`),
+          productShowcase(c.slug, `custom ${c.inspiredLabel} custom artwork from their photo — the personalised gift they cannot buy anywhere else.`),
         ],
       },
       {
@@ -239,7 +239,7 @@ function buildGiftPost(c: StyleBlogConfig): BlogPost {
         blocks: [
           {
             type: "paragraph",
-            text: `These ${c.inspiredLabel} custom poster transformations show what your gift could look like — real photos, hand-drawn results:`,
+            text: `These ${c.inspiredLabel} custom poster transformations show what your gift could look like — real photos, custom results:`,
           },
           beforeAfter(
             c.slug,

@@ -36,6 +36,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     return {
       url: `${site.url}/portraits/${s.slug}`,
+      ...(s.updatedAt && { lastModified: new Date(s.updatedAt) }),
       changeFrequency: "weekly",
       priority: 0.8,
       ...(images && { images }),
@@ -44,7 +45,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const blogPages: MetadataRoute.Sitemap = blogPosts.map((p) => ({
     url: `${site.url}/blog/${p.slug}`,
-    lastModified: new Date(p.date),
+    lastModified: new Date(p.updatedAt ?? p.date),
     changeFrequency: "monthly",
     priority: 0.6,
     ...(p.heroImage && { images: [absoluteUrl(artSrc(p.heroImage))] }),

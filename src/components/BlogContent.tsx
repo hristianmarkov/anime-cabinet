@@ -5,37 +5,7 @@ import { resolveBlockImage } from "@/data/blog-blocks";
 import { getStyleBySlug } from "@/data/styles";
 import { PriceFrom } from "@/components/PriceFrom";
 
-const LINK_RE = /\[([^\]]+)\]\(([^)]+)\)/g;
-
-function RichText({ text }: { text: string }) {
-  const safeText = text ?? "";
-  const parts: React.ReactNode[] = [];
-  let lastIndex = 0;
-  let match: RegExpExecArray | null;
-  let key = 0;
-  const re = new RegExp(LINK_RE.source, "g");
-
-  while ((match = re.exec(safeText)) !== null) {
-    if (match.index > lastIndex) parts.push(safeText.slice(lastIndex, match.index));
-    const href = match[2];
-    if (href.startsWith("/")) {
-      parts.push(
-        <Link key={key++} href={href} className="text-accent underline decoration-accent/40 underline-offset-2 hover:text-accent-bright">
-          {match[1]}
-        </Link>
-      );
-    } else {
-      parts.push(
-        <a key={key++} href={href} className="text-accent underline decoration-accent/40 underline-offset-2 hover:text-accent-bright">
-          {match[1]}
-        </a>
-      );
-    }
-    lastIndex = match.index + match[0].length;
-  }
-  if (lastIndex < safeText.length) parts.push(safeText.slice(lastIndex));
-  return <>{parts}</>;
-}
+import { RichText } from "./RichText";
 
 function Figure({
   file,

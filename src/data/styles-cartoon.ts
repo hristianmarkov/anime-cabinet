@@ -9,28 +9,28 @@ export const cartoonStyles: PortraitStyle[] = [
     tagline: "Join the family behind the counter",
     metaTitle: "Custom Bob's Burgers Portrait From Your Photo",
     metaDescription:
-      "Get drawn into the Bob's Burgers universe. Custom family portraits behind the counter of your own burger joint, hand-drawn from your photos.",
+      "Order a Bob's Burgers-inspired portrait with burger-counter scenes, family groups and custom signs. Preview in 72 hours; unlimited revisions.",
     keywords: [
       "custom bobs burgers portrait",
       "bobs burgers style portrait",
       "draw my family in bobs burgers style",
       "bobs burgers custom family gift",
-      "turn me into a bobs burgers character",
+      "turn me into a bobs burgers character"
     ],
-    heroHeading: "Welcome to Your Burger Joint",
+    heroHeading: "Custom Bob's Burgers Portrait From Your Photo",
     description: [
-      "America's most-streamed animated family has the cosiest art style on TV, and it's tailor-made for family portraits. We draw you and yours in the Bob's Burgers look — round friendly faces, warm colours and that lovable low-key chaos — posed behind the counter of the restaurant, in a booth, or out front under your own custom shop sign.",
-      "Every family member is drawn from their own photo, pets included (the health inspector isn't invited). Add your own 'Burger of the Day' pun to the chalkboard for the finishing touch — we'll letter it in for free. Easily our most heart-warming cartoon style and a favourite anniversary and Christmas gift.",
+      "Turn your photo into a Bob's Burgers-inspired portrait with simple shapes, flat colours and a relaxed family-sitcom feel. Our artists adapt your face and hairstyle to the cartoon look.",
+      "Choose a burger-counter scene, a family group or a simple character portrait. Add clothing, who stands behind the counter and any sign wording to your notes. Separate photos work for a group, so everyone does not need to be in the same original picture."
     ],
     faqs: [
       {
-        q: "Can you put my own pun on the Burger of the Day board?",
-        a: "Yes, and we insist. Write your pun in the order notes and we'll add it to the chalkboard. Stuck? Our artists keep a dangerously large list of burger puns on standby.",
+        "q": "Can I personalise the restaurant sign?",
+        "a": "Yes. Supply the exact wording and describe where it should appear. Include a clear photo of each person or pet and tell us how to arrange the group."
       },
       {
-        q: "Can the restaurant sign show my family name?",
-        a: "Absolutely — we'll rename the restaurant to yours ('Smith's Burgers') on the storefront or in-shop signage. Just mention it at checkout.",
-      },
+        "q": "What should I check in my Bob's Burgers portrait preview?",
+        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+      }
     ],
     badge: "bestseller",
     accent: "#fb923c",
@@ -44,28 +44,28 @@ export const cartoonStyles: PortraitStyle[] = [
     tagline: "Get the Quahog treatment",
     metaTitle: "Custom Family Guy Portrait From Your Photo",
     metaDescription:
-      "Turn yourself into a Family Guy character. Custom hand-drawn portraits in the Quahog style — couch scenes, Drunken Clam and more, from your photos.",
+      "Order a Family Guy-inspired portrait with couch scenes, family groups and familiar room details. Preview in 72 hours; unlimited revisions.",
     keywords: [
       "custom family guy portrait",
       "family guy style portrait",
       "turn me into a family guy character",
       "draw my family in family guy style",
-      "family guy custom gift",
+      "family guy custom gift"
     ],
-    heroHeading: "Move In Next Door to the Griffins",
+    heroHeading: "Custom Family Guy Portrait From Your Photo",
     description: [
-      "One of the most-streamed shows on television, and one of the most recognisable art styles ever drawn. Our artists give you the full Quahog treatment — round chins, bold outlines and the classic living-room couch scene, or a pint at the Drunken Clam if that's more your family's speed.",
-      "We draw each person from their own photo so everyone stays recognisable through the transformation. Solo portraits, couples on the couch, and full family lineups all work brilliantly. Dogs are welcome and, in keeping with the source material, will be drawn as the most intelligent member of the household.",
+      "Create a Family Guy-inspired portrait with rounded cartoon shapes, flat colours and an everyday sitcom setting. Your own clothing, hairstyle and accessories help the character stay recognisable.",
+      "Choose a couch scene, a room or a simple background. For a couple or family, list each person and their position, and mention any pets. A relaxed pose and a familiar household detail can make the picture feel more personal than a generic character lineup."
     ],
     faqs: [
       {
-        q: "Can you draw my whole family?",
-        a: "Yes. Upload a clear photo of each person and select the matching character count so everyone can be included.",
+        "q": "Can the portrait include my whole household?",
+        "a": "Yes. Choose the character count for the people and pets you want included and upload a clear photo of each. Describe the seating arrangement and any clothing or room details."
       },
       {
-        q: "Can you draw just me, not a whole family?",
-        a: "Of course — solo Family Guy portraits are common and make great profile pictures. One character is our base price.",
-      },
+        "q": "What should I check in my Family Guy portrait preview?",
+        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+      }
     ],
     badge: "popular",
     accent: "#60a5fa",
@@ -77,30 +77,30 @@ export const cartoonStyles: PortraitStyle[] = [
     productName: "Custom Simpsons-Style Portrait",
     category: "cartoon",
     tagline: "Get yellowed — the iconic Springfield look",
-    metaTitle: "Custom Simpsons Style Portrait — Turn Me Yellow",
+    metaTitle: "Custom Simpsons-Style Portrait From Your Photo",
     metaDescription:
-      "Turn yourself yellow! Custom Simpsons-style portraits hand-drawn from your photo. Couch scenes, Springfield backgrounds, families and pets welcome.",
+      "Order a The Simpsons-inspired portrait with yellow cartoon characters, couch scenes and family portraits. Preview in 72 hours; unlimited revisions.",
     keywords: [
       "turn me yellow",
       "custom simpsons portrait",
       "simpsons style portrait from photo",
       "draw my family simpsons style",
-      "personalised simpsons gift",
+      "personalised simpsons gift"
     ],
-    heroHeading: "Time to Turn Yellow",
+    heroHeading: "Custom Simpsons-Style Portrait From Your Photo",
     description: [
-      "The original, the icon, the yellow standard. Getting 'Simpsonized' is the most requested cartoon transformation on the internet, and our artists have it down to a science: the overbite, the four fingers, the eyes, the exact shade of yellow — all built from your photo until you're recognisable at a glance.",
-      "The classic couch composition is the bestseller because it fits families of any size, pets included. Thirty-five seasons of source material give our artists plenty of inspiration while keeping your family at the centre of the portrait.",
+      "Create a Simpsons-inspired yellow cartoon portrait from your photo. Bold outlines, flat colours and familiar everyday settings give individuals, couples and families a playful new look.",
+      "Choose a couch scene, a street setting or a simple character composition. Tell our artists which hairstyles, glasses and clothing to preserve. For a household portrait, list the people and pets in order and describe who sits or stands where."
     ],
     faqs: [
       {
-        q: "Can we do the famous couch scene?",
-        a: "Yes — it's our most-ordered Simpsons composition and works for 1 to 6+ people plus pets. Everyone gets placed just like the opening credits.",
+        "q": "Can I choose our couch scene and clothes?",
+        "a": "Yes. Describe the seating, background and clothing in your notes. Upload a clear photo of each subject and point out important details such as glasses, facial hair or a pet's markings."
       },
       {
-        q: "Will I actually look like me, but yellow?",
-        a: "That's the whole craft. Our artists map your hairstyle, glasses, facial hair and outfit into the Simpsons design language so you're recognisable at a glance — just four-fingered.",
-      },
+        "q": "What should I check in my The Simpsons portrait preview?",
+        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+      }
     ],
     badge: "bestseller",
     accent: "#facc15",
@@ -112,30 +112,30 @@ export const cartoonStyles: PortraitStyle[] = [
     productName: "Custom South Park Portrait",
     category: "cartoon",
     tagline: "Head on down to South Park",
-    metaTitle: "Custom South Park Style Portrait From Your Photo",
+    metaTitle: "Custom South Park Portrait From Your Photo",
     metaDescription:
-      "Get drawn as a South Park character. Custom construction-paper style portraits of you and your friends, hand-drawn from your photos.",
+      "Order a South Park-inspired portrait with cut-paper characters, winter outfits and friend-group lineups. Preview in 72 hours; unlimited revisions.",
     keywords: [
       "custom south park portrait",
       "south park style portrait",
       "make me a south park character",
       "south park custom gift",
-      "draw my friends south park style",
+      "draw my friends south park style"
     ],
-    heroHeading: "You're Going Down to South Park",
+    heroHeading: "Custom South Park Portrait From Your Photo",
     description: [
-      "Simple? Deceptively. South Park's construction-paper style lives and dies on the details — the right hat, the right coat, the right deadpan dot-eyes. Our artists hand-build your character the way the show would: your actual winter wardrobe, your hairstyle poking out of a beanie, and the classic snowy mountain-town backdrop behind you.",
-      "Friend groups are the heart of this style. Four friends together is the composition — you already know who's who, and so do they. We also do couples, families and solo portraits, with character details drawn from your references. Respect our artists' authoritah.",
+      "Create a South Park-inspired portrait with simple cut-paper shapes, bold colour blocks and a front-facing cartoon look. Your hairstyle, outfit and accessories make the character personal.",
+      "Choose winter clothes, everyday outfits or a group lineup. A snowy street or a plain background keeps the composition easy to read. For friends or a family, list each person and the hat, coat or other distinctive detail that identifies them."
     ],
     faqs: [
       {
-        q: "Can our friend group do the bus stop scene?",
-        a: "The four-friends bus stop lineup is the definitive South Park order. More or fewer friends works fine too — we'll compose the lineup to fit.",
+        "q": "Can each person have a different outfit?",
+        "a": "Yes. Give each subject a clear label in your notes and describe their clothing and accessories. A reference photo for each person helps our artists match the details."
       },
       {
-        q: "Can you add props or jokes to the portrait?",
-        a: "Yes — signage, props, snow forts, a towel giving questionable advice. Describe the gag in your order notes and we'll build it in.",
-      },
+        "q": "What should I check in my South Park portrait preview?",
+        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+      }
     ],
     accent: "#4ade80",
     priceFrom: 39.99,
@@ -148,28 +148,28 @@ export const cartoonStyles: PortraitStyle[] = [
     tagline: "Get schwifty across the multiverse",
     metaTitle: "Custom Rick and Morty Portrait From Your Photo",
     metaDescription:
-      "Get drawn into the Rick and Morty multiverse. Custom portraits with portals, garage labs and alien worlds, hand-drawn from your photo.",
+      "Order a Rick and Morty-inspired portrait with portals, garage-lab scenes and alien landscapes. Preview in 72 hours; unlimited revisions.",
     keywords: [
       "custom rick and morty portrait",
       "rick and morty style portrait",
       "turn me into a rick and morty character",
       "rick and morty couple portrait",
-      "rick and morty custom gift",
+      "rick and morty custom gift"
     ],
-    heroHeading: "Step Through the Portal",
+    heroHeading: "Custom Rick and Morty Portrait From Your Photo",
     description: [
-      "Wubba lubba dub dub — the multiverse's favourite art style. We draw you in full Rick and Morty fashion: wobbly pupils, unibrow optional, green portal glowing behind you. Pose in the garage lab surrounded by dubious inventions, on an alien planet with three suns, or mid-adventure with your co-pilot of choice.",
-      "It's the number one couples style in the genre — one Rick, one Morty, infinite bickering — and works just as well for friend duos and solo portraits. Wielding a portal gun is free. Turning yourself into a pickle is also free, but we will need you to be sure about it.",
+      "Create a Rick and Morty-inspired portrait with angular cartoon features, vivid colour and a strange sci-fi setting. Our artists use your photo to keep the characters recognisable within the look.",
+      "Choose a portal, a garage-lab scene or an alien landscape, then describe your clothing and pose. Couples and friends can share one scene, with a pet as another character. A simple pose works well when the background contains lots of unusual details."
     ],
     faqs: [
       {
-        q: "Can my partner and I be drawn as Rick and Morty?",
-        a: "The classic duo dynamic is our most popular order in this style. Tell us who's the Rick — or let our artists judge from the photos. They're never wrong.",
+        "q": "Can I request a portal or an alien setting?",
+        "a": "Yes. Describe the setting, portal colour and any props in your notes. Tell us whether the background or the character should get the most emphasis."
       },
       {
-        q: "Can I be turned into a pickle?",
-        a: "Yes. You'd be surprised how often we're asked, and no, we never get tired of drawing it. Pickle portraits count as one character.",
-      },
+        "q": "What should I check in my Rick and Morty portrait preview?",
+        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+      }
     ],
     badge: "bestseller",
     accent: "#4ade80",
@@ -181,30 +181,30 @@ export const cartoonStyles: PortraitStyle[] = [
     productName: "Custom Avatar: The Last Airbender Portrait",
     category: "cartoon",
     tagline: "Master your element",
-    metaTitle: "Custom Avatar The Last Airbender Portrait From Your Photo",
+    metaTitle: "Custom Avatar: The Last Airbender Portrait From Your Photo",
     metaDescription:
-      "Master your element. Custom Avatar: The Last Airbender style portraits with bending effects and nation outfits, hand-drawn from your photo.",
+      "Order a Avatar-inspired portrait with nation outfits, elemental effects and bending poses. Preview in 72 hours; unlimited revisions.",
     keywords: [
       "custom avatar the last airbender portrait",
       "avatar style portrait",
       "draw me as an avatar character",
       "bending custom portrait",
-      "avatar atla gift",
+      "avatar atla gift"
     ],
-    heroHeading: "Water. Earth. Fire. Air.",
+    heroHeading: "Custom Avatar: The Last Airbender Portrait From Your Photo",
     description: [
-      "Everyone knows their element — now get drawn wielding it. Our artists draw you in the beloved Avatar style with full bending effects: water whips, boulders mid-launch, flame daggers or airball riding. Choose your nation's attire, from Water Tribe blues to Fire Nation armour, and a backdrop to match, whether that's Ba Sing Se or the Western Air Temple.",
-      "Group portraits are special in this style: a friend group with one bender of each element is the single most satisfying composition we draw. Families work beautifully too — and yes, your pet can be the flying-bison-equivalent of the household. Sky bison energy is real and we know how to draw it.",
+      "Create an Avatar: The Last Airbender-inspired portrait with flowing character shapes, nation colours and an elemental setting. Your photo gives our artists the reference for the person at the centre of the scene.",
+      "Choose water, earth, fire or air, then describe the outfit and bending pose. A restrained effect keeps the face clear, while a wider scene allows movement. For two people, contrasting elements can give each character a distinct role in the composition."
     ],
     faqs: [
       {
-        q: "Can each person in a group portrait bend a different element?",
-        a: "That's the dream order — one water, one earth, one fire, one air. Assign elements in your order notes and we'll choreograph the bending effects into one composition.",
+        "q": "Can we choose different elements for a couple portrait?",
+        "a": "Yes. State each person's element, clothing and position in the notes. Upload a clear photo for each subject and include a pose reference if you have a specific bending scene in mind."
       },
       {
-        q: "Can I be the Avatar with all four elements?",
-        a: "Someone has to be. Request the Avatar treatment and we'll draw you with multiple elements and, if you like, glowing Avatar State eyes.",
-      },
+        "q": "What should I check in my Avatar portrait preview?",
+        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+      }
     ],
     badge: "popular",
     accent: "#60a5fa",
@@ -216,30 +216,30 @@ export const cartoonStyles: PortraitStyle[] = [
     productName: "Custom Arcane Portrait",
     category: "cartoon",
     tagline: "Painterly. Cinematic. Breathtaking.",
-    metaTitle: "Custom Arcane Style Portrait From Your Photo",
+    metaTitle: "Custom Arcane Portrait From Your Photo",
     metaDescription:
-      "Get painted in the stunning Arcane style — painterly texture, neon hextech glow and cinematic drama, hand-crafted from your photo.",
+      "Order a Arcane-inspired portrait with textured colour, city lighting and workshop scenes. Preview in 72 hours; unlimited revisions.",
     keywords: [
       "custom arcane portrait",
       "arcane style portrait",
       "draw me in arcane style",
       "arcane painterly portrait commission",
-      "arcane fan gift",
+      "arcane fan gift"
     ],
-    heroHeading: "Piltover or Zaun — Choose Your Side",
+    heroHeading: "Custom Arcane Portrait From Your Photo",
     description: [
-      "Arcane redefined what animation could look like: hand-painted texture over 3D forms, neon hextech light cutting through industrial haze, and character close-ups that belong in a gallery. Our artists paint you in that style — visible brushwork, dramatic rim lighting, and a Piltover-gold or Zaun-teal palette depending on which side of the city claims you.",
-      "This is our most painterly, premium-feeling cartoon style and the one that draws the most 'wait, is that official art?' comments. It suits moody solo portraits and intense duo compositions — siblings and couples on opposite sides of the divide, in true Vi-and-Jinx fashion.",
+      "Create an Arcane-inspired portrait with textured colour, strong facial planes and dramatic city lighting. Your facial features and expression remain central to the composition.",
+      "Choose a warm, gold-toned city mood or a cooler neon atmosphere. Tell our artists about clothing, jewellery, hair colour and a setting such as a workshop or city street. A close portrait highlights expression; a wider duo scene gives room for contrasting poses."
     ],
     faqs: [
       {
-        q: "Piltover or Zaun — what changes visually?",
-        a: "Piltover portraits lean gold, brass and clean art-deco light; Zaun leans teal shimmer, smog and neon grit. Pick a side in the order notes, or let your photo's energy decide.",
+        "q": "Can I choose warm city lighting or a neon palette?",
+        "a": "Yes. Describe the colours and setting you prefer. Mention any piercings, jewellery or hairstyle details you want retained, and add a reference if the lighting is important."
       },
       {
-        q: "Is the Arcane style more expensive?",
-        a: "Same base price. It's our most labour-intensive style, so on rare busy weeks delivery may run a day longer — we'll always tell you upfront.",
-      },
+        "q": "What should I check in my Arcane portrait preview?",
+        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+      }
     ],
     badge: "new",
     accent: "#2dd4bf",

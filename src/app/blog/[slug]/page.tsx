@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BlogSectionContent } from "@/components/BlogContent";
 import { JsonLd } from "@/components/JsonLd";
+import { RichText } from "@/components/RichText";
 import { blogPosts, getPostBySlug, type BlogCategory } from "@/data/blog";
 import { resolveBlockImage } from "@/data/blog-blocks";
 import { site } from "@/data/site";
@@ -44,6 +45,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: post.description,
       url: `${site.url}/blog/${post.slug}`,
       publishedTime: post.date,
+      modifiedTime: post.updatedAt ?? post.date,
       ...(ogImage && { images: [ogImage] }),
     },
     twitter: {
@@ -67,6 +69,7 @@ export default async function BlogPostPage({ params }: Props) {
     headline: post.title,
     description: post.description,
     datePublished: post.date,
+    dateModified: post.updatedAt ?? post.date,
     author: { "@type": "Organization", name: site.name, url: site.url },
     publisher: {
       "@type": "Organization",
@@ -138,7 +141,11 @@ export default async function BlogPostPage({ params }: Props) {
           </figure>
         )}
 
-        <p className="mt-8 text-lg leading-[1.85] text-muted">{post.intro}</p>
+        <div className="mt-8 space-y-4 text-lg leading-[1.85] text-muted">
+          {post.intro.split(/\n\s*\n/).map((paragraph, index) => (
+            <p key={index}><RichText text={paragraph} /></p>
+          ))}
+        </div>
 
         {post.sections.map((section) => (
           <BlogSectionContent key={section.heading ?? section.paragraphs[0]?.slice(0, 24) ?? section.blocks?.[0]?.type} section={section} />

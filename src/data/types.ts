@@ -34,4 +34,6 @@ export interface PortraitStyle {
   accent: string;
   /** Base price in USD for 1 character, digital */
   priceFrom: number;
+  /** Date of a substantive copy update, used by the sitemap. */
+  updatedAt?: string;
 }

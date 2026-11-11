@@ -3,7 +3,7 @@ import Link from "next/link";
 import { site } from "@/data/site";
 
 export const metadata: Metadata = {
-  title: "About Us — The Artists Behind Anime Cabinet",
+  title: "About Us — Meet the Portrait Artists",
   description:
     `Anime Cabinet is a studio of professional artists turning photos into custom anime and cartoon portraits. Unlimited revisions, preview within ${site.deliveryHours} hours.`,
   alternates: { canonical: "/about" },

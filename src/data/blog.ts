@@ -5,6 +5,7 @@ import { giftIntentPosts } from "./blog-gift-intent";
 import { perStyleBlogPosts } from "./blog-per-style-posts";
 import { styleGuidePosts } from "./blog-style-guides";
 import { mergeBlogPosts } from "./generated/merge";
+import contentRedirects from "./content-redirects.json";
 import { site } from "./site";
 import type { BlogBlock } from "./blog-blocks";
 import { productShowcase } from "./blog-blocks";
@@ -24,6 +25,7 @@ export interface BlogPost {
   description: string;
   metaTitle?: string;
   date: string;
+  updatedAt?: string;
   readingMinutes: number;
   keywords: string[];
   intro: string;
@@ -61,7 +63,7 @@ const _blogPosts: BlogPost[] = [
           },
           productShowcase(
             "naruto",
-            "Turn that daydream into wall art — custom Naruto portraits hand-drawn from your photo."
+            "Turn that daydream into wall art — custom Naruto portraits custom from your photo."
           ),
           {
             type: "paragraph",
@@ -86,7 +88,7 @@ const _blogPosts: BlogPost[] = [
         paragraphs: [
           "For a lot of fans, the first portrait isn't for themselves — it's for someone else. The partner who never shuts up about Luffy. The friend who cosplays every convention. The sibling whose entire personality is [Dragon Ball Z](/portraits/dragon-ball-z) power scaling. Giving them a portrait in that world — a [One Piece crew scene](/portraits/one-piece), a [Naruto shinobi portrait](/portraits/naruto), whatever matches their obsession — says 'I see how much this matters to you' in a way a figure or hoodie can't.",
           "If you've ever wished you could step into your favorite anime for real, you're not alone — millions of fans feel exactly the same way. Some of them just decided to hang the proof on their wall.",
-          "Custom anime portraits from photos have made this accessible without cosplay skills or art talent. Upload a clear photo, pick from twenty-four hand-drawn styles, and an artist translates you into that world's visual language — with unlimited revisions until it feels right. The fantasy becomes furniture. And every time someone asks about the piece on your wall, you get to tell the story of the show that shaped you.",
+          "Custom anime portraits from photos have made this accessible without cosplay skills or art talent. Upload a clear photo, pick from twenty-four custom styles, and an artist translates you into that world's visual language — with unlimited revisions until it feels right. The fantasy becomes furniture. And every time someone asks about the piece on your wall, you get to tell the story of the show that shaped you.",
         ],
       },
       {
@@ -135,7 +137,7 @@ const _blogPosts: BlogPost[] = [
           },
           {
             type: "paragraph",
-            text: "The 'fan who has everything' usually means they have everything mass-produced. They do not have a hand-drawn poster of themselves in [Demon Slayer](/portraits/demon-slayer) Corps uniform, revised until their friends agree the likeness is uncanny. That gap is where the best anime gifts live in 2026.",
+            text: "The 'fan who has everything' usually means they have everything mass-produced. They do not have a custom poster of themselves in [Demon Slayer](/portraits/demon-slayer) Corps uniform, revised until their friends agree the likeness is uncanny. That gap is where the best anime gifts live in 2026.",
           },
         ],
       },
@@ -227,7 +229,7 @@ const _blogPosts: BlogPost[] = [
         paragraphs: [
           "The beautiful thing about these shows in 2026 is the age range. A 35-year-old ordering a [Simpsons](/portraits/the-simpsons) family portrait and a 19-year-old ordering their first [Jujutsu Kaisen](/portraits/jujutsu-kaisen) commission are both getting the same thing: proof that this fictional world mattered enough to become part of their real one.",
           "Whether you grew up with these shows or binged them last month, the feeling is identical. Some worlds you just don't leave — and now you don't have to.",
-          "Twenty-four hand-drawn styles, unlimited revisions, preview within seventy-two hours — the logistics are simple. Pick the show that shaped you, upload a photo, and let an artist place you inside the world you never actually left. The classics keep winning because the attachment was never about release dates. It was about belonging.",
+          "Twenty-four custom styles, unlimited revisions, preview within seventy-two hours — the logistics are simple. Pick the show that shaped you, upload a photo, and let an artist place you inside the world you never actually left. The classics keep winning because the attachment was never about release dates. It was about belonging.",
         ],
       },
       {
@@ -402,7 +404,10 @@ const _blogPosts: BlogPost[] = [
   ...comparisonPosts,
 ];
 
-export const blogPosts: BlogPost[] = mergeBlogPosts(_blogPosts);
+const retiredPaths: Record<string, string> = contentRedirects;
+export const blogPosts: BlogPost[] = mergeBlogPosts(_blogPosts).filter(
+  (post) => !retiredPaths[`/blog/${post.slug}`]
+);
 
 export function getPostBySlug(slug: string): BlogPost | undefined {
   return blogPosts.find((p) => p.slug === slug);

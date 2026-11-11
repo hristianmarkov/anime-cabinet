@@ -9,28 +9,28 @@ export const animeStyles: PortraitStyle[] = [
     tagline: "Become a shinobi of the Hidden Leaf",
     metaTitle: "Custom Naruto Portrait From Your Photo",
     metaDescription:
-      "Turn your photo into a hand-drawn Naruto style portrait. Become a Hidden Leaf shinobi with your own headband, jutsu and village background. Unlimited revisions.",
+      "Order a Naruto-inspired portrait with village headbands, outfits and chakra effects. Preview in 72 hours; unlimited revisions.",
     keywords: [
       "custom naruto portrait",
       "naruto style portrait",
       "turn me into a naruto character",
       "naruto portrait from photo",
-      "personalised naruto gift",
+      "personalised naruto gift"
     ],
-    heroHeading: "Get Drawn as a Hidden Leaf Shinobi",
+    heroHeading: "Custom Naruto Portrait From Your Photo",
     description: [
-      "Ever wondered what you'd look like in the Hidden Leaf Village? Our artists hand-draw you in the iconic Naruto art style — sharp linework, bold cel shading and those unmistakable expressive eyes. Choose your headband, your outfit, even your signature jutsu pose. Whether you want to stand beside Team 7 or lead your own squad, we draw it exactly how you imagine it.",
-      "Every portrait starts from your photo. Our illustrators study your features — hairstyle, glasses, smile — and translate them faithfully into the Naruto universe so you're instantly recognisable, just animated. Perfect as a gift for the shinobi in your life, a couples portrait, or a full family reimagined as a ninja clan (pets welcome — every clan needs a ninken).",
+      "Create a Naruto-inspired portrait of yourself as a shinobi, with crisp outlines, bold cel shading and a village setting. Our artists use your photo as the reference for your hairstyle, expression and other recognisable features.",
+      "Choose a village headband, a flak jacket or cloak, and a pose. A hand-sign pose keeps the focus on your character; a wider composition leaves room for a chakra effect or a second person. Add your preferred headband symbol, outfit colours and background to the order notes."
     ],
     faqs: [
       {
-        q: "Can I choose my village and headband?",
-        a: "Absolutely. Hidden Leaf is the classic choice, but tell us your preferred village in the order notes and we'll draw the matching headband. You can also request Akatsuki robes, Jonin vests, Sage Mode markings or any outfit you like.",
+        "q": "Can I choose my village and outfit?",
+        "a": "Yes. Include your village, headband symbol and preferred outfit in the notes. You can also describe a pose or chakra effect and upload a reference for the details that matter."
       },
       {
-        q: "Can you draw me doing a jutsu?",
-        a: "Yes — Rasengan, hand signs, summoning poses, you name it. Describe the pose in your order notes or attach a reference image and our artists will bring it to life.",
-      },
+        "q": "What should I check in my Naruto portrait preview?",
+        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+      }
     ],
     badge: "bestseller",
     accent: "#ff8a3d",
@@ -44,28 +44,28 @@ export const animeStyles: PortraitStyle[] = [
     tagline: "Join the Straw Hats on the Grand Line",
     metaTitle: "Custom One Piece Portrait From Your Photo",
     metaDescription:
-      "Get hand-drawn in the One Piece anime style. Join the Straw Hat crew, pick your Devil Fruit power and set sail on the Grand Line. Digital and print options.",
+      "Order a One Piece-inspired portrait with pirate outfits, ship scenes and crew portraits. Preview in 72 hours; unlimited revisions.",
     keywords: [
       "custom one piece portrait",
       "one piece style portrait",
       "draw me in one piece style",
       "one piece anime portrait from photo",
-      "personalised one piece gift",
+      "personalised one piece gift"
     ],
-    heroHeading: "Set Sail on the Grand Line",
+    heroHeading: "Custom One Piece Portrait From Your Photo",
     description: [
-      "The world's best-selling manga deserves a portrait to match. Our artists redraw you in Eiichiro Oda's legendary One Piece style — exaggerated proportions, wild grins and that unmistakable sense of adventure. Stand on the deck of the Thousand Sunny, share a drink at a Water 7 bar, or square up for battle with your own Devil Fruit power.",
-      "Send us your photo and tell us your dream scene. We'll capture your likeness — from your hairstyle down to your favourite outfit — and place you right inside the world of One Piece. It's a brilliant gift for couples, crews of friends, and any nakama who's been sailing with Luffy for the last thousand episodes.",
+      "Turn your photo into a One Piece-inspired pirate portrait. Expressive faces, bright colours and a nautical setting give the artwork an adventurous feel while keeping you recognisable.",
+      "Plan a solo pirate, a couple on a ship deck or a group crew scene. Tell our artists about clothing, a ship or island background, and any power effect you want. For a parchment layout with a name and bounty instead of a full scene, choose our [custom wanted poster](/portraits/one-piece-wanted-poster)."
     ],
     faqs: [
       {
-        q: "Can you draw my whole friend group as a pirate crew?",
-        a: "Yes, crews are our speciality. Each person is drawn from their own photo, and we can arrange everyone on a ship deck, around a table, or in a classic 'wanted lineup'. For groups larger than 6, contact us for a custom quote.",
+        "q": "Should I choose a pirate scene or a wanted poster?",
+        "a": "Choose this portrait for a scene with room for poses, costumes and backgrounds. Choose the wanted poster style for a parchment layout centred on a face, pirate name and bounty."
       },
       {
-        q: "Can I have a Devil Fruit power in my portrait?",
-        a: "Of course. Flames, rubber limbs, lightning — describe the power you want in the order notes and our artists will work it into your pose and composition.",
-      },
+        "q": "What should I check in my One Piece portrait preview?",
+        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+      }
     ],
     badge: "popular",
     accent: "#ff3860",
@@ -77,30 +77,30 @@ export const animeStyles: PortraitStyle[] = [
     productName: "Custom One Piece Wanted Poster",
     category: "anime",
     tagline: "Your face, your bounty, dead or alive",
-    metaTitle: "Custom One Piece Wanted Poster With Your Photo & Bounty",
+    metaTitle: "Custom One Piece Wanted Poster From Your Photo",
     metaDescription:
-      "Create your own One Piece wanted poster. We hand-draw your face in anime style, add your pirate name and custom bounty. The ultimate One Piece fan gift.",
+      "Order a Wanted Poster-inspired portrait with your pirate name, chosen bounty and parchment layout. Preview in 72 hours; unlimited revisions.",
     keywords: [
       "one piece wanted poster custom",
       "custom wanted poster anime",
       "one piece bounty poster personalised",
       "make my own one piece wanted poster",
-      "anime wanted poster gift",
+      "anime wanted poster gift"
     ],
-    heroHeading: "Claim Your Bounty",
+    heroHeading: "Custom One Piece Wanted Poster From Your Photo",
     description: [
-      "Every great pirate needs a bounty. We hand-draw your portrait in authentic One Piece style and set it inside the iconic Marine wanted poster — weathered parchment, 'DEAD OR ALIVE' header, your pirate name and a bounty figure you choose. Go ahead, make yourself worth more than Luffy. We won't tell the World Government.",
-      "This is our most-gifted item for a reason: it looks incredible framed, works for singles, couples and even pets (animal crew members get bounties too), and takes under a minute to order. Upload a clear photo, tell us your pirate name and bounty, and our artists handle the rest.",
+      "Make a One Piece-inspired wanted poster starring you, a friend or a pet. The design pairs a character portrait with parchment tones, bold wanted-poster lettering, a pirate name and a bounty you choose.",
+      "Send a clear face photo and put the exact name, epithet and bounty in your notes. Check spelling and the number of zeros before ordering. Matching posters can share a colour palette while using different names and bounties. Prefer a full pirate scene? See the [One Piece portrait](/portraits/one-piece)."
     ],
     faqs: [
       {
-        q: "Can I choose my own bounty and pirate name?",
-        a: "Yes — both are completely up to you. Add them in the order notes. If you skip them, our artists will pick a suitably fearsome bounty on your behalf.",
+        "q": "What details should I send for my bounty poster?",
+        "a": "Include the exact pirate name, any epithet, the bounty amount and the expression you would like. Add a clear photo of each subject. Review the lettering as well as the likeness when your preview arrives."
       },
       {
-        q: "Does a wanted poster work as a framed print?",
-        a: "It's our single best-looking print. The parchment texture and bold lettering were made for a frame. Choose the poster or framed option at checkout and we'll ship it ready to hang.",
-      },
+        "q": "What should I check in my Wanted Poster portrait preview?",
+        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+      }
     ],
     badge: "bestseller",
     accent: "#ffc53d",
@@ -114,28 +114,28 @@ export const animeStyles: PortraitStyle[] = [
     tagline: "Power up beyond your limits",
     metaTitle: "Custom Dragon Ball Z Portrait From Your Photo",
     metaDescription:
-      "Turn yourself into a Dragon Ball Z character. Hand-drawn Saiyan portraits with auras, custom outfits and battle poses from your photo. Unlimited revisions.",
+      "Order a Dragon Ball Z-inspired portrait with battle outfits, aura colours and action poses. Preview in 72 hours; unlimited revisions.",
     keywords: [
       "custom dragon ball z portrait",
       "turn me into a dbz character",
       "dragon ball style portrait from photo",
       "custom saiyan portrait",
-      "personalised dragon ball gift",
+      "personalised dragon ball gift"
     ],
-    heroHeading: "Unlock Your Saiyan Form",
+    heroHeading: "Custom Dragon Ball Z Portrait From Your Photo",
     description: [
-      "Golden hair, crackling aura, power level well over 9000 — our artists draw you in the classic Dragon Ball Z style that defined anime for a generation. Choose your form (base, Super Saiyan, or beyond), your gi colours and your pose, from a calm Kamehameha stance to a full mid-battle scream.",
-      "We work from your photo to keep you recognisable through the transformation: your face shape, your smirk, your build — just drawn like Toriyama-era animation cels. DBZ portraits are a favourite for gym buddies, brothers, and couples who argue about who'd win in a fight. Settle it on canvas.",
+      "See yourself in a Dragon Ball Z-inspired action portrait, with angular features, bold colour blocks and a high-energy pose. Your photo gives our artists the reference for your face and hairstyle.",
+      "Choose a gi or armour, an aura colour and a stance. A close crop puts the emphasis on your expression; a wider shot can include a charging pose or an energy effect. For two people, describe who stands where and whether their outfits should match."
     ],
     faqs: [
       {
-        q: "Can I be drawn as a Super Saiyan?",
-        a: "Yes — pick any form you like: base, Super Saiyan, SSJ2, blue-haired forms, or your own custom aura colour. Mention it in the order notes and we'll draw the energy effects to match.",
+        "q": "Can I choose my aura and battle outfit?",
+        "a": "Yes. Add your aura colour, outfit and pose to the notes. If a transformation-inspired hairstyle is important, explain which features of your own hair and face you want to keep."
       },
       {
-        q: "Can you match details from my reference photos?",
-        a: "Yes. Upload clear references and note the important outfit, accessory, or pose details you want our artists to preserve.",
-      },
+        "q": "What should I check in my Dragon Ball Z portrait preview?",
+        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+      }
     ],
     badge: "bestseller",
     accent: "#ffc53d",
@@ -149,28 +149,28 @@ export const animeStyles: PortraitStyle[] = [
     tagline: "Forge your own breathing style",
     metaTitle: "Custom Demon Slayer Portrait From Your Photo",
     metaDescription:
-      "Get hand-drawn as a Demon Slayer Corps member. Custom haori patterns, nichirin blade colours and breathing style effects, painted from your photo.",
+      "Order a Demon Slayer-inspired portrait with haori patterns, blade colours and breathing effects. Preview in 72 hours; unlimited revisions.",
     keywords: [
       "custom demon slayer portrait",
       "demon slayer style portrait",
       "draw me as a demon slayer character",
       "kimetsu no yaiba custom portrait",
-      "demon slayer gift for fans",
+      "demon slayer gift for fans"
     ],
-    heroHeading: "Join the Demon Slayer Corps",
+    heroHeading: "Custom Demon Slayer Portrait From Your Photo",
     description: [
-      "Demon Slayer's art style is one of the most beautiful in modern anime — flowing water effects, dramatic lighting and gorgeous haori patterns. Our artists draw you as a fully-fledged Corps member: your own uniform, a nichirin blade in the colour of your choosing, and breathing-style effects swirling around your pose.",
-      "From your photo we carry over everything that makes you *you*, then dress it in Taisho-era Japan. Choose a serene composition with wisteria in bloom or a dynamic mid-swing battle scene. Couples often order matching portraits with complementary breathing styles — water and flame is the classic pairing.",
+      "Create a Demon Slayer-inspired portrait with a patterned haori, a dramatic pose and a breathing-effect backdrop. Our artists build the character around the face and expression in your photo.",
+      "Specify your haori pattern, blade colour and whether you prefer water, flame or another visual effect. Keeping the effect behind the subject leaves the face clear. Couples can use coordinated patterns or contrasting colours without needing identical outfits."
     ],
     faqs: [
       {
-        q: "Can I design my own haori and blade colour?",
-        a: "Yes. Pick any haori pattern (existing or invented) and any nichirin blade colour, and describe them in your order notes. Our artists will design your Corps look around them.",
+        "q": "Can I choose the haori pattern and blade colour?",
+        "a": "Yes. Describe both in the order notes and add a reference if you have a specific pattern in mind. Mention whether you want a quiet portrait or a more active sword pose."
       },
       {
-        q: "Can you add breathing style effects?",
-        a: "Absolutely — water, flame, thunder, mist or a custom style of your own invention. Effects are hand-painted around your pose for that signature Ufotable drama.",
-      },
+        "q": "What should I check in my Demon Slayer portrait preview?",
+        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+      }
     ],
     badge: "popular",
     accent: "#2dd4bf",
@@ -184,28 +184,28 @@ export const animeStyles: PortraitStyle[] = [
     tagline: "Channel your cursed energy",
     metaTitle: "Custom Jujutsu Kaisen Portrait From Your Photo",
     metaDescription:
-      "Become a jujutsu sorcerer. We hand-draw you in the Jujutsu Kaisen anime style with cursed energy effects and your own domain expansion. From your photo.",
+      "Order a Jujutsu Kaisen-inspired portrait with urban scenes, custom outfits and energy effects. Preview in 72 hours; unlimited revisions.",
     keywords: [
       "custom jujutsu kaisen portrait",
       "jujutsu kaisen style portrait",
       "draw me as a jjk character",
       "jjk custom portrait from photo",
-      "jujutsu kaisen fan gift",
+      "jujutsu kaisen fan gift"
     ],
-    heroHeading: "Enrol at Jujutsu High",
+    heroHeading: "Custom Jujutsu Kaisen Portrait From Your Photo",
     description: [
-      "The most-watched modern shonen deserves a portrait line of its own. We draw you in the sharp, moody JJK style — dark uniforms, glowing cursed energy, and cinematic lighting straight out of the anime. Go classic in a Jujutsu High uniform, or go all out with your own domain expansion swirling behind you.",
-      "Every commission starts with your photo. Our artists keep your real features front and centre while wrapping you in the JJK aesthetic, from Gojo-style blindfolds to custom cursed techniques you describe in the notes. A go-to gift for the friend who hasn't stopped talking about this show since season one.",
+      "Commission a Jujutsu Kaisen-inspired portrait with sharp character shapes, a modern outfit and a dramatic supernatural atmosphere. Your face remains the focus of the composition.",
+      "Choose a uniform or your own clothing, then describe the colour and shape of your cursed-energy effect. An urban night background suits a close portrait; a wider scene gives a duo room for contrasting poses. Include any glasses, jewellery or other defining features you want preserved."
     ],
     faqs: [
       {
-        q: "Can I invent my own cursed technique?",
-        a: "Yes — describe your technique and its visual effect in the order notes (element, colour, shape) and our artists will design the energy work around your portrait.",
+        "q": "Can I request my own energy effect?",
+        "a": "Yes. Describe its colour, placement and mood in the notes. You can also request a setting and pose; a reference image helps explain a complicated composition."
       },
       {
-        q: "Can couples get a two-person JJK portrait?",
-        a: "Definitely. Two-sorcerer compositions are very popular — back to back with contrasting energy colours is the crowd favourite. Just select 2 characters when ordering.",
-      },
+        "q": "What should I check in my Jujutsu Kaisen portrait preview?",
+        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+      }
     ],
     badge: "popular",
     accent: "#7c6cff",
@@ -219,28 +219,28 @@ export const animeStyles: PortraitStyle[] = [
     tagline: "Dedicate your heart to the Scouts",
     metaTitle: "Custom Attack on Titan Portrait From Your Photo",
     metaDescription:
-      "Join the Scout Regiment. Hand-drawn Attack on Titan style portraits with ODM gear, capes and the Wings of Freedom, created from your photo.",
+      "Order a Attack on Titan-inspired portrait with regiment outfits, cloaks and wall-side settings. Preview in 72 hours; unlimited revisions.",
     keywords: [
       "custom attack on titan portrait",
       "attack on titan style portrait",
       "draw me as an aot character",
       "scout regiment custom portrait",
-      "attack on titan fan gift",
+      "attack on titan fan gift"
     ],
-    heroHeading: "Wear the Wings of Freedom",
+    heroHeading: "Custom Attack on Titan Portrait From Your Photo",
     description: [
-      "Few anime carry the weight of Attack on Titan — and few portraits look as striking as a Scout in full gear. Our artists draw you in the AOT style: sharp military linework, the green Scout Regiment cape, ODM gear at your hips and dual blades drawn. Pose atop Wall Maria at sunset or mid-flight between rooftops.",
-      "We translate your photo into the world of Paradis faithfully, so friends recognise you at first glance. Fans order these as solo portraits, squad portraits with their closest friends, and memorial pieces for the show that broke everyone's heart. Shinzou wo sasageyo.",
+      "Turn your photo into an Attack on Titan-inspired character portrait with muted colours, a regiment-style uniform and a dramatic setting. Our artists use your facial features and expression as the starting point.",
+      "Choose a cloak, insignia and setting, then decide between a standing portrait and a wider action composition. Rooftops and distant walls provide atmosphere without competing with the face. For group scenes, list each person and their position in the notes."
     ],
     faqs: [
       {
-        q: "Which regiment can I join?",
-        a: "Scouts are the classic pick, but Garrison and Military Police fans are welcome — just say the word in your order notes and we'll draw the matching crest and colours.",
+        "q": "Can I include a cloak and equipment?",
+        "a": "Yes. Specify the cloak, insignia and equipment you would like. For an action pose, include a reference and tell us whether the face or the full scene should be the main focus."
       },
       {
-        q: "Can you draw an action pose with ODM gear?",
-        a: "Yes, aerial action shots are some of our favourite AOT commissions. Describe or reference the pose you want and our artists will handle the dynamic angles and cable work.",
-      },
+        "q": "What should I check in my Attack on Titan portrait preview?",
+        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+      }
     ],
     accent: "#84cc16",
     priceFrom: 39.99,
@@ -251,30 +251,30 @@ export const animeStyles: PortraitStyle[] = [
     productName: "Custom Ghibli-Style Portrait",
     category: "anime",
     tagline: "Soft, painterly, storybook magic",
-    metaTitle: "Custom Ghibli Style Portrait From Your Photo",
+    metaTitle: "Custom Ghibli-Style Portrait From Your Photo",
     metaDescription:
-      "Get painted in the soft, hand-drawn Ghibli-inspired style. Warm watercolour backgrounds and storybook charm, from your photo. A magical personalised gift.",
+      "Order a Ghibli Style-inspired portrait with soft colours, cosy scenes and family or pet portraits. Preview in 72 hours; unlimited revisions.",
     keywords: [
       "ghibli style portrait",
       "custom ghibli portrait from photo",
       "studio ghibli style drawing of me",
       "ghibli style couple portrait",
-      "ghibli inspired personalised gift",
+      "ghibli inspired personalised gift"
     ],
-    heroHeading: "Step Into a Storybook World",
+    heroHeading: "Custom Ghibli-Style Portrait From Your Photo",
     description: [
-      "There's a softness to Ghibli-inspired art that no other style matches — gentle faces, wind-swept grass, painterly clouds that look like they go on forever. Our artists paint you into that world: warm watercolour palettes, cosy details and a touch of quiet magic. It's less 'action shot' and more 'a moment you'd want to live in'.",
-      "This style is our most-requested for couples, families and pet portraits. Picture your family on a hillside picnic under drifting clouds, or you and your cat in a sun-drenched kitchen. Send your photos, describe the moment, and we'll paint the scene with all the warmth it deserves.",
+      "Create a Ghibli-inspired portrait with soft colours, gentle expressions and a storybook setting. Our artists turn your photo into a scene built around a person, couple, family or pet.",
+      "Describe a moment rather than just a backdrop: a garden picnic, a quiet train journey or a walk beneath trees. Mention the season, time of day and any meaningful details, such as a favourite coat or a pet at your side. Warm light and a simple pose keep the scene calm."
     ],
     faqs: [
       {
-        q: "What kind of photos work best for this style?",
-        a: "Clear, well-lit photos with visible faces work best. Separate reference photos are welcome for couples, families, and pets.",
+        "q": "Can the scene include our pet or a meaningful place?",
+        "a": "Yes. Upload a clear photo for every person and pet, and describe the place you have in mind. A reference photo of a garden, home or landscape can help explain the setting."
       },
       {
-        q: "Is this style good for pets?",
-        a: "It's the single best style for pets we offer. Soft fur rendering and warm lighting make animals look adorable. Pets count as characters when ordering.",
-      },
+        "q": "What should I check in my Ghibli Style portrait preview?",
+        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+      }
     ],
     badge: "popular",
     accent: "#5eead4",
@@ -286,30 +286,30 @@ export const animeStyles: PortraitStyle[] = [
     productName: "Custom Pokemon Portrait",
     category: "anime",
     tagline: "Become the trainer you always were",
-    metaTitle: "Custom Pokemon Trainer Portrait From Your Photo",
+    metaTitle: "Custom Pokemon Portrait From Your Photo",
     metaDescription:
-      "Become a Pokemon trainer. Hand-drawn portraits of you with your chosen Pokemon team, in authentic anime style from your photo. Great gift for fans.",
+      "Order a Pokemon-inspired portrait with trainer outfits, companions and colourful adventure scenes. Preview in 72 hours; unlimited revisions.",
     keywords: [
       "custom pokemon portrait",
       "pokemon trainer portrait from photo",
       "draw me as a pokemon trainer",
       "personalised pokemon gift",
-      "pokemon portrait with my pet",
+      "pokemon portrait with my pet"
     ],
-    heroHeading: "Assemble Your Dream Team",
+    heroHeading: "Custom Pokemon Portrait From Your Photo",
     description: [
-      "You've picked your starter a hundred times in the games — now make it official. Our artists draw you as a Pokemon trainer in the classic anime style, complete with your chosen team by your side. Six-badge veteran or casual Snorlax enjoyer, we'll match your energy.",
-      "Tell us up to three Pokemon you want in the portrait and describe your trainer look, or let us style you from your photo. A hugely popular option: we draw your real-life pet as the Pokemon companion they clearly already are. Kids' portraits in this style are also a birthday favourite.",
+      "Become the trainer in your own Pokemon-inspired portrait. Bright colours, a character outfit and a companion-focused composition make this a playful choice for an individual, couple or pet owner.",
+      "Tell our artists about your trainer clothes, preferred companions and the setting. You can feature your actual pet alongside you; include a clear pet photo and any markings to preserve. Keep the main character count clear in your notes so the composition matches your order."
     ],
     faqs: [
       {
-        q: "How many Pokemon can appear in my portrait?",
-        a: "Up to three Pokemon are included free with any portrait. Want a full team of six? Add a note at checkout and we'll quote a small extra for the additional detail work.",
+        "q": "Can my own pet be part of the trainer portrait?",
+        "a": "Yes. A pet counts as a character, just like a person. Upload its photo and describe its markings and role in the scene. Include the number of people and pets when choosing your order options."
       },
       {
-        q: "Can you draw my dog as a Pokemon?",
-        a: "We love these commissions. We can draw your pet in Pokemon-companion style standing beside you, or reimagine them as the Pokemon they most resemble. Upload a clear photo of your pet with your order.",
-      },
+        "q": "What should I check in my Pokemon portrait preview?",
+        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+      }
     ],
     accent: "#facc15",
     priceFrom: 39.99,
@@ -322,28 +322,28 @@ export const animeStyles: PortraitStyle[] = [
     tagline: "Design your Quirk, earn your licence",
     metaTitle: "Custom My Hero Academia Portrait From Your Photo",
     metaDescription:
-      "Get drawn as a U.A. hero. Custom My Hero Academia style portraits with your own Quirk, hero costume and hero name, hand-drawn from your photo.",
+      "Order a My Hero Academia-inspired portrait with hero costumes, power effects and team portraits. Preview in 72 hours; unlimited revisions.",
     keywords: [
       "custom my hero academia portrait",
       "mha style portrait from photo",
       "draw me as an mha character",
       "custom hero costume portrait",
-      "my hero academia fan gift",
+      "my hero academia fan gift"
     ],
-    heroHeading: "Go Beyond. Plus Ultra!",
+    heroHeading: "Custom My Hero Academia Portrait From Your Photo",
     description: [
-      "My Hero Academia is built on one question: what would your Quirk be? Answer it. Our artists design you a full hero identity — costume, Quirk effects, hero name on a title card — drawn in the bold, energetic MHA style with speed lines and impact frames included at no extra charge.",
-      "We start from your photo and build the hero around you: your hair becomes your silhouette, your personality shapes the costume. U.A. uniforms are available for the more academically inclined. Squad portraits with your friend group as a hero agency are a regular bestseller.",
+      "Design your own My Hero Academia-inspired hero portrait, with expressive features, bold outlines and a costume built around your idea. Our artists start from your photo so the hero still looks like you.",
+      "Add a hero name, costume colours and a short description of your power to the notes. Explain how the power should look in the picture: a glow around the hands, motion trails or an effect in the background. A duo can share a team palette while keeping individual outfits."
     ],
     faqs: [
       {
-        q: "Will you design a hero costume for me?",
-        a: "Yes — that's the best part. Describe your Quirk and any costume ideas in the notes, and our artists will design a full hero outfit around them. Or request the classic U.A. school uniform.",
+        "q": "Can I invent my own hero costume and power?",
+        "a": "Yes. Describe the costume, colours and visible effect you want. If you would like a hero name in the artwork, supply the exact spelling and check it in your preview."
       },
       {
-        q: "Can my hero name appear on the portrait?",
-        a: "Absolutely. We can add your hero name in the anime's signature title-card lettering. Include it in the order notes.",
-      },
+        "q": "What should I check in my My Hero Academia portrait preview?",
+        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+      }
     ],
     accent: "#4ade80",
     priceFrom: 39.99,
@@ -356,28 +356,28 @@ export const animeStyles: PortraitStyle[] = [
     tagline: "Release your zanpakuto",
     metaTitle: "Custom Bleach Portrait From Your Photo",
     metaDescription:
-      "Become a Soul Reaper. Hand-drawn Bleach style portraits with your own zanpakuto, shihakusho and spiritual pressure effects, created from your photo.",
+      "Order a Bleach-inspired portrait with robes, sword designs and spiritual-energy colours. Preview in 72 hours; unlimited revisions.",
     keywords: [
       "custom bleach portrait",
       "bleach anime style portrait",
       "draw me as a soul reaper",
       "bleach zanpakuto custom portrait",
-      "bleach anime fan gift",
+      "bleach anime fan gift"
     ],
-    heroHeading: "Answer the Soul Society's Call",
+    heroHeading: "Custom Bleach Portrait From Your Photo",
     description: [
-      "Bleach style is all edge — stark blacks, dramatic composition and that iconic shihakusho silhouette. Our artists draw you as a Soul Reaper with your own zanpakuto (you design the blade and its released form), spiritual pressure crackling around you, and a composition that belongs on a Thousand-Year Blood War poster.",
-      "From your photo we keep your likeness sharp and unmistakable, then hand you a sword and a division. Captain's haori available on request — we don't check credentials. A perfect gift for the fan who came back for TYBW and never emotionally left.",
+      "Create a Bleach-inspired portrait with clean contours, a strong silhouette and a dramatic spiritual-energy mood. Your face, hairstyle and expression provide the reference for the character.",
+      "Choose robes or another outfit, a sword design and an energy colour. A restrained background keeps the focus on the face and blade; a wider composition can show a stance or a second character. Tell our artists which accessories and features must stay recognisable."
     ],
     faqs: [
       {
-        q: "Can I design my own zanpakuto?",
-        a: "Yes — describe your blade, its name and its released form in the order notes. Our artists will design the weapon and any energy effects to match.",
+        "q": "Can I choose a sword and energy colour?",
+        "a": "Yes. Describe the blade shape, outfit and energy colour in the notes. Include a reference for a detailed weapon and explain whether the portrait should emphasise your face or the pose."
       },
       {
-        q: "Can I be drawn as a captain?",
-        a: "Of course. Tell us your division number and we'll add the captain's haori with the matching insignia.",
-      },
+        "q": "What should I check in my Bleach portrait preview?",
+        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+      }
     ],
     accent: "#f87171",
     priceFrom: 39.99,
@@ -388,30 +388,30 @@ export const animeStyles: PortraitStyle[] = [
     productName: "Custom Death Note Portrait",
     category: "anime",
     tagline: "Moody, cinematic, morally ambiguous",
-    metaTitle: "Custom Death Note Style Portrait From Your Photo",
+    metaTitle: "Custom Death Note Portrait From Your Photo",
     metaDescription:
-      "Get drawn in the dark, cinematic Death Note style. Moody lighting, sharp linework and noir atmosphere, hand-drawn from your photo. Striking wall art.",
+      "Order a Death Note-inspired portrait with noir lighting, desk scenes and personalised props. Preview in 72 hours; unlimited revisions.",
     keywords: [
       "custom death note portrait",
       "death note style portrait",
       "draw me in death note style",
       "dark anime style portrait",
-      "death note fan gift",
+      "death note fan gift"
     ],
-    heroHeading: "Take a Potato Chip... and Eat It",
+    heroHeading: "Custom Death Note Portrait From Your Photo",
     description: [
-      "Death Note's style is unlike anything else in anime — gothic linework, chiaroscuro lighting, and compositions that feel like a psychological thriller's key art. We draw you into that world: dramatic shadows across your face, a notebook that's probably just a journal, and an apple-red accent if you know, you know.",
-      "This is the portrait for fans who want something moodier than the usual bright shonen style. It photographs beautifully in a frame and works especially well as a striking solo portrait or a two-person 'detective and suspect' composition. L-sitting posture optional, encouraged.",
+      "Turn your photo into a Death Note-inspired portrait with a restrained palette, sharp features and a quiet, suspenseful atmosphere. It suits a character-focused composition with strong light and shadow.",
+      "Choose a desk scene, a city at night or a simple dark background. Mention any notebook, clothing or small prop you would like included. If there is text on a prop, provide the exact wording; if likeness is your priority, keep the face well lit and the props secondary."
     ],
     faqs: [
       {
-        q: "Is this style suitable for a couples portrait?",
-        a: "Very — the cat-and-mouse dynamic makes for brilliant two-person compositions. Chess pieces, opposing lighting, one shared apple. Tell us your dynamic in the notes.",
+        "q": "Can I choose a desk scene or a notebook prop?",
+        "a": "Yes. Describe the setting and prop in the notes. Supply any wording exactly as you want it to appear and check it alongside the expression in your preview."
       },
       {
-        q: "Can you include a shinigami in the background?",
-        a: "We can add a looming original shinigami silhouette behind you for maximum atmosphere. Just request it in the order notes.",
-      },
+        "q": "What should I check in my Death Note portrait preview?",
+        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+      }
     ],
     accent: "#a3a3ad",
     priceFrom: 39.99,
@@ -424,28 +424,28 @@ export const animeStyles: PortraitStyle[] = [
     tagline: "Pass the exam, awaken your Nen",
     metaTitle: "Custom Hunter x Hunter Portrait From Your Photo",
     metaDescription:
-      "Become a licensed Hunter. Custom Hunter x Hunter style portraits with your own Nen ability and aura effects, hand-drawn from your photo.",
+      "Order a Hunter x Hunter-inspired portrait with adventure outfits, aura effects and group scenes. Preview in 72 hours; unlimited revisions.",
     keywords: [
       "custom hunter x hunter portrait",
       "hxh style portrait",
       "draw me as a hunter x hunter character",
       "nen ability custom portrait",
-      "hunter x hunter gift",
+      "hunter x hunter gift"
     ],
-    heroHeading: "Earn Your Hunter Licence",
+    heroHeading: "Custom Hunter x Hunter Portrait From Your Photo",
     description: [
-      "Hunter x Hunter fans are built different, and they know exactly what they'd put on the line for a Hunter licence. We draw you in the vibrant Madhouse-era style — clean shapes, saturated colour, and your personal Nen aura rendered around you. Enhancer? Conjurer? Specialist? Your call.",
-      "Send a photo and tell us your Nen type and ability; we'll design the aura effects and pose to match. Duo portraits in the Gon-and-Killua spirit are the most popular order in this style — best friends, siblings and couples all claim it works perfectly for them. They're all correct.",
+      "Create a Hunter x Hunter-inspired portrait with clear character shapes, expressive features and an adventure setting. Our artists use your photo to keep your hairstyle, face and expression recognisable.",
+      "Choose travel clothes, a hunter-inspired accessory and an aura effect. A forest or open landscape works for a relaxed adventure scene, while a simple background can make an active pose easier to read. For friends, describe each character and their place in the group."
     ],
     faqs: [
       {
-        q: "Can you design my Nen ability?",
-        a: "Yes. Tell us your Nen category and what your ability does, and our artists will design its visual form — chains, electricity, conjured weapons, anything.",
+        "q": "Can I request a personal aura or adventure outfit?",
+        "a": "Yes. Tell us the aura colour, clothing and mood you want. Add references for distinctive accessories and describe any details of your own appearance that should stay unchanged."
       },
       {
-        q: "Can we get a best-friends duo portrait?",
-        a: "It's the signature order for this style. Select 2 characters, upload both photos, and mention any pose ideas — back-to-back with contrasting auras never misses.",
-      },
+        "q": "What should I check in my Hunter x Hunter portrait preview?",
+        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+      }
     ],
     accent: "#4ade80",
     priceFrom: 39.99,
@@ -458,28 +458,28 @@ export const animeStyles: PortraitStyle[] = [
     tagline: "The classiest family portrait in anime",
     metaTitle: "Custom Spy x Family Portrait From Your Photo",
     metaDescription:
-      "Turn your family into the Forgers. Elegant Spy x Family style portraits, hand-drawn from your photos. The perfect stylish anime family gift.",
+      "Order a Spy x Family-inspired portrait with coordinated outfits, family scenes and secret-agent poses. Preview in 72 hours; unlimited revisions.",
     keywords: [
       "custom spy x family portrait",
       "spy x family style portrait",
       "anime family portrait custom",
       "draw my family in anime style",
-      "spy x family gift",
+      "spy x family gift"
     ],
-    heroHeading: "For the Mission. For the Family.",
+    heroHeading: "Custom Spy x Family Portrait From Your Photo",
     description: [
-      "No anime does 'stylish family portrait' like Spy x Family — 1960s tailoring, soft colour palettes and warm domestic chaos. We draw your family in that exact aesthetic: elegant outfits, a cosy living-room or city-park backdrop, and everyone looking like they have at least one delightful secret.",
-      "Each family member is drawn from their own photo, and yes, the dog is essential — every Forger family needs a Bond. This is our most-ordered anime style for family gifts, anniversaries and new-baby announcements with a twist. Elegance guaranteed; espionage optional.",
+      "Create a Spy x Family-inspired portrait with clean lines, a refined colour palette and room for a little family humour. The style works for an individual, couple or household scene.",
+      "Choose coordinated formal outfits, a living-room scene or a playful secret-agent pose. List everyone in the picture and include a photo of each person or pet. Small details such as a favourite tie, hairstyle or pet expression help the portrait feel like your family."
     ],
     faqs: [
       {
-        q: "Is this the best style for a family portrait?",
-        a: "It's designed for exactly that. The style flatters all ages — kids come out especially adorable — and family compositions of 3 to 6 people (plus pets) look wonderful in it.",
+        "q": "Can you combine separate family photos?",
+        "a": "Yes. Upload a clear photo of each person and pet. Tell our artists who stands or sits where, which outfits to use and whether you want a formal or playful mood."
       },
       {
-        q: "Can you match the show's vintage outfits?",
-        a: "Yes, the 1960s wardrobe is half the charm. We can dress your family in show-accurate elegant attire or keep your real outfits — your choice, noted at checkout.",
-      },
+        "q": "What should I check in my Spy x Family portrait preview?",
+        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+      }
     ],
     accent: "#f0abfc",
     priceFrom: 39.99,
@@ -490,30 +490,30 @@ export const animeStyles: PortraitStyle[] = [
     productName: "Custom Sailor Moon Portrait",
     category: "anime",
     tagline: "Magical girl transformation, unlocked",
-    metaTitle: "Custom Sailor Moon Style Portrait From Your Photo",
+    metaTitle: "Custom Sailor Moon Portrait From Your Photo",
     metaDescription:
-      "Get drawn as a magical girl in the classic Sailor Moon 90s anime style. Custom sailor outfits, sparkles and pastel moonlight, from your photo.",
+      "Order a Sailor Moon-inspired portrait with guardian colours, celestial backgrounds and accessories. Preview in 72 hours; unlimited revisions.",
     keywords: [
       "custom sailor moon portrait",
       "sailor moon style portrait from photo",
       "draw me as a magical girl",
       "90s anime style custom portrait",
-      "sailor moon gift for her",
+      "sailor moon gift for her"
     ],
-    heroHeading: "In the Name of the Moon",
+    heroHeading: "Custom Sailor Moon Portrait From Your Photo",
     description: [
-      "The 90s shoujo aesthetic never went out of style: huge sparkling eyes, flowing hair, pastel moonlight and enough sparkle to be visible from space. Our artists draw you as a guardian in the classic Sailor Moon look, with a custom sailor uniform in your chosen colours and your own celestial symbol.",
-      "From your photo we design your magical girl (or magical anyone — Tuxedo Mask energy is fully supported) with era-accurate linework and dreamy backgrounds. A beloved birthday and best-friend gift, and the number one choice for matching portraits among groups of friends who each claim a different planet.",
+      "Create a Sailor Moon-inspired portrait with luminous colours, expressive eyes and a celestial setting. Your photo becomes the reference for a personalised magical-guardian character.",
+      "Choose your outfit colours, a moon or star motif and any accessories. Mention the hairstyle details you want to retain and whether the mood should be dreamy or action-focused. For a pair, coordinated accents can connect the characters without making their costumes identical."
     ],
     faqs: [
       {
-        q: "Can I pick my sailor colours and symbol?",
-        a: "Yes — choose your uniform colours and a celestial symbol (moon, star, planet, or something personal) and we'll design your guardian identity around them.",
+        "q": "Can I choose my own guardian colours and accessories?",
+        "a": "Yes. Include your colour palette, jewellery and moon or star details in the notes. Add a reference if an accessory is especially important to the design."
       },
       {
-        q: "Can a group of friends be drawn as a sailor team?",
-        a: "The full sailor-team group portrait is iconic and we love making them. Each friend picks their colours; we handle the coordinated pose and sparkle budget.",
-      },
+        "q": "What should I check in my Sailor Moon portrait preview?",
+        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+      }
     ],
     accent: "#f0abfc",
     priceFrom: 39.99,
@@ -526,28 +526,28 @@ export const animeStyles: PortraitStyle[] = [
     tagline: "Hero for fun (and for the portrait)",
     metaTitle: "Custom One Punch Man Portrait From Your Photo",
     metaDescription:
-      "Join the Hero Association. Custom One Punch Man style portraits with your own hero rank and costume, hand-drawn from your photo.",
+      "Order a One Punch Man-inspired portrait with hero costumes, city scenes and personalised hero names. Preview in 72 hours; unlimited revisions.",
     keywords: [
       "custom one punch man portrait",
       "one punch man style portrait",
       "draw me as a one punch man hero",
       "hero association custom portrait",
-      "one punch man gift",
+      "one punch man gift"
     ],
-    heroHeading: "Register With the Hero Association",
+    heroHeading: "Custom One Punch Man Portrait From Your Photo",
     description: [
-      "One Punch Man swings between gorgeous ultra-detailed action art and perfect deadpan comedy — and your portrait can live anywhere on that spectrum. Get drawn as a Class-S powerhouse mid-battle with Murata-level intensity, or as a delightfully unbothered hero doing grocery shopping. Both are correct.",
-      "Tell us your hero name, rank and costume ideas, and we'll build your Hero Association profile from your photo. Gym-goers love the serious version; everyone else loves putting their most relaxed friend in the Saitama role. Cape optional, but capes are cool.",
+      "Create a One Punch Man-inspired portrait as your own hero. A bold silhouette, clear costume shapes and a city setting can make the character feel heroic, deadpan or deliberately funny.",
+      "Choose a hero name, costume and pose. A close portrait suits a calm expression; a wider scene leaves space for a cape or an action effect. If you want lettering such as a rank or hero name, include the exact wording and placement in your notes."
     ],
     faqs: [
       {
-        q: "Can I choose my hero rank?",
-        a: "Yes, and we don't verify applications — go straight to Class-S if you like. Your rank and hero name can appear on the portrait in the show's registry style.",
+        "q": "Can my hero portrait have a funny name or costume?",
+        "a": "Yes. Describe the costume, expression and joke you have in mind. Supply the exact spelling for any hero name or rank you want included in the artwork."
       },
       {
-        q: "Serious art style or comedy style?",
-        a: "Your pick. We do the detailed 'boss fight' style, the simple gag style, or the classic combo — everyone drawn seriously except one person. Specify in the notes.",
-      },
+        "q": "What should I check in my One Punch Man portrait preview?",
+        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+      }
     ],
     accent: "#facc15",
     priceFrom: 39.99,
@@ -560,28 +560,28 @@ export const animeStyles: PortraitStyle[] = [
     tagline: "Arise. Your portrait awaits.",
     metaTitle: "Custom Solo Leveling Portrait From Your Photo",
     metaDescription:
-      "Become an S-Rank hunter. Custom Solo Leveling style portraits with glowing eyes, shadow soldiers and system windows, hand-drawn from your photo.",
+      "Order a Solo Leveling-inspired portrait with hunter outfits, shadow effects and blue or violet accents. Preview in 72 hours; unlimited revisions.",
     keywords: [
       "custom solo leveling portrait",
       "solo leveling style portrait",
       "draw me as an s-rank hunter",
       "solo leveling fan art commission",
-      "solo leveling gift",
+      "solo leveling gift"
     ],
-    heroHeading: "Level Up in Style",
+    heroHeading: "Custom Solo Leveling Portrait From Your Photo",
     description: [
-      "Solo Leveling's aesthetic is pure power fantasy — glowing purple eyes, armies of shadows, and floating system windows announcing that you have, in fact, levelled up. Our artists draw you as a hunter in that style, from E-Rank underdog energy to full Shadow Monarch drip. We recommend the drip.",
-      "We work from your photo and layer in the effects you choose: shadow soldiers at your back, a custom weapon, and a system window with your own stats (strength: yes, agility: also yes). The most-requested new style in our catalogue and an instant hit with manhwa readers.",
+      "Create a Solo Leveling-inspired portrait with deep shadows, blue or violet highlights and a cinematic hunter atmosphere. Our artists use your photo as the reference for your face, hair and expression.",
+      "Choose an outfit, glow colour and pose, then describe a shadow effect or a subtle rank-style detail. A close crop gives the face more emphasis; a wider composition leaves room for a weapon or a duo. Tell us whether you prefer a serious forward gaze or the expression in your photo."
     ],
     faqs: [
       {
-        q: "Can you add a system window with my stats?",
-        a: "Yes — we'll design the iconic floating UI panel with your name, title, level and any stats you write in the order notes.",
+        "q": "Can I choose the glow colour and hunter details?",
+        "a": "Yes. Add your preferred blue, violet or other accent colour, outfit and shadow effect to the notes. If you want a caption or rank-style panel, provide its exact text for the preview."
       },
       {
-        q: "Can I have shadow soldiers in my portrait?",
-        a: "Absolutely. Tell us how many and what kind — knight, beast, or silhouettes of your actual friends (with their photos) is a popular twist.",
-      },
+        "q": "What should I check in my Solo Leveling portrait preview?",
+        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+      }
     ],
     badge: "new",
     accent: "#7c6cff",

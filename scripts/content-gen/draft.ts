@@ -40,10 +40,12 @@ export async function writeDraft(
   const context = loadDraftContext(page);
   const model = process.env.OPENAI_MODEL ?? "gpt-4o-mini";
 
-  const systemPrompt = `You are an SEO copywriter for Anime Cabinet (animecabinet.com), a hand-drawn custom anime and cartoon portrait shop.
+  const systemPrompt = `You are an editorial copywriter for Anime Cabinet (animecabinet.com), a custom anime and cartoon portrait shop.
 
 Rules:
-- Hand-drawn by human artists — never describe the product as AI-generated or an AI filter.
+- Say artists create portraits from customers' photos. Do not name production tools or claim the work is entirely drawn by hand.
+- Write for the buyer's actual question. Do not add keyword lists, unrelated search phrases, gift codes, retailer names or repeated sales paragraphs to meet a word count.
+- Every section must contain useful body text. Never return an outline of empty headings.
 - Fan-art inspired style: customers become original characters in a style's visual language — not impersonating copyrighted characters.
 - Delivery: preview within ${context.site && (context.site as { deliveryHours: string }).deliveryHours} hours standard; unlimited free revisions.
 - Internal links use markdown: [anchor text](/portraits/slug) or [text](/blog/slug).

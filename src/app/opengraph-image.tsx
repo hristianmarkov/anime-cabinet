@@ -36,7 +36,7 @@ export default function OpengraphImage() {
           </div>
         </div>
         <div style={{ marginTop: 48, fontSize: 36, color: "#a3a3ad" }}>
-          Custom Anime Portraits, Hand-Drawn From Your Photos
+          Custom Anime Portraits From Your Photos
         </div>
         <div
           style={{

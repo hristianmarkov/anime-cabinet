@@ -38,7 +38,7 @@ function buildGiftGuide(c: GiftGuideConfig): BlogPost {
     readingMinutes: 4,
     keywords: c.keywords,
     category: "gift",
-    intro: `${c.intro} This guide ranks our favourite ${c.fanLabel} gift ideas for 2026 — starting with a hand-drawn ${c.productName.toLowerCase()} they literally cannot buy anywhere else, then layering in figures, manga, and merch that complement the portrait instead of competing with it.`,
+    intro: `${c.intro} This guide ranks our favourite ${c.fanLabel} gift ideas for 2026 — starting with a custom ${c.productName.toLowerCase()} they literally cannot buy anywhere else, then layering in figures, manga, and merch that complement the portrait instead of competing with it.`,
     sections: [
       {
         heading: "Why a custom portrait beats more merch",
@@ -46,12 +46,12 @@ function buildGiftGuide(c: GiftGuideConfig): BlogPost {
         blocks: [
           {
             type: "paragraph",
-            text: `${c.fanLabel} fans can spot mass-produced gifts from across the room. They own the figure. They pre-ordered the box set. Their wishlist is a graveyard of things they already bought themselves. A ${portraitLink} solves the uniqueness problem completely — it is hand-drawn from their photo, revised until it is right, and exists for exactly one person on earth.`,
+            text: `${c.fanLabel} fans can spot mass-produced gifts from across the room. They own the figure. They pre-ordered the box set. Their wishlist is a graveyard of things they already bought themselves. A ${portraitLink} solves the uniqueness problem completely — it is custom from their photo, revised until it is right, and exists for exactly one person on earth.`,
           },
           productShowcase(c.styleSlug, c.portraitPitch),
           {
             type: "paragraph",
-            text: `That is the difference between another item on a shelf and something they hang, frame, and show every visitor. Our artists work across all twenty-four styles with unlimited revisions. The portrait is not a filter or an AI avatar — it is wall art starring them inside the ${c.fanLabel} visual world they already live in.`,
+            text: `That is the difference between another item on a shelf and something they hang, frame, and show every visitor. Our artists work across all twenty-four styles with unlimited revisions. The portrait is wall art starring them inside the ${c.fanLabel} visual world they already live in.`,
           },
         ],
       },
