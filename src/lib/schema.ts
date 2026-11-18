@@ -36,6 +36,7 @@ export interface ShippingAddress {
   addressLine1: string;
   city: string;
   postCode: string;
+  state?: string;
   country: string;
 }
 

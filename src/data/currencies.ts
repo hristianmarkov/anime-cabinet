@@ -19,6 +19,10 @@ export const CURRENCIES: CurrencyConfig[] = [
 
 export const DEFAULT_CURRENCY: CurrencyCode = "USD";
 
+export function isCurrencyCode(code: unknown): code is CurrencyCode {
+  return CURRENCIES.some((currency) => currency.code === code);
+}
+
 export function getCurrency(code: CurrencyCode): CurrencyConfig {
   return CURRENCIES.find((c) => c.code === code) ?? CURRENCIES[0];
 }
@@ -40,10 +44,20 @@ export function convertFromUsd(usd: number, code: CurrencyCode): number {
 }
 
 export function formatMoney(amountUsd: number, code: CurrencyCode = "USD"): string {
+  return formatCurrencyAmount(convertFromUsd(amountUsd, code), code);
+}
+
+export function formatCurrencyAmount(amount: number, code: CurrencyCode): string {
   const cfg = getCurrency(code);
-  const converted = convertFromUsd(amountUsd, code);
   return new Intl.NumberFormat(cfg.locale, {
     style: "currency",
     currency: cfg.code,
-  }).format(converted);
+  }).format(amount);
+}
+
+export function formatOrderAmount(cents: number, currency: string): string {
+  const code = currency.toUpperCase();
+  return isCurrencyCode(code)
+    ? formatCurrencyAmount(cents / 100, code)
+    : `${(cents / 100).toFixed(2)} ${code}`;
 }

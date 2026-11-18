@@ -1,17 +1,20 @@
 import { NextResponse } from "next/server";
 import { eq } from "drizzle-orm";
-import { convertFromUsd } from "@/data/currencies";
-import type { CurrencyCode } from "@/data/currencies";
+import { isCurrencyCode, type CurrencyCode } from "@/data/currencies";
 import {
   MAX_CHARACTERS,
   PRINT_FORMATS,
-  calcTotal,
+  orderTotalCents,
+  getOrderFormatLabel,
+  type PrintQuote,
+  type ShippingOption,
   isPrintFormat,
 } from "@/data/pricing";
+import { isCompleteShippingAddress } from "@/data/shipping";
 import { getStyleBySlug } from "@/data/styles";
 import { site } from "@/data/site";
 import { getDb } from "@/lib/db";
-import { getPrintAddOnForFormat } from "@/lib/gelato-pricing";
+import { getPrintQuote } from "@/lib/gelato-pricing";
 import { orders, type ShippingAddress } from "@/lib/schema";
 import { getStripe } from "@/lib/stripe";
 import { addOrderTimelineEvent } from "@/lib/orderTimeline";
@@ -27,9 +30,8 @@ interface CheckoutPayload {
   currency?: CurrencyCode;
   shippingAddress?: ShippingAddress | null;
   shippingMethodUid?: string;
-  shippingMethodName?: string;
-  shippingAmountUsd?: number;
-  gelatoQuoteId?: string;
+  shippingCents?: number;
+  printPriceCents?: number;
 }
 
 function baseUrl(request: Request): string {
@@ -39,21 +41,25 @@ function baseUrl(request: Request): string {
 }
 
 export async function POST(request: Request) {
-  let payload: CheckoutPayload;
+  let payload: CheckoutPayload | null;
   try {
     payload = await request.json();
   } catch {
     return NextResponse.json({ error: "Invalid request" }, { status: 400 });
   }
 
+  if (!payload) {
+    return NextResponse.json({ error: "Invalid request" }, { status: 400 });
+  }
+
   const style = getStyleBySlug(payload.styleSlug);
   const format = PRINT_FORMATS.find((f) => f.id === payload.formatId);
   const characters = Number(payload.characters);
-  const currencyCode = (payload.currency ?? "USD").toLowerCase();
+  const currency = payload.currency ?? "USD";
   const expedited = Boolean(payload.expedited);
-  const shippingUsd = payload.shippingAmountUsd ?? 0;
 
   if (
+    !isCurrencyCode(currency) ||
     !style ||
     !format ||
     !Number.isInteger(characters) ||
@@ -66,40 +72,50 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid order details" }, { status: 400 });
   }
 
-  let printAddOnUsd = 0;
+  let quote: PrintQuote | undefined;
+  let shippingMethod: ShippingOption | undefined;
   if (isPrintFormat(format.id)) {
-    if (!payload.shippingAddress || !payload.shippingMethodUid || shippingUsd <= 0) {
+    if (!isCompleteShippingAddress(payload.shippingAddress) || !payload.shippingMethodUid) {
       return NextResponse.json(
         { error: "Shipping address and method required for print orders." },
         { status: 400 }
       );
     }
-    printAddOnUsd = await getPrintAddOnForFormat(
-      format.id,
-      payload.shippingAddress.country,
-      payload.currency ?? "USD"
-    );
+
+    try {
+      quote = await getPrintQuote(format.id, payload.shippingAddress, currency);
+      shippingMethod = quote.methods.find((method) => method.uid === payload.shippingMethodUid);
+    } catch (error) {
+      console.error("Checkout Gelato quote error:", error);
+      return NextResponse.json({ error: "Could not confirm print and shipping prices. Please try again." }, { status: 502 });
+    }
+
+    if (!shippingMethod || shippingMethod.priceCents !== payload.shippingCents ||
+        quote.printPriceCents !== payload.printPriceCents) {
+      return NextResponse.json(
+        { error: "Print or shipping prices changed. Review the updated total before checking out." },
+        { status: 409 }
+      );
+    }
   }
 
-  const totalUsd = calcTotal({
+  const amountCents = orderTotalCents({
     basePrice: style.priceFrom,
     characters,
-    formatId: format.id,
+    currency,
     expedited,
-    shippingUsd,
-    printAddOnUsd,
+    printPriceCents: quote?.printPriceCents,
+    shippingCents: shippingMethod?.priceCents,
   });
-
-  const chargeAmount = convertFromUsd(totalUsd, payload.currency ?? "USD");
-  const amountCents = Math.round(chargeAmount * 100);
+  const currencyCode = currency.toLowerCase();
 
   const descParts = [
     `${characters} character${characters > 1 ? "s" : ""}`,
-    format.label,
+    getOrderFormatLabel(format.id, payload.shippingAddress?.country),
     expedited ? "24h priority" : `${site.deliveryHours}h delivery`,
   ];
-  if (shippingUsd > 0 && payload.shippingMethodName) {
-    descParts.push(`Shipping: ${payload.shippingMethodName}`);
+  if (shippingMethod) {
+    descParts.push(`Shipping: ${shippingMethod.name}`);
   }
 
   try {
@@ -118,11 +134,11 @@ export async function POST(request: Request) {
         email: payload.email.slice(0, 320),
         photoUrls: payload.photoUrls.slice(0, 10),
         expedited,
-        shippingAddress: payload.shippingAddress ?? null,
-        shippingMethodUid: payload.shippingMethodUid ?? null,
-        shippingMethodName: payload.shippingMethodName ?? null,
-        shippingAmount: Math.round(shippingUsd * 100),
-        gelatoQuoteId: payload.gelatoQuoteId ?? null,
+        shippingAddress: shippingMethod ? payload.shippingAddress : null,
+        shippingMethodUid: shippingMethod?.uid ?? null,
+        shippingMethodName: shippingMethod?.name ?? null,
+        shippingAmount: shippingMethod?.priceCents ?? 0,
+        gelatoQuoteId: quote?.quoteId ?? null,
         amountTotal: amountCents,
         currency: currencyCode,
       })

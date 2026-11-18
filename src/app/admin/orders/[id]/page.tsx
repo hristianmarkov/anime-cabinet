@@ -18,7 +18,8 @@ import {
   type OrderDelivery,
   type OrderTimelineEvent,
 } from "@/lib/schema";
-import { PRINT_FORMATS, formatUsd } from "@/data/pricing";
+import { getOrderFormatLabel } from "@/data/pricing";
+import { formatOrderAmount } from "@/data/currencies";
 import { StatusUpdateForm } from "./StatusUpdateForm";
 import { AdminShell } from "../../AdminShell";
 import { statusColors, statusLabels } from "../../order-ui";
@@ -129,7 +130,6 @@ export default async function AdminOrderPage({
     );
   }
 
-  const format = PRINT_FORMATS.find((f) => f.id === order.formatId);
   const shipping = order.shippingAddress;
   const digital = isDigitalOrder(order);
   const revisionHours = revisionWindowHours(order);
@@ -239,12 +239,12 @@ export default async function AdminOrderPage({
                 </div>
                 <div>
                   <dt className="text-xs text-faint">Format</dt>
-                  <dd className="text-cream">{format?.label ?? order.formatId}</dd>
+                  <dd className="text-cream">{getOrderFormatLabel(order.formatId)}</dd>
                 </div>
                 <div>
                   <dt className="text-xs text-faint">Total</dt>
                   <dd className="font-semibold text-cream">
-                    {formatUsd(order.amountTotal / 100)} {order.currency.toUpperCase()}
+                    {formatOrderAmount(order.amountTotal, order.currency)}
                   </dd>
                 </div>
               </dl>

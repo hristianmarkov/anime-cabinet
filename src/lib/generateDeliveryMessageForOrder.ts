@@ -1,5 +1,5 @@
 import { desc, eq } from "drizzle-orm";
-import { PRINT_FORMATS } from "@/data/pricing";
+import { getOrderFormatLabel } from "@/data/pricing";
 import { draftDeliveryMessageWithOpenAI } from "@/lib/deliveryMessageOpenAi";
 import { getDb } from "@/lib/db";
 import { isDigitalOrder } from "@/lib/orderDeliveryRules";
@@ -40,7 +40,7 @@ export async function generateDeliveryMessageForOrder(
 
   const deliveryVersion = (latestDelivery?.versionNumber ?? 0) + 1;
   const formatLabel =
-    PRINT_FORMATS.find((f) => f.id === order.formatId)?.label ?? order.formatId;
+    getOrderFormatLabel(order.formatId);
 
   try {
     const draft = await draftDeliveryMessageWithOpenAI({

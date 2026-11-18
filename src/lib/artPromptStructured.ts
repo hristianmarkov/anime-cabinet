@@ -1,4 +1,3 @@
-import { parseFormatId } from "@/data/pricing";
 
 /** Structured art direction from OpenAI; assembled into one generation prompt in code. */
 export interface StructuredArtDirection {
@@ -91,8 +90,8 @@ export function printCompositionHint(formatId: string, customerNotes: string): s
     return null;
   }
 
-  const { size } = parseFormatId(formatId);
-  const [shortSide, longSide] = size.split("x").map(Number);
+  const dimensions = formatId.match(/-(12x16|12x18|18x24)$/)?.[1];
+  const [shortSide, longSide] = (dimensions ?? "12x18").split("x").map(Number);
 
   if (landscape) {
     const ratio = `${longSide}:${shortSide}`;

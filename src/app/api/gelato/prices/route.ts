@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import { getAllPrintAddOns } from "@/lib/gelato-pricing";
+import { isCurrencyCode } from "@/data/currencies";
+import { getAllPrintPrices } from "@/lib/gelato-pricing";
 import { isGelatoConfigured } from "@/lib/gelato";
 
 export async function GET(request: Request) {
@@ -18,8 +19,12 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: "Invalid country code" }, { status: 400 });
   }
 
+  if (!isCurrencyCode(currency)) {
+    return NextResponse.json({ error: "Unsupported currency" }, { status: 400 });
+  }
+
   try {
-    const prices = await getAllPrintAddOns(country, currency);
+    const prices = await getAllPrintPrices(country, currency);
     return NextResponse.json({ country, currency, prices });
   } catch (err) {
     console.error("Gelato prices error:", err);

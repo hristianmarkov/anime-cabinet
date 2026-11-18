@@ -28,7 +28,6 @@ export interface GelatoShipmentMethod {
 export interface GelatoQuoteResult {
   quoteId: string;
   methods: GelatoShipmentMethod[];
-  products?: { itemReferenceId: string; productUid: string; quantity: number; price: number; currency: string }[];
 }
 
 export async function quoteGelatoOrder(params: {
@@ -49,6 +48,7 @@ export async function quoteGelatoOrder(params: {
       addressLine1: params.recipient.addressLine1,
       city: params.recipient.city,
       postCode: params.recipient.postCode,
+      state: params.recipient.state,
       country: params.recipient.country,
     },
     products: [
@@ -67,8 +67,7 @@ export async function quoteGelatoOrder(params: {
   });
 
   if (!res.ok) {
-    const err = await res.text();
-    throw new Error(`Gelato quote failed: ${err}`);
+    throw new Error(`Gelato quote failed (HTTP ${res.status})`);
   }
 
   const data = await res.json();
@@ -96,15 +95,6 @@ export async function quoteGelatoOrder(params: {
   return {
     quoteId: quote.id,
     methods,
-    products: (quote.products ?? []).map(
-      (p: { itemReferenceId: string; productUid: string; quantity: number; price: number; currency: string }) => ({
-        itemReferenceId: p.itemReferenceId,
-        productUid: p.productUid,
-        quantity: p.quantity,
-        price: p.price,
-        currency: p.currency,
-      })
-    ),
   };
 }
 
@@ -146,6 +136,7 @@ export async function createGelatoPrintOrder(order: Order, printFileUrl: string)
       addressLine1: shipping.addressLine1,
       city: shipping.city,
       postCode: shipping.postCode,
+      state: shipping.state,
       country: shipping.country,
       email: order.email,
     },

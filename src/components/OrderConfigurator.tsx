@@ -1,8 +1,10 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { upload } from "@vercel/blob/client";
 import type { PortraitStyle } from "@/data/types";
+import { formatCurrencyAmount } from "@/data/currencies";
+import { isCompleteShippingAddress, requiresShippingState } from "@/data/shipping";
 import { useCurrency } from "@/context/CurrencyContext";
 import {
   EXPEDITED_PRICE,
@@ -10,13 +12,14 @@ import {
   MAX_CHARACTERS,
   PRINT_CATEGORIES,
   PRINT_SIZES,
-  calcTotal,
+  formatDeliveryEstimate,
+  formatPrintSize,
+  orderTotalCents,
   formatIdFromCategory,
   isPrintFormat,
-  resolvePrintAddOn,
+  type PrintQuote,
   type PrintCategory,
   type PrintSize,
-  type ShippingOption,
 } from "@/data/pricing";
 import type { ShippingAddress } from "@/lib/schema";
 import { site } from "@/data/site";
@@ -47,7 +50,7 @@ export function OrderConfigurator({ style }: { style: PortraitStyle }) {
   const { currency, formatPrice } = useCurrency();
   const [characters, setCharacters] = useState(1);
   const [printCategory, setPrintCategory] = useState<PrintCategory>("digital");
-  const [printSize, setPrintSize] = useState<PrintSize>("12x18");
+  const [printSize, setPrintSize] = useState<PrintSize>("12x16");
   const formatId = formatIdFromCategory(printCategory, printSize);
   const [expedited, setExpedited] = useState(false);
   const [notes, setNotes] = useState("");
@@ -65,116 +68,108 @@ export function OrderConfigurator({ style }: { style: PortraitStyle }) {
   const [shipLine1, setShipLine1] = useState("");
   const [shipCity, setShipCity] = useState("");
   const [shipPost, setShipPost] = useState("");
-  const [shipCountry, setShipCountry] = useState("US");
-  const [shippingOptions, setShippingOptions] = useState<ShippingOption[]>([]);
-  const [selectedShipping, setSelectedShipping] = useState<ShippingOption | null>(null);
-  const [gelatoQuoteId, setGelatoQuoteId] = useState<string | null>(null);
-  const [shippingLoading, setShippingLoading] = useState(false);
-  const [printPrices, setPrintPrices] = useState<Record<string, number>>({});
-  const [printPricesLoading, setPrintPricesLoading] = useState(false);
+  const [shipCountry, setShipCountry] = useState("");
+  const [shipState, setShipState] = useState("");
+  const [locale, setLocale] = useState("en-US");
+  const [prices, setPrices] = useState<{
+    key: string;
+    values: Partial<Record<string, number>>;
+  } | null>(null);
+  const [quoteResult, setQuoteResult] = useState<{
+    key: string;
+    quote?: PrintQuote;
+    error?: string;
+  } | null>(null);
+  const [selectedShippingUid, setSelectedShippingUid] = useState<string | null>(null);
+  const [quoteRevision, setQuoteRevision] = useState(0);
 
   const needsShipping = isPrintFormat(formatId);
-  const shippingUsd = selectedShipping?.priceUsd ?? 0;
-  const printAddOnUsd = resolvePrintAddOn(formatId, printPrices);
+  const stateRequired = requiresShippingState(shipCountry);
+  const recipient = useMemo<ShippingAddress>(() => ({
+    firstName: shipFirst.trim(),
+    lastName: shipLast.trim(),
+    addressLine1: shipLine1.trim(),
+    city: shipCity.trim(),
+    postCode: shipPost.trim(),
+    country: shipCountry,
+    state: stateRequired ? shipState.trim() : undefined,
+  }), [shipFirst, shipLast, shipLine1, shipCity, shipPost, shipCountry, shipState, stateRequired]);
+  const canQuote = needsShipping && isCompleteShippingAddress(recipient);
+  const priceKey = `${shipCountry}:${currency}`;
+  const currentPrices = prices?.key === priceKey ? prices.values : undefined;
+  const quoteKey = JSON.stringify([formatId, currency, recipient, quoteRevision]);
+  const currentResult = canQuote && quoteResult?.key === quoteKey ? quoteResult : null;
+  const quote = currentResult?.quote;
+  const shippingOptions = quote?.methods ?? [];
+  const selectedShipping =
+    shippingOptions.find((option) => option.uid === selectedShippingUid) ?? shippingOptions[0];
+  const printPriceCents = quote?.printPriceCents ?? currentPrices?.[formatId];
+  const totalCents = orderTotalCents({
+    basePrice: style.priceFrom,
+    characters,
+    currency,
+    expedited,
+    printPriceCents,
+    shippingCents: selectedShipping?.priceCents,
+  });
+  const total = totalCents / 100;
+  const sizeCountry = shipCountry || new Intl.Locale(locale).maximize().region || "US";
 
-  const total = useMemo(
-    () =>
-      calcTotal({
-        basePrice: style.priceFrom,
-        characters,
-        formatId,
-        expedited,
-        shippingUsd,
-        printAddOnUsd,
-      }),
-    [style.priceFrom, characters, formatId, expedited, shippingUsd, printAddOnUsd]
-  );
-
-  const fetchPrintPrices = useCallback(async (country: string) => {
-    setPrintPricesLoading(true);
-    try {
-      const res = await fetch(`/api/gelato/prices?country=${encodeURIComponent(country)}`);
-      if (!res.ok) return;
-      const data = await res.json();
-      if (data.prices) setPrintPrices(data.prices);
-    } catch {
-      /* keep static fallback prices */
-    } finally {
-      setPrintPricesLoading(false);
-    }
+  useEffect(() => {
+    setLocale(navigator.language);
   }, []);
 
   useEffect(() => {
-    const t = setTimeout(() => fetchPrintPrices(shipCountry), 300);
-    return () => clearTimeout(t);
-  }, [shipCountry, fetchPrintPrices]);
+    if (!needsShipping || !shipCountry) return;
+    const controller = new AbortController();
+    const query = new URLSearchParams({ country: shipCountry, currency });
 
-  const fetchShipping = useCallback(async () => {
-    if (!needsShipping) {
-      setShippingOptions([]);
-      setSelectedShipping(null);
-      setGelatoQuoteId(null);
-      return;
-    }
-    if (!shipFirst || !shipLast || !shipLine1 || !shipCity || !shipPost || !shipCountry) return;
-
-    setShippingLoading(true);
-    setError(null);
-    try {
-      const recipient: ShippingAddress = {
-        firstName: shipFirst,
-        lastName: shipLast,
-        addressLine1: shipLine1,
-        city: shipCity,
-        postCode: shipPost,
-        country: shipCountry,
-      };
-      const res = await fetch("/api/gelato/quote", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ formatId, currency, recipient }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Shipping quote failed");
-
-      const opts: ShippingOption[] = data.methods.map(
-        (m: { uid: string; name: string; priceUsd: number; minDays?: number; maxDays?: number }) => ({
-          uid: m.uid,
-          name: m.name,
-          priceUsd: m.priceUsd,
-          minDays: m.minDays ?? 5,
-          maxDays: m.maxDays ?? 10,
-        })
-      );
-      setShippingOptions(opts);
-      setGelatoQuoteId(data.quoteId);
-      setSelectedShipping(opts[0] ?? null);
-      if (typeof data.printAddOnUsd === "number") {
-        setPrintPrices((prev) => ({ ...prev, [formatId]: data.printAddOnUsd }));
+    async function loadPrices() {
+      let values: Partial<Record<string, number>> = {};
+      try {
+        const res = await fetch(`/api/gelato/prices?${query}`, { signal: controller.signal });
+        if (res.ok) values = (await res.json()).prices;
+      } catch {
+        // Prices stay unavailable when the request fails.
       }
-    } catch (e) {
-      setShippingOptions([]);
-      setSelectedShipping(null);
-      setError(e instanceof Error ? e.message : "Could not load shipping rates");
-    } finally {
-      setShippingLoading(false);
+      if (!controller.signal.aborted) setPrices({ key: priceKey, values });
     }
-  }, [
-    needsShipping,
-    shipFirst,
-    shipLast,
-    shipLine1,
-    shipCity,
-    shipPost,
-    shipCountry,
-    formatId,
-    currency,
-  ]);
+
+    void loadPrices();
+    return () => controller.abort();
+  }, [needsShipping, shipCountry, currency, priceKey]);
 
   useEffect(() => {
-    const t = setTimeout(fetchShipping, 600);
-    return () => clearTimeout(t);
-  }, [fetchShipping]);
+    if (!canQuote) return;
+    const controller = new AbortController();
+
+    async function loadQuote() {
+      try {
+        const res = await fetch("/api/gelato/quote", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ formatId, currency, recipient }),
+          signal: controller.signal,
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Shipping quote failed");
+        if (!controller.signal.aborted) setQuoteResult({ key: quoteKey, quote: data });
+      } catch (error) {
+        if (!controller.signal.aborted) {
+          setQuoteResult({
+            key: quoteKey,
+            error: error instanceof Error ? error.message : "Could not load shipping rates",
+          });
+        }
+      }
+    }
+
+    const timer = setTimeout(loadQuote, 600);
+    return () => {
+      clearTimeout(timer);
+      controller.abort();
+    };
+  }, [canQuote, quoteKey, formatId, currency, recipient]);
 
   useEffect(() => {
     if (productViewTracked.current) return;
@@ -230,7 +225,7 @@ export function OrderConfigurator({ style }: { style: PortraitStyle }) {
       setError("Please enter a valid email.");
       return;
     }
-    if (needsShipping && !selectedShipping) {
+    if (needsShipping && (!quote || !selectedShipping)) {
       setError("Please enter your shipping address and select a shipping method.");
       return;
     }
@@ -261,24 +256,15 @@ export function OrderConfigurator({ style }: { style: PortraitStyle }) {
           photoUrls,
           expedited,
           currency,
-          shippingAddress: needsShipping
-            ? {
-                firstName: shipFirst,
-                lastName: shipLast,
-                addressLine1: shipLine1,
-                city: shipCity,
-                postCode: shipPost,
-                country: shipCountry,
-              }
-            : null,
+          shippingAddress: needsShipping ? recipient : null,
           shippingMethodUid: selectedShipping?.uid,
-          shippingMethodName: selectedShipping?.name,
-          shippingAmountUsd: shippingUsd,
-          gelatoQuoteId,
+          shippingCents: selectedShipping?.priceCents,
+          printPriceCents: quote?.printPriceCents,
         }),
       });
 
       const data = await res.json();
+      if (res.status === 409) setQuoteRevision((revision) => revision + 1);
       if (!res.ok || !data.url) {
         throw new Error(data.error || "Could not start checkout.");
       }
@@ -302,9 +288,17 @@ export function OrderConfigurator({ style }: { style: PortraitStyle }) {
     }
   }
 
-  function formatAddOn(category: PrintCategory, size: PrintSize): number {
+  function formatCents(cents: number) {
+    return formatCurrencyAmount(cents / 100, currency);
+  }
+
+  function formatAddOn(category: PrintCategory, size: PrintSize) {
     const id = formatIdFromCategory(category, size);
-    return resolvePrintAddOn(id, printPrices);
+    if (id === formatId && quote) return `+${formatCents(quote.printPriceCents)} print`;
+    const cents = currentPrices?.[id];
+    if (cents != null) return `Est. +${formatCents(cents)} print`;
+    if (!shipCountry) return "Select country";
+    return currentPrices ? "Price unavailable" : "Loading price…";
   }
 
   const inputBase =
@@ -351,6 +345,7 @@ export function OrderConfigurator({ style }: { style: PortraitStyle }) {
             <button
               key={cat.id}
               type="button"
+              aria-pressed={printCategory === cat.id}
               onClick={() => setPrintCategory(cat.id)}
               className={`rounded-xl border px-3 py-3 text-left transition ${
                 printCategory === cat.id
@@ -360,9 +355,7 @@ export function OrderConfigurator({ style }: { style: PortraitStyle }) {
             >
               <span className="block text-sm font-semibold text-cream">{cat.label}</span>
               <span className="mt-0.5 block text-[11px] leading-snug text-muted">
-                {cat.id === "digital"
-                  ? "Included"
-                  : `+${formatPrice(formatAddOn(cat.id, printSize))}`}
+                {cat.id === "digital" ? "Included" : needsShipping ? formatAddOn(cat.id, printSize) : cat.description}
               </span>
             </button>
           ))}
@@ -370,33 +363,38 @@ export function OrderConfigurator({ style }: { style: PortraitStyle }) {
 
         {printCategory !== "digital" && (
           <>
+            <label className="mt-4 block text-sm font-semibold text-cream" htmlFor="shipping-country">
+              Shipping country
+            </label>
+            <select value={shipCountry} onChange={(e) => { setShipCountry(e.target.value); setShipState(""); }} id="shipping-country" className={`${inputBase} mt-2`} required>
+              <option value="">Select country</option>
+              {COUNTRIES.map((c) => (
+                <option key={c.code} value={c.code}>{c.name}</option>
+              ))}
+            </select>
             <p className="mt-4 text-xs font-semibold uppercase tracking-wider text-faint">
               Size
             </p>
             <div className="mt-2 flex gap-2">
               {PRINT_SIZES.map((sz) => (
                 <button
-                  key={sz.id}
+                  key={sz}
                   type="button"
-                  onClick={() => setPrintSize(sz.id)}
+                  aria-pressed={printSize === sz}
+                  onClick={() => setPrintSize(sz)}
                   className={`flex-1 rounded-xl border px-4 py-3 text-sm font-semibold transition ${
-                    printSize === sz.id
+                    printSize === sz
                       ? "border-accent bg-accent text-white"
                       : "border-line bg-ink text-muted hover:border-line-bright"
                   }`}
                 >
-                  {sz.label}
+                  {formatPrintSize(sz, sizeCountry, locale)}
                   <span className="mt-0.5 block text-[11px] font-normal opacity-80">
-                    +{formatPrice(formatAddOn(printCategory, sz.id))}
+                    {formatAddOn(printCategory, sz)}
                   </span>
                 </button>
               ))}
             </div>
-            <p className="mt-2 text-xs text-muted">
-              {printPricesLoading
-                ? "Loading print prices for your country…"
-                : "Print prices and shipping depend on your country."}
-            </p>
           </>
         )}
       </fieldset>
@@ -439,31 +437,41 @@ export function OrderConfigurator({ style }: { style: PortraitStyle }) {
       {needsShipping && (
         <fieldset className="mt-6">
           <legend className="text-sm font-semibold text-cream">Shipping address</legend>
-          <p className="mt-1 text-xs text-muted">We ship prints worldwide. Shipping cost depends on your country.</p>
+          <p className="mt-1 text-xs text-muted">Enter your address to confirm the print price and get shipping options.</p>
           <div className="mt-3 grid gap-3 sm:grid-cols-2">
             <input placeholder="First name" value={shipFirst} onChange={(e) => setShipFirst(e.target.value)} className={inputBase} required />
             <input placeholder="Last name" value={shipLast} onChange={(e) => setShipLast(e.target.value)} className={inputBase} required />
             <input placeholder="Address line 1" value={shipLine1} onChange={(e) => setShipLine1(e.target.value)} className={`${inputBase} sm:col-span-2`} required />
             <input placeholder="City" value={shipCity} onChange={(e) => setShipCity(e.target.value)} className={inputBase} required />
             <input placeholder="Postcode / ZIP" value={shipPost} onChange={(e) => setShipPost(e.target.value)} className={inputBase} required />
-            <select value={shipCountry} onChange={(e) => setShipCountry(e.target.value)} className={inputBase} required>
-              {COUNTRIES.map((c) => (
-                <option key={c.code} value={c.code}>{c.name}</option>
-              ))}
-            </select>
+            {stateRequired && (
+              <input placeholder="State / province" aria-label="State / province" autoComplete="address-level1" value={shipState} onChange={(e) => setShipState(e.target.value)} className={inputBase} required />
+            )}
           </div>
-          {shippingLoading && <p className="mt-2 text-xs text-muted">Loading shipping rates…</p>}
+          {canQuote && !currentResult && <p className="mt-2 text-xs text-muted">Loading shipping rates…</p>}
+          {currentResult?.error && (
+            <p role="alert" className="mt-2 text-xs text-accent-bright">
+              {currentResult.error}{" "}
+              <button type="button" className="underline" onClick={() => setQuoteRevision((revision) => revision + 1)}>
+                Retry quote
+              </button>
+            </p>
+          )}
+          {quote && shippingOptions.length === 0 && (
+            <p className="mt-2 text-xs text-muted">Gelato has no shipping options for this address and print size.</p>
+          )}
           {shippingOptions.length > 0 && (
             <div className="mt-4 grid gap-2">
               <p className="text-xs font-semibold text-cream">Shipping method</p>
+              <p className="text-xs text-muted">Gelato delivery estimates start after artwork approval.</p>
               {shippingOptions.map((opt) => (
                 <label key={opt.uid} className={`flex cursor-pointer items-center justify-between rounded-xl border p-3 ${selectedShipping?.uid === opt.uid ? "border-accent bg-ink" : "border-line bg-ink"}`}>
                   <span className="flex items-center gap-2">
-                    <input type="radio" checked={selectedShipping?.uid === opt.uid} onChange={() => setSelectedShipping(opt)} className="accent-[#ff3860]" />
+                    <input type="radio" name="shipping-method" checked={selectedShipping?.uid === opt.uid} onChange={() => setSelectedShippingUid(opt.uid)} className="accent-[#ff3860]" />
                     <span className="text-sm text-cream">{opt.name}</span>
-                    <span className="text-xs text-faint">{opt.minDays}–{opt.maxDays} days</span>
+                    <span className="text-xs text-faint">{formatDeliveryEstimate(opt)}</span>
                   </span>
-                  <span className="text-sm font-semibold text-cream">{formatPrice(opt.priceUsd)}</span>
+                  <span className="text-sm font-semibold text-cream">{formatCents(opt.priceCents)}</span>
                 </label>
               ))}
             </div>
@@ -505,10 +513,20 @@ export function OrderConfigurator({ style }: { style: PortraitStyle }) {
 
       <div className="mt-8 flex items-center justify-between border-t border-line pt-6">
         <div>
+          {quote && selectedShipping && (
+            <dl className="mb-2 grid grid-cols-[auto_auto] gap-x-4 text-sm text-muted">
+              <dt>Digital portrait{expedited ? " with expedited delivery" : ""}</dt>
+              <dd>{formatCents(totalCents - quote.printPriceCents - selectedShipping.priceCents)}</dd>
+              <dt>Print</dt>
+              <dd>{formatCents(quote.printPriceCents)}</dd>
+              <dt>Shipping</dt>
+              <dd>{formatCents(selectedShipping.priceCents)}</dd>
+            </dl>
+          )}
           <p className="text-xs uppercase tracking-wider text-faint">Total</p>
-          <p className="font-display text-3xl text-cream">{formatPrice(total)}</p>
+          <p className="font-display text-3xl text-cream">{!needsShipping || selectedShipping ? formatCents(totalCents) : "Pending shipping quote"}</p>
         </div>
-        <button type="submit" disabled={submitting} className="rounded-full bg-accent px-8 py-3.5 text-base font-semibold text-white shadow-glow hover:bg-accent-bright disabled:opacity-60">
+        <button type="submit" disabled={submitting || (needsShipping && !selectedShipping)} className="rounded-full bg-accent px-8 py-3.5 text-base font-semibold text-white shadow-glow hover:bg-accent-bright disabled:opacity-60">
           {submitting ? progress ?? "Processing..." : "Checkout Securely"}
         </button>
       </div>

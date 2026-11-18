@@ -1,7 +1,7 @@
 import { Resend } from "resend";
 import { deliveryPreviewEmailCopy } from "@/lib/deliveryPreviewEmailCopy";
 import type { Order, OrderDelivery, OrderFinalFile } from "./schema";
-import { PRINT_FORMATS } from "@/data/pricing";
+import { getOrderFormatLabel } from "@/data/pricing";
 import { site } from "@/data/site";
 import { isDigitalOrder, revisionWindowHours } from "@/lib/orderDeliveryRules";
 import { orderReplyToAddress } from "@/lib/emailReplyRouting";
@@ -21,7 +21,6 @@ function customerReplyTo(order: Order): string {
 }
 
 function orderSummaryHtml(order: Order): string {
-  const format = PRINT_FORMATS.find((f) => f.id === order.formatId);
   const total = (order.amountTotal / 100).toFixed(2);
   const currency = order.currency.toUpperCase();
   const shipping = order.shippingAddress;
@@ -35,7 +34,7 @@ function orderSummaryHtml(order: Order): string {
       <tr><td style="padding:6px 0;color:#777">Order ID</td><td style="padding:6px 0"><strong>${order.id}</strong></td></tr>
       <tr><td style="padding:6px 0;color:#777">Style</td><td style="padding:6px 0">${order.styleName}</td></tr>
       <tr><td style="padding:6px 0;color:#777">Characters</td><td style="padding:6px 0">${order.characters}</td></tr>
-      <tr><td style="padding:6px 0;color:#777">Format</td><td style="padding:6px 0">${format?.label ?? order.formatId}</td></tr>
+      <tr><td style="padding:6px 0;color:#777">Format</td><td style="padding:6px 0">${getOrderFormatLabel(order.formatId, order.shippingAddress?.country)}</td></tr>
       ${order.expedited ? `<tr><td style="padding:6px 0;color:#777">Delivery</td><td style="padding:6px 0">24-hour expedited</td></tr>` : ""}
       ${shippingRow}
       <tr><td style="padding:6px 0;color:#777">Total</td><td style="padding:6px 0"><strong>${total} ${currency}</strong></td></tr>

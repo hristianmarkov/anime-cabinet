@@ -2,7 +2,7 @@ import { eq } from "drizzle-orm";
 import { combineArtPromptWithOpenAI } from "@/lib/artPromptOpenAi";
 import { getDb } from "@/lib/db";
 import { getStyleArtPromptOrFallback } from "@/data/style-art-prompts";
-import { PRINT_FORMATS } from "@/data/pricing";
+import { getOrderFormatLabel } from "@/data/pricing";
 import { printCompositionHint } from "@/lib/artPromptStructured";
 import { orders } from "@/lib/schema";
 
@@ -29,7 +29,7 @@ export async function generateArtPromptForOrder(orderId: string): Promise<Genera
 
   const stylePrompt = getStyleArtPromptOrFallback(order.styleSlug, order.styleName);
   const formatLabel =
-    PRINT_FORMATS.find((f) => f.id === order.formatId)?.label ?? order.formatId;
+    getOrderFormatLabel(order.formatId);
 
   const combined = await combineArtPromptWithOpenAI({
     stylePrompt,

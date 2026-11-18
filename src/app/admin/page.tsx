@@ -5,7 +5,8 @@ import { getDb } from "@/lib/db";
 import { contactInquiries, contactMessages, orderReviewMessages, orderTimelineEvents, orders, type Order, type OrderStatus } from "@/lib/schema";
 import { orderNotice, type NoticeItem } from "@/lib/adminNotices";
 import { isAdminAuthenticated } from "@/lib/adminAuth";
-import { PRINT_FORMATS, formatUsd } from "@/data/pricing";
+import { getOrderFormatLabel } from "@/data/pricing";
+import { formatOrderAmount } from "@/data/currencies";
 import { login } from "./actions";
 import { AdminShell } from "./AdminShell";
 import { FILTER_STATUSES, statusColors, statusLabels } from "./order-ui";
@@ -160,7 +161,6 @@ export default async function AdminPage({
                   </thead>
                   <tbody>
                     {allOrders.map((order) => {
-                      const format = PRINT_FORMATS.find((f) => f.id === order.formatId);
                       return (
                         <tr key={order.id} className="border-b border-line/80 last:border-0 hover:bg-surface-raised/50">
                           <td className="px-4 py-3 whitespace-nowrap text-muted">
@@ -172,9 +172,9 @@ export default async function AdminPage({
                           <td className="max-w-[180px] truncate px-4 py-3 text-cream" title={order.email}>
                             {order.email}
                           </td>
-                          <td className="px-4 py-3 text-muted">{format?.label ?? order.formatId}</td>
+                          <td className="px-4 py-3 text-muted">{getOrderFormatLabel(order.formatId)}</td>
                           <td className="px-4 py-3 font-semibold text-cream">
-                            {formatUsd(order.amountTotal / 100)}
+                            {formatOrderAmount(order.amountTotal, order.currency)}
                           </td>
                           <td className="px-4 py-3">
                             <span

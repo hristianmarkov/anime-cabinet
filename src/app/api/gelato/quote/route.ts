@@ -1,77 +1,42 @@
 import { NextResponse } from "next/server";
-import { getGelatoProductUid } from "@/data/gelato-products";
-import { isGelatoConfigured, quoteGelatoOrder } from "@/lib/gelato";
-import { gelatoCostToPrintAddOn } from "@/lib/gelato-pricing";
+import { isCurrencyCode } from "@/data/currencies";
+import { isPrintFormat, PRINT_FORMATS } from "@/data/pricing";
+import { isCompleteShippingAddress } from "@/data/shipping";
+import { isGelatoConfigured } from "@/lib/gelato";
+import { getPrintQuote } from "@/lib/gelato-pricing";
 import type { ShippingAddress } from "@/lib/schema";
 
 export async function POST(request: Request) {
   if (!isGelatoConfigured()) {
     return NextResponse.json(
-      { error: "Print shipping is not configured yet. Please contact us." },
+      { error: "Print shipping is temporarily unavailable." },
       { status: 503 }
     );
   }
 
-  let body: {
-    formatId: string;
-    currency?: string;
-    recipient: ShippingAddress;
-  };
-
+  let body: { formatId?: string; currency?: string; recipient?: ShippingAddress } | null;
   try {
     body = await request.json();
   } catch {
     return NextResponse.json({ error: "Invalid request" }, { status: 400 });
   }
 
-  const productUid = getGelatoProductUid(body.formatId);
-  if (!productUid) {
-    return NextResponse.json(
-      { error: "This print format is not available for shipping quotes yet." },
-      { status: 400 }
-    );
+  const { formatId, currency = "USD", recipient } = body ?? {};
+  if (!formatId || !isPrintFormat(formatId) ||
+      !PRINT_FORMATS.some((format) => format.id === formatId) || !isCurrencyCode(currency)) {
+    return NextResponse.json({ error: "Invalid print format or currency" }, { status: 400 });
   }
-
-  const { recipient } = body;
-  if (
-    !recipient?.firstName ||
-    !recipient?.lastName ||
-    !recipient?.addressLine1 ||
-    !recipient?.city ||
-    !recipient?.postCode ||
-    !recipient?.country
-  ) {
+  if (!isCompleteShippingAddress(recipient)) {
     return NextResponse.json({ error: "Complete shipping address required" }, { status: 400 });
   }
 
   try {
-    const quote = await quoteGelatoOrder({
-      productUid,
-      currency: body.currency ?? "USD",
-      recipient,
-    });
-
-    const gelatoProduct = quote.products?.[0];
-    const printAddOnUsd = gelatoProduct?.price
-      ? gelatoCostToPrintAddOn(gelatoProduct.price)
-      : undefined;
-
-    return NextResponse.json({
-      quoteId: quote.quoteId,
-      printAddOnUsd,
-      methods: quote.methods.map((m) => ({
-        uid: m.shipmentMethodUid,
-        name: m.name,
-        priceUsd: m.price,
-        currency: m.currency,
-        minDays: m.minDeliveryDays,
-        maxDays: m.maxDeliveryDays,
-      })),
-    });
-  } catch (err) {
-    console.error("Gelato quote error:", err);
+    const quote = await getPrintQuote(formatId, recipient, currency);
+    return NextResponse.json(quote);
+  } catch (error) {
+    console.error("Gelato quote error:", error);
     return NextResponse.json(
-      { error: "Could not get shipping rates for this address. Check your details and try again." },
+      { error: "Could not get print and shipping prices. Check your address and try again." },
       { status: 502 }
     );
   }

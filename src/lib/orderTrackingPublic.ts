@@ -2,7 +2,8 @@ import type { Order, OrderDelivery, OrderFinalFile, OrderReviewMessage, OrderTim
 import { isDigitalOrder } from "@/lib/orderDeliveryRules";
 import { buildOrderPipeline, getActiveDelivery, type OrderPipeline } from "@/lib/orderWorkflow";
 import { statusLabels } from "@/app/admin/order-ui";
-import { PRINT_FORMATS, formatUsd } from "@/data/pricing";
+import { getOrderFormatLabel } from "@/data/pricing";
+import { formatOrderAmount } from "@/data/currencies";
 import { resolveFirstPreviewDeadline } from "@/lib/firstPreviewDeadline";
 
 export interface PublicOrderTracking {
@@ -85,7 +86,6 @@ export function buildPublicOrderTracking(
   reviewMessages: OrderReviewMessage[] = [],
   finalFile: OrderFinalFile | null = null
 ): PublicOrderTracking {
-  const format = PRINT_FORMATS.find((f) => f.id === order.formatId);
   const digital = isDigitalOrder(order);
   const active = getActiveDelivery(deliveries);
   const shipping = order.shippingAddress;
@@ -132,7 +132,7 @@ export function buildPublicOrderTracking(
     styleName: order.styleName,
     status: order.status,
     statusLabel: statusLabels[order.status],
-    formatLabel: format?.label ?? order.formatId,
+    formatLabel: getOrderFormatLabel(order.formatId, order.shippingAddress?.country),
     placedAt: new Date(order.createdAt).toLocaleString("en-GB", { dateStyle: "medium", timeStyle: "short" }),
     expedited: order.expedited,
     digital,
@@ -148,7 +148,7 @@ export function buildPublicOrderTracking(
     maskedRecipient:
       !digital && shipping ? maskName(shipping.firstName, shipping.lastName) : null,
     maskedDestination: !digital && shipping ? maskDestination(shipping) : null,
-    amountDisplay: `${formatUsd(order.amountTotal / 100)} ${order.currency.toUpperCase()}`,
+    amountDisplay: formatOrderAmount(order.amountTotal, order.currency),
     milestones,
     previewDelivery: active
       ? {
