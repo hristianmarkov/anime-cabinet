@@ -76,17 +76,23 @@ export async function getPrintQuote(
     quoteGelatoOrder({ productUid, currency, recipient }),
   ]);
 
-  const methods = quote.methods
+  const eligibleMethods = quote.methods
     .filter((method) => method.shipmentMethodUid && method.name && method.currency === currency &&
-      Number.isFinite(method.price) && method.price >= 0)
-    .map((method) => ({
-      uid: method.shipmentMethodUid,
-      name: method.name,
-      priceCents: Math.round(method.price * 100),
-      minDays: deliveryDays(method.minDeliveryDays),
-      maxDays: deliveryDays(method.maxDeliveryDays),
-    }))
-    .sort((a, b) => a.priceCents - b.priceCents);
+      method.isPrivate && Number.isFinite(method.price) && method.price >= 0)
+    .sort((a, b) => a.price - b.price);
+
+  const economy = eligibleMethods.find((method) => method.type === "normal" || method.type === "standard");
+  const express = eligibleMethods.find((method) => method.type === "express");
+  const methods = [
+    { method: economy, tier: "Economy" },
+    { method: express, tier: "Express" },
+  ].flatMap(({ method, tier }) => method ? [{
+    uid: method.shipmentMethodUid,
+    name: `${method.name} (${tier})`,
+    priceCents: Math.round(method.price * 100),
+    minDays: deliveryDays(method.minDeliveryDays),
+    maxDays: deliveryDays(method.maxDeliveryDays),
+  }] : []);
 
   return { quoteId: quote.quoteId, printPriceCents, methods };
 }

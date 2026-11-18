@@ -50,9 +50,12 @@ test("Gelato quotes keep their currency and use the correct product UID for each
     assert.ok(productUid === "small-frame" || productUid === "large-frame");
     const price = productUid === "small-frame" ? 7.45 : 9.35;
     return Response.json({ quotes: [{ id: productUid, shipmentMethods: [
-      { shipmentMethodUid: "wrong-currency", name: "Express", price: 1, currency: "USD" },
-      { shipmentMethodUid: "standard", name: "Standard", price, currency: "GBP", minDeliveryDays: 8, maxDeliveryDays: 8 },
-      { shipmentMethodUid: "express", name: "Express", price: price + 3, currency: "GBP" },
+      { shipmentMethodUid: "wrong-currency", name: "Express", type: "express", isPrivate: true, price: 1, currency: "USD" },
+      { shipmentMethodUid: "pickup", name: "Pickup", type: "pick_up", isPrivate: true, price: 0, currency: "GBP" },
+      { shipmentMethodUid: "commercial", name: "Commercial", type: "normal", isPrivate: false, price: 1, currency: "GBP" },
+      { shipmentMethodUid: "other-economy", name: "Other carrier", type: "standard", isPrivate: true, price: price + 1, currency: "GBP" },
+      { shipmentMethodUid: "standard", name: "Standard", type: "normal", isPrivate: true, price, currency: "GBP", minDeliveryDays: 8, maxDeliveryDays: 8 },
+      { shipmentMethodUid: "express", name: "Express", type: "express", isPrivate: true, price: price + 3, currency: "GBP" },
     ] }] });
   });
 
@@ -64,7 +67,7 @@ test("Gelato quotes keep their currency and use the correct product UID for each
   assert.equal(large.printPriceCents, 2040);
   assert.equal(small.methods[0].priceCents, 745);
   assert.equal(large.methods[0].priceCents, 935);
-  assert.equal(small.methods.length, 2);
+  assert.deepEqual(small.methods.map(({ name }) => name), ["Standard (Economy)", "Express (Express)"]);
   assert.equal(formatDeliveryEstimate(small.methods[0]), "8 days");
   assert.equal(formatDeliveryEstimate(small.methods[1]), null);
   assert.equal(getGelatoProductUid("framed-12x18"), "legacy-frame");

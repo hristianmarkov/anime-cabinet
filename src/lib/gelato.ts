@@ -21,6 +21,8 @@ export interface GelatoShipmentMethod {
   name: string;
   price: number;
   currency: string;
+  type: string;
+  isPrivate: boolean;
   minDeliveryDays?: number;
   maxDeliveryDays?: number;
 }
@@ -74,27 +76,10 @@ export async function quoteGelatoOrder(params: {
   const quote = data.quotes?.[0];
   if (!quote) throw new Error("No shipping quotes returned for this address");
 
-  const methods: GelatoShipmentMethod[] = (quote.shipmentMethods ?? []).map(
-    (m: {
-      shipmentMethodUid: string;
-      name: string;
-      price: number;
-      currency: string;
-      minDeliveryDays?: number;
-      maxDeliveryDays?: number;
-    }) => ({
-      shipmentMethodUid: m.shipmentMethodUid,
-      name: m.name,
-      price: m.price,
-      currency: m.currency,
-      minDeliveryDays: m.minDeliveryDays,
-      maxDeliveryDays: m.maxDeliveryDays,
-    })
-  );
 
   return {
     quoteId: quote.id,
-    methods,
+    methods: quote.shipmentMethods ?? [],
   };
 }
 
