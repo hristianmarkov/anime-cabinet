@@ -158,7 +158,7 @@ export default async function StylePage({ params }: Props) {
           </div>
           <div>
             <dt className="font-semibold text-cream">Price and options</dt>
-            <dd className="mt-2 text-muted">One character and a digital file from <PriceFrom usd={style.priceFrom} prefix="" />. Additional people or pets cost <PriceFrom usd={EXTRA_CHARACTER_PRICE} prefix="" /> each. Prints and shipping cost extra; your total appears before payment.</dd>
+            <dd className="mt-2 text-muted">One character and a digital file from <PriceFrom usd={style.priceFrom} prefix="" />. Additional people or pets cost <PriceFrom usd={EXTRA_CHARACTER_PRICE} prefix="" /> each. Add a poster, canvas or framed print with free standard delivery. Your total appears before payment.</dd>
           </div>
           <div>
             <dt className="font-semibold text-cream">Preview and revisions</dt>
@@ -166,7 +166,7 @@ export default async function StylePage({ params }: Props) {
           </div>
           <div>
             <dt className="font-semibold text-cream">Final artwork</dt>
-            <dd className="mt-2 text-muted">A high-resolution digital file after approval. Optional posters, canvases and framed prints are produced after you approve. See <Link href="/shipping" className="text-accent underline">shipping details</Link> and our <Link href="/refund-policy" className="text-accent underline">refund policy</Link>.</dd>
+            <dd className="mt-2 text-muted">A high-resolution digital file after approval. Optional posters, canvases and framed prints are produced after approval and include free standard delivery. See <Link href="/shipping" className="text-accent underline">shipping details</Link> and our <Link href="/refund-policy" className="text-accent underline">refund policy</Link>.</dd>
           </div>
         </dl>
       </section>

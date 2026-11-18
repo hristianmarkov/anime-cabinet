@@ -8,6 +8,7 @@ import { PriceFrom } from "@/components/PriceFrom";
 import { StatsBar } from "@/components/StatsBar";
 import { StyleCard } from "@/components/StyleCard";
 import { globalFaqs } from "@/data/faqs";
+import { DIGITAL_PRICE_USD } from "@/data/pricing";
 import { heroArtBySlug } from "@/data/gallery";
 import { reviews } from "@/data/reviews";
 import { site } from "@/data/site";
@@ -132,7 +133,7 @@ export default function HomePage() {
               </Link>
             </div>
             <p className="mt-4 text-sm text-faint">
-              From <PriceFrom usd={34.99} prefix="" /> · Worldwide print shipping · Unlimited free revisions
+              From <PriceFrom usd={DIGITAL_PRICE_USD} prefix="" /> · Free standard delivery on prints · Unlimited free revisions
             </p>
           </div>
 

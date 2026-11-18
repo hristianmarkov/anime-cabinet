@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { PortraitStyle } from "@/data/types";
-import { useCurrency } from "@/context/CurrencyContext";
+import { PriceFrom } from "@/components/PriceFrom";
 import { getShowcase } from "@/data/gallery";
 import { AnalyticsEvents, trackFunnel } from "@/lib/analytics";
 
@@ -20,7 +20,6 @@ const badgeLabels: Record<string, string> = {
 };
 
 export function StyleCard({ style }: { style: PortraitStyle }) {
-  const { formatPrice } = useCurrency();
   const showcase = getShowcase(style.slug);
 
   return (
@@ -59,7 +58,7 @@ export function StyleCard({ style }: { style: PortraitStyle }) {
         <p className="mt-1 line-clamp-2 text-sm text-muted">{style.tagline}</p>
         <div className="mt-auto flex items-center justify-between pt-4">
           <span className="text-sm text-faint">
-            from <span className="font-semibold text-cream">{formatPrice(style.priceFrom)}</span>
+            from <span className="font-semibold text-cream"><PriceFrom usd={style.priceFrom} prefix="" /></span>
           </span>
           <span className="text-sm font-semibold text-accent group-hover:translate-x-1 transition-transform">Order →</span>
         </div>

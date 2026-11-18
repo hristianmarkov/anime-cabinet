@@ -31,7 +31,7 @@ export async function GET(request: Request) {
 
     return NextResponse.json({
       transaction_id: sessionId,
-      value: order.amountTotal / 100,
+      value: (session.amount_total ?? order.amountTotal) / 100,
       currency: order.currency,
       item_id: order.styleSlug,
       item_name: order.styleName,

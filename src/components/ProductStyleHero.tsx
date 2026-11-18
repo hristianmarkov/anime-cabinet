@@ -35,7 +35,7 @@ export function ProductStyleHero({ style }: { style: PortraitStyle }) {
           "Created by professional artists",
           "Unlimited free revisions",
           `Preview within ${site.deliveryHours} hours (priority 24h available)`,
-          "Worldwide print shipping — cost at checkout",
+          "Free standard delivery on prints",
         ].map((point) => (
           <li key={point} className="flex items-start gap-2 text-sm text-cream">
             <span className="mt-0.5 text-accent" aria-hidden="true">✓</span>

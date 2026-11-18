@@ -90,7 +90,7 @@ function buildGiftGuide(c: GiftGuideConfig): BlogPost {
       {
         heading: "Timing and presentation",
         paragraphs: [
-          `Order a custom portrait at least a week before you need it — standard preview delivery is within ${site.deliveryHours} hours, plus revision time if they want tweaks. Add priority delivery (+$10) if you are cutting it close for a birthday or holiday.`,
+          `Order a custom portrait at least a week before you need it — standard preview delivery is within ${site.deliveryHours} hours, plus revision time if they want tweaks. Add priority delivery (US$10 during the sale, US$20 comparison) if you are cutting it close for a birthday or holiday.`,
           `Presentation matters. A framed print unwrapped at dinner beats a JPEG sent over text — though setting the portrait as their phone wallpaper before the party is a underrated reveal move. Digital files arrive high-resolution and print-ready at any standard poster size.`,
           `Every order includes unlimited revisions until the preview is approved. That means you can fine-tune details before the big moment — and they receive a finished piece that feels unmistakably theirs, not off-the-shelf.`,
         ],

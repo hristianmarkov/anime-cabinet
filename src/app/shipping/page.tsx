@@ -4,7 +4,7 @@ import { site } from "@/data/site";
 
 export const metadata: Metadata = {
   title: "Shipping & Delivery Policy",
-  description: `Digital previews within ${site.deliveryHours} hours. Custom prints are produced after approval, with shipping options and estimates shown at checkout.`,
+  description: `Digital previews within ${site.deliveryHours} hours. Custom prints are produced after approval, with free standard delivery to supported destinations.`,
   alternates: { canonical: "/shipping" },
 };
 
@@ -25,22 +25,21 @@ export default function ShippingPage() {
       <p>
         Posters, canvases, and framed prints are custom-made from your approved
         artwork. They enter production only after you approve the preview. The
-        estimated transit time shown at checkout does not include artwork
-        creation, revisions, approval, or print production time. Once an
+        estimated delivery windows, when shown, include print production and transit after artwork approval. Once an
         approved print enters production, it cannot be changed or cancelled.
       </p>
 
       <h2>Shipping options and estimates</h2>
       <p>
-        Available shipping methods, prices, and estimated delivery windows are
-        calculated for the delivery address and displayed at checkout before
-        payment. We ship to the destinations for which checkout offers a
-        shipping method. Delivery dates are estimates, not guarantees, and may
+        Standard delivery is free for all print orders to supported destinations.
+        Enter your address in Stripe Checkout to see available delivery options.
+        Express delivery is optional and priced at checkout when available.
+        Delivery dates are estimates and may
         be affected by production volume, carrier delays, weather, customs, or
         other events outside our control.
       </p>
       <p>
-        Shipping fees are charged at checkout. Separate products may be
+        Separate products may be
         produced or dispatched separately and can arrive in more than one
         package without an additional shipping charge.
       </p>

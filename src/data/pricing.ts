@@ -1,10 +1,6 @@
 import { convertFromUsd, type CurrencyCode } from "./currencies";
 
-/**
- * Artwork and priority fees are based in USD. Gelato supplies print and
- * shipping amounts in the checkout currency.
- */
-
+export const DIGITAL_PRICE_USD = 39.99;
 export const EXTRA_CHARACTER_PRICE = 15;
 export const EXPEDITED_PRICE = 10;
 export const MAX_CHARACTERS = 6;
@@ -13,87 +9,70 @@ export interface PrintFormat {
   id: string;
   label: string;
   description: string;
+  addOnUsd: number;
 }
 
 export const PRINT_FORMATS: PrintFormat[] = [
   {
     id: "digital",
+    addOnUsd: 0,
     label: "Digital File Only",
     description: "High-resolution file delivered by email, ready to print locally",
   },
   {
     id: "poster-12x16",
+    addOnUsd: 25,
     label: 'Poster Print — 12x16"',
-    description: "Premium matte poster + digital file. Shipping calculated at checkout.",
+    description: "Premium matte poster + digital file. Free standard delivery.",
   },
   {
     id: "poster-18x24",
+    addOnUsd: 35,
     label: 'Poster Print — 18x24"',
-    description: "Premium matte poster + digital file. Shipping calculated at checkout.",
+    description: "Premium matte poster + digital file. Free standard delivery.",
   },
   {
     id: "canvas-12x16",
+    addOnUsd: 50,
     label: 'Canvas Wrap — 12x16"',
-    description: "Gallery-wrapped canvas + digital file. Shipping calculated at checkout.",
+    description: "Gallery-wrapped canvas + digital file. Free standard delivery.",
   },
   {
     id: "canvas-18x24",
+    addOnUsd: 70,
     label: 'Canvas Wrap — 18x24"',
-    description: "Gallery-wrapped canvas + digital file. Shipping calculated at checkout.",
+    description: "Gallery-wrapped canvas + digital file. Free standard delivery.",
   },
   {
     id: "framed-12x16",
+    addOnUsd: 60,
     label: 'Framed Print — 12x16"',
-    description: "Black frame + digital file. Shipping calculated at checkout.",
+    description: "Black frame + digital file. Free standard delivery.",
   },
   {
     id: "framed-18x24",
+    addOnUsd: 90,
     label: 'Framed Print — 18x24"',
-    description: "Black frame + digital file. Shipping calculated at checkout.",
+    description: "Black frame + digital file. Free standard delivery.",
   },
 ];
 
-export interface ShippingOption {
-  uid: string;
-  name: string;
-  priceCents: number;
-  minDays?: number;
-  maxDays?: number;
+export function priceCents(usd: number, currency: CurrencyCode): number {
+  return usd === 0 ? 0 : Math.round(convertFromUsd(usd, currency) * 100);
 }
 
-export interface PrintQuote {
-  quoteId: string;
-  printPriceCents: number;
-  methods: ShippingOption[];
-}
-
-export function orderTotalCents({
-  basePrice,
-  characters,
-  currency,
-  expedited,
-  printPriceCents = 0,
-  shippingCents = 0,
-}: {
-  basePrice: number;
+export function orderTotalCents({ characters, currency, expedited, formatId }: {
   characters: number;
   currency: CurrencyCode;
   expedited: boolean;
-  printPriceCents?: number;
-  shippingCents?: number;
+  formatId: string;
 }): number {
-  const artworkUsd =
-    basePrice + (characters - 1) * EXTRA_CHARACTER_PRICE + (expedited ? EXPEDITED_PRICE : 0);
-  return Math.round(convertFromUsd(artworkUsd, currency) * 100) + printPriceCents + shippingCents;
-}
-
-export function formatDeliveryEstimate({ minDays, maxDays }: ShippingOption): string | null {
-  if (minDays == null && maxDays == null) return null;
-  if (minDays == null) return `Up to ${maxDays} days`;
-  if (maxDays == null) return `${minDays}+ days`;
-  if (maxDays < minDays) return null;
-  if (minDays === maxDays) return `${minDays} ${minDays === 1 ? "day" : "days"}`;
-  return `${minDays}–${maxDays} days`;
+  const format = PRINT_FORMATS.find((option) => option.id === formatId);
+  if (!format) throw new Error("Unknown order format");
+  return priceCents(DIGITAL_PRICE_USD, currency) +
+    (characters - 1) * priceCents(EXTRA_CHARACTER_PRICE, currency) +
+    (expedited ? priceCents(EXPEDITED_PRICE, currency) : 0) +
+    priceCents(format.addOnUsd, currency);
 }
 
 export function isPrintFormat(formatId: string): boolean {

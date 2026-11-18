@@ -21,6 +21,9 @@ export function Footer() {
               professional artist team. Unlimited revisions, delivered in{" "}
               {site.deliveryHours} hours.
             </p>
+            <Link href="/shipping" className="mt-3 inline-block text-sm font-semibold text-cream hover:text-accent">
+              Free standard delivery on prints
+            </Link>
             <p className="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-sm text-faint">
               <Link href="/track" className="hover:text-cream">
                 Track my order

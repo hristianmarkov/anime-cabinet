@@ -17,7 +17,7 @@ const steps = [
   },
   {
     title: "Upload your photos and notes",
-    body: "Upload a clear photo of each person or pet. Tell our artists anything that matters: outfits, poses, props, who stands where. For print orders, enter your shipping address — we'll show live shipping rates before you pay. Checkout is handled securely by Stripe.",
+    body: "Upload a clear photo of each person or pet. Tell our artists anything that matters: outfits, poses, props, who stands where. Prints include free standard delivery. Enter your shipping address in secure Stripe Checkout.",
   },
   {
     title: "Artist review and creation",
@@ -25,11 +25,11 @@ const steps = [
   },
   {
     title: "Preview and unlimited revisions",
-    body: `Within ${site.deliveryHours} hours you'll receive a preview by email — or add priority delivery for ${site.expeditedHours}-hour turnaround (+$10). Request as many changes as you need until you love it.`,
+    body: `Within ${site.deliveryHours} hours you'll receive a preview by email — or add priority delivery for ${site.expeditedHours}-hour turnaround (US$10 during the sale, US$20 comparison). Request as many changes as you need until you love it.`,
   },
   {
     title: "Final delivery",
-    body: "Once approved, you receive the final high-resolution file. If you ordered a print, it goes to production and ships worldwide — shipping cost was calculated at checkout based on your country.",
+    body: "Once approved, you receive the final high-resolution file. If you ordered a print, it goes to production and ships to your address with free standard delivery.",
   },
 ];
 

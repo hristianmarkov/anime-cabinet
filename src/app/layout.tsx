@@ -4,6 +4,7 @@ import { CurrencyProvider } from "@/context/CurrencyContext";
 import { Footer } from "@/components/Footer";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { Header } from "@/components/Header";
+import { SaleBanner } from "@/components/SaleBanner";
 import { JsonLd } from "@/components/JsonLd";
 import { site } from "@/data/site";
 import "./globals.css";
@@ -90,6 +91,7 @@ export default function RootLayout({
         <CurrencyProvider>
           <JsonLd data={organizationJsonLd} />
           <JsonLd data={websiteJsonLd} />
+          <SaleBanner />
           <Header />
           <main>{children}</main>
           <Footer />

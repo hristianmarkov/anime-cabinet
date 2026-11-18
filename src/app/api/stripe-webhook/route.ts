@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { and, eq } from "drizzle-orm";
 import type Stripe from "stripe";
 import { getDb } from "@/lib/db";
+import { readCheckoutAddress } from "@/lib/print-shipping";
 import { orders } from "@/lib/schema";
 import { getStripe } from "@/lib/stripe";
 import { sendNewOrderAlert, sendOrderConfirmation } from "@/lib/emails";
@@ -31,8 +32,8 @@ export async function POST(request: Request) {
   }
 
   if (
-    (event.type === "checkout.session.completed" && event.data.object.payment_status === "paid") ||
-    event.type === "checkout.session.async_payment_succeeded"
+    (event.type === "checkout.session.completed" || event.type === "checkout.session.async_payment_succeeded") &&
+    event.data.object.payment_status === "paid"
   ) {
     const session = event.data.object;
     const orderId = session.metadata?.orderId;
@@ -47,9 +48,38 @@ export async function POST(request: Request) {
         .limit(1);
 
       if (!pendingOrder) return NextResponse.json({ received: true });
+      let delivery: Partial<typeof orders.$inferInsert> = {};
+      if (session.metadata?.printDelivery === "stripe") {
+        try {
+          // Read the current API representation regardless of the webhook endpoint's API version.
+          const checkout = await getStripe().checkout.sessions.retrieve(session.id, {
+            expand: ["shipping_cost.shipping_rate"],
+          });
+          const recipient = readCheckoutAddress(checkout.collected_information?.shipping_details);
+          const rate = checkout.shipping_cost?.shipping_rate;
+          if (!recipient || !rate || typeof rate === "string" || checkout.amount_total === null) {
+            throw new Error("Stripe delivery details are incomplete");
+          }
+          delivery = {
+            amountTotal: checkout.amount_total,
+            shippingAddress: recipient,
+            shippingMethodUid: rate.metadata.gelatoMethod || null,
+            shippingMethodName: rate.metadata.gelatoName
+              ? `${rate.display_name} (${rate.metadata.gelatoName})`
+              : rate.display_name,
+            shippingAmount: checkout.shipping_cost?.amount_total ?? 0,
+            gelatoQuoteId: rate.metadata.gelatoQuoteId || null,
+          };
+        } catch (error) {
+          console.error("Stripe delivery details could not be saved:", error instanceof Error ? error.name : "Unknown error");
+          return NextResponse.json({ error: "Could not save delivery details" }, { status: 500 });
+        }
+      }
+
       const [order] = await db
         .update(orders)
         .set({
+          ...delivery,
           status: "paid",
           paidAt,
           firstPreviewDeadline: calculateFirstPreviewDeadline(

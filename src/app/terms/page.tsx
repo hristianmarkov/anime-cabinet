@@ -36,7 +36,7 @@ export default function TermsPage() {
       <h2>Orders, prices, and payment</h2>
       <ul>
         <li>You must provide current, complete, and accurate order, contact, billing, and delivery information.</li>
-        <li>Prices, currencies, product availability, shipping charges, and delivery options are shown at checkout and may change before an order is placed.</li>
+        <li>Prices, currencies, product availability, and delivery options are shown before payment. Prints include free standard delivery to supported destinations.</li>
         <li>Payment is due in full at checkout. Applicable taxes or import charges may be added or collected separately.</li>
         <li>An order is accepted when payment is confirmed and we begin fulfilment. We may reject or cancel an order for suspected fraud, pricing or technical errors, unavailable service, prohibited content, or inability to fulfil it. If we cancel an accepted order, we will return the amount paid for the unfulfilled order.</li>
       </ul>

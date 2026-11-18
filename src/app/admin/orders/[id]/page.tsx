@@ -283,8 +283,9 @@ export default async function AdminOrderPage({
                     {shipping.firstName} {shipping.lastName}
                   </p>
                   <p>{shipping.addressLine1}</p>
+                  {shipping.addressLine2 && <p>{shipping.addressLine2}</p>}
                   <p>
-                    {shipping.city}, {shipping.postCode}, {shipping.country}
+                    {[shipping.city, shipping.state, shipping.postCode, shipping.country].filter(Boolean).join(", ")}
                   </p>
                   {order.shippingMethodName && <p className="mt-2">{order.shippingMethodName}</p>}
                 </div>

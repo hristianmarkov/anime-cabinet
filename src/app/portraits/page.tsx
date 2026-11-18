@@ -46,7 +46,7 @@ export default function PortraitsPage() {
             Choose Your <span className="text-gradient">Style</span>
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-lg text-muted">
-            Compare {allStyles.length} anime and cartoon styles. Our artists
+            Compare {allStyles.length} anime and cartoon styles. Prints include free standard delivery. Our artists
             create your portrait from your photos, with your choice of outfits,
             pose and background. Open a style to see examples and order options.
           </p>

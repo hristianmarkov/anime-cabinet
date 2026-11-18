@@ -1,3 +1,4 @@
+import { DIGITAL_PRICE_USD } from "./pricing";
 import type { PortraitStyle } from "./types";
 
 export const cartoonStyles: PortraitStyle[] = [
@@ -34,7 +35,7 @@ export const cartoonStyles: PortraitStyle[] = [
     ],
     badge: "bestseller",
     accent: "#fb923c",
-    priceFrom: 39.99,
+    priceFrom: DIGITAL_PRICE_USD,
   },
   {
     slug: "family-guy",
@@ -69,7 +70,7 @@ export const cartoonStyles: PortraitStyle[] = [
     ],
     badge: "popular",
     accent: "#60a5fa",
-    priceFrom: 39.99,
+    priceFrom: DIGITAL_PRICE_USD,
   },
   {
     slug: "the-simpsons",
@@ -104,7 +105,7 @@ export const cartoonStyles: PortraitStyle[] = [
     ],
     badge: "bestseller",
     accent: "#facc15",
-    priceFrom: 39.99,
+    priceFrom: DIGITAL_PRICE_USD,
   },
   {
     slug: "south-park",
@@ -138,7 +139,7 @@ export const cartoonStyles: PortraitStyle[] = [
       }
     ],
     accent: "#4ade80",
-    priceFrom: 39.99,
+    priceFrom: DIGITAL_PRICE_USD,
   },
   {
     slug: "rick-and-morty",
@@ -173,7 +174,7 @@ export const cartoonStyles: PortraitStyle[] = [
     ],
     badge: "bestseller",
     accent: "#4ade80",
-    priceFrom: 39.99,
+    priceFrom: DIGITAL_PRICE_USD,
   },
   {
     slug: "avatar-the-last-airbender",
@@ -208,7 +209,7 @@ export const cartoonStyles: PortraitStyle[] = [
     ],
     badge: "popular",
     accent: "#60a5fa",
-    priceFrom: 39.99,
+    priceFrom: DIGITAL_PRICE_USD,
   },
   {
     slug: "arcane",
@@ -243,6 +244,6 @@ export const cartoonStyles: PortraitStyle[] = [
     ],
     badge: "new",
     accent: "#2dd4bf",
-    priceFrom: 39.99,
+    priceFrom: DIGITAL_PRICE_USD,
   },
 ];

@@ -1,3 +1,4 @@
+import { DIGITAL_PRICE_USD } from "./pricing";
 import type { PortraitStyle } from "./types";
 
 export const animeStyles: PortraitStyle[] = [
@@ -34,7 +35,7 @@ export const animeStyles: PortraitStyle[] = [
     ],
     badge: "bestseller",
     accent: "#ff8a3d",
-    priceFrom: 39.99,
+    priceFrom: DIGITAL_PRICE_USD,
   },
   {
     slug: "one-piece",
@@ -69,7 +70,7 @@ export const animeStyles: PortraitStyle[] = [
     ],
     badge: "popular",
     accent: "#ff3860",
-    priceFrom: 39.99,
+    priceFrom: DIGITAL_PRICE_USD,
   },
   {
     slug: "one-piece-wanted-poster",
@@ -104,7 +105,7 @@ export const animeStyles: PortraitStyle[] = [
     ],
     badge: "bestseller",
     accent: "#ffc53d",
-    priceFrom: 34.99,
+    priceFrom: DIGITAL_PRICE_USD,
   },
   {
     slug: "dragon-ball-z",
@@ -139,7 +140,7 @@ export const animeStyles: PortraitStyle[] = [
     ],
     badge: "bestseller",
     accent: "#ffc53d",
-    priceFrom: 39.99,
+    priceFrom: DIGITAL_PRICE_USD,
   },
   {
     slug: "demon-slayer",
@@ -174,7 +175,7 @@ export const animeStyles: PortraitStyle[] = [
     ],
     badge: "popular",
     accent: "#2dd4bf",
-    priceFrom: 39.99,
+    priceFrom: DIGITAL_PRICE_USD,
   },
   {
     slug: "jujutsu-kaisen",
@@ -209,7 +210,7 @@ export const animeStyles: PortraitStyle[] = [
     ],
     badge: "popular",
     accent: "#7c6cff",
-    priceFrom: 39.99,
+    priceFrom: DIGITAL_PRICE_USD,
   },
   {
     slug: "attack-on-titan",
@@ -243,7 +244,7 @@ export const animeStyles: PortraitStyle[] = [
       }
     ],
     accent: "#84cc16",
-    priceFrom: 39.99,
+    priceFrom: DIGITAL_PRICE_USD,
   },
   {
     slug: "ghibli-style",
@@ -278,7 +279,7 @@ export const animeStyles: PortraitStyle[] = [
     ],
     badge: "popular",
     accent: "#5eead4",
-    priceFrom: 39.99,
+    priceFrom: DIGITAL_PRICE_USD,
   },
   {
     slug: "pokemon",
@@ -312,7 +313,7 @@ export const animeStyles: PortraitStyle[] = [
       }
     ],
     accent: "#facc15",
-    priceFrom: 39.99,
+    priceFrom: DIGITAL_PRICE_USD,
   },
   {
     slug: "my-hero-academia",
@@ -346,7 +347,7 @@ export const animeStyles: PortraitStyle[] = [
       }
     ],
     accent: "#4ade80",
-    priceFrom: 39.99,
+    priceFrom: DIGITAL_PRICE_USD,
   },
   {
     slug: "bleach",
@@ -380,7 +381,7 @@ export const animeStyles: PortraitStyle[] = [
       }
     ],
     accent: "#f87171",
-    priceFrom: 39.99,
+    priceFrom: DIGITAL_PRICE_USD,
   },
   {
     slug: "death-note",
@@ -414,7 +415,7 @@ export const animeStyles: PortraitStyle[] = [
       }
     ],
     accent: "#a3a3ad",
-    priceFrom: 39.99,
+    priceFrom: DIGITAL_PRICE_USD,
   },
   {
     slug: "hunter-x-hunter",
@@ -448,7 +449,7 @@ export const animeStyles: PortraitStyle[] = [
       }
     ],
     accent: "#4ade80",
-    priceFrom: 39.99,
+    priceFrom: DIGITAL_PRICE_USD,
   },
   {
     slug: "spy-x-family",
@@ -482,7 +483,7 @@ export const animeStyles: PortraitStyle[] = [
       }
     ],
     accent: "#f0abfc",
-    priceFrom: 39.99,
+    priceFrom: DIGITAL_PRICE_USD,
   },
   {
     slug: "sailor-moon",
@@ -516,7 +517,7 @@ export const animeStyles: PortraitStyle[] = [
       }
     ],
     accent: "#f0abfc",
-    priceFrom: 39.99,
+    priceFrom: DIGITAL_PRICE_USD,
   },
   {
     slug: "one-punch-man",
@@ -550,7 +551,7 @@ export const animeStyles: PortraitStyle[] = [
       }
     ],
     accent: "#facc15",
-    priceFrom: 39.99,
+    priceFrom: DIGITAL_PRICE_USD,
   },
   {
     slug: "solo-leveling",
@@ -585,6 +586,6 @@ export const animeStyles: PortraitStyle[] = [
     ],
     badge: "new",
     accent: "#7c6cff",
-    priceFrom: 39.99,
+    priceFrom: DIGITAL_PRICE_USD,
   },
 ];

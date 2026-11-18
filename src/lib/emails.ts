@@ -26,8 +26,8 @@ function orderSummaryHtml(order: Order): string {
   const shipping = order.shippingAddress;
   const shippingRow =
     order.formatId !== "digital" && shipping
-      ? `<tr><td style="padding:6px 0;color:#777">Ship to</td><td style="padding:6px 0">${shipping.firstName} ${shipping.lastName}, ${shipping.city}, ${shipping.country}</td></tr>
-         ${order.shippingMethodName ? `<tr><td style="padding:6px 0;color:#777">Shipping</td><td style="padding:6px 0">${order.shippingMethodName}</td></tr>` : ""}`
+      ? `<tr><td style="padding:6px 0;color:#777">Ship to</td><td style="padding:6px 0">${escapeHtml(shipping.firstName)} ${escapeHtml(shipping.lastName)}, ${escapeHtml(shipping.city)}, ${escapeHtml(shipping.country)}</td></tr>
+         ${order.shippingMethodName ? `<tr><td style="padding:6px 0;color:#777">Shipping</td><td style="padding:6px 0">${escapeHtml(order.shippingMethodName)}</td></tr>` : ""}`
       : "";
   return `
     <table style="border-collapse:collapse;width:100%;max-width:520px;font-family:Arial,sans-serif;font-size:14px;color:#222">

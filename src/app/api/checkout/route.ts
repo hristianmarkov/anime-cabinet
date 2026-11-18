@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import type Stripe from "stripe";
 import { eq } from "drizzle-orm";
 import { isCurrencyCode, type CurrencyCode } from "@/data/currencies";
 import {
@@ -6,16 +7,13 @@ import {
   PRINT_FORMATS,
   orderTotalCents,
   getOrderFormatLabel,
-  type PrintQuote,
-  type ShippingOption,
   isPrintFormat,
 } from "@/data/pricing";
-import { isCompleteShippingAddress } from "@/data/shipping";
 import { getStyleBySlug } from "@/data/styles";
 import { site } from "@/data/site";
 import { getDb } from "@/lib/db";
-import { getPrintQuote } from "@/lib/gelato-pricing";
-import { orders, type ShippingAddress } from "@/lib/schema";
+import { checkoutShippingRate, PRINT_DESTINATIONS } from "@/lib/print-shipping";
+import { orders } from "@/lib/schema";
 import { getStripe } from "@/lib/stripe";
 import { addOrderTimelineEvent } from "@/lib/orderTimeline";
 
@@ -28,10 +26,7 @@ interface CheckoutPayload {
   photoUrls: string[];
   expedited?: boolean;
   currency?: CurrencyCode;
-  shippingAddress?: ShippingAddress | null;
-  shippingMethodUid?: string;
-  shippingCents?: number;
-  printPriceCents?: number;
+
 }
 
 function baseUrl(request: Request): string {
@@ -72,51 +67,16 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid order details" }, { status: 400 });
   }
 
-  let quote: PrintQuote | undefined;
-  let shippingMethod: ShippingOption | undefined;
-  if (isPrintFormat(format.id)) {
-    if (!isCompleteShippingAddress(payload.shippingAddress) || !payload.shippingMethodUid) {
-      return NextResponse.json(
-        { error: "Shipping address and method required for print orders." },
-        { status: 400 }
-      );
-    }
-
-    try {
-      quote = await getPrintQuote(format.id, payload.shippingAddress, currency);
-      shippingMethod = quote.methods.find((method) => method.uid === payload.shippingMethodUid);
-    } catch (error) {
-      console.error("Checkout Gelato quote error:", error);
-      return NextResponse.json({ error: "Could not confirm print and shipping prices. Please try again." }, { status: 502 });
-    }
-
-    if (!shippingMethod || shippingMethod.priceCents !== payload.shippingCents ||
-        quote.printPriceCents !== payload.printPriceCents) {
-      return NextResponse.json(
-        { error: "Print or shipping prices changed. Review the updated total before checking out." },
-        { status: 409 }
-      );
-    }
-  }
-
-  const amountCents = orderTotalCents({
-    basePrice: style.priceFrom,
-    characters,
-    currency,
-    expedited,
-    printPriceCents: quote?.printPriceCents,
-    shippingCents: shippingMethod?.priceCents,
-  });
+  const needsShipping = isPrintFormat(format.id);
+  const publishableKey = needsShipping ? process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY?.trim() : undefined;
+  const amountCents = orderTotalCents({ characters, currency, expedited, formatId: format.id });
   const currencyCode = currency.toLowerCase();
 
   const descParts = [
     `${characters} character${characters > 1 ? "s" : ""}`,
-    getOrderFormatLabel(format.id, payload.shippingAddress?.country),
-    expedited ? "24h priority" : `${site.deliveryHours}h delivery`,
+    getOrderFormatLabel(format.id),
+    expedited ? "24h priority" : `${site.deliveryHours}h artwork preview`,
   ];
-  if (shippingMethod) {
-    descParts.push(`Shipping: ${shippingMethod.name}`);
-  }
 
   try {
     const db = getDb();
@@ -134,11 +94,6 @@ export async function POST(request: Request) {
         email: payload.email.slice(0, 320),
         photoUrls: payload.photoUrls.slice(0, 10),
         expedited,
-        shippingAddress: shippingMethod ? payload.shippingAddress : null,
-        shippingMethodUid: shippingMethod?.uid ?? null,
-        shippingMethodName: shippingMethod?.name ?? null,
-        shippingAmount: shippingMethod?.priceCents ?? 0,
-        gelatoQuoteId: quote?.quoteId ?? null,
         amountTotal: amountCents,
         currency: currencyCode,
       })
@@ -146,8 +101,25 @@ export async function POST(request: Request) {
 
     const url = baseUrl(request);
     const stripe = getStripe();
+    const confirmationUrl = `${url}/order/success?session_id={CHECKOUT_SESSION_ID}`;
+    const presentation: Partial<Stripe.Checkout.SessionCreateParams> = publishableKey
+      ? {
+          ui_mode: "embedded_page",
+          return_url: confirmationUrl,
+          redirect_on_completion: "always",
+          permissions: { update_shipping_details: "server_only" },
+        }
+      : { success_url: confirmationUrl, cancel_url: `${url}/portraits/${style.slug}` };
     const session = await stripe.checkout.sessions.create({
+      ...presentation,
+      integration_identifier: "anime-cabinet-jnwpxqfz",
+      ...(needsShipping ? {
+        shipping_address_collection: { allowed_countries: [...PRINT_DESTINATIONS] },
+        shipping_options: [checkoutShippingRate(currencyCode)],
+        metadata: { orderId: order.id, printDelivery: "stripe" },
+      } : { metadata: { orderId: order.id } }),
       mode: "payment",
+      adaptive_pricing: { enabled: false },
       customer_email: payload.email,
       line_items: [
         {
@@ -162,9 +134,6 @@ export async function POST(request: Request) {
           },
         },
       ],
-      metadata: { orderId: order.id },
-      success_url: `${url}/order/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${url}/portraits/${style.slug}`,
     });
 
     await db
@@ -183,7 +152,9 @@ export async function POST(request: Request) {
       console.error("Timeline event failed:", err);
     }
 
-    return NextResponse.json({ url: session.url });
+    return NextResponse.json(publishableKey
+      ? { clientSecret: session.client_secret, publishableKey }
+      : { url: session.url });
   } catch (error) {
     console.error("Checkout error:", error);
     return NextResponse.json(
