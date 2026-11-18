@@ -42,19 +42,26 @@ export async function POST(request: Request) {
       const db = getDb();
       const paidAt = new Date(event.created * 1_000);
       const [pendingOrder] = await db
-        .select({ createdAt: orders.createdAt, expedited: orders.expedited })
+        .select({ createdAt: orders.createdAt, expedited: orders.expedited, email: orders.email })
         .from(orders)
         .where(and(eq(orders.id, orderId), eq(orders.status, "pending")))
         .limit(1);
 
       if (!pendingOrder) return NextResponse.json({ received: true });
       let delivery: Partial<typeof orders.$inferInsert> = {};
-      if (session.metadata?.printDelivery === "stripe") {
-        try {
-          // Read the current API representation regardless of the webhook endpoint's API version.
-          const checkout = await getStripe().checkout.sessions.retrieve(session.id, {
-            expand: ["shipping_cost.shipping_rate"],
-          });
+      let email: string;
+      try {
+        const hasPrintDelivery = session.metadata?.printDelivery === "stripe";
+        // Read current shipping details regardless of the webhook endpoint's API version.
+        const checkout = hasPrintDelivery || !(session.customer_details?.email || session.customer_email || pendingOrder.email)
+          ? await getStripe().checkout.sessions.retrieve(session.id, hasPrintDelivery
+            ? { expand: ["shipping_cost.shipping_rate"] }
+            : undefined)
+          : session;
+        email = (checkout.customer_details?.email || session.customer_details?.email || checkout.customer_email || pendingOrder.email || "").trim();
+        if (!email) throw new Error("Stripe checkout email is missing");
+
+        if (hasPrintDelivery) {
           const recipient = readCheckoutAddress(checkout.collected_information?.shipping_details);
           const rate = checkout.shipping_cost?.shipping_rate;
           if (!recipient || !rate || typeof rate === "string" || checkout.amount_total === null) {
@@ -70,16 +77,17 @@ export async function POST(request: Request) {
             shippingAmount: checkout.shipping_cost?.amount_total ?? 0,
             gelatoQuoteId: rate.metadata.gelatoQuoteId || null,
           };
-        } catch (error) {
-          console.error("Stripe delivery details could not be saved:", error instanceof Error ? error.name : "Unknown error");
-          return NextResponse.json({ error: "Could not save delivery details" }, { status: 500 });
         }
+      } catch (error) {
+        console.error("Stripe checkout details could not be saved:", error instanceof Error ? error.name : "Unknown error");
+        return NextResponse.json({ error: "Could not save checkout details" }, { status: 500 });
       }
 
       const [order] = await db
         .update(orders)
         .set({
           ...delivery,
+          email,
           status: "paid",
           paidAt,
           firstPreviewDeadline: calculateFirstPreviewDeadline(

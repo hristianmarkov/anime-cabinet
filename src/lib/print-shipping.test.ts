@@ -92,6 +92,7 @@ test("checkout sends fixed prices to Stripe and saves the selected Express rate 
     values: (values: Record<string, unknown>) => {
       if (values.kind === "order_created") return Promise.resolve();
       assert.equal(values.amountTotal, 9999);
+      assert.equal(values.email, "");
       assert.equal(values.shippingAddress, undefined);
       return { returning: async () => [{ id: orderId }] };
     },
@@ -109,6 +110,7 @@ test("checkout sends fixed prices to Stripe and saves the selected Express rate 
   }));
   t.mock.method(stripe.checkout.sessions, "create", async (params) => {
     assert.equal(params.ui_mode, "form");
+    assert.equal(params.customer_email, undefined);
     assert.equal(params.line_items[0].price_data.unit_amount, 9999);
     assert.deepEqual(params.metadata, metadata);
     assert.equal(params.shipping_options[0].shipping_rate_data.fixed_amount.amount, 0);
@@ -118,6 +120,7 @@ test("checkout sends fixed prices to Stripe and saves the selected Express rate 
   t.mock.method(stripe.checkout.sessions, "retrieve", async (_id, params) => params?.expand
     ? {
         amount_total: 10699,
+        customer_details: { email: "stripe-customer@example.com" },
         collected_information: { shipping_details: shippingDetails },
         shipping_cost: { amount_total: 700, shipping_rate: {
           display_name: "Express",
@@ -142,7 +145,7 @@ test("checkout sends fixed prices to Stripe and saves the selected Express rate 
     new Request("http://localhost/api/checkout", { method: "POST", body: JSON.stringify(body), headers });
   const checkout = await startCheckout(post({
     styleSlug: "naruto", formatId: "framed-12x16", characters: 1, currency: "USD",
-    email: "test@example.com", photoUrls: ["https://example.com/photo.jpg"],
+    photoUrls: ["https://example.com/photo.jpg"],
     printPriceCents: 1, shippingCents: 99,
   }));
   assert.equal(checkout.status, 200);
@@ -154,6 +157,7 @@ test("checkout sends fixed prices to Stripe and saves the selected Express rate 
   assert.equal((await receivePayment(post({}, { "stripe-signature": "test" }))).status, 200);
   const paid = patches.find((patch) => patch.status === "paid");
   assert.equal(paid?.amountTotal, 10699);
+  assert.equal(paid?.email, "stripe-customer@example.com");
   assert.equal(paid?.shippingAmount, 700);
   assert.equal(paid?.shippingMethodUid, "faster");
   assert.equal((paid?.shippingAddress as { addressLine2: string }).addressLine2, "Apt 2");

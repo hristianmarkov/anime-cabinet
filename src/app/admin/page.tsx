@@ -170,7 +170,7 @@ export default async function AdminPage({
                             })}
                           </td>
                           <td className="max-w-[180px] truncate px-4 py-3 text-cream" title={order.email}>
-                            {order.email}
+                            {order.email || "Awaiting checkout"}
                           </td>
                           <td className="px-4 py-3 text-muted">{getOrderFormatLabel(order.formatId)}</td>
                           <td className="px-4 py-3 font-semibold text-cream">

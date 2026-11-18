@@ -224,9 +224,11 @@ export default async function AdminOrderPage({
                 <div>
                   <dt className="text-xs text-faint">Customer</dt>
                   <dd className="break-all text-cream">
-                    <a href={`mailto:${order.email}`} className="text-accent hover:underline">
-                      {order.email}
-                    </a>
+                    {order.email ? (
+                      <a href={`mailto:${order.email}`} className="text-accent hover:underline">
+                        {order.email}
+                      </a>
+                    ) : "Awaiting checkout"}
                   </dd>
                 </div>
                 <div>

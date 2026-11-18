@@ -41,7 +41,6 @@ export function OrderConfigurator({ style }: { style: PortraitStyle }) {
   const formatId = formatIdFromCategory(printCategory, printSize);
   const [expedited, setExpedited] = useState(false);
   const [notes, setNotes] = useState("");
-  const [email, setEmail] = useState("");
   const [files, setFiles] = useState<File[]>([]);
   const [checkout, setCheckout] = useState<PrintCheckoutSession | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -111,10 +110,6 @@ export function OrderConfigurator({ style }: { style: PortraitStyle }) {
       setError("Please upload at least one photo.");
       return;
     }
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setError("Please enter a valid email.");
-      return;
-    }
     setSubmitting(true);
     try {
       setProgress("Uploading your photos...");
@@ -137,7 +132,6 @@ export function OrderConfigurator({ style }: { style: PortraitStyle }) {
           characters,
           formatId,
           notes,
-          email,
           photoUrls,
           expedited,
           currency,
@@ -337,11 +331,6 @@ export function OrderConfigurator({ style }: { style: PortraitStyle }) {
       <div className="mt-6">
         <label className="text-sm font-semibold text-cream" htmlFor="order-notes">Notes for our artists</label>
         <textarea id="order-notes" rows={4} value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="Outfits, poses, expressions, and other important details…" className={`mt-3 ${inputBase} resize-y`} />
-      </div>
-
-      <div className="mt-6">
-        <label className="text-sm font-semibold text-cream" htmlFor="order-email">Delivery email</label>
-        <input id="order-email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" className={`mt-3 ${inputBase}`} />
       </div>
 
       {error && (

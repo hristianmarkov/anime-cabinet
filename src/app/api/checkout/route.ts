@@ -22,7 +22,6 @@ interface CheckoutPayload {
   characters: number;
   formatId: string;
   notes: string;
-  email: string;
   photoUrls: string[];
   expedited?: boolean;
   currency?: CurrencyCode;
@@ -60,7 +59,6 @@ export async function POST(request: Request) {
     !Number.isInteger(characters) ||
     characters < 1 ||
     characters > MAX_CHARACTERS ||
-    !payload.email ||
     !Array.isArray(payload.photoUrls) ||
     payload.photoUrls.length === 0
   ) {
@@ -91,7 +89,7 @@ export async function POST(request: Request) {
         background: "artist-choice",
         formatId: format.id,
         notes: (payload.notes ?? "").slice(0, 5000),
-        email: payload.email.slice(0, 320),
+        email: "",
         photoUrls: payload.photoUrls.slice(0, 10),
         expedited,
         amountTotal: amountCents,
@@ -112,7 +110,6 @@ export async function POST(request: Request) {
       } : { metadata: { orderId: order.id } }),
       mode: "payment",
       adaptive_pricing: { enabled: false },
-      customer_email: payload.email,
       line_items: [
         {
           quantity: 1,
