@@ -32,6 +32,7 @@ import {
 
 const MAX_FILES = 8;
 const MAX_FILE_MB = 15;
+const DEFAULT_LOCALE = "en-US";
 
 const COUNTRIES = [
   { code: "US", name: "United States" },
@@ -70,7 +71,7 @@ export function OrderConfigurator({ style }: { style: PortraitStyle }) {
   const [shipPost, setShipPost] = useState("");
   const [shipCountry, setShipCountry] = useState("");
   const [shipState, setShipState] = useState("");
-  const [locale, setLocale] = useState("en-US");
+  const [locale, setLocale] = useState(DEFAULT_LOCALE);
   const [prices, setPrices] = useState<{
     key: string;
     values: Partial<Record<string, number>>;
@@ -116,11 +117,15 @@ export function OrderConfigurator({ style }: { style: PortraitStyle }) {
   const sizeCountry = shipCountry || new Intl.Locale(locale).maximize().region || "US";
 
   useEffect(() => {
-    setLocale(navigator.language);
+    const browserLocale = new Intl.Locale(navigator.language || DEFAULT_LOCALE);
+    const region = browserLocale.maximize().region;
+    const defaultCountry = COUNTRIES.find((country) => country.code === region) ?? COUNTRIES[0];
+    setLocale(browserLocale.toString());
+    setShipCountry((selected) => selected || defaultCountry.code);
   }, []);
 
   useEffect(() => {
-    if (!needsShipping || !shipCountry) return;
+    if (!shipCountry) return;
     const controller = new AbortController();
     const query = new URLSearchParams({ country: shipCountry, currency });
 
@@ -137,7 +142,7 @@ export function OrderConfigurator({ style }: { style: PortraitStyle }) {
 
     void loadPrices();
     return () => controller.abort();
-  }, [needsShipping, shipCountry, currency, priceKey]);
+  }, [shipCountry, currency, priceKey]);
 
   useEffect(() => {
     if (!canQuote) return;
@@ -294,10 +299,8 @@ export function OrderConfigurator({ style }: { style: PortraitStyle }) {
 
   function formatAddOn(category: PrintCategory, size: PrintSize) {
     const id = formatIdFromCategory(category, size);
-    if (id === formatId && quote) return `+${formatCents(quote.printPriceCents)} print`;
-    const cents = currentPrices?.[id];
-    if (cents != null) return `Est. +${formatCents(cents)} print`;
-    if (!shipCountry) return "Select country";
+    const cents = id === formatId ? printPriceCents : currentPrices?.[id];
+    if (cents != null) return `+${formatCents(cents)}`;
     return currentPrices ? "Price unavailable" : "Loading price…";
   }
 
@@ -355,7 +358,7 @@ export function OrderConfigurator({ style }: { style: PortraitStyle }) {
             >
               <span className="block text-sm font-semibold text-cream">{cat.label}</span>
               <span className="mt-0.5 block text-[11px] leading-snug text-muted">
-                {cat.id === "digital" ? "Included" : needsShipping ? formatAddOn(cat.id, printSize) : cat.description}
+                {cat.id === "digital" ? "Included" : formatAddOn(cat.id, printSize)}
               </span>
             </button>
           ))}
@@ -363,15 +366,6 @@ export function OrderConfigurator({ style }: { style: PortraitStyle }) {
 
         {printCategory !== "digital" && (
           <>
-            <label className="mt-4 block text-sm font-semibold text-cream" htmlFor="shipping-country">
-              Shipping country
-            </label>
-            <select value={shipCountry} onChange={(e) => { setShipCountry(e.target.value); setShipState(""); }} id="shipping-country" className={`${inputBase} mt-2`} required>
-              <option value="">Select country</option>
-              {COUNTRIES.map((c) => (
-                <option key={c.code} value={c.code}>{c.name}</option>
-              ))}
-            </select>
             <p className="mt-4 text-xs font-semibold uppercase tracking-wider text-faint">
               Size
             </p>
@@ -437,13 +431,29 @@ export function OrderConfigurator({ style }: { style: PortraitStyle }) {
       {needsShipping && (
         <fieldset className="mt-6">
           <legend className="text-sm font-semibold text-cream">Shipping address</legend>
-          <p className="mt-1 text-xs text-muted">Enter your address to confirm the print price and get shipping options.</p>
+          <p className="mt-1 text-xs text-muted">Print prices are based on the shipping country. Enter your address to see shipping rates.</p>
           <div className="mt-3 grid gap-3 sm:grid-cols-2">
             <input placeholder="First name" value={shipFirst} onChange={(e) => setShipFirst(e.target.value)} className={inputBase} required />
             <input placeholder="Last name" value={shipLast} onChange={(e) => setShipLast(e.target.value)} className={inputBase} required />
             <input placeholder="Address line 1" value={shipLine1} onChange={(e) => setShipLine1(e.target.value)} className={`${inputBase} sm:col-span-2`} required />
             <input placeholder="City" value={shipCity} onChange={(e) => setShipCity(e.target.value)} className={inputBase} required />
             <input placeholder="Postcode / ZIP" value={shipPost} onChange={(e) => setShipPost(e.target.value)} className={inputBase} required />
+            <select
+              id="shipping-country"
+              aria-label="Shipping country"
+              autoComplete="country"
+              value={shipCountry}
+              onChange={(event) => {
+                setShipCountry(event.target.value);
+                setShipState("");
+              }}
+              className={inputBase}
+              required
+            >
+              {COUNTRIES.map((country) => (
+                <option key={country.code} value={country.code}>{country.name}</option>
+              ))}
+            </select>
             {stateRequired && (
               <input placeholder="State / province" aria-label="State / province" autoComplete="address-level1" value={shipState} onChange={(e) => setShipState(e.target.value)} className={inputBase} required />
             )}
