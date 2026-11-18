@@ -28,7 +28,7 @@ export function SaleBanner() {
     <aside aria-label="Ultimate Sale" className="bg-red-800 px-3 py-2 text-white">
       <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-3 gap-y-1.5 text-center">
         <p className="text-sm font-bold uppercase">
-          ULTIMATE SALE <span className="ml-1 text-xs font-medium normal-case">Countdown resets in</span>
+          ULTIMATE SALE <span className="ml-1 text-xs font-medium normal-case">Ends In</span>
         </p>
         <div role="timer" aria-live="off" aria-label={parts.map(({ unit, value }) => `${value ?? "–"} ${unit}`).join(" ")}>
           <div aria-hidden="true" className="flex items-center gap-1.5">
