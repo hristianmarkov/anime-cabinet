@@ -26,7 +26,7 @@ export async function POST(request: Request) {
     const secret = session.client_secret;
     if (!secret || Buffer.byteLength(token) !== Buffer.byteLength(secret) ||
         !timingSafeEqual(Buffer.from(token), Buffer.from(secret)) || session.status !== "open" ||
-        session.permissions?.update_shipping_details !== "server_only" || session.metadata?.printDelivery !== "stripe") {
+        session.ui_mode !== "form" || session.metadata?.printDelivery !== "stripe") {
       return NextResponse.json({ error: "Checkout session not available." }, { status: 403 });
     }
 
@@ -44,22 +44,7 @@ export async function POST(request: Request) {
     const shippingOptions = [checkoutShippingRate(order.currency, "Standard", standard, quoteId)];
     if (express) shippingOptions.push(checkoutShippingRate(order.currency, "Express", express, quoteId));
 
-    await stripe.checkout.sessions.update(sessionId, {
-      collected_information: {
-        shipping_details: {
-          name: body.shippingDetails.name.trim(),
-          address: {
-            country: recipient.country,
-            line1: recipient.addressLine1,
-            line2: recipient.addressLine2,
-            city: recipient.city,
-            postal_code: recipient.postCode,
-            state: recipient.state,
-          },
-        },
-      },
-      shipping_options: shippingOptions,
-    });
+    await stripe.checkout.sessions.update(sessionId, { shipping_options: shippingOptions });
 
     return NextResponse.json({ ok: true });
   } catch (error) {

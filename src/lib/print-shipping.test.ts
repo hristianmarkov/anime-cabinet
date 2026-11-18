@@ -108,7 +108,7 @@ test("checkout sends fixed prices to Stripe and saves the selected Express rate 
     }),
   }));
   t.mock.method(stripe.checkout.sessions, "create", async (params) => {
-    assert.equal(params.ui_mode, "embedded_page");
+    assert.equal(params.ui_mode, "form");
     assert.equal(params.line_items[0].price_data.unit_amount, 9999);
     assert.deepEqual(params.metadata, metadata);
     assert.equal(params.shipping_options[0].shipping_rate_data.fixed_amount.amount, 0);
@@ -124,9 +124,8 @@ test("checkout sends fixed prices to Stripe and saves the selected Express rate 
           metadata: { gelatoMethod: "faster", gelatoName: "Fast carrier", gelatoQuoteId: "quote-1" },
         } },
       }
-    : { id: sessionId, client_secret: clientSecret, status: "open", metadata, permissions: { update_shipping_details: "server_only" } });
+    : { id: sessionId, client_secret: clientSecret, status: "open", metadata, ui_mode: "form" });
   const update = t.mock.method(stripe.checkout.sessions, "update", async (_id, params) => {
-    assert.equal(params.collected_information.shipping_details.address.line2, "Apt 2");
     assert.deepEqual(params.shipping_options.map((option: { shipping_rate_data: { display_name: string; fixed_amount: { amount: number } } }) =>
       [option.shipping_rate_data.display_name, option.shipping_rate_data.fixed_amount.amount]), [["Standard", 0], ["Express", 700]]);
   });
