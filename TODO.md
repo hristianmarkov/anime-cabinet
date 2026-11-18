@@ -37,7 +37,7 @@ Track what still needs connecting, content, or configuration before and after go
   - `GELATO_UID_CANVAS_18X24`
   - `GELATO_UID_FRAMED_12X16`
   - `GELATO_UID_FRAMED_18X24`
-- [ ] Set `GELATO_PRINT_MARKUP` (default `2`) for dynamic print add-on pricing
+- [ ] Set `GELATO_PRINT_SURCHARGE` (default `5` in the selected currency) for print add-on pricing
 - [ ] Test live shipping quotes for US, UK, DE at checkout
 
 ## Gelato — Phase 2 (not built yet)

@@ -473,7 +473,6 @@ export function OrderConfigurator({ style }: { style: PortraitStyle }) {
           {shippingOptions.length > 0 && (
             <div className="mt-4 grid gap-2">
               <p className="text-xs font-semibold text-cream">Shipping method</p>
-              <p className="text-xs text-muted">Gelato delivery estimates start after artwork approval.</p>
               {shippingOptions.map((opt) => (
                 <label key={opt.uid} className={`flex cursor-pointer items-center justify-between rounded-xl border p-3 ${selectedShipping?.uid === opt.uid ? "border-accent bg-ink" : "border-line bg-ink"}`}>
                   <span className="flex items-center gap-2">

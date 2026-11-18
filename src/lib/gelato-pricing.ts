@@ -4,6 +4,7 @@ import { isPrintFormat, PRINT_FORMATS, type PrintQuote } from "@/data/pricing";
 import { quoteGelatoOrder } from "@/lib/gelato";
 import type { ShippingAddress } from "@/lib/schema";
 
+const DEFAULT_PRINT_SURCHARGE = 5;
 const GELATO_PRODUCT_BASE = "https://product.gelatoapis.com";
 
 function getLiveProductUid(formatId: string): string {
@@ -44,9 +45,10 @@ async function fetchPrintPriceCents(productUid: string, country: string, currenc
     throw new Error("Gelato returned no matching unit price");
   }
 
-  const markup = Number(process.env.GELATO_PRINT_MARKUP ?? "2");
-  const multiplier = Number.isFinite(markup) && markup > 0 ? markup : 2;
-  return Math.round(row.price * multiplier * 100);
+  const configuredSurcharge = process.env.GELATO_PRINT_SURCHARGE?.trim();
+  const surcharge = configuredSurcharge ? Number(configuredSurcharge) : DEFAULT_PRINT_SURCHARGE;
+  const flatMarkup = Number.isFinite(surcharge) && surcharge >= 0 ? surcharge : DEFAULT_PRINT_SURCHARGE;
+  return Math.round((row.price + flatMarkup) * 100);
 }
 
 export async function getAllPrintPrices(country: string, currency: CurrencyCode) {

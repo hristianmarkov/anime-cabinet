@@ -15,7 +15,7 @@ test("Gelato quotes keep their currency and use the correct product UID for each
   process.env.GELATO_UID_FRAMED_12X16 = "small-frame";
   process.env.GELATO_UID_FRAMED_18X24 = "large-frame";
   process.env.GELATO_UID_FRAMED_12X18 = "legacy-frame";
-  process.env.GELATO_PRINT_MARKUP = "2";
+  process.env.GELATO_PRINT_SURCHARGE = "2.50";
   const { getPrintQuote } = await import("./gelato-pricing");
   const { POST: quoteRoute } = await import("@/app/api/gelato/quote/route");
   const { POST: checkoutRoute } = await import("@/app/api/checkout/route");
@@ -63,8 +63,8 @@ test("Gelato quotes keep their currency and use the correct product UID for each
   const large = await getPrintQuote("framed-18x24", address, "GBP");
   assert.equal(small.quoteId, "small-frame");
   assert.equal(large.quoteId, "large-frame");
-  assert.equal(small.printPriceCents, 2020);
-  assert.equal(large.printPriceCents, 2040);
+  assert.equal(small.printPriceCents, 1260);
+  assert.equal(large.printPriceCents, 1270);
   assert.equal(small.methods[0].priceCents, 745);
   assert.equal(large.methods[0].priceCents, 935);
   assert.deepEqual(small.methods.map(({ name }) => name), ["Standard (Economy)", "Express (Express)"]);
@@ -104,5 +104,5 @@ test("Gelato quotes keep their currency and use the correct product UID for each
     expedited: false,
     printPriceCents: small.printPriceCents,
     shippingCents: small.methods[0].priceCents,
-  }), 5964);
+  }), 5204);
 });
