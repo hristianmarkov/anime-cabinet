@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import type Stripe from "stripe";
 import { eq } from "drizzle-orm";
 import { isCurrencyCode, type CurrencyCode } from "@/data/currencies";
 import {
@@ -25,7 +24,6 @@ interface CheckoutPayload {
   photoUrls: string[];
   expedited?: boolean;
   currency?: CurrencyCode;
-
 }
 
 function baseUrl(request: Request): string {
@@ -66,7 +64,6 @@ export async function POST(request: Request) {
   }
 
   const needsShipping = isPrintFormat(format.id);
-  const publishableKey = needsShipping ? process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY?.trim() : undefined;
   const amountCents = orderTotalCents({ characters, currency, expedited, formatId: format.id });
   const currencyCode = currency.toLowerCase();
 
@@ -100,8 +97,10 @@ export async function POST(request: Request) {
     const url = baseUrl(request);
     const stripe = getStripe();
     const confirmationUrl = `${url}/order/success?session_id={CHECKOUT_SESSION_ID}`;
-    const hosted = { success_url: confirmationUrl, cancel_url: `${url}/portraits/${style.slug}` };
-    const params: Stripe.Checkout.SessionCreateParams = {
+    const session = await stripe.checkout.sessions.create({
+      ui_mode: "hosted_page",
+      success_url: confirmationUrl,
+      cancel_url: `${url}/portraits/${style.slug}`,
       integration_identifier: "anime-cabinet-jnwpxqfz",
       ...(needsShipping ? {
         shipping_address_collection: { allowed_countries: [...PRINT_DESTINATIONS] },
@@ -123,19 +122,7 @@ export async function POST(request: Request) {
           },
         },
       ],
-    };
-    let session: Stripe.Checkout.Session;
-    if (publishableKey) {
-      try {
-        session = await stripe.checkout.sessions.create({ ...params, ui_mode: "form", return_url: confirmationUrl });
-      } catch (error) {
-        if (!(error instanceof Error) || error.name !== "StripeInvalidRequestError" && error.constructor.name !== "StripeInvalidRequestError") throw error;
-        console.error("Stripe Checkout Form unavailable. Using hosted Checkout.", error.message);
-        session = await stripe.checkout.sessions.create({ ...params, ...hosted });
-      }
-    } else {
-      session = await stripe.checkout.sessions.create({ ...params, ...hosted });
-    }
+    });
 
     await db
       .update(orders)
@@ -153,9 +140,7 @@ export async function POST(request: Request) {
       console.error("Timeline event failed:", err);
     }
 
-    return NextResponse.json(publishableKey && session.client_secret
-      ? { clientSecret: session.client_secret, publishableKey }
-      : { url: session.url });
+    return NextResponse.json({ url: session.url });
   } catch (error) {
     console.error("Checkout error:", error);
     return NextResponse.json(

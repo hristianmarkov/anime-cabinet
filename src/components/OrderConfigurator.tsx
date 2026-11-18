@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import { upload } from "@vercel/blob/client";
-import { PrintCheckout, type PrintCheckoutSession } from "./PrintCheckout";
 import type { PortraitStyle } from "@/data/types";
 import { formatCurrencyAmount } from "@/data/currencies";
 import { useCurrency } from "@/context/CurrencyContext";
@@ -42,7 +41,6 @@ export function OrderConfigurator({ style }: { style: PortraitStyle }) {
   const [expedited, setExpedited] = useState(false);
   const [notes, setNotes] = useState("");
   const [files, setFiles] = useState<File[]>([]);
-  const [checkout, setCheckout] = useState<PrintCheckoutSession | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [progress, setProgress] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -139,7 +137,7 @@ export function OrderConfigurator({ style }: { style: PortraitStyle }) {
       });
 
       const data = await res.json();
-      if (!res.ok || (!data.url && !(data.clientSecret && data.publishableKey))) {
+      if (!res.ok || !data.url) {
         throw new Error(data.error || "Could not start checkout.");
       }
       trackBeginCheckout({
@@ -154,13 +152,7 @@ export function OrderConfigurator({ style }: { style: PortraitStyle }) {
           price: total,
         },
       });
-      if (data.url) {
-        window.location.href = data.url;
-      } else {
-        setCheckout({ clientSecret: data.clientSecret, publishableKey: data.publishableKey });
-        setSubmitting(false);
-        setProgress(null);
-      }
+      window.location.href = data.url;
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong.");
       setSubmitting(false);
@@ -180,8 +172,6 @@ export function OrderConfigurator({ style }: { style: PortraitStyle }) {
 
   const inputBase =
     "w-full rounded-xl border border-line bg-ink px-4 py-3 text-sm text-cream placeholder:text-faint focus:border-accent focus:outline-none";
-
-  if (checkout) return <PrintCheckout {...checkout} onBack={() => setCheckout(null)} />;
 
   return (
     <form onSubmit={handleSubmit} className="rounded-2xl border border-line bg-surface p-6 shadow-card sm:p-8">

@@ -32,8 +32,7 @@ export default function ShippingPage() {
       <h2>Shipping options and estimates</h2>
       <p>
         Standard delivery is free for all print orders to supported destinations.
-        Enter your address in Stripe Checkout to see available delivery options.
-        Express delivery is optional and priced at checkout when available.
+        Enter your address in Stripe Checkout to confirm the delivery destination.
         Delivery dates are estimates and may
         be affected by production volume, carrier delays, weather, customs, or
         other events outside our control.

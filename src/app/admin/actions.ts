@@ -28,6 +28,7 @@ import { generateDeliveryMessageForOrder } from "@/lib/generateDeliveryMessageFo
 import { addOrderTimelineEvent } from "@/lib/orderTimeline";
 import { getLatestSentDelivery } from "@/lib/orderDeliveries";
 import { notifyCustomerOfStatusChange } from "@/lib/orderStatusEmails";
+import { getStandardPrintDelivery } from "@/lib/print-shipping";
 import { createGelatoPrintOrder, isGelatoConfigured } from "@/lib/gelato";
 import { sendOrderDeliveryToCustomer } from "@/lib/sendOrderDelivery";
 import { createDeliveryUploadToken } from "@/lib/adminDeliveryUploadToken";
@@ -427,11 +428,21 @@ export async function submitGelatoOrder(formData: FormData): Promise<void> {
   }
 
   try {
-    const created = await createGelatoPrintOrder(order, order.printFileUrl);
+    let delivery = {};
+    if (!order.shippingMethodUid && order.shippingMethodName === "Standard" && order.shippingAddress) {
+      const { standard, quoteId } = await getStandardPrintDelivery(order.formatId, order.currency, order.shippingAddress);
+      delivery = {
+        shippingMethodUid: standard.shipmentMethodUid,
+        shippingMethodName: `Standard (${standard.name})`,
+        gelatoQuoteId: quoteId,
+      };
+    }
+    const created = await createGelatoPrintOrder({ ...order, ...delivery }, order.printFileUrl);
     const prevStatus = order.status;
     await db
       .update(orders)
       .set({
+        ...delivery,
         gelatoOrderId: created.gelatoOrderId,
         gelatoFulfillmentStatus: created.fulfillmentStatus,
         shippingFulfillmentStatus: "printing",

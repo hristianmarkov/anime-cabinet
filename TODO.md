@@ -37,8 +37,7 @@ Track what still needs connecting, content, or configuration before and after go
   - `GELATO_UID_CANVAS_18X24`
   - `GELATO_UID_FRAMED_12X16`
   - `GELATO_UID_FRAMED_18X24`
-- [ ] Configure `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` to enable Gelato delivery choices in Stripe Checkout.
-- [ ] Test delivery choices for US, UK, and DE in Stripe Checkout.
+- [ ] Test free Standard delivery for US, UK, and DE in Stripe Checkout.
 
 ## Gelato — Phase 2 (not built yet)
 

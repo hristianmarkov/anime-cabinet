@@ -19,10 +19,10 @@ test("format dimensions by locale and retain the dimensions of existing orders",
   assert.match(getOrderFormatLabel("framed-12x18"), /12x18/);
 });
 
-test("address-specific Gelato choices keep their carrier IDs and charge only for Express", async (t) => {
+test("Standard is free in Stripe and Gelato fulfillment uses the cheapest eligible carrier", async (t) => {
   process.env.GELATO_API_KEY = "test-key";
   process.env.GELATO_UID_FRAMED_12X16 = "small-frame";
-  const { readCheckoutAddress, getPrintDelivery, checkoutShippingRate } = await import("./print-shipping");
+  const { readCheckoutAddress, getStandardPrintDelivery, checkoutShippingRate } = await import("./print-shipping");
   const address = {
     name: "Test Customer",
     address: {
@@ -55,32 +55,27 @@ test("address-specific Gelato choices keep their carrier IDs and charge only for
     })) }] });
   });
 
-  const quote = await getPrintDelivery("framed-12x16", "gbp", recipient);
+  const quote = await getStandardPrintDelivery("framed-12x16", "gbp", recipient);
   assert.equal(quote.standard?.shipmentMethodUid, "standard");
-  assert.equal(quote.express?.shipmentMethodUid, "faster");
-  const rates = [
-    checkoutShippingRate("gbp", "Standard", quote.standard, quote.quoteId),
-    checkoutShippingRate("gbp", "Express", quote.express, quote.quoteId),
-  ];
-  assert.deepEqual(rates.map(({ shipping_rate_data: rate }) => rate?.fixed_amount?.amount), [0, 700]);
-  assert.deepEqual(rates.map(({ shipping_rate_data: rate }) => rate?.metadata?.gelatoMethod), ["standard", "faster"]);
+  assert.equal(quote.quoteId, "quote-1");
+  const rate = checkoutShippingRate("gbp").shipping_rate_data;
+  assert.equal(rate?.display_name, "Standard");
+  assert.deepEqual(rate?.fixed_amount, { amount: 0, currency: "gbp" });
 });
 
-test("checkout sends fixed prices to Stripe and saves the selected Express rate on payment", async (t) => {
+test("hosted checkout collects the customer email and address for free Standard delivery", async (t) => {
   process.env.STRIPE_SECRET_KEY = "sk_test_example";
   process.env.STRIPE_WEBHOOK_SECRET = "whsec_example";
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY = "pk_test_example";
   process.env.DATABASE_URL = "postgresql://test:test@database.example/test";
   const { getDb } = await import("./db");
   const { getStripe } = await import("./stripe");
   const { POST: startCheckout } = await import("@/app/api/checkout/route");
-  const { POST: updateShipping } = await import("@/app/api/checkout/shipping/route");
   const { POST: receivePayment } = await import("@/app/api/stripe-webhook/route");
 
   const db = getDb();
   const stripe = getStripe();
   const sessionId = "cs_test_abc";
-  const clientSecret = `${sessionId}_secret_xyz`;
+  const checkoutUrl = "https://checkout.stripe.com/c/pay/cs_test_abc";
   const orderId = "00000000-0000-4000-8000-000000000001";
   const shippingDetails = {
     name: "Test Customer",
@@ -109,38 +104,25 @@ test("checkout sends fixed prices to Stripe and saves the selected Express rate 
     }),
   }));
   t.mock.method(stripe.checkout.sessions, "create", async (params) => {
-    assert.equal(params.ui_mode, "form");
+    assert.equal(params.ui_mode, "hosted_page");
     assert.equal(params.customer_email, undefined);
     assert.equal(params.line_items[0].price_data.unit_amount, 9999);
     assert.deepEqual(params.metadata, metadata);
     assert.equal(params.shipping_options[0].shipping_rate_data.fixed_amount.amount, 0);
     assert.ok(params.shipping_address_collection.allowed_countries.includes("US"));
-    return { id: sessionId, client_secret: clientSecret };
+    assert.equal(params.shipping_options.length, 1);
+    return { id: sessionId, url: checkoutUrl };
   });
-  t.mock.method(stripe.checkout.sessions, "retrieve", async (_id, params) => params?.expand
-    ? {
-        amount_total: 10699,
-        customer_details: { email: "stripe-customer@example.com" },
-        collected_information: { shipping_details: shippingDetails },
-        shipping_cost: { amount_total: 700, shipping_rate: {
-          display_name: "Express",
-          metadata: { gelatoMethod: "faster", gelatoName: "Fast carrier", gelatoQuoteId: "quote-1" },
-        } },
-      }
-    : { id: sessionId, client_secret: clientSecret, status: "open", metadata, ui_mode: "form" });
-  const update = t.mock.method(stripe.checkout.sessions, "update", async (_id, params) => {
-    assert.deepEqual(params.shipping_options.map((option: { shipping_rate_data: { display_name: string; fixed_amount: { amount: number } } }) =>
-      [option.shipping_rate_data.display_name, option.shipping_rate_data.fixed_amount.amount]), [["Standard", 0], ["Express", 700]]);
-  });
+  t.mock.method(stripe.checkout.sessions, "retrieve", async () => ({
+    amount_total: 9999,
+    customer_details: { email: "stripe-customer@example.com" },
+    collected_information: { shipping_details: shippingDetails },
+    shipping_cost: { amount_total: 0, shipping_rate: { display_name: "Standard", metadata: {} } },
+  }));
   t.mock.method(stripe.webhooks, "constructEvent", () => ({
     type: "checkout.session.completed", created: 1795020000,
     data: { object: { id: sessionId, payment_status: "paid", metadata } },
   }));
-  t.mock.method(globalThis, "fetch", async () => Response.json({ quotes: [{ id: "quote-1", shipmentMethods: [
-    { shipmentMethodUid: "economy", name: "Economy carrier", isPrivate: true, type: "normal", price: 5, currency: "USD", minDeliveryDays: 4, maxDeliveryDays: 5 },
-    { shipmentMethodUid: "faster", name: "Fast carrier", isPrivate: true, type: "express", price: 7, currency: "USD", minDeliveryDays: 2, maxDeliveryDays: 3 },
-  ] }] }));
-
   const post = (body: unknown, headers?: Record<string, string>) =>
     new Request("http://localhost/api/checkout", { method: "POST", body: JSON.stringify(body), headers });
   const checkout = await startCheckout(post({
@@ -149,16 +131,14 @@ test("checkout sends fixed prices to Stripe and saves the selected Express rate 
     printPriceCents: 1, shippingCents: 99,
   }));
   assert.equal(checkout.status, 200);
-  assert.equal((await checkout.json()).clientSecret, clientSecret);
+  assert.deepEqual(await checkout.json(), { url: checkoutUrl });
 
-  assert.equal((await updateShipping(post({ sessionId, shippingDetails }))).status, 403);
-  assert.equal((await updateShipping(post({ sessionId, shippingDetails }, { Authorization: `Bearer ${clientSecret}` }))).status, 200);
-  assert.equal(update.mock.callCount(), 1);
   assert.equal((await receivePayment(post({}, { "stripe-signature": "test" }))).status, 200);
   const paid = patches.find((patch) => patch.status === "paid");
-  assert.equal(paid?.amountTotal, 10699);
+  assert.equal(paid?.amountTotal, 9999);
   assert.equal(paid?.email, "stripe-customer@example.com");
-  assert.equal(paid?.shippingAmount, 700);
-  assert.equal(paid?.shippingMethodUid, "faster");
+  assert.equal(paid?.shippingAmount, 0);
+  assert.equal(paid?.shippingMethodUid, null);
+  assert.equal(paid?.shippingMethodName, "Standard");
   assert.equal((paid?.shippingAddress as { addressLine2: string }).addressLine2, "Apt 2");
 });

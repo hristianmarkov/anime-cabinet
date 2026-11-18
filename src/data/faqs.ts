@@ -13,7 +13,7 @@ export const globalFaqs: StyleFaq[] = [
   },
   {
     q: "How long does delivery take?",
-    a: `Digital previews arrive within ${site.deliveryHours} hours. Need it faster? Add priority delivery at checkout for ${site.expeditedHours}-hour turnaround (US$10 during the sale, US$20 comparison). Printed posters, canvases and framed prints go into production after you approve the artwork. Standard delivery is free, and available delivery options appear at checkout.`,
+    a: `Digital previews arrive within ${site.deliveryHours} hours. Need it faster? Add priority delivery at checkout for ${site.expeditedHours}-hour turnaround (US$10 during the sale, US$20 comparison). Printed posters, canvases and framed prints go into production after you approve the artwork. Prints include free standard delivery.`,
   },
   {
     q: "What kind of photo should I upload?",
@@ -33,7 +33,7 @@ export const globalFaqs: StyleFaq[] = [
   },
   {
     q: "Do you ship prints internationally?",
-    a: "Yes, posters, canvases and framed prints include free standard delivery to supported countries. Enter your address at checkout to see available delivery options.",
+    a: "Yes, posters, canvases and framed prints include free standard delivery to supported countries. Enter your delivery address in Stripe Checkout.",
   },
   {
     q: "Can I use my portrait as a profile picture or print it myself?",

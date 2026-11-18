@@ -1,7 +1,7 @@
 import type Stripe from "stripe";
 import { getGelatoProductUid } from "@/data/gelato-products";
 import { isCompleteShippingAddress } from "@/data/shipping";
-import { quoteGelatoOrder, type GelatoShipmentMethod } from "@/lib/gelato";
+import { quoteGelatoOrder } from "@/lib/gelato";
 import type { ShippingAddress } from "@/lib/schema";
 
 export const PRINT_DESTINATIONS = ["US", "GB", "DE", "FR", "CA", "AU", "NL", "ES", "IT", "IE"] as const;
@@ -30,34 +30,17 @@ export function readCheckoutAddress(value: unknown): ShippingAddress | null {
     isCompleteShippingAddress(recipient) ? recipient : null;
 }
 
-export function checkoutShippingRate(
-  currency: string,
-  name: "Standard" | "Express" = "Standard",
-  method?: GelatoShipmentMethod,
-  quoteId?: string,
-): Stripe.Checkout.SessionCreateParams.ShippingOption {
-  const min = method?.minDeliveryDays;
-  const max = method?.maxDeliveryDays;
+export function checkoutShippingRate(currency: string): Stripe.Checkout.SessionCreateParams.ShippingOption {
   return {
     shipping_rate_data: {
-      display_name: name,
+      display_name: "Standard",
       type: "fixed_amount",
-      fixed_amount: { amount: name === "Express" && method ? Math.round(method.price * 100) : 0, currency },
-      ...(method && quoteId ? {
-        metadata: { gelatoMethod: method.shipmentMethodUid, gelatoName: method.name, gelatoQuoteId: quoteId },
-      } : {}),
-      ...(typeof min === "number" && typeof max === "number" &&
-        Number.isInteger(min) && Number.isInteger(max) && min > 0 && max >= min ? {
-        delivery_estimate: {
-          minimum: { unit: "day", value: min },
-          maximum: { unit: "day", value: max },
-        },
-      } : {}),
+      fixed_amount: { amount: 0, currency },
     },
   };
 }
 
-export async function getPrintDelivery(formatId: string, currency: string, recipient: ShippingAddress) {
+export async function getStandardPrintDelivery(formatId: string, currency: string, recipient: ShippingAddress) {
   const productUid = getGelatoProductUid(formatId);
   if (!productUid) throw new Error(`Missing Gelato product UID for ${formatId}`);
   const quote = await quoteGelatoOrder({ productUid, currency: currency.toUpperCase(), recipient });
@@ -66,11 +49,6 @@ export async function getPrintDelivery(formatId: string, currency: string, recip
     method.currency === currency.toUpperCase() && Number.isFinite(method.price) && method.price >= 0);
   const standard = methods.sort((a, b) =>
     a.price - b.price || (a.maxDeliveryDays ?? Infinity) - (b.maxDeliveryDays ?? Infinity))[0];
-  const standardDays = standard?.maxDeliveryDays;
-  const express = typeof standardDays === "number"
-    ? methods.filter((method): method is GelatoShipmentMethod & { maxDeliveryDays: number } => typeof method.maxDeliveryDays === "number" &&
-        Number.isInteger(method.maxDeliveryDays) && method.maxDeliveryDays > 0 && method.maxDeliveryDays < standardDays)
-      .sort((a, b) => b.maxDeliveryDays - a.maxDeliveryDays || a.price - b.price)[0]
-    : undefined;
-  return { quoteId: quote.quoteId, standard, express };
+  if (!standard) throw new Error("Gelato has no standard delivery service for this address.");
+  return { quoteId: quote.quoteId, standard };
 }
