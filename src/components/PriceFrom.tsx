@@ -1,5 +1,6 @@
 "use client";
 
+import { orderTotalCents } from "@/data/pricing";
 import { formatCurrencyAmount } from "@/data/currencies";
 import { useCurrency } from "@/context/CurrencyContext";
 
@@ -17,4 +18,10 @@ export function PriceFrom({ usd, prefix = "from " }: { usd: number; prefix?: str
       </span>
     </>
   );
+}
+
+export function PrintPrice({ formatId }: { formatId: string }) {
+  const { currency } = useCurrency();
+  const total = orderTotalCents({ formatId, characters: 1, currency, expedited: false });
+  return <>{formatCurrencyAmount(total / 100, currency)}</>;
 }

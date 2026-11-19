@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { artSrc } from "@/data/art";
 import { blogPosts } from "@/data/blog";
 import { styleShowcases } from "@/data/gallery";
+import { merchantPrint, MERCHANT_PRINT_FORMATS } from "@/data/merchantPrints";
 import { site } from "@/data/site";
 import { allStyles } from "@/data/styles";
 
@@ -43,6 +44,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     };
   });
 
+  const printPages: MetadataRoute.Sitemap = allStyles.flatMap((style) => {
+    const image = styleShowcases[style.slug]?.slider.after;
+    return MERCHANT_PRINT_FORMATS.map((format) => ({
+      url: absoluteUrl(merchantPrint(style, format).path),
+      ...(style.updatedAt && { lastModified: new Date(style.updatedAt) }),
+      ...(image && { images: [absoluteUrl(image)] }),
+    }));
+  });
+
   const blogPages: MetadataRoute.Sitemap = blogPosts.map((p) => ({
     url: `${site.url}/blog/${p.slug}`,
     lastModified: new Date(p.updatedAt ?? p.date),
@@ -51,5 +61,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...(p.heroImage && { images: [absoluteUrl(artSrc(p.heroImage))] }),
   }));
 
-  return [...staticPages, ...stylePages, ...blogPages];
+  return [...staticPages, ...stylePages, ...printPages, ...blogPages];
 }

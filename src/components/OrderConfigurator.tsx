@@ -32,11 +32,14 @@ const MAX_FILES = 8;
 const MAX_FILE_MB = 15;
 const DEFAULT_LOCALE = "en-US";
 
-export function OrderConfigurator({ style }: { style: PortraitStyle }) {
+export function OrderConfigurator({ style, initialPrint }: {
+  style: PortraitStyle;
+  initialPrint?: { kind: PrintCategory; size: PrintSize };
+}) {
   const { currency, formatPrice } = useCurrency();
   const [characters, setCharacters] = useState(1);
-  const [printCategory, setPrintCategory] = useState<PrintCategory>("digital");
-  const [printSize, setPrintSize] = useState<PrintSize>("12x16");
+  const [printCategory, setPrintCategory] = useState<PrintCategory>(initialPrint?.kind ?? "digital");
+  const [printSize, setPrintSize] = useState<PrintSize>(initialPrint?.size ?? "12x16");
   const formatId = formatIdFromCategory(printCategory, printSize);
   const [expedited, setExpedited] = useState(false);
   const [notes, setNotes] = useState("");

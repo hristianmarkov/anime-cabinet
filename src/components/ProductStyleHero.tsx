@@ -4,16 +4,23 @@ import type { PortraitStyle } from "@/data/types";
 import { getShowcase } from "@/data/gallery";
 import { site } from "@/data/site";
 import { RichText } from "./RichText";
-import { PriceFrom } from "./PriceFrom";
+import { PriceFrom, PrintPrice } from "./PriceFrom";
 import { ProductShowcase } from "./ProductShowcase";
 
-export function ProductStyleHero({ style }: { style: PortraitStyle }) {
+export function ProductStyleHero({ style, print }: {
+  style: PortraitStyle;
+  print?: { formatId: string; description: string };
+}) {
   const showcase = getShowcase(style.slug);
 
   return (
     <>
       <p className="mt-3 text-lg font-medium" style={{ color: style.accent }}>
-        {style.productName} — from <PriceFrom usd={style.priceFrom} prefix="" />
+        {print ? (
+          <><PrintPrice formatId={print.formatId} /> <span className="text-sm text-muted">· Free standard delivery</span></>
+        ) : (
+          <>{style.productName} — from <PriceFrom usd={style.priceFrom} prefix="" /></>
+        )}
       </p>
 
       {showcase && (
@@ -23,7 +30,7 @@ export function ProductStyleHero({ style }: { style: PortraitStyle }) {
       )}
 
       <div className="prose-invert mt-8 space-y-4">
-        {style.description.map((para) => (
+        {(print ? [print.description] : style.description).map((para) => (
           <p key={para.slice(0, 32)} className="leading-relaxed text-muted">
             <RichText text={para} />
           </p>
