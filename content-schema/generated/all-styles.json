@@ -62,7 +62,9 @@
     "heroHeading": "Custom Naruto Portrait From Your Photo",
     "description": [
       "Create a Naruto-inspired portrait of yourself as a shinobi, with crisp outlines, bold cel shading and a village setting. Our artists use your photo as the reference for your hairstyle, expression and other recognisable features.",
-      "Choose a village headband, a flak jacket or cloak, and a pose. A hand-sign pose keeps the focus on your character; a wider composition leaves room for a chakra effect or a second person. Add your preferred headband symbol, outfit colours and background to the order notes."
+      "Choose a village headband, a flak jacket or cloak, and a pose. A hand-sign pose keeps the focus on your character; a wider composition leaves room for a chakra effect or a second person. Add your preferred headband symbol, outfit colours and background to the order notes.",
+      "For a headband portrait, send a face photo with the forehead and hairline visible. If the headband covers a distinctive hairstyle, mention which strands or accessories should remain. For hand signs, include a separate pose reference instead of relying on a face selfie to describe both the likeness and the gesture. A simple background leaves more space for hands and clothing details.",
+      "Choose a close portrait for an expression-led gift, waist-up framing for a hand sign or flak jacket, or a wider scene for a two-person mission. Ask for complementary poses rather than identical gestures in a couple portrait. If a pirate crew setting fits the recipient better than a shinobi scene, compare [One Piece portraits](/portraits/one-piece). At preview stage, check the headband symbol, hand positions and outfit colours as well as the face."
     ],
     "faqs": [
       {
@@ -81,7 +83,7 @@
       "naruto portrait from photo",
       "personalised naruto gift"
     ],
-    "updatedAt": "2026-11-11"
+    "updatedAt": "2026-11-20"
   },
   "one-piece": {
     "slug": "one-piece",
@@ -90,7 +92,9 @@
     "heroHeading": "Custom One Piece Portrait From Your Photo",
     "description": [
       "Turn your photo into a One Piece-inspired pirate portrait. Expressive faces, bright colours and a nautical setting give the artwork an adventurous feel while keeping you recognisable.",
-      "Plan a solo pirate, a couple on a ship deck or a group crew scene. Tell our artists about clothing, a ship or island background, and any power effect you want. For a parchment layout with a name and bounty instead of a full scene, choose our [custom wanted poster](/portraits/one-piece-wanted-poster)."
+      "Plan a solo pirate, a couple on a ship deck or a group crew scene. Tell our artists about clothing, a ship or island background, and any power effect you want. For a parchment layout with a name and bounty instead of a full scene, choose our [custom wanted poster](/portraits/one-piece-wanted-poster).",
+      "A clear face reference and a separate costume or pose reference are easier to interpret than one heavily filtered photo. For a crew portrait, identify each person in the upload notes and say where they should stand. A shared horizon or ship deck can connect several characters without making every outfit and expression identical.",
+      "Use a scene portrait when the setting and interaction matter: two people leaning on a ship rail, for example, need more room than a close facial crop. Choose a [wanted poster](/portraits/one-piece-wanted-poster) when the joke is the pirate name and bounty. Check the preview for each person’s likeness and position, any requested accessories, and the spelling of names before approving a print."
     ],
     "faqs": [
       {
@@ -109,7 +113,7 @@
       "one piece anime portrait from photo",
       "personalised one piece gift"
     ],
-    "updatedAt": "2026-11-11"
+    "updatedAt": "2026-11-20"
   },
   "one-piece-wanted-poster": {
     "slug": "one-piece-wanted-poster",
@@ -198,11 +202,13 @@
   "arcane": {
     "slug": "arcane",
     "metaTitle": "Custom Arcane Portrait From Your Photo",
-    "metaDescription": "Order a Arcane-inspired portrait with textured colour, city lighting and workshop scenes. Preview in 72 hours; unlimited revisions.",
+    "metaDescription": "Order an Arcane-inspired portrait with textured colour, city lighting and workshop scenes. Preview in 72 hours; unlimited revisions.",
     "heroHeading": "Custom Arcane Portrait From Your Photo",
     "description": [
       "Create an Arcane-inspired portrait with textured colour, strong facial planes and dramatic city lighting. Your facial features and expression remain central to the composition.",
-      "Choose a warm, gold-toned city mood or a cooler neon atmosphere. Tell our artists about clothing, jewellery, hair colour and a setting such as a workshop or city street. A close portrait highlights expression; a wider duo scene gives room for contrasting poses."
+      "Choose a warm, gold-toned city mood or a cooler neon atmosphere. Tell our artists about clothing, jewellery, hair colour and a setting such as a workshop or city street. A close portrait highlights expression; a wider duo scene gives room for contrasting poses.",
+      "For your reference photo, use even lighting so both sides of the face are visible. The finished scene can have dramatic shadows without hiding the facial details needed for likeness. Glasses, freckles, piercings and an asymmetric hairstyle are useful details to call out separately, especially if a coloured rim light will change their appearance.",
+      "Choose a head-and-shoulders composition for an expressive character study, or a waist-up workshop scene if clothing and props matter. Arcane-inspired textured shading suits a painted city atmosphere. If you prefer crisp outlines and a darker hunter theme, compare the [Solo Leveling portrait](/portraits/solo-leveling). In your preview, check the face before the lighting: a striking colour palette should still leave the subject recognisable."
     ],
     "faqs": [
       {
@@ -221,7 +227,7 @@
       "arcane painterly portrait commission",
       "arcane fan gift"
     ],
-    "updatedAt": "2026-11-11"
+    "updatedAt": "2026-11-20"
   },
   "attack-on-titan": {
     "slug": "attack-on-titan",
@@ -594,7 +600,9 @@
     "heroHeading": "Custom Solo Leveling Portrait From Your Photo",
     "description": [
       "Create a Solo Leveling-inspired portrait with deep shadows, blue or violet highlights and a cinematic hunter atmosphere. Our artists use your photo as the reference for your face, hair and expression.",
-      "Choose an outfit, glow colour and pose, then describe a shadow effect or a subtle rank-style detail. A close crop gives the face more emphasis; a wider composition leaves room for a weapon or a duo. Tell us whether you prefer a serious forward gaze or the expression in your photo."
+      "Choose an outfit, glow colour and pose, then describe a shadow effect or a subtle rank-style detail. A close crop gives the face more emphasis; a wider composition leaves room for a weapon or a duo. Tell us whether you prefer a serious forward gaze or the expression in your photo.",
+      "Separate the face reference from the action reference. A sharp, naturally lit face photo helps with likeness; a second image or a written description can explain a weapon grip, long coat or action pose. Keep the requested glow behind or beside the character when you want the eyes, glasses or facial hair to remain easy to read.",
+      "A head-and-shoulders crop puts the emphasis on the hunter expression. Choose waist-up framing when a weapon, costume or shadow effect is central to the concept. For a softer painted interpretation of a dark city setting, compare [Arcane-inspired portraits](/portraits/arcane). Before approving your preview, check hand positions, the outline of the weapon and whether the shadow effects obscure any important personal details."
     ],
     "faqs": [
       {
@@ -613,7 +621,7 @@
       "solo leveling fan art commission",
       "solo leveling gift"
     ],
-    "updatedAt": "2026-11-11"
+    "updatedAt": "2026-11-20"
   },
   "south-park": {
     "slug": "south-park",

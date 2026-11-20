@@ -36,6 +36,7 @@ export function buildGoogleMerchantFeed(styles: PortraitStyle[]): string {
         element("g:content", product.description),
         "      </g:structured_description>",
         element("g:link", `${site.url}${product.path}`),
+        element("g:canonical_link", `${site.url}/portraits/${style.slug}`),
         element("g:image_link", `${site.url}${showcase.slider.after}`),
         ...showcase.examples.map((example) =>
           element("g:additional_image_link", `${site.url}${example.src}`)

@@ -6,7 +6,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { OrderConfigurator } from "@/components/OrderConfigurator";
 import { ReviewCard } from "@/components/ReviewCard";
 import { StyleCard } from "@/components/StyleCard";
-import { getGiftGuideForStyle } from "@/data/blog";
+import { getRelatedPosts } from "@/data/blog";
 import { globalFaqs } from "@/data/faqs";
 import { getShowcase } from "@/data/gallery";
 import { reviews } from "@/data/reviews";
@@ -23,7 +23,9 @@ export function portraitMetadata(style: PortraitStyle, format?: MerchantPrintFor
   const description = print
     ? `${print.title}, personalized from your photo. Includes your digital artwork and free standard delivery.`
     : style.metaDescription;
-  const canonical = print?.path ?? `/portraits/${style.slug}`;
+  // Print URLs preselect a purchasable variant; the style page represents
+  // the complete product in organic search. Keep Merchant canonical_link aligned.
+  const canonical = `/portraits/${style.slug}`;
   const showcase = getShowcase(style.slug);
   const ogImage = showcase
     ? {
@@ -41,7 +43,7 @@ export function portraitMetadata(style: PortraitStyle, format?: MerchantPrintFor
     openGraph: {
       title,
       description,
-      url: `${site.url}${canonical}`,
+      url: `${site.url}${print?.path ?? canonical}`,
       type: "website",
       ...(ogImage && { images: [ogImage] }),
     },
@@ -61,7 +63,7 @@ export function PortraitPage({ style, format }: { style: PortraitStyle; format?:
   const related = allStyles
     .filter((s) => s.slug !== style.slug && s.category === style.category)
     .slice(0, 4);
-  const giftGuide = getGiftGuideForStyle(style.slug);
+  const guides = getRelatedPosts(style.slug);
   const showcase = getShowcase(style.slug);
 
   const productJsonLd = {
@@ -257,18 +259,24 @@ export function PortraitPage({ style, format }: { style: PortraitStyle; format?:
         <h2 className="font-display text-center text-3xl text-cream">
           {style.name} Portrait FAQs
         </h2>
-        {giftGuide && (
-          <p className="mt-4 text-center text-sm text-muted">
-            Shopping for a fan?{" "}
-            <Link href={`/blog/${giftGuide.slug}`} className="text-accent hover:text-accent-bright">
-              Read our {style.name} gift guide
-            </Link>
-          </p>
-        )}
         <div className="mt-8">
           <FaqAccordion faqs={pageFaqs} />
         </div>
       </section>
+
+      {guides.length > 0 && (
+        <section className="mx-auto max-w-7xl border-t border-line px-4 py-12 sm:px-6" aria-labelledby="portrait-guides">
+          <h2 id="portrait-guides" className="font-display text-3xl text-cream">Plan your {style.name} portrait</h2>
+          <ul className="mt-6 grid gap-4 md:grid-cols-3">
+            {guides.map((post) => (
+              <li key={post.slug} className="rounded-xl border border-line bg-surface p-5">
+                <Link href={`/blog/${post.slug}`} className="font-semibold text-accent hover:underline">{post.title}</Link>
+                <p className="mt-2 text-sm leading-relaxed text-muted">{post.description}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       {/* Related styles */}
       <section className="border-t border-line bg-ink-soft">

@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { BlogSectionContent } from "@/components/BlogContent";
 import { JsonLd } from "@/components/JsonLd";
 import { RichText } from "@/components/RichText";
-import { blogPosts, getPostBySlug, type BlogCategory } from "@/data/blog";
+import { blogPosts, getPostBySlug, getRelatedPosts, type BlogCategory } from "@/data/blog";
 import { resolveBlockImage } from "@/data/blog-blocks";
 import { site } from "@/data/site";
 import { getStyleBySlug } from "@/data/styles";
@@ -61,6 +61,7 @@ export default async function BlogPostPage({ params }: Props) {
   if (!post) notFound();
 
   const ctaStyle = getStyleBySlug(post.ctaStyle);
+  const relatedPosts = getRelatedPosts(post.ctaStyle, post.slug);
   const hero = post.heroImage ? resolveBlockImage(post.heroImage) : null;
 
   const articleJsonLd = {
@@ -150,6 +151,19 @@ export default async function BlogPostPage({ params }: Props) {
         {post.sections.map((section) => (
           <BlogSectionContent key={section.heading ?? section.paragraphs[0]?.slice(0, 24) ?? section.blocks?.[0]?.type} section={section} />
         ))}
+
+        {relatedPosts.length > 0 && (
+          <nav className="mt-12 border-t border-line pt-8" aria-label="Related guides">
+            <h2 className="font-display text-2xl text-cream">More portrait guides</h2>
+            <ul className="mt-4 space-y-3">
+              {relatedPosts.map((related) => (
+                <li key={related.slug}>
+                  <Link href={`/blog/${related.slug}`} className="text-accent underline underline-offset-2">{related.title}</Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        )}
 
         {ctaStyle && (
           <aside className="mt-14 rounded-2xl border border-line bg-surface p-8 text-center shadow-card">

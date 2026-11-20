@@ -1,10 +1,13 @@
 import assert from "node:assert/strict";
 import { existsSync } from "node:fs";
-import { blogPosts } from "../src/data/blog";
+import { blogPosts, getRelatedPosts } from "../src/data/blog";
 import redirects from "../src/data/content-redirects.json";
 import { getShowcase } from "../src/data/gallery";
 import { allStyles } from "../src/data/styles";
 import sitemap from "../src/app/sitemap";
+import { MERCHANT_PRINT_FORMATS, merchantPrint } from "../src/data/merchantPrints";
+import { buildGoogleMerchantFeed } from "../src/lib/googleMerchantFeed";
+import { site } from "../src/data/site";
 
 const entries = sitemap();
 const urls = new Set(entries.map((entry) => entry.url));
@@ -18,6 +21,26 @@ for (const [source, destination] of Object.entries(redirects)) {
 }
 
 const titles = new Set<string>();
+const feed = buildGoogleMerchantFeed(allStyles);
+const merchantItems = feed.match(/<item>[\s\S]*?<\/item>/g) ?? [];
+assert.equal(merchantItems.length, allStyles.length * MERCHANT_PRINT_FORMATS.length,
+  "Merchant feed must retain every purchasable print variant");
+for (const style of allStyles) {
+  const canonical = `${site.url}/portraits/${style.slug}`;
+  assert(urls.has(canonical), `Product canonical missing from sitemap: ${canonical}`);
+  for (const format of MERCHANT_PRINT_FORMATS) {
+    const variant = merchantPrint(style, format);
+    assert(!paths.has(variant.path), `Noncanonical print variant remains in sitemap: ${variant.path}`);
+    const item = merchantItems.find((xml) => xml.includes(`<g:id>${variant.sku}</g:id>`));
+    assert(item?.includes(`<g:link>${site.url}${variant.path}</g:link>`), `Missing variant landing URL: ${variant.sku}`);
+    assert(item.includes(`<g:canonical_link>${canonical}</g:canonical_link>`), `Conflicting Merchant canonical: ${variant.sku}`);
+    assert(item.includes(`<g:price>${format.priceUsd.toFixed(2)} USD</g:price>`), `Wrong variant price: ${variant.sku}`);
+  }
+  const guides = getRelatedPosts(style.slug);
+  assert(guides.length > 0, `Product has no planning guides: ${style.slug}`);
+  for (const guide of guides) assert(paths.has(`/blog/${guide.slug}`));
+}
+
 for (const page of [...allStyles, ...blogPosts]) {
   const title = "productName" in page ? page.metaTitle : page.metaTitle ?? page.title;
   assert(title.trim(), `Empty title: ${page.slug}`);
@@ -33,6 +56,9 @@ for (const page of [...allStyles, ...blogPosts]) {
 }
 
 for (const post of blogPosts) {
+  const related = getRelatedPosts(post.ctaStyle, post.slug);
+  assert(!related.some((candidate) => candidate.slug === post.slug), `Article links to itself: ${post.slug}`);
+  assert.equal(new Set(related.map((candidate) => candidate.slug)).size, related.length);
   assert(post.intro.trim(), `Empty introduction: ${post.slug}`);
   assert(post.sections.length, `Empty article: ${post.slug}`);
   for (const section of post.sections) {

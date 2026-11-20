@@ -416,3 +416,18 @@ export function getPostBySlug(slug: string): BlogPost | undefined {
 export function getGiftGuideForStyle(styleSlug: string): BlogPost | undefined {
   return blogPosts.find((p) => p.slug === `best-gifts-for-${styleSlug}-fans`);
 }
+
+/** Show complementary guides rather than several articles with the same intent. */
+export function getRelatedPosts(styleSlug: string, excludeSlug?: string): BlogPost[] {
+  const candidates = blogPosts
+    .filter((post) => post.ctaStyle === styleSlug && post.slug !== excludeSlug)
+    .sort((a, b) => Number(b.slug.includes(styleSlug)) - Number(a.slug.includes(styleSlug)));
+  const categories: (BlogCategory | undefined)[] = ["style", "gift", "transformation", "comparison", "editorial", undefined];
+  const selected: BlogPost[] = [];
+  for (const category of categories) {
+    const post = candidates.find((candidate) => candidate.category === category);
+    if (post) selected.push(post);
+    if (selected.length === 3) break;
+  }
+  return selected;
+}
