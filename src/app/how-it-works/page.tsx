@@ -4,7 +4,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { site } from "@/data/site";
 
 export const metadata: Metadata = {
-  title: "How It Works — From Photo to Portrait in 3 Steps",
+  title: "How It Works",
   description:
     `How to turn your photo into a custom anime portrait: pick a style, upload photos, preview within ${site.deliveryHours} hours with unlimited revisions.`,
   alternates: { canonical: "/how-it-works" },
@@ -21,15 +21,15 @@ const steps = [
   },
   {
     title: "Artist review and creation",
-    body: "Our professional artists review your photos, study the reference style, and create your portrait. You receive a preview to approve, with unlimited free revisions until it's perfect.",
+    body: "Our artists review your references and create the portrait in your chosen style. Label each person or pet and distinguish the likeness reference from any pose, outfit or background reference.",
   },
   {
     title: "Preview and unlimited revisions",
-    body: `Within ${site.deliveryHours} hours you'll receive a preview by email — or add priority delivery for ${site.expeditedHours}-hour turnaround (US$10 during the sale, US$20 comparison). Request as many changes as you need until you love it.`,
+    body: `Your standard preview is within ${site.deliveryHours} hours once the order and usable references are ready. Priority service offers a ${site.expeditedHours}-hour preview. Check the faces, poses, clothing and any text, then send a clear list of changes before approval. Revisions are included.`,
   },
   {
     title: "Final delivery",
-    body: "Once approved, you receive the final high-resolution file. If you ordered a print, it goes to production and ships to your address with free standard delivery.",
+    body: "Once approved, you receive the final high-resolution file. If you ordered a print, it enters production and then ships with free standard delivery to supported destinations. Preview timing is separate from print production and transit.",
   },
 ];
 

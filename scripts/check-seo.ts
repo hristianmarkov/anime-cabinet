@@ -30,6 +30,7 @@ for (const style of allStyles) {
   assert(urls.has(canonical), `Product canonical missing from sitemap: ${canonical}`);
   for (const format of MERCHANT_PRINT_FORMATS) {
     const variant = merchantPrint(style, format);
+    assert(variant.title.length <= 60, `Print title is too long: ${variant.sku}`);
     assert(!paths.has(variant.path), `Noncanonical print variant remains in sitemap: ${variant.path}`);
     const item = merchantItems.find((xml) => xml.includes(`<g:id>${variant.sku}</g:id>`));
     assert(item?.includes(`<g:link>${site.url}${variant.path}</g:link>`), `Missing variant landing URL: ${variant.sku}`);
@@ -44,6 +45,9 @@ for (const style of allStyles) {
 for (const page of [...allStyles, ...blogPosts]) {
   const title = "productName" in page ? page.metaTitle : page.metaTitle ?? page.title;
   assert(title.trim(), `Empty title: ${page.slug}`);
+  assert(title.length <= 60, `Title is too long: ${page.slug}`);
+  assert(!/[|\n\r]|\(20\d{2}\)/.test(title), `Title contains an extra suffix or year label: ${page.slug}`);
+  if ("title" in page) assert(page.title.length <= 70, `Article heading is too long: ${page.slug}`);
   assert(!titles.has(title), `Duplicate title: ${title}`);
   titles.add(title);
   assert(!title.includes("Anime Cabinet"), `Brand suffix is duplicated by the layout: ${page.slug}`);
@@ -61,6 +65,8 @@ for (const post of blogPosts) {
   assert.equal(new Set(related.map((candidate) => candidate.slug)).size, related.length);
   assert(post.intro.trim(), `Empty introduction: ${post.slug}`);
   assert(post.sections.length, `Empty article: ${post.slug}`);
+  const headings = post.sections.map((section) => section.heading?.trim()).filter(Boolean);
+  assert.equal(new Set(headings).size, headings.length, `Repeated section headings: ${post.slug}`);
   for (const section of post.sections) {
     assert(section.paragraphs.some((text) => text.trim()) || section.list?.length || section.blocks?.length,
       `Empty section in ${post.slug}: ${section.heading}`);

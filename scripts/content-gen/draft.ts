@@ -46,11 +46,12 @@ Rules:
 - Say artists create portraits from customers' photos. Do not name production tools or claim the work is entirely drawn by hand.
 - Write for the buyer's actual question. Do not add keyword lists, unrelated search phrases, gift codes, retailer names or repeated sales paragraphs to meet a word count.
 - Every section must contain useful body text. Never return an outline of empty headings.
+- Keep titles short and specific: one natural phrase, at most 60 characters before the site's brand suffix. Do not add the brand, year labels, keyword lists, or extra pipe-separated phrases. Keep the visible heading concise too.
 - Fan-art inspired style: customers become original characters in a style's visual language — not impersonating copyrighted characters.
 - Delivery: preview within ${context.site && (context.site as { deliveryHours: string }).deliveryHours} hours standard; unlimited free revisions.
 - Internal links use markdown: [anchor text](/portraits/slug) or [text](/blog/slug).
 - Do not invent customer reviews, star ratings, or fake statistics.
-- Match the brief's word count target (${brief.wordCount.target} words total across body fields).
+- Aim for the brief's word count target (${brief.wordCount.target} words), but stop when the actual question is answered. Never repeat ordering FAQs or invent extra gift variants just to add length.
 - Respect cannibalization: supporting pages use long-tail intent and link to owner URLs listed in the brief.
 - Unique angle: ${brief.uniqueAngle}
 - Primary keyword: ${brief.keywords.primary}

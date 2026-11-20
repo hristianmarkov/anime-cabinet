@@ -80,11 +80,17 @@ export type MerchantPrintFormat = typeof MERCHANT_PRINT_FORMATS[number];
 export function merchantPrint(style: PortraitStyle, format: MerchantPrintFormat) {
   const styleDescription = artDescriptions[style.slug];
   if (!styleDescription) throw new Error(`Missing Merchant description for ${style.slug}`);
+  const finish = { poster: "Poster", canvas: "Canvas", framed: "Framed Print" }[format.kind];
+  const printNames: Record<string, string> = { "ghibli-style": "Ghibli-Style", "the-simpsons": "Simpsons", pokemon: "Pokémon" };
+  const label = printNames[style.slug] ?? style.name;
+  const title = style.slug === "one-piece-wanted-poster"
+    ? `${format.kind === "framed" ? "Framed One Piece Wanted Poster" : format.kind === "canvas" ? "One Piece Bounty Canvas" : "One Piece Wanted Poster"} · ${format.sizeLabel}`
+    : `Custom ${label} ${finish} · ${format.sizeLabel}`;
   return {
     sku: `portrait-${style.slug}-${format.id}`,
     groupId: `portrait-${style.slug}-${format.kind}`,
     path: `/portraits/${style.slug}/${format.id}`,
-    title: `${style.productName} – ${format.label}, ${format.sizeLabel}`,
+    title,
     description: [
       styleDescription,
       format.description,

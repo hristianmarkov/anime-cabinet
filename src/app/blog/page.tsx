@@ -6,11 +6,11 @@ import { BlogIndexClient } from "@/components/BlogIndexClient";
 
 export const metadata: Metadata = {
 
-  title: "Blog — Fandom, Gifts & Portrait Culture",
+  title: "Portrait Guides & Gift Ideas",
 
   description:
 
-    "Gift guides for every anime and cartoon fandom, plus stories on fandom culture, nostalgia, relationships, and custom portrait tips.",
+    "Photo tips, style comparisons and gift guides to help you plan a custom anime or cartoon portrait.",
 
   alternates: { canonical: "/blog" },
 
@@ -30,13 +30,13 @@ export default function BlogIndexPage() {
 
           <h1 className="font-display text-4xl text-cream sm:text-5xl">
 
-            The <span className="text-gradient">Cabinet</span> Blog
+            Portrait <span className="text-gradient">Guides</span>
 
           </h1>
 
           <p className="mt-4 text-lg text-muted">
 
-            Fandom stories, gift guides and culture — from fans, for fans.
+            Photo tips, style comparisons and gift ideas for your next portrait.
 
           </p>
 

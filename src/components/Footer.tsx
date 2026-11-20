@@ -18,8 +18,8 @@ export function Footer() {
             </Link>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted">
               Custom anime and cartoon portraits from your photos by our
-              professional artist team. Unlimited revisions, delivered in{" "}
-              {site.deliveryHours} hours.
+              professional artist team. Unlimited revisions, with a preview within{" "}
+              {site.deliveryHours} hours. Prints are produced after approval.
             </p>
             <Link href="/shipping" className="mt-3 inline-block text-sm font-semibold text-cream hover:text-accent">
               Free standard delivery on prints

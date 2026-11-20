@@ -36,6 +36,18 @@ const categoryLabels: Record<BlogCategory, string> = {
   editorial: "Editorial",
 };
 
+function PostDate({ post }: { post: (typeof blogPosts)[number] }) {
+  const date = post.updatedAt ?? post.date;
+  return (
+    <time dateTime={date}>
+      {post.updatedAt ? "Updated " : ""}
+      {new Date(date).toLocaleDateString("en-US", {
+        year: "numeric", month: "long", day: "numeric", timeZone: "UTC",
+      })}
+    </time>
+  );
+}
+
 function PostCard({
   post,
   compact,
@@ -62,11 +74,7 @@ function PostCard({
         {post.description}
       </p>
       <p className="mt-4 text-xs text-faint">
-        {new Date(post.date).toLocaleDateString("en-US", {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        })}{" "}
+        <PostDate post={post} />{" "}
         · {post.readingMinutes} min read
       </p>
     </Link>
@@ -90,7 +98,7 @@ function matchesFilter(post: (typeof blogPosts)[number], filter: Filter): boolea
     case "comparison":
       return cat === "comparison";
     case "articles":
-      return !isGiftGuide && !cat;
+      return cat === "editorial" || (!isGiftGuide && !cat);
     case "gift-guides":
       return isGiftGuide;
     case "anime-guides":
@@ -106,7 +114,7 @@ export function BlogIndexClient() {
   const [filter, setFilter] = useState<Filter>("all");
 
   const editorial = blogPosts.filter(
-    (p) => !p.slug.startsWith("best-gifts-for-") && !p.category
+    (p) => p.category === "editorial" || (!p.slug.startsWith("best-gifts-for-") && !p.category)
   );
   const featured = editorial[0];
 
@@ -161,11 +169,7 @@ export function BlogIndexClient() {
             <h2 className="mt-3 text-2xl font-semibold text-cream">{featured.title}</h2>
             <p className="mt-3 leading-relaxed text-muted">{featured.description}</p>
             <p className="mt-4 text-xs text-faint">
-              {new Date(featured.date).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}{" "}
+              <PostDate post={featured} />{" "}
               · {featured.readingMinutes} min read
             </p>
           </Link>

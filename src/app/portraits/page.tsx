@@ -6,7 +6,7 @@ import { site } from "@/data/site";
 import { allStyles, animeStyles, cartoonStyles } from "@/data/styles";
 
 export const metadata: Metadata = {
-  title: "All Custom Portrait Styles — 24 Anime & Cartoon Options",
+  title: "Anime & Cartoon Portrait Styles",
   description:
     "Compare 24 custom anime and cartoon portrait styles. See examples, choose your look and order from your photos, with a preview in 72 hours and unlimited revisions.",
   alternates: { canonical: "/portraits" },
@@ -83,8 +83,8 @@ export default function PortraitsPage() {
       <section id="cartoons" className="mx-auto max-w-7xl scroll-mt-24 border-t border-line px-4 py-16 sm:px-6">
         <h2 className="font-display text-3xl text-cream">Cartoon Styles</h2>
         <p className="mt-2 max-w-2xl text-muted">
-          The most-streamed animated shows on TV — with you drawn into them.
-          Couch scene included.
+          Compare simple character shapes, everyday settings and playful household scenes.
+          Choose a style to see examples and personalisation options.
         </p>
         <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {cartoonStyles.map((style) => (

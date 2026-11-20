@@ -118,11 +118,11 @@ export default async function BlogPostPage({ params }: Props) {
             {post.title}
           </h1>
           <p className="mt-4 text-sm text-faint">
-            {new Date(post.date).toLocaleDateString("en-US", {
+            {post.updatedAt ? "Updated " : "Published "}<time dateTime={post.updatedAt ?? post.date}>{new Date(post.updatedAt ?? post.date).toLocaleDateString("en-US", {
               year: "numeric",
               month: "long",
               day: "numeric",
-            })}{" "}
+            })}</time>{" "}
             · {post.readingMinutes} min read · By the {site.name} team
           </p>
         </header>
@@ -134,7 +134,7 @@ export default async function BlogPostPage({ params }: Props) {
                 src={resolveBlockImage(post.heroImage).src}
                 alt={resolveBlockImage(post.heroImage).alt}
                 fill
-                className="object-cover"
+                className="object-cover object-top"
                 priority
                 sizes="(max-width: 768px) 100vw, 768px"
               />

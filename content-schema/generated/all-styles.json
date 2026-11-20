@@ -1,12 +1,14 @@
 {
   "demon-slayer": {
     "slug": "demon-slayer",
-    "metaTitle": "Custom Demon Slayer Portrait From Your Photo",
+    "metaTitle": "Custom Demon Slayer Portrait",
     "metaDescription": "Order a Demon Slayer-inspired portrait with haori patterns, blade colours and breathing effects. Preview in 72 hours; unlimited revisions.",
-    "heroHeading": "Custom Demon Slayer Portrait From Your Photo",
+    "heroHeading": "Custom Demon Slayer Portrait",
     "description": [
       "Create a Demon Slayer-inspired portrait with a patterned haori, a dramatic pose and a breathing-effect backdrop. Our artists build the character around the face and expression in your photo.",
-      "Specify your haori pattern, blade colour and whether you prefer water, flame or another visual effect. Keeping the effect behind the subject leaves the face clear. Couples can use coordinated patterns or contrasting colours without needing identical outfits."
+      "Specify your haori pattern, blade colour and whether you prefer water, flame or another visual effect. Keeping the effect behind the subject leaves the face clear. Couples can use coordinated patterns or contrasting colours without needing identical outfits.",
+      "Use a face photo with clear eyes and hair detail. For a sword pose, add a separate reference showing how the hands and blade should sit. Describe the haori pattern rather than relying on a distant costume photo.",
+      "Inspect the haori pattern, blade colour and hand grip. Then check that the breathing effect leads the eye toward the subject. Hair and eye details should remain visible against a dark or glowing background."
     ],
     "faqs": [
       {
@@ -14,8 +16,8 @@
         "a": "Yes. Describe both in the order notes and add a reference if you have a specific pattern in mind. Mention whether you want a quiet portrait or a more active sword pose."
       },
       {
-        "q": "What should I check in my Demon Slayer portrait preview?",
-        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+        "q": "What should I check in my Demon Slayer preview?",
+        "a": "Inspect the haori pattern, blade colour and hand grip. Then check that the breathing effect leads the eye toward the subject. Hair and eye details should remain visible against a dark or glowing background."
       }
     ],
     "keywords": [
@@ -25,16 +27,18 @@
       "kimetsu no yaiba custom portrait",
       "demon slayer gift for fans"
     ],
-    "updatedAt": "2026-11-11"
+    "updatedAt": "2026-11-20"
   },
   "ghibli-style": {
     "slug": "ghibli-style",
-    "metaTitle": "Custom Ghibli-Style Portrait From Your Photo",
-    "metaDescription": "Order a Ghibli Style-inspired portrait with soft colours, cosy scenes and family or pet portraits. Preview in 72 hours; unlimited revisions.",
-    "heroHeading": "Custom Ghibli-Style Portrait From Your Photo",
+    "metaTitle": "Custom Ghibli-Style Portrait",
+    "metaDescription": "Order a Ghibli-inspired portrait with soft colours, cosy scenes and family or pet portraits. Preview in 72 hours; unlimited revisions.",
+    "heroHeading": "Custom Ghibli-Style Portrait",
     "description": [
       "Create a Ghibli-inspired portrait with soft colours, gentle expressions and a storybook setting. Our artists turn your photo into a scene built around a person, couple, family or pet.",
-      "Describe a moment rather than just a backdrop: a garden picnic, a quiet train journey or a walk beneath trees. Mention the season, time of day and any meaningful details, such as a favourite coat or a pet at your side. Warm light and a simple pose keep the scene calm."
+      "Describe a moment rather than just a backdrop: a garden picnic, a quiet train journey or a walk beneath trees. Mention the season, time of day and any meaningful details, such as a favourite coat or a pet at your side. Warm light and a simple pose keep the scene calm.",
+      "Choose a relaxed expression and a clear face reference. If a place is important, send a second photo of the garden, house or landscape. Explain which details belong to the memory and which can be simplified.",
+      "Check expressions, hair, pet markings and the details that identify the place. A warm palette should not erase skin-tone differences or turn a meaningful object into an unrecognisable shape."
     ],
     "faqs": [
       {
@@ -42,8 +46,8 @@
         "a": "Yes. Upload a clear photo for every person and pet, and describe the place you have in mind. A reference photo of a garden, home or landscape can help explain the setting."
       },
       {
-        "q": "What should I check in my Ghibli Style portrait preview?",
-        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+        "q": "What should I check in my Ghibli-Style preview?",
+        "a": "Check expressions, hair, pet markings and the details that identify the place. A warm palette should not erase skin-tone differences or turn a meaningful object into an unrecognisable shape."
       }
     ],
     "keywords": [
@@ -53,13 +57,13 @@
       "ghibli style couple portrait",
       "ghibli inspired personalised gift"
     ],
-    "updatedAt": "2026-11-11"
+    "updatedAt": "2026-11-20"
   },
   "naruto": {
     "slug": "naruto",
-    "metaTitle": "Custom Naruto Portrait From Your Photo",
+    "metaTitle": "Custom Naruto Portrait",
     "metaDescription": "Order a Naruto-inspired portrait with village headbands, outfits and chakra effects. Preview in 72 hours; unlimited revisions.",
-    "heroHeading": "Custom Naruto Portrait From Your Photo",
+    "heroHeading": "Custom Naruto Portrait",
     "description": [
       "Create a Naruto-inspired portrait of yourself as a shinobi, with crisp outlines, bold cel shading and a village setting. Our artists use your photo as the reference for your hairstyle, expression and other recognisable features.",
       "Choose a village headband, a flak jacket or cloak, and a pose. A hand-sign pose keeps the focus on your character; a wider composition leaves room for a chakra effect or a second person. Add your preferred headband symbol, outfit colours and background to the order notes.",
@@ -72,8 +76,8 @@
         "a": "Yes. Include your village, headband symbol and preferred outfit in the notes. You can also describe a pose or chakra effect and upload a reference for the details that matter."
       },
       {
-        "q": "What should I check in my Naruto portrait preview?",
-        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+        "q": "What should I check in my Naruto preview?",
+        "a": "Check the headband symbol, fingers, hairstyle and expression separately. Chakra effects should leave the face and hand sign readable. For two subjects, check both likenesses at the intended display size."
       }
     ],
     "keywords": [
@@ -87,9 +91,9 @@
   },
   "one-piece": {
     "slug": "one-piece",
-    "metaTitle": "Custom One Piece Portrait From Your Photo",
+    "metaTitle": "Custom One Piece Portrait",
     "metaDescription": "Order a One Piece-inspired portrait with pirate outfits, ship scenes and crew portraits. Preview in 72 hours; unlimited revisions.",
-    "heroHeading": "Custom One Piece Portrait From Your Photo",
+    "heroHeading": "Custom One Piece Portrait",
     "description": [
       "Turn your photo into a One Piece-inspired pirate portrait. Expressive faces, bright colours and a nautical setting give the artwork an adventurous feel while keeping you recognisable.",
       "Plan a solo pirate, a couple on a ship deck or a group crew scene. Tell our artists about clothing, a ship or island background, and any power effect you want. For a parchment layout with a name and bounty instead of a full scene, choose our [custom wanted poster](/portraits/one-piece-wanted-poster).",
@@ -102,8 +106,8 @@
         "a": "Choose this portrait for a scene with room for poses, costumes and backgrounds. Choose the wanted poster style for a parchment layout centred on a face, pirate name and bounty."
       },
       {
-        "q": "What should I check in my One Piece portrait preview?",
-        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+        "q": "What should I check in my One Piece preview?",
+        "a": "Check who stands where, how hands meet the ship rail, and whether hats hide important facial details. If you requested names or a flag design, inspect those separately before approving."
       }
     ],
     "keywords": [
@@ -117,12 +121,14 @@
   },
   "one-piece-wanted-poster": {
     "slug": "one-piece-wanted-poster",
-    "metaTitle": "Custom One Piece Wanted Poster From Your Photo",
-    "metaDescription": "Order a Wanted Poster-inspired portrait with your pirate name, chosen bounty and parchment layout. Preview in 72 hours; unlimited revisions.",
-    "heroHeading": "Custom One Piece Wanted Poster From Your Photo",
+    "metaTitle": "Custom One Piece Wanted Poster",
+    "metaDescription": "Create a One Piece wanted poster with your photo, pirate name and chosen bounty. Review the preview before approval, with unlimited revisions.",
+    "heroHeading": "Custom One Piece Wanted Poster",
     "description": [
       "Make a One Piece-inspired wanted poster starring you, a friend or a pet. The design pairs a character portrait with parchment tones, bold wanted-poster lettering, a pirate name and a bounty you choose.",
-      "Send a clear face photo and put the exact name, epithet and bounty in your notes. Check spelling and the number of zeros before ordering. Matching posters can share a colour palette while using different names and bounties. Prefer a full pirate scene? See the [One Piece portrait](/portraits/one-piece)."
+      "Send a clear face photo and put the exact name, epithet and bounty in your notes. Check spelling and the number of zeros before ordering. Matching posters can share a colour palette while using different names and bounties. Prefer a full pirate scene? See the [One Piece portrait](/portraits/one-piece).",
+      "Choose a face photo with an expression that suits the joke: serious, cheerful or deliberately unimpressed. A close reference works better than a distant group photo for a face-led poster.",
+      "Read the name, epithet and every digit in the bounty. Then check facial likeness and whether the lettering remains legible at the chosen print size. Tiny spelling errors become prominent on a wall."
     ],
     "faqs": [
       {
@@ -130,8 +136,8 @@
         "a": "Include the exact pirate name, any epithet, the bounty amount and the expression you would like. Add a clear photo of each subject. Review the lettering as well as the likeness when your preview arrives."
       },
       {
-        "q": "What should I check in my Wanted Poster portrait preview?",
-        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+        "q": "What should I check in my One Piece Wanted Poster preview?",
+        "a": "Read the name, epithet and every digit in the bounty. Then check facial likeness and whether the lettering remains legible at the chosen print size. Tiny spelling errors become prominent on a wall."
       }
     ],
     "keywords": [
@@ -141,16 +147,18 @@
       "make my own one piece wanted poster",
       "anime wanted poster gift"
     ],
-    "updatedAt": "2026-11-11"
+    "updatedAt": "2026-11-20"
   },
   "rick-and-morty": {
     "slug": "rick-and-morty",
-    "metaTitle": "Custom Rick and Morty Portrait From Your Photo",
+    "metaTitle": "Custom Rick and Morty Portrait",
     "metaDescription": "Order a Rick and Morty-inspired portrait with portals, garage-lab scenes and alien landscapes. Preview in 72 hours; unlimited revisions.",
-    "heroHeading": "Custom Rick and Morty Portrait From Your Photo",
+    "heroHeading": "Custom Rick and Morty Portrait",
     "description": [
       "Create a Rick and Morty-inspired portrait with angular cartoon features, vivid colour and a strange sci-fi setting. Our artists use your photo to keep the characters recognisable within the look.",
-      "Choose a portal, a garage-lab scene or an alien landscape, then describe your clothing and pose. Couples and friends can share one scene, with a pet as another character. A simple pose works well when the background contains lots of unusual details."
+      "Choose a portal, a garage-lab scene or an alien landscape, then describe your clothing and pose. Couples and friends can share one scene, with a pet as another character. A simple pose works well when the background contains lots of unusual details.",
+      "Send a clear face reference even if the final expression will be exaggerated. Describe glasses, hair and familiar accessories. For a strange pose, add a separate reference rather than distorting the only face photo.",
+      "Check the expression, hair and glasses before the alien details. Portal effects should not blend into faces or hands. Make sure the personal object remains recognisable at the final display size."
     ],
     "faqs": [
       {
@@ -158,8 +166,8 @@
         "a": "Yes. Describe the setting, portal colour and any props in your notes. Tell us whether the background or the character should get the most emphasis."
       },
       {
-        "q": "What should I check in my Rick and Morty portrait preview?",
-        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+        "q": "What should I check in my Rick and Morty preview?",
+        "a": "Check the expression, hair and glasses before the alien details. Portal effects should not blend into faces or hands. Make sure the personal object remains recognisable at the final display size."
       }
     ],
     "keywords": [
@@ -169,16 +177,18 @@
       "rick and morty couple portrait",
       "rick and morty custom gift"
     ],
-    "updatedAt": "2026-11-11"
+    "updatedAt": "2026-11-20"
   },
   "the-simpsons": {
     "slug": "the-simpsons",
-    "metaTitle": "Custom Simpsons-Style Portrait From Your Photo",
-    "metaDescription": "Order a The Simpsons-inspired portrait with yellow cartoon characters, couch scenes and family portraits. Preview in 72 hours; unlimited revisions.",
-    "heroHeading": "Custom Simpsons-Style Portrait From Your Photo",
+    "metaTitle": "Custom Simpsons-Style Portrait",
+    "metaDescription": "Order a Simpsons-inspired portrait with yellow cartoon characters, couch scenes and family portraits. Preview in 72 hours; unlimited revisions.",
+    "heroHeading": "Custom Simpsons-Style Portrait",
     "description": [
       "Create a Simpsons-inspired yellow cartoon portrait from your photo. Bold outlines, flat colours and familiar everyday settings give individuals, couples and families a playful new look.",
-      "Choose a couch scene, a street setting or a simple character composition. Tell our artists which hairstyles, glasses and clothing to preserve. For a household portrait, list the people and pets in order and describe who sits or stands where."
+      "Choose a couch scene, a street setting or a simple character composition. Tell our artists which hairstyles, glasses and clothing to preserve. For a household portrait, list the people and pets in order and describe who sits or stands where.",
+      "Provide a clear face reference for each person and note glasses, beards and distinctive hair shapes. Tell the artist which real colours and accessories should stay when the skin palette changes.",
+      "Compare hairstyles, glasses, facial hair and clothing with the photos. Yellow skin changes the palette, so check that the features identifying each person remain distinct."
     ],
     "faqs": [
       {
@@ -186,8 +196,8 @@
         "a": "Yes. Describe the seating, background and clothing in your notes. Upload a clear photo of each subject and point out important details such as glasses, facial hair or a pet's markings."
       },
       {
-        "q": "What should I check in my The Simpsons portrait preview?",
-        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+        "q": "What should I check in my Simpsons-Style preview?",
+        "a": "Compare hairstyles, glasses, facial hair and clothing with the photos. Yellow skin changes the palette, so check that the features identifying each person remain distinct."
       }
     ],
     "keywords": [
@@ -197,13 +207,13 @@
       "draw my family simpsons style",
       "personalised simpsons gift"
     ],
-    "updatedAt": "2026-11-11"
+    "updatedAt": "2026-11-20"
   },
   "arcane": {
     "slug": "arcane",
-    "metaTitle": "Custom Arcane Portrait From Your Photo",
+    "metaTitle": "Custom Arcane Portrait",
     "metaDescription": "Order an Arcane-inspired portrait with textured colour, city lighting and workshop scenes. Preview in 72 hours; unlimited revisions.",
-    "heroHeading": "Custom Arcane Portrait From Your Photo",
+    "heroHeading": "Custom Arcane Portrait",
     "description": [
       "Create an Arcane-inspired portrait with textured colour, strong facial planes and dramatic city lighting. Your facial features and expression remain central to the composition.",
       "Choose a warm, gold-toned city mood or a cooler neon atmosphere. Tell our artists about clothing, jewellery, hair colour and a setting such as a workshop or city street. A close portrait highlights expression; a wider duo scene gives room for contrasting poses.",
@@ -216,8 +226,8 @@
         "a": "Yes. Describe the colours and setting you prefer. Mention any piercings, jewellery or hairstyle details you want retained, and add a reference if the lighting is important."
       },
       {
-        "q": "What should I check in my Arcane portrait preview?",
-        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+        "q": "What should I check in my Arcane preview?",
+        "a": "Check the facial planes, expression, piercings and hair before the lighting. Coloured rim light should leave the subject recognisable and should not erase small personal details."
       }
     ],
     "keywords": [
@@ -231,12 +241,14 @@
   },
   "attack-on-titan": {
     "slug": "attack-on-titan",
-    "metaTitle": "Custom Attack on Titan Portrait From Your Photo",
-    "metaDescription": "Order a Attack on Titan-inspired portrait with regiment outfits, cloaks and wall-side settings. Preview in 72 hours; unlimited revisions.",
-    "heroHeading": "Custom Attack on Titan Portrait From Your Photo",
+    "metaTitle": "Custom Attack on Titan Portrait",
+    "metaDescription": "Order an Attack on Titan-inspired portrait with regiment outfits, cloaks and wall-side settings. Preview in 72 hours; unlimited revisions.",
+    "heroHeading": "Custom Attack on Titan Portrait",
     "description": [
       "Turn your photo into an Attack on Titan-inspired character portrait with muted colours, a regiment-style uniform and a dramatic setting. Our artists use your facial features and expression as the starting point.",
-      "Choose a cloak, insignia and setting, then decide between a standing portrait and a wider action composition. Rooftops and distant walls provide atmosphere without competing with the face. For group scenes, list each person and their position in the notes."
+      "Choose a cloak, insignia and setting, then decide between a standing portrait and a wider action composition. Rooftops and distant walls provide atmosphere without competing with the face. For group scenes, list each person and their position in the notes.",
+      "Use a clear facial reference and a separate pose image if the character will wear a cloak or gear. A reference with shoulders visible helps explain the silhouette without obscuring the expression.",
+      "Check cloak placement, visible hands and equipment straps, then compare each face with the reference. Keep faces distinct from the dark collar and background, particularly in a group scene."
     ],
     "faqs": [
       {
@@ -244,8 +256,8 @@
         "a": "Yes. Specify the cloak, insignia and equipment you would like. For an action pose, include a reference and tell us whether the face or the full scene should be the main focus."
       },
       {
-        "q": "What should I check in my Attack on Titan portrait preview?",
-        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+        "q": "What should I check in my Attack on Titan preview?",
+        "a": "Check cloak placement, visible hands and equipment straps, then compare each face with the reference. Keep faces distinct from the dark collar and background, particularly in a group scene."
       }
     ],
     "keywords": [
@@ -255,16 +267,18 @@
       "scout regiment custom portrait",
       "attack on titan fan gift"
     ],
-    "updatedAt": "2026-11-11"
+    "updatedAt": "2026-11-20"
   },
   "avatar-the-last-airbender": {
     "slug": "avatar-the-last-airbender",
-    "metaTitle": "Custom Avatar: The Last Airbender Portrait From Your Photo",
-    "metaDescription": "Order a Avatar-inspired portrait with nation outfits, elemental effects and bending poses. Preview in 72 hours; unlimited revisions.",
-    "heroHeading": "Custom Avatar: The Last Airbender Portrait From Your Photo",
+    "metaTitle": "Custom Avatar: The Last Airbender Portrait",
+    "metaDescription": "Order an Avatar-inspired portrait with nation outfits, elemental effects and bending poses. Preview in 72 hours; unlimited revisions.",
+    "heroHeading": "Custom Avatar: The Last Airbender Portrait",
     "description": [
       "Create an Avatar: The Last Airbender-inspired portrait with flowing character shapes, nation colours and an elemental setting. Your photo gives our artists the reference for the person at the centre of the scene.",
-      "Choose water, earth, fire or air, then describe the outfit and bending pose. A restrained effect keeps the face clear, while a wider scene allows movement. For two people, contrasting elements can give each character a distinct role in the composition."
+      "Choose water, earth, fire or air, then describe the outfit and bending pose. A restrained effect keeps the face clear, while a wider scene allows movement. For two people, contrasting elements can give each character a distinct role in the composition.",
+      "Use a face reference with hair and expression visible. Supply a separate pose reference for bending movement. For a pair, identify each person’s element and clothing before describing the effects.",
+      "Check hand positions, outfit colours and the assignment of elements. The effects should remain separate from hair and faces. In a duo, make sure each subject has enough space for the chosen movement."
     ],
     "faqs": [
       {
@@ -272,8 +286,8 @@
         "a": "Yes. State each person's element, clothing and position in the notes. Upload a clear photo for each subject and include a pose reference if you have a specific bending scene in mind."
       },
       {
-        "q": "What should I check in my Avatar portrait preview?",
-        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+        "q": "What should I check in my Avatar preview?",
+        "a": "Check hand positions, outfit colours and the assignment of elements. The effects should remain separate from hair and faces. In a duo, make sure each subject has enough space for the chosen movement."
       }
     ],
     "keywords": [
@@ -283,16 +297,18 @@
       "bending custom portrait",
       "avatar atla gift"
     ],
-    "updatedAt": "2026-11-11"
+    "updatedAt": "2026-11-20"
   },
   "bleach": {
     "slug": "bleach",
-    "metaTitle": "Custom Bleach Portrait From Your Photo",
+    "metaTitle": "Custom Bleach Portrait",
     "metaDescription": "Order a Bleach-inspired portrait with robes, sword designs and spiritual-energy colours. Preview in 72 hours; unlimited revisions.",
-    "heroHeading": "Custom Bleach Portrait From Your Photo",
+    "heroHeading": "Custom Bleach Portrait",
     "description": [
       "Create a Bleach-inspired portrait with clean contours, a strong silhouette and a dramatic spiritual-energy mood. Your face, hairstyle and expression provide the reference for the character.",
-      "Choose robes or another outfit, a sword design and an energy colour. A restrained background keeps the focus on the face and blade; a wider composition can show a stance or a second character. Tell our artists which accessories and features must stay recognisable."
+      "Choose robes or another outfit, a sword design and an energy colour. A restrained background keeps the focus on the face and blade; a wider composition can show a stance or a second character. Tell our artists which accessories and features must stay recognisable.",
+      "Send a face reference with visible hair and a separate weapon reference when the blade design matters. A close selfie cannot explain a whole sword stance, so describe the grip and body angle as well.",
+      "Check the sword shape, grip, robe edges and facial expression. A bright energy colour should not wash out the blade or merge the hands into the background."
     ],
     "faqs": [
       {
@@ -300,8 +316,8 @@
         "a": "Yes. Describe the blade shape, outfit and energy colour in the notes. Include a reference for a detailed weapon and explain whether the portrait should emphasise your face or the pose."
       },
       {
-        "q": "What should I check in my Bleach portrait preview?",
-        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+        "q": "What should I check in my Bleach preview?",
+        "a": "Check the sword shape, grip, robe edges and facial expression. A bright energy colour should not wash out the blade or merge the hands into the background."
       }
     ],
     "keywords": [
@@ -311,16 +327,18 @@
       "bleach zanpakuto custom portrait",
       "bleach anime fan gift"
     ],
-    "updatedAt": "2026-11-11"
+    "updatedAt": "2026-11-20"
   },
   "bobs-burgers": {
     "slug": "bobs-burgers",
-    "metaTitle": "Custom Bob's Burgers Portrait From Your Photo",
+    "metaTitle": "Custom Bob's Burgers Portrait",
     "metaDescription": "Order a Bob's Burgers-inspired portrait with burger-counter scenes, family groups and custom signs. Preview in 72 hours; unlimited revisions.",
-    "heroHeading": "Custom Bob's Burgers Portrait From Your Photo",
+    "heroHeading": "Custom Bob's Burgers Portrait",
     "description": [
       "Turn your photo into a Bob's Burgers-inspired portrait with simple shapes, flat colours and a relaxed family-sitcom feel. Our artists adapt your face and hairstyle to the cartoon look.",
-      "Choose a burger-counter scene, a family group or a simple character portrait. Add clothing, who stands behind the counter and any sign wording to your notes. Separate photos work for a group, so everyone does not need to be in the same original picture."
+      "Choose a burger-counter scene, a family group or a simple character portrait. Add clothing, who stands behind the counter and any sign wording to your notes. Separate photos work for a group, so everyone does not need to be in the same original picture.",
+      "Send a clear face reference for every household member. Note glasses, facial hair, hairstyle and pet markings. Separate photos work when the family has no single picture in which everyone is clear.",
+      "Check who is standing where, each hairstyle and the restaurant sign spelling. Flat-colour cartoon faces rely on small identifying features, so glasses and facial hair deserve a separate check."
     ],
     "faqs": [
       {
@@ -328,8 +346,8 @@
         "a": "Yes. Supply the exact wording and describe where it should appear. Include a clear photo of each person or pet and tell us how to arrange the group."
       },
       {
-        "q": "What should I check in my Bob's Burgers portrait preview?",
-        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+        "q": "What should I check in my Bob's Burgers preview?",
+        "a": "Check who is standing where, each hairstyle and the restaurant sign spelling. Flat-colour cartoon faces rely on small identifying features, so glasses and facial hair deserve a separate check."
       }
     ],
     "keywords": [
@@ -339,16 +357,18 @@
       "bobs burgers custom family gift",
       "turn me into a bobs burgers character"
     ],
-    "updatedAt": "2026-11-11"
+    "updatedAt": "2026-11-20"
   },
   "death-note": {
     "slug": "death-note",
-    "metaTitle": "Custom Death Note Portrait From Your Photo",
+    "metaTitle": "Custom Death Note Portrait",
     "metaDescription": "Order a Death Note-inspired portrait with noir lighting, desk scenes and personalised props. Preview in 72 hours; unlimited revisions.",
-    "heroHeading": "Custom Death Note Portrait From Your Photo",
+    "heroHeading": "Custom Death Note Portrait",
     "description": [
       "Turn your photo into a Death Note-inspired portrait with a restrained palette, sharp features and a quiet, suspenseful atmosphere. It suits a character-focused composition with strong light and shadow.",
-      "Choose a desk scene, a city at night or a simple dark background. Mention any notebook, clothing or small prop you would like included. If there is text on a prop, provide the exact wording; if likeness is your priority, keep the face well lit and the props secondary."
+      "Choose a desk scene, a city at night or a simple dark background. Mention any notebook, clothing or small prop you would like included. If there is text on a prop, provide the exact wording; if likeness is your priority, keep the face well lit and the props secondary.",
+      "A naturally lit face reference gives more information than a dark dramatic selfie. Add a second reference for a seated pose or desk setting. Provide any notebook wording exactly as you want it to appear.",
+      "Check eye direction, hand placement and any text on a prop. Deep shadows should retain the features that identify the subject. Make sure the notebook does not become the focal point unintentionally."
     ],
     "faqs": [
       {
@@ -356,8 +376,8 @@
         "a": "Yes. Describe the setting and prop in the notes. Supply any wording exactly as you want it to appear and check it alongside the expression in your preview."
       },
       {
-        "q": "What should I check in my Death Note portrait preview?",
-        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+        "q": "What should I check in my Death Note preview?",
+        "a": "Check eye direction, hand placement and any text on a prop. Deep shadows should retain the features that identify the subject. Make sure the notebook does not become the focal point unintentionally."
       }
     ],
     "keywords": [
@@ -367,16 +387,18 @@
       "dark anime style portrait",
       "death note fan gift"
     ],
-    "updatedAt": "2026-11-11"
+    "updatedAt": "2026-11-20"
   },
   "dragon-ball-z": {
     "slug": "dragon-ball-z",
-    "metaTitle": "Custom Dragon Ball Z Portrait From Your Photo",
+    "metaTitle": "Custom Dragon Ball Z Portrait",
     "metaDescription": "Order a Dragon Ball Z-inspired portrait with battle outfits, aura colours and action poses. Preview in 72 hours; unlimited revisions.",
-    "heroHeading": "Custom Dragon Ball Z Portrait From Your Photo",
+    "heroHeading": "Custom Dragon Ball Z Portrait",
     "description": [
       "See yourself in a Dragon Ball Z-inspired action portrait, with angular features, bold colour blocks and a high-energy pose. Your photo gives our artists the reference for your face and hairstyle.",
-      "Choose a gi or armour, an aura colour and a stance. A close crop puts the emphasis on your expression; a wider shot can include a charging pose or an energy effect. For two people, describe who stands where and whether their outfits should match."
+      "Choose a gi or armour, an aura colour and a stance. A close crop puts the emphasis on your expression; a wider shot can include a charging pose or an energy effect. For two people, describe who stands where and whether their outfits should match.",
+      "Send a naturally lit face photo even if the finished picture will have a bright aura. Include a pose reference for raised arms or an energy stance, and explain which parts of your hairstyle should remain recognisable.",
+      "Check the face, hand positions and proportions before judging the aura. Hair and armour should still have clear edges against the glow. For a pair, make sure neither character disappears behind the other’s effects."
     ],
     "faqs": [
       {
@@ -384,8 +406,8 @@
         "a": "Yes. Add your aura colour, outfit and pose to the notes. If a transformation-inspired hairstyle is important, explain which features of your own hair and face you want to keep."
       },
       {
-        "q": "What should I check in my Dragon Ball Z portrait preview?",
-        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+        "q": "What should I check in my Dragon Ball Z preview?",
+        "a": "Check the face, hand positions and proportions before judging the aura. Hair and armour should still have clear edges against the glow. For a pair, make sure neither character disappears behind the other’s effects."
       }
     ],
     "keywords": [
@@ -395,16 +417,18 @@
       "custom saiyan portrait",
       "personalised dragon ball gift"
     ],
-    "updatedAt": "2026-11-11"
+    "updatedAt": "2026-11-20"
   },
   "family-guy": {
     "slug": "family-guy",
-    "metaTitle": "Custom Family Guy Portrait From Your Photo",
+    "metaTitle": "Custom Family Guy Portrait",
     "metaDescription": "Order a Family Guy-inspired portrait with couch scenes, family groups and familiar room details. Preview in 72 hours; unlimited revisions.",
-    "heroHeading": "Custom Family Guy Portrait From Your Photo",
+    "heroHeading": "Custom Family Guy Portrait",
     "description": [
       "Create a Family Guy-inspired portrait with rounded cartoon shapes, flat colours and an everyday sitcom setting. Your own clothing, hairstyle and accessories help the character stay recognisable.",
-      "Choose a couch scene, a room or a simple background. For a couple or family, list each person and their position, and mention any pets. A relaxed pose and a familiar household detail can make the picture feel more personal than a generic character lineup."
+      "Choose a couch scene, a room or a simple background. For a couple or family, list each person and their position, and mention any pets. A relaxed pose and a familiar household detail can make the picture feel more personal than a generic character lineup.",
+      "Choose a clear face for each person and identify their everyday glasses, hairstyle and facial hair. If a sofa or room is meaningful, send a separate photo of that setting as well.",
+      "Check glasses, facial hair, clothing assignments and the seating order. In a household portrait, make sure every subject is visible and the pet has the correct markings and relative size."
     ],
     "faqs": [
       {
@@ -412,8 +436,8 @@
         "a": "Yes. Choose the character count for the people and pets you want included and upload a clear photo of each. Describe the seating arrangement and any clothing or room details."
       },
       {
-        "q": "What should I check in my Family Guy portrait preview?",
-        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+        "q": "What should I check in my Family Guy preview?",
+        "a": "Check glasses, facial hair, clothing assignments and the seating order. In a household portrait, make sure every subject is visible and the pet has the correct markings and relative size."
       }
     ],
     "keywords": [
@@ -423,16 +447,18 @@
       "draw my family in family guy style",
       "family guy custom gift"
     ],
-    "updatedAt": "2026-11-11"
+    "updatedAt": "2026-11-20"
   },
   "hunter-x-hunter": {
     "slug": "hunter-x-hunter",
-    "metaTitle": "Custom Hunter x Hunter Portrait From Your Photo",
+    "metaTitle": "Custom Hunter x Hunter Portrait",
     "metaDescription": "Order a Hunter x Hunter-inspired portrait with adventure outfits, aura effects and group scenes. Preview in 72 hours; unlimited revisions.",
-    "heroHeading": "Custom Hunter x Hunter Portrait From Your Photo",
+    "heroHeading": "Custom Hunter x Hunter Portrait",
     "description": [
       "Create a Hunter x Hunter-inspired portrait with clear character shapes, expressive features and an adventure setting. Our artists use your photo to keep your hairstyle, face and expression recognisable.",
-      "Choose travel clothes, a hunter-inspired accessory and an aura effect. A forest or open landscape works for a relaxed adventure scene, while a simple background can make an active pose easier to read. For friends, describe each character and their place in the group."
+      "Choose travel clothes, a hunter-inspired accessory and an aura effect. A forest or open landscape works for a relaxed adventure scene, while a simple background can make an active pose easier to read. For friends, describe each character and their place in the group.",
+      "Choose a face reference that shows the subject’s usual expression. Include separate outfit or accessory references if the character has travel gear. Label every person for a friendship or group scene.",
+      "Check the expression, outfit accessories and aura placement. In a group, each character should have a clear silhouette and a face large enough to compare with its reference."
     ],
     "faqs": [
       {
@@ -440,8 +466,8 @@
         "a": "Yes. Tell us the aura colour, clothing and mood you want. Add references for distinctive accessories and describe any details of your own appearance that should stay unchanged."
       },
       {
-        "q": "What should I check in my Hunter x Hunter portrait preview?",
-        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+        "q": "What should I check in my Hunter x Hunter preview?",
+        "a": "Check the expression, outfit accessories and aura placement. In a group, each character should have a clear silhouette and a face large enough to compare with its reference."
       }
     ],
     "keywords": [
@@ -451,16 +477,18 @@
       "nen ability custom portrait",
       "hunter x hunter gift"
     ],
-    "updatedAt": "2026-11-11"
+    "updatedAt": "2026-11-20"
   },
   "jujutsu-kaisen": {
     "slug": "jujutsu-kaisen",
-    "metaTitle": "Custom Jujutsu Kaisen Portrait From Your Photo",
+    "metaTitle": "Custom Jujutsu Kaisen Portrait",
     "metaDescription": "Order a Jujutsu Kaisen-inspired portrait with urban scenes, custom outfits and energy effects. Preview in 72 hours; unlimited revisions.",
-    "heroHeading": "Custom Jujutsu Kaisen Portrait From Your Photo",
+    "heroHeading": "Custom Jujutsu Kaisen Portrait",
     "description": [
       "Commission a Jujutsu Kaisen-inspired portrait with sharp character shapes, a modern outfit and a dramatic supernatural atmosphere. Your face remains the focus of the composition.",
-      "Choose a uniform or your own clothing, then describe the colour and shape of your cursed-energy effect. An urban night background suits a close portrait; a wider scene gives a duo room for contrasting poses. Include any glasses, jewellery or other defining features you want preserved."
+      "Choose a uniform or your own clothing, then describe the colour and shape of your cursed-energy effect. An urban night background suits a close portrait; a wider scene gives a duo room for contrasting poses. Include any glasses, jewellery or other defining features you want preserved.",
+      "Choose a face photo without heavy shadows over the eyes. A raised hand, glasses or a blindfold-style accessory can change the likeness, so say which facial details must remain visible.",
+      "Check visible eyes, glasses and hair before the energy effect. Fingers and the space between the hand and face need particular attention in a gesture-led composition."
     ],
     "faqs": [
       {
@@ -468,8 +496,8 @@
         "a": "Yes. Describe its colour, placement and mood in the notes. You can also request a setting and pose; a reference image helps explain a complicated composition."
       },
       {
-        "q": "What should I check in my Jujutsu Kaisen portrait preview?",
-        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+        "q": "What should I check in my Jujutsu Kaisen preview?",
+        "a": "Check visible eyes, glasses and hair before the energy effect. Fingers and the space between the hand and face need particular attention in a gesture-led composition."
       }
     ],
     "keywords": [
@@ -479,16 +507,18 @@
       "jjk custom portrait from photo",
       "jujutsu kaisen fan gift"
     ],
-    "updatedAt": "2026-11-11"
+    "updatedAt": "2026-11-20"
   },
   "my-hero-academia": {
     "slug": "my-hero-academia",
-    "metaTitle": "Custom My Hero Academia Portrait From Your Photo",
+    "metaTitle": "Custom My Hero Academia Portrait",
     "metaDescription": "Order a My Hero Academia-inspired portrait with hero costumes, power effects and team portraits. Preview in 72 hours; unlimited revisions.",
-    "heroHeading": "Custom My Hero Academia Portrait From Your Photo",
+    "heroHeading": "Custom My Hero Academia Portrait",
     "description": [
       "Design your own My Hero Academia-inspired hero portrait, with expressive features, bold outlines and a costume built around your idea. Our artists start from your photo so the hero still looks like you.",
-      "Add a hero name, costume colours and a short description of your power to the notes. Explain how the power should look in the picture: a glow around the hands, motion trails or an effect in the background. A duo can share a team palette while keeping individual outfits."
+      "Add a hero name, costume colours and a short description of your power to the notes. Explain how the power should look in the picture: a glow around the hands, motion trails or an effect in the background. A duo can share a team palette while keeping individual outfits.",
+      "Use a reference that shows the face, hair and any glasses clearly. Include a pose reference if the costume has large gloves, armour or a mask; say which facial features should remain uncovered.",
+      "Check the costume outline, gloves, mask and any hero-name lettering. The power effect should support the pose rather than obscure the face or make the hands difficult to understand."
     ],
     "faqs": [
       {
@@ -496,8 +526,8 @@
         "a": "Yes. Describe the costume, colours and visible effect you want. If you would like a hero name in the artwork, supply the exact spelling and check it in your preview."
       },
       {
-        "q": "What should I check in my My Hero Academia portrait preview?",
-        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+        "q": "What should I check in my My Hero Academia preview?",
+        "a": "Check the costume outline, gloves, mask and any hero-name lettering. The power effect should support the pose rather than obscure the face or make the hands difficult to understand."
       }
     ],
     "keywords": [
@@ -507,16 +537,18 @@
       "custom hero costume portrait",
       "my hero academia fan gift"
     ],
-    "updatedAt": "2026-11-11"
+    "updatedAt": "2026-11-20"
   },
   "one-punch-man": {
     "slug": "one-punch-man",
-    "metaTitle": "Custom One Punch Man Portrait From Your Photo",
+    "metaTitle": "Custom One Punch Man Portrait",
     "metaDescription": "Order a One Punch Man-inspired portrait with hero costumes, city scenes and personalised hero names. Preview in 72 hours; unlimited revisions.",
-    "heroHeading": "Custom One Punch Man Portrait From Your Photo",
+    "heroHeading": "Custom One Punch Man Portrait",
     "description": [
       "Create a One Punch Man-inspired portrait as your own hero. A bold silhouette, clear costume shapes and a city setting can make the character feel heroic, deadpan or deliberately funny.",
-      "Choose a hero name, costume and pose. A close portrait suits a calm expression; a wider scene leaves space for a cape or an action effect. If you want lettering such as a rank or hero name, include the exact wording and placement in your notes."
+      "Choose a hero name, costume and pose. A close portrait suits a calm expression; a wider scene leaves space for a cape or an action effect. If you want lettering such as a rank or hero name, include the exact wording and placement in your notes.",
+      "Use a reference with the expression you want to keep: deadpan, cheerful or serious. If the joke depends on posture, include a pose reference and explain the relationship between the face and the heroic stance.",
+      "Check the expression first: a slight change can alter the joke. Then review the cape, costume outline and any hero-name spelling. Action effects should not overpower the deliberately simple face."
     ],
     "faqs": [
       {
@@ -524,8 +556,8 @@
         "a": "Yes. Describe the costume, expression and joke you have in mind. Supply the exact spelling for any hero name or rank you want included in the artwork."
       },
       {
-        "q": "What should I check in my One Punch Man portrait preview?",
-        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+        "q": "What should I check in my One Punch Man preview?",
+        "a": "Check the expression first: a slight change can alter the joke. Then review the cape, costume outline and any hero-name spelling. Action effects should not overpower the deliberately simple face."
       }
     ],
     "keywords": [
@@ -535,16 +567,18 @@
       "hero association custom portrait",
       "one punch man gift"
     ],
-    "updatedAt": "2026-11-11"
+    "updatedAt": "2026-11-20"
   },
   "pokemon": {
     "slug": "pokemon",
-    "metaTitle": "Custom Pokemon Portrait From Your Photo",
-    "metaDescription": "Order a Pokemon-inspired portrait with trainer outfits, companions and colourful adventure scenes. Preview in 72 hours; unlimited revisions.",
-    "heroHeading": "Custom Pokemon Portrait From Your Photo",
+    "metaTitle": "Custom Pokémon Portrait",
+    "metaDescription": "Order a Pokémon-inspired portrait with trainer outfits, companions and colourful adventure scenes. Preview in 72 hours; unlimited revisions.",
+    "heroHeading": "Custom Pokémon Portrait",
     "description": [
       "Become the trainer in your own Pokemon-inspired portrait. Bright colours, a character outfit and a companion-focused composition make this a playful choice for an individual, couple or pet owner.",
-      "Tell our artists about your trainer clothes, preferred companions and the setting. You can feature your actual pet alongside you; include a clear pet photo and any markings to preserve. Keep the main character count clear in your notes so the composition matches your order."
+      "Tell our artists about your trainer clothes, preferred companions and the setting. You can feature your actual pet alongside you; include a clear pet photo and any markings to preserve. Keep the main character count clear in your notes so the composition matches your order.",
+      "Send a face photo and a separate reference for any pet. Show the animal’s ears, markings and usual expression. If several people appear, label every photo so the trainer outfits can be assigned correctly.",
+      "Check pet markings, glasses, outfit accessories and the relative size of each subject. Make sure the companion does not hide a face or a hand that matters to the interaction."
     ],
     "faqs": [
       {
@@ -552,8 +586,8 @@
         "a": "Yes. A pet counts as a character, just like a person. Upload its photo and describe its markings and role in the scene. Include the number of people and pets when choosing your order options."
       },
       {
-        "q": "What should I check in my Pokemon portrait preview?",
-        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+        "q": "What should I check in my Pokémon preview?",
+        "a": "Check pet markings, glasses, outfit accessories and the relative size of each subject. Make sure the companion does not hide a face or a hand that matters to the interaction."
       }
     ],
     "keywords": [
@@ -563,16 +597,18 @@
       "personalised pokemon gift",
       "pokemon portrait with my pet"
     ],
-    "updatedAt": "2026-11-11"
+    "updatedAt": "2026-11-20"
   },
   "sailor-moon": {
     "slug": "sailor-moon",
-    "metaTitle": "Custom Sailor Moon Portrait From Your Photo",
+    "metaTitle": "Custom Sailor Moon Portrait",
     "metaDescription": "Order a Sailor Moon-inspired portrait with guardian colours, celestial backgrounds and accessories. Preview in 72 hours; unlimited revisions.",
-    "heroHeading": "Custom Sailor Moon Portrait From Your Photo",
+    "heroHeading": "Custom Sailor Moon Portrait",
     "description": [
       "Create a Sailor Moon-inspired portrait with luminous colours, expressive eyes and a celestial setting. Your photo becomes the reference for a personalised magical-guardian character.",
-      "Choose your outfit colours, a moon or star motif and any accessories. Mention the hairstyle details you want to retain and whether the mood should be dreamy or action-focused. For a pair, coordinated accents can connect the characters without making their costumes identical."
+      "Choose your outfit colours, a moon or star motif and any accessories. Mention the hairstyle details you want to retain and whether the mood should be dreamy or action-focused. For a pair, coordinated accents can connect the characters without making their costumes identical.",
+      "Send a face reference showing the hairline, glasses and any accessories you want retained. If a long hairstyle or costume pose is important, include a second image rather than relying on a face-only crop.",
+      "Check hair length, accessory placement, costume colours and facial expression. Light effects should not turn small jewellery into indistinct bright spots or hide the subject’s eyes."
     ],
     "faqs": [
       {
@@ -580,8 +616,8 @@
         "a": "Yes. Include your colour palette, jewellery and moon or star details in the notes. Add a reference if an accessory is especially important to the design."
       },
       {
-        "q": "What should I check in my Sailor Moon portrait preview?",
-        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+        "q": "What should I check in my Sailor Moon preview?",
+        "a": "Check hair length, accessory placement, costume colours and facial expression. Light effects should not turn small jewellery into indistinct bright spots or hide the subject’s eyes."
       }
     ],
     "keywords": [
@@ -591,13 +627,13 @@
       "90s anime style custom portrait",
       "sailor moon gift for her"
     ],
-    "updatedAt": "2026-11-11"
+    "updatedAt": "2026-11-20"
   },
   "solo-leveling": {
     "slug": "solo-leveling",
-    "metaTitle": "Custom Solo Leveling Portrait From Your Photo",
+    "metaTitle": "Custom Solo Leveling Portrait",
     "metaDescription": "Order a Solo Leveling-inspired portrait with hunter outfits, shadow effects and blue or violet accents. Preview in 72 hours; unlimited revisions.",
-    "heroHeading": "Custom Solo Leveling Portrait From Your Photo",
+    "heroHeading": "Custom Solo Leveling Portrait",
     "description": [
       "Create a Solo Leveling-inspired portrait with deep shadows, blue or violet highlights and a cinematic hunter atmosphere. Our artists use your photo as the reference for your face, hair and expression.",
       "Choose an outfit, glow colour and pose, then describe a shadow effect or a subtle rank-style detail. A close crop gives the face more emphasis; a wider composition leaves room for a weapon or a duo. Tell us whether you prefer a serious forward gaze or the expression in your photo.",
@@ -610,8 +646,8 @@
         "a": "Yes. Add your preferred blue, violet or other accent colour, outfit and shadow effect to the notes. If you want a caption or rank-style panel, provide its exact text for the preview."
       },
       {
-        "q": "What should I check in my Solo Leveling portrait preview?",
-        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+        "q": "What should I check in my Solo Leveling preview?",
+        "a": "Check the hands, weapon outline, eye direction and coat edges before the glow. Shadow effects should remain separate from hair and glasses, especially when the final image is viewed on a dark screen."
       }
     ],
     "keywords": [
@@ -625,12 +661,14 @@
   },
   "south-park": {
     "slug": "south-park",
-    "metaTitle": "Custom South Park Portrait From Your Photo",
+    "metaTitle": "Custom South Park Portrait",
     "metaDescription": "Order a South Park-inspired portrait with cut-paper characters, winter outfits and friend-group lineups. Preview in 72 hours; unlimited revisions.",
-    "heroHeading": "Custom South Park Portrait From Your Photo",
+    "heroHeading": "Custom South Park Portrait",
     "description": [
       "Create a South Park-inspired portrait with simple cut-paper shapes, bold colour blocks and a front-facing cartoon look. Your hairstyle, outfit and accessories make the character personal.",
-      "Choose winter clothes, everyday outfits or a group lineup. A snowy street or a plain background keeps the composition easy to read. For friends or a family, list each person and the hat, coat or other distinctive detail that identifies them."
+      "Choose winter clothes, everyday outfits or a group lineup. A snowy street or a plain background keeps the composition easy to read. For friends or a family, list each person and the hat, coat or other distinctive detail that identifies them.",
+      "Use photos that make hair, glasses and outfit details easy to identify. Simplified faces retain fewer features, so describe a distinctive hat, jacket or accessory for every subject.",
+      "Check clothing colours, hats, hair shapes and the lineup order. The scene should still identify each person when viewed small. Any joke caption needs an exact spelling check."
     ],
     "faqs": [
       {
@@ -638,8 +676,8 @@
         "a": "Yes. Give each subject a clear label in your notes and describe their clothing and accessories. A reference photo for each person helps our artists match the details."
       },
       {
-        "q": "What should I check in my South Park portrait preview?",
-        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+        "q": "What should I check in my South Park preview?",
+        "a": "Check clothing colours, hats, hair shapes and the lineup order. The scene should still identify each person when viewed small. Any joke caption needs an exact spelling check."
       }
     ],
     "keywords": [
@@ -649,16 +687,18 @@
       "south park custom gift",
       "draw my friends south park style"
     ],
-    "updatedAt": "2026-11-11"
+    "updatedAt": "2026-11-20"
   },
   "spy-x-family": {
     "slug": "spy-x-family",
-    "metaTitle": "Custom Spy x Family Portrait From Your Photo",
+    "metaTitle": "Custom Spy x Family Portrait",
     "metaDescription": "Order a Spy x Family-inspired portrait with coordinated outfits, family scenes and secret-agent poses. Preview in 72 hours; unlimited revisions.",
-    "heroHeading": "Custom Spy x Family Portrait From Your Photo",
+    "heroHeading": "Custom Spy x Family Portrait",
     "description": [
       "Create a Spy x Family-inspired portrait with clean lines, a refined colour palette and room for a little family humour. The style works for an individual, couple or household scene.",
-      "Choose coordinated formal outfits, a living-room scene or a playful secret-agent pose. List everyone in the picture and include a photo of each person or pet. Small details such as a favourite tie, hairstyle or pet expression help the portrait feel like your family."
+      "Choose coordinated formal outfits, a living-room scene or a playful secret-agent pose. List everyone in the picture and include a photo of each person or pet. Small details such as a favourite tie, hairstyle or pet expression help the portrait feel like your family.",
+      "Separate family photos are useful when one group shot leaves someone blurry. Send a clear face for each person and a separate pet reference. Label the seating arrangement so no one is placed by guesswork.",
+      "Check every face, height relationship and pet marking. Small details such as a tie or hair accessory should be assigned to the right person. Review the group at print size, not just zoomed in."
     ],
     "faqs": [
       {
@@ -666,8 +706,8 @@
         "a": "Yes. Upload a clear photo of each person and pet. Tell our artists who stands or sits where, which outfits to use and whether you want a formal or playful mood."
       },
       {
-        "q": "What should I check in my Spy x Family portrait preview?",
-        "a": "Check the likeness, expression, clothing, colours and any text you requested. Send your changes before approving the final artwork. Unlimited revisions are included; prints are produced after approval."
+        "q": "What should I check in my Spy x Family preview?",
+        "a": "Check every face, height relationship and pet marking. Small details such as a tie or hair accessory should be assigned to the right person. Review the group at print size, not just zoomed in."
       }
     ],
     "keywords": [
@@ -677,6 +717,6 @@
       "draw my family in anime style",
       "spy x family gift"
     ],
-    "updatedAt": "2026-11-11"
+    "updatedAt": "2026-11-20"
   }
 }

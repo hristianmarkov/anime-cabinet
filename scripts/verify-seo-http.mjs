@@ -41,6 +41,10 @@ await Promise.all(Array.from({ length: 6 }, async () => {
     const { response, body } = await get(job.path);
     assert.equal(response.status, 200, `Page failed: ${job.path}`);
     assert.equal(canonical(body), job.canonical, `Wrong canonical on ${job.path}`);
+    const title = body.match(/<title>(.*?)<\/title>/)?.[1];
+    assert(title?.trim(), `Missing HTML title on ${job.path}`);
+    assert(title.length <= 80, `Overlong HTML title on ${job.path}: ${title}`);
+    assert((title.match(/Anime Cabinet/g) ?? []).length <= 1, `Repeated brand in title on ${job.path}`);
     assert(!/<meta\b[^>]*name="robots"[^>]*content="[^"]*noindex/.test(body), `Unexpected noindex: ${job.path}`);
     assert(!response.headers.get("x-robots-tag")?.includes("noindex"));
     assert.equal((body.match(/<h1\b/g) ?? []).length, 1, `Expected one H1 on ${job.path}`);

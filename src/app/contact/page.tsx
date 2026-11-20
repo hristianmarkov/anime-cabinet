@@ -19,7 +19,7 @@ const reasons = [
   },
   {
     title: "A style we don't offer yet",
-    body: "Name the series. If it's animated, odds are we can match it — and popular requests become permanent styles.",
+    body: "Tell us the series, number of subjects and scene you have in mind. We can confirm whether the request is possible before you place an order.",
   },
   {
     title: "Commercial use",

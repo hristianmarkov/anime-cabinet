@@ -51,7 +51,7 @@ const steps = [
 const occasions = [
   {
     title: "Anniversaries & Couples",
-    body: "Two characters, one universe. Couple portraits in Rick and Morty, JJK or Ghibli style are our most-gifted item.",
+    body: "Make a shared memory the scene: a quiet Ghibli-inspired walk, a pirate adventure or a playful cartoon moment together.",
     accent: "#ff3860",
   },
   {
@@ -115,8 +115,8 @@ export default function HomePage() {
             <p className="mt-4 max-w-xl text-lg leading-relaxed text-muted">
               Our professional artists redraw you, your partner, your family —
               even your pets — in the style of your favorite anime or cartoon.
-              24 styles, unlimited revisions, delivered within {site.deliveryHours}{" "}
-              hours.
+              Choose from 24 styles, with unlimited revisions and a preview within {site.deliveryHours}{" "}
+              hours. Prints are produced after approval.
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-4">
               <Link

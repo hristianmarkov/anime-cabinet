@@ -13,7 +13,7 @@ export const globalFaqs: StyleFaq[] = [
   },
   {
     q: "How long does delivery take?",
-    a: `Digital previews arrive within ${site.deliveryHours} hours. Need it faster? Add priority delivery at checkout for ${site.expeditedHours}-hour turnaround (US$10 during the sale, US$20 comparison). Printed posters, canvases and framed prints go into production after you approve the artwork. Prints include free standard delivery.`,
+    a: `The standard digital preview is within ${site.deliveryHours} hours once payment and usable references are ready. Priority service offers a ${site.expeditedHours}-hour preview; current pricing appears in the configurator. Revision time is additional. Posters, canvases and framed prints enter production after approval and include free standard delivery to supported destinations. See the [shipping guide](/shipping) for the separate stages.`,
   },
   {
     q: "What kind of photo should I upload?",
@@ -29,7 +29,7 @@ export const globalFaqs: StyleFaq[] = [
   },
   {
     q: "Can I order a portrait with more than 6 characters?",
-    a: "Yes. For groups larger than 6, contact us via the form at /contact with your photos and chosen style and we'll send you a custom quote within 24 hours.",
+    a: "For groups larger than 6, [contact us](/contact) with the headcount, chosen style and scene you have in mind. We can discuss the arrangement and quote before you place an order.",
   },
   {
     q: "Do you ship prints internationally?",
